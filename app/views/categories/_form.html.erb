@@ -1,0 +1,86 @@
+<%= form_for(@category) do |f| %>
+
+  <div class="field form-group">
+    <h2 class="form-interface">Catégorie</h2>
+
+    <%= f.text_field :name, class: "form-control form-interface", placeholder: "Nom(champ requis)" %>
+    <% if @category.errors[:name].first != nil %>
+    <div class="alert alert-danger form-interface">
+    <%= "Nom " + @category.errors[:name].first%><br>
+      <% if @category.errors[:name].second != nil %>
+        <%= "Nom " + @category.errors[:name].second%><br>
+      <% end %>
+  </div><!-- DIV ERROR -->
+  <% end %>
+    <% end %>
+
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="header">
+        <tr>
+          <th>Nom</th>
+          <th>Categorie</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+
+      <tbody class="principal_body">
+        <% @category.sous_categories.each do |sous_category| %>
+        <tr>
+          <% if !current_user.nil? && Right.where(name: "view_details_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+          <td onClick="document.location.href='<%=sous_category_path(sous_category)%>'"><%= sous_category.name %></td>
+          <% else %>
+          <td><%= sous_category.name %></td>
+          <% end %>
+          <td><%= Category.where(id: "#{sous_category.category_id}").pluck(:name).join %></td>
+
+          <% if Right.where(name: "edit_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+          <td><%= link_to 'Editer', edit_sous_category_path(sous_category) %></td>
+          <% end %>
+          <% if Right.where(name: "delete_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+          <td><%= link_to 'Supprimer', sous_category, method: :delete, data: { confirm: 'Are you sure?' }%></td>
+          <% end %>
+          <% end %>
+        </tr>
+            <tr class="formsnewsubcats">
+            <%= simple_form_for(@sous_category) do |f| %>
+            <td class='newsubcat'><%= f.text_field :name, class: "form-control form-interface", placeholder: "Nom(Requis)", style: "margin-left:0px;"%></td>
+            <td class='newsubcat'><%= select_tag 'sous_category[category_id]', options_for_select(User.find_by_sql("SELECT `categories`.* FROM `categories`").collect{ |u| [u.name, u.id]}, @category.id), class: "form-control form-interface", style: "margin-left:0px;" %></td>
+            <td class='newsubcat'><%= select_tag "sous_category[lvl_urgence_max]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10" selected="selected">10</option>'.html_safe, class: 'form-control form-interface', style: "margin-left:0px;" %></td>
+            <% end %>
+            <td colspan="2"></td>
+          </tr>
+      </tbody>
+      <!-- <tbody>
+        <tr><td><button type="button" name="button" class="btn btn-success add">Ajouter</button></td></tr>
+      </tbody> -->
+    </table>
+  </div>
+  <div class="actions">
+    <p class="btn btn-success btn-align form-interface submit" id="sendButton" type="submit" name="commit">Envoyer </p>
+  </div>
+<!-- <script type="text/javascript">
+  $(document).ready(function(){
+    $('.add').click(function(){
+      $('.formsnewsubcats').last().clone().appendTo('.principal_body');
+      $('.formsnewsubcats #sous_category_name').last().val("");
+      $('.formsnewsubcats #sous_category_name').last().focus();
+    });
+  });
+</script> -->
+
+
+<script type="text/javascript">
+  function disableButton(id){
+    id = document.getElementById(id);
+    id.disabled = "disabled";
+    id.value = "Envoi...";
+  }
+</script>
+<script type="text/javascript">
+  $(".submit").on("click", (function(){
+    $('.new_sous_category').submit();
+  }));
+</script>

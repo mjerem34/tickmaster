@@ -1,0 +1,72 @@
+<h2 class="form-interface">Nouveau message</h2>
+
+<%= simple_form_for [@incident, Response.new], html: { multipart: true} do |f| %>
+<% if @incident.incident_state_id_for_user != 7 || @incident.incident_state_id_for_user != 10 || @incident.incident_state_id_for_user != 1 || @incident.incident_state_id_for_user != 2 %>
+
+  <div class="field">
+    <%= f.text_area :content, class: "form-control next form-interface", placeholder: "Message(Requis)"%>
+    <% if @response.errors[:content].first != nil %>
+    <div class="alert alert-danger">
+      <%= "Message " + @response.errors[:content].first%><br><br>
+    </div>
+    <% end %>
+    </div>
+
+    <div class="input-file-container js">
+      <ul class="form-interface js" style="margin-left: 35.5%;">
+        <%= fields_for :file_responses, @response.file_responses do |r| %>
+        <li style="display:inline-block;"><%= r.file_field :file, name: "file_responses[file][]",class: "js input-file", multiple: true %></li>
+        <%= r.label "Selectionnez un fichier...", class: "js form-interface label-file input-file-trigger", for: 'my-file', tabindex: '0' %><br>
+        <li style="display:inline-block;"><button id="cancel_file_send" name="button" type="button" class='js btn form-interface input-file-trigger'>Supprimer fichier</button></li>
+        <% end %>
+      </ul>
+    </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#cancel_file_send").click(function(){
+        $(".input-file").show();
+        $(".label-file").text('Selectionnez des fichiers ...');
+        reset($('.input-file'));
+      });
+    });
+
+    window.reset = function (e) {
+        e.wrap('<form>').closest('form').get(0).reset();
+        e.unwrap();
+    }
+    $(document).ready(function(){
+      $(".input-file").change(function(){
+        var i = 0;
+        var a = '';
+        while( $('input[type=file]')[0].files[i].name !== '' ) {
+          a += " " + $('input[type=file]')[0].files[i].name;
+          i += 1;
+          $(".label-file").text(a);
+        }
+      });
+    });
+
+  </script>
+
+</ul>
+<br>
+  <div class="actionsresponses">
+    <%= f.submit "Save", name: "commit", value: "Répondre", id: "sendButton", class: "btn btn-success btn-align form-interface" %><br>
+  </div>
+  <div class="actionsreject">
+    <%= f.submit "Save", name: "commit", value: "Rejeter", id: "sendButton", class: "btn btn-success btn-align form-interface" %><br>
+  </div>
+  <div class="actionsreaffect">
+    <%= f.submit "Save", name: "commit", value: "Réaffecter", id: "sendButton", class: "btn btn-success btn-align form-interface" %><br>
+  </div>
+  <div class="actionscloture">
+    <%= f.submit "Save", name: "commit", value: "Cloturer", id: "sendButton", class: "btn btn-success btn-align form-interface" %><br>
+  </div>
+  <% else %>
+  <p>
+    Vous avez cloturé l'incident, vous ne pouvez plus y répondre.
+  </p>
+  <% end %>
+<% end %>
+<br>
+<button type="button" class="btn btn-danger btn-align form-interface btn-cancell" name="button">Annuler</button>

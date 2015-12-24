@@ -1,0 +1,61 @@
+<% if !current_user.nil? && Right.where(name: "view_index_categories").pluck(current_user.tech.name).join('')  == 'true' %>
+<% @title = "Liste des catégories" %>
+
+
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="header">
+      <tr>
+        <th>#</th>
+        <th>Nom</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @categories.each do |category| %>
+
+      <tr>
+        <td onClick="document.location.href='<%=edit_category_path(category)%>'"><%= category.id %></td>
+
+        <% if !current_user.nil? && Right.where(name: "view_details_category").pluck(current_user.tech.name).join('')  == 'true' %>
+        <td onClick="document.location.href='<%=edit_category_path(category)%>'"><%= category.name %></td>
+        <% else %>
+        <td><%= category.name %></td>
+        <% end %>
+        <% if Right.where(name: "delete_category").pluck(current_user.tech.name).join('')  == 'true' %>
+        <td><%= link_to 'Supprimer', category, method: :delete, data: { confirm: 'Are you sure?' }%></td>
+        <% end %>
+        <td><p>&laquo;</p></td>
+
+      </tr>
+
+      <% end %>
+      <tr class="formsnewsubcats">
+        <%= simple_form_for(@category) do |f| %>
+        <td><p style="font-size:2em;">&raquo;</p></td>
+        <td class='newsubcat'><%= f.text_field :name, class: "form-control form-interface", placeholder: "Nom(Requis)", style: "margin-left:0px;"%></td>
+        <% end %>
+        <td colspan="2"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="actions">
+  <p class="btn btn-success btn-align form-interface submit" id="sendButton" type="submit" name="commit">Envoyer </p>
+</div>
+
+<br>
+<% else %>
+<% @title = "Accès non autorisé"%>
+<p class="alert_non_authorized">
+  Accès non autorisé ! <%= render 'sessions/new' %>
+</p>
+<% end %>
+<script type="text/javascript">
+  $(".submit").on("click", (function(){
+    $('.new_category').submit();
+    $('#category_name').focus();
+  }));
+</script>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html data-no-turbolink="true">
+
+<head>
+  <title>
+    <%= @title + " - Tick{Master}" %>
+  </title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+      <%= csrf_meta_tags %>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<% if @title == "Se connecter" || @title == "S'inscrire" || @title == "Accueil" || @title == "Accueil "%>
+  <%= content_tag(:body, '', id: 'not-connected') %>
+    <% else %>
+      <%= content_tag(:body, '', id: 'connected') %>
+        <% end %>
+          <!--Header-->
+          <%= render 'layouts/header' %>
+            <!--Header-->
+            <% if @title == "Se connecter" || @title == "S'inscrire" || @title == "Accueil"%>
+              <div id="content" , class="isOpen">
+                <div id="page">
+                  <% if flash[:alert] %>
+                    <p class="flash-error" style="font-size:3em; color:darkred; width:100%; margin-left:25%;">
+                      <%= flash[:alert] %>
+                    </p>
+                    <% end %>
+                      <% if flash[:notice] %>
+                        <p class="flash-notice" style="font-size:3em; color:darkgreen; width:100%; margin-left:25%;">
+                          <%= flash[:notice] %>
+                        </p>
+                        <% end %>
+                </div>
+                <% else %>
+                  <div id="content">
+                    <div id="page">
+                      <% if flash[:alert] %>
+                        <p class="flash-error" style="font-size:3em; color:darkgreen; width:100%; margin-left:25%;">
+                          <%= flash[:alert] %>
+                        </p>
+                        <% end %>
+                          <% if flash[:notice] %>
+                            <p class="flash-notice" style="font-size:3em; color:darkgreen; width:100%; margin-left:25%;">
+                              <%= flash[:notice] %>
+                            </p>
+                            <% end %>
+                    </div>
+                    <% end %>
+
+                      <% @name_app = "Tick{Master}" %>
+                        <% if current_user.nil? %>
+                          <%= yield :form %>
+                            <%= yield :accueil %>
+
+                              <!--Contenu-->
+                              <% else %>
+                                <%= yield %>
+                                  <% end %>
+
+                                    <!--Footer-->
+                                    <%= render 'layouts/footer' %>
+                                      <!--Footer-->
+                                      <script>
+                                        var currentBoxNumber = 0;
+                                        $("#next")
+                                          .keypress(function(event) {
+                                            if (event.keyCode == 13) {
+                                              textboxes = $("input.next");
+                                              currentBoxNumber = textboxes.index(event.target);
+                                              if (textboxes[currentBoxNumber + 1] != null) {
+                                                nextBox = textboxes[currentBoxNumber + 1];
+                                                nextBox.focus();
+                                                nextBox.select();
+                                                event.preventDefault();
+                                                return false;
+                                              }
+                                            }
+                                          });
+                                      </script>
+
+                                      <script type="text/javascript">
+                                        $("tr[data-link]").click(function() {
+                                          window.location = this.data("link")
+                                        });
+                                      </script>
+
+                                      <script language='javascript' type='text/javascript'>
+                                        $(document).ready(function() {
+                                          $("table").tablesorter({
+                                            theme: 'blue',
+                                            widgets: ['zebra', 'filter']
+                                          });
+                                        });
+                                      </script>
+                                      <script language='javascript' type='text/javascript'>
+                                        $(document).ready(function() {
+                                          $('table').fixedHeader();
+                                        });
+                                      </script>
+
+                                      <% if @title != "Accueil" %>
+                                        <a href="#" class="updown-arrow">&#9650;</a>
+                                        <% end %>
+                                          <script type="text/javascript">
+                                            $(window).scroll(function() {
+                                              posScroll = $(document).scrollTop();
+                                              if (posScroll >= 100)
+                                                $('.updown-arrow').css({
+                                                  "visibility": "visible"
+                                                });
+                                              else
+                                                $('.updown-arrow').css({
+                                                  "visibility": "hidden"
+                                                });
+                                            });
+                                          </script>
+
+                                          <!--
+POUR DECALER LE PANNEAU VERS LA GAUCHE ET AFFICHER UNIQUEMENT LES ICONES DES BOUTONS
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.openIt').on('click', function() {
+    $('#content').toggleClass('isOpen');
+    $('.openIt').toggleClass('isOpen');
+    $('.wrap').toggleClass('isOpen');
+    $('.header-fixed').toggleClass('isOpen');
+    $('.btn-response').toggleClass('isOpen');
+    $('.btn-cloture').toggleClass('isOpen');
+    $('.btn-reject').toggleClass('isOpen');
+    $('.btn-reaffect').toggleClass('isOpen');
+    $('.submitforms').toggleClass('isOpen');
+  });
+});
+</script>
+-->
+                                          <script type="text/javascript">
+                                            $(document).ready(function() {
+                                              $("input.tablesorter-filter").addClass('form-control');
+                                            });
+                                          </script>
+                  </div>
+                  <!--
+
+FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
+<div class="wrap">
+  <div class="triangle openIt"><%=image_tag("ICOMOON/16px/0313-arrow-left.png", :alt => "", :class => "arrowInTriangle")%></div>
+</div>
+-->
+                  <script type="text/javascript">
+                    $("input:text:visible:first").focus();
+                  </script>
+                  <script type="text/javascript">
+                    $(document).ready(function() {
+                      setTimeout(function() {
+                        $(".click").get(0).click();
+                      }, 1000);
+                      $(window).resize(function() {
+                        setTimeout(function() {
+                          $(".click").get(0).click();
+                        }, 0);
+                      })
+                    });
+                  </script>
+
+              </div>
+              </body>
+
+</html>

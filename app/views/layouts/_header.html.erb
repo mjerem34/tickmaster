@@ -1,0 +1,119 @@
+<div class="nav-side-menu">
+  <a class="brand">
+    TickMaster
+  </a>
+  <i class=" fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+  <div class="menu-list">
+    <ul id="menu-content" class="menu-content collapse out">
+      <% if !current_user.nil? %>
+      <li class="new_incident_button"><a href="<%= new_incident_path %>"><%= image_tag("ICOMOON/32px/0267-plus.png", alt: "", class: "fa-img") %></a>
+        <a href="/incidents/new" data-no-turbolink="true">
+          <i class="fa fa-dashboard fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;">Nouvel incident</i>
+        </a>
+      </li>
+
+
+      <li data-toggle="collapse" data-target="#incidents" class="collapsed active"><%= image_tag("accidents.png", size: "32x32", alt: "", class: "fa-img") %>
+        <a href="#"><i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Incidents</a>
+      </li>
+      <ul class="sub-menu collapse" id="incidents">
+        <li><%= link_to 'Mes incidents', current_user, class: "", :method => :get %></li>
+        <% if !current_user.nil? && Right.where(name: "view_index_all_of_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
+        <% if !current_user.tech.simple_user %>
+        <li><%= link_to "A traiter", to_treat_user_path(current_user), class: "", :method => :get %></li>
+        <li><%= link_to "Non attribués", incidents_without_tech_incident_path(current_user), class: "", :method => :get%></li>
+        <li><%= link_to "Tous les incidents", incidents_url, class: "", :method => :get%></li>
+        <% end %>
+        <% end %>
+        <li><%= link_to 'Cloturés/Rejetés', allincidents_user_path(current_user), :method => :get %></li>
+      </ul>
+      <% end %>
+
+
+      <% if !current_user.nil? && Right.where(name: "view_index_categories").pluck(current_user.tech.name).join('')  == 'true' %>
+      <li data-toggle="collapse" data-target="#categories" class="collapsed active"><%= image_tag("ICOMOON/32px/0189-tree.png", alt: "", class: "fa-img") %>
+        <a href="#"><i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Catégories</a>
+      </li>
+      <ul class="sub-menu collapse" id="categories">
+        <li><%= link_to "Categories", categories_url, class: " ", :method => :get  %></li>
+    <% if !current_user.nil? && Right.where(name: "view_index_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+        <li><%= link_to "Sous categories", sous_categories_url, class: " ", :method => :get  %></li>
+    <% end %>
+      </ul>
+      <% end %>
+
+
+      <% if !current_user.nil? && Right.where(name: "view_index_users").pluck(current_user.tech.name).join('')  == 'true' %>
+      <li data-toggle="collapse" data-target="#users" class="collapsed active"><%= image_tag("ICOMOON/32px/0115-users.png", alt: "", class: "fa-img") %>
+        <a href="#"><i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Utilisateurs</a>
+      </li>
+      <ul class="sub-menu collapse" id="users">
+        <li><%= link_to "Liste des utilisateurs", users_url, class: " ", tabindex: -1, :method => :get  %></li>
+        <% if !current_user.nil? && Right.where(name: "create_new_tech").pluck(current_user.tech.name).join('')  == 'true' %>
+        <li><%= link_to "Créer un utilisateur", signup_path, class: " ", tabindex: -1, :method => :get  %></li>
+        <% end %>
+
+      </ul>
+      <%end%>
+
+
+      <% if !current_user.nil? && Right.where(name: "view_index_rights").pluck(current_user.tech.name).join('')  == 'true' %>
+      <li data-toggle="collapse" data-target="#rights" class="collapsed active"><%= image_tag("ICOMOON/32px/0147-equalizer.png", alt: "", class: "fa-img") %>
+        <a href="#"><i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Droits</a>
+      </li>
+      <ul class="sub-menu collapse" id="rights">
+        <li><%= link_to "Liste des droits", rights_url, class: " ", tabindex: -1, :method => :get  %></li>
+    <% if !current_user.nil? && Right.where(name: "create_new_right").pluck(current_user.tech.name).join('')  == 'true' %>
+        <li><%= link_to "Créer un droit", new_right_path, class: " ", tabindex: -1, :method => :get  %></li>
+    <% end %>
+
+      </ul>
+      <% end %>
+
+      <% if !current_user.nil? && Right.where(name: "view_index_agencies").pluck(current_user.tech.name).join('')  == 'true' %>
+      <li data-toggle="collapse" data-target="#agencies" class="collapsed active"><%= image_tag("ICOMOON/32px/0004-office.png", alt: "", class: "fa-img") %>
+        <a href="#"><i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Agences</a>
+      </li>
+      <ul class="sub-menu collapse" id="agencies">
+        <li><%= link_to "Liste des agences", agencies_url, class: " ", tabindex: -1, :method => :get  %></li>
+    <% if !current_user.nil? && Right.where(name: "create_new_agency").pluck(current_user.tech.name).join('')  == 'true' %>
+        <li><%= link_to "Nouvelle agence", new_agency_path, class: " ", tabindex: -1, :method => :get  %></li>
+    <% end %>
+
+      </ul>
+      <% end %>
+      <% if !current_user.nil? %>
+        <li><%= image_tag("ICOMOON/32px/0492-help.png", alt: "", class: "fa-img")%><i class="fa fa-gift fa-lg"></i>
+            <%= link_to "Aide", pages_help_path, class: "", :method => :get, style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;"  %></li>
+        <li><%= image_tag("ICOMOON/32px/0264-warning.png", alt: "", class: "fa-img")%><i class="fa fa-gift fa-lg"></i>
+            <%= mail_to "jeremy.montesinos@cle-expertises.fr", "Bug/Suggestion", cc: "jerome.guillot@cle-expertises.fr", subject: "Bug ou suggestion à propos de TickMaster", class: "", style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;" %></li>
+      <% end %>
+
+    </ul>
+  </div>
+</div>
+
+<header>
+      <nav class="navbar navbar-default nav-collapse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+      <a class="title-site navbar-brand openIt" href='/' data-no-turbolink="true">TickMaster</a>
+      <a class="title-site navbar-brand by-cle openIt click">by<%= image_tag("cle.png", size: "60x20", alt: "Cle Expertises")%></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+  <h3 class="title-on-page"><%= @title %></h3>
+  <% if !current_user.nil? %>
+  <ul class="whoisconnected">
+    <li><h5>Connecté en tant que : <%= current_user.name + ' ' + current_user.surname%></h5></li>
+    <li> <%= button_to("Se déconnecter", signout_path, :method => :get, :class => "btn btn-danger")%></li>
+  </ul>
+  <% else %>
+  <ul class="whoisconnected">
+    <li><%= button_to("Se connecter", signin_path, :method => :get, :class => "btn btn-success")%></li>
+    <li><%= button_to("S'inscrire", signup_path, :method => :get, :class => "btn btn-primary")%></li>
+  </ul>
+  <% end %>
+</nav>
+</div> <!-- /.navbar-collapse -->
+</div>  <!-- /.container-fluid -->
+</header>

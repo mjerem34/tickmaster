@@ -1,0 +1,116 @@
+<% if !current_user.nil? %>
+<% case %>
+<% when Right.where(name: "view_details_incident_of_other_member").pluck(current_user.tech.name).join('')  == 'true', @incident.tech_id == current_user.id, @incident.user_id == current_user.id %>
+<% @title = "Incident n° #{@incident.id} de #{@incident.user.surname} #{@incident.user.name}" %>
+
+<p>
+  <strong>Objet :</strong>
+  <%= @incident.title%>
+</p>
+<p>
+  <strong>Description :</strong>
+  <%=strip_tags(@incident.content)%>
+</p>
+
+<p>
+  <strong>Utilisateur :</strong>
+  <%= @incident.user.surname %>
+  <%= @incident.user.name %>
+</p>
+<% if @incident.tech_id != nil %>
+<p>
+  <strong>Technicien :</strong>
+  <%= User.find_by_sql("SELECT `users`.* FROM `users` WHERE `id` = #{@incident.tech_id}").collect{ |u| [u.surname, u.name]}.join(" ") %>
+</p>
+<% else %>
+<p>
+  <strong>Technicien :</strong>
+  Technicien non défini
+</p>
+<% end %>
+<p>
+  <strong>Categorie :</strong>
+  <%= @incident.category.name %>
+</p>
+<p>
+  <strong>Sous-catégorie :</strong>
+  <%= SousCategory.find_by_sql("SELECT sous_categories . * FROM sous_categories WHERE id = #{@incident.sous_category_id}").collect{|u| [u.name]}.join(" ") %>
+</p>
+
+<p>
+  <strong>Date :</strong>
+  <%= @incident.created_at.strftime("%d %b %Y %H:%M") %>
+</p>
+<p>
+  <strong>Etat de l'incident :</strong>
+  <% if current_user.tech.simple_user == true %>
+<%= IncidentsState.where(id: "#{@incident.incident_state_id_for_user}").pluck(:shortcut).join('') %>
+<% else %>
+<%= IncidentsState.where(id: "#{@incident.incident_state_id_for_tech}").pluck(:shortcut).join('') %>
+<% end %><br><br>
+<strong>Fichiers :</strong>
+<% if @incident.attach_content_type.include? "image"%>
+  <%= image_tag(@incident.attach.url, size: "500x200")%>
+<% else %>
+  <%= link_to("#{@incident.attach_file_name}", @incident.attach.url)%>
+<% end %>
+<h3>Réponses :</h3>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="header">
+  <tr>
+    <th>Contenu</th>
+    <th>Expéditeur</th>
+    <th>Destinataire</th>
+    <th>Date</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <% Incident.find_by_sql("SELECT `responses`.* FROM `responses` WHERE `incident_id` = #{@incident.id}").each do |response| %>
+    <td><%= response.content %></td>
+    <td><%= User.where(id: response.sender_id).pluck(:name, :surname).join(' ') %></td>
+    <% if !response.receiver_id.nil? %>
+      <td><%= User.where(id: response.receiver_id).pluck(:name, :surname).join(' ') %></td>
+      <% else %>
+      <td></td>
+    <% end %>
+    <td><%= response.created_at.strftime("%d %b %Y %H:%M") %></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
+</div>
+<% if !reply_possible(@incident)%>
+<%= link_to "Répondre", new_incident_response_path(@incident), class: "btn btn-default" %>
+<% if Right.where(name: "delete_incident").pluck(current_user.tech.name).join('')  == 'true' %>
+<%= link_to 'Effacer', incident_path(@incident), method: :delete, data: { confirm: 'Êtes vous sûr ?' }, class: "btn btn-default"  %>
+<% end %>
+
+<% if Right.where(name: "cloture_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
+<%= link_to "Cloturer", cloture_it_incident_path(@incident), method: :put, data: { confirm: 'Êtes vous sûr ?' }, class: "btn btn-default"  %>
+<% end %>
+<% if Right.where(name: "reject_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
+<%= link_to "Rejeter", reject_it_incident_path(@incident), method: :put, data: { confirm: 'Êtes vous sûr ?' }, class: "btn btn-default"  %>
+<% end %>
+
+<% end %>
+
+<% if Right.where(name: "dispatch_incidents").pluck(current_user.tech.name).join('')  == 'true' && @incident.tech_id.nil? %>
+<%= link_to "Attribuer", edit_incident_path(@incident), class: "btn btn-default" %>
+<% elsif Right.where(name: "dispatch_incidents").pluck(current_user.tech.name).join('')  == 'true' && !@incident.tech_id.nil? %>
+<%= link_to "Re-Attribuer", edit_incident_path(@incident), class: "btn btn-default" %>
+<% end %>
+
+<% else %>
+<% @title = "Accès non autorisé"%>
+<p class="alert_non_authorized">
+Accès non autorisé ! <%= render 'sessions/new' %>
+</p>
+<% end %>
+<% else %>
+<% @title = "Accès non autorisé"%>
+<p class="alert_non_authorized">
+Accès non autorisé ! <%= render 'sessions/new' %>
+</p>
+<% end %>

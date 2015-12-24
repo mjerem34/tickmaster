@@ -1,0 +1,193 @@
+<% if !current_user.nil? %>
+<% if Right.where(name: "view_detail_incident").pluck(current_user.tech.name).join('')  == 'true' %>
+<% @title = "Incident n°#{@incident.id} de #{@incident.user.name} #{@incident.user.surname}" %>
+
+<%= render 'form_edit' %>
+<!-- Contenu si l'incident n'est pas cloturé -->
+<% if !clotured_or_rejected?(@incident)%>
+<h3>Messages :</h3>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="header">
+      <tr>
+        <th>Contenu</th>
+        <th>Contenu supplémentaire</th>
+        <th>Expéditeur</th>
+        <th>Destinataire</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% Response.find_by_sql("SELECT `responses`.* FROM `responses` WHERE `incident_id` = #{@incident.id}").each do |response| %>
+        <td class="hover-cellule">
+          <%= truncate(strip_tags(response.content), length: 40) %>
+          <span class="response-hover-cellule">
+            <%=strip_tags(response.content)%>
+          </span>
+        </td>
+        <% if !response.file_responses.nil? %>
+        <td><% response.file_responses.each do |file| %>
+        <%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-default')%><br>
+        <% end %>
+        </td>
+        <% else %>
+        <td>Aucun</td>
+        <% end %>
+        <td><%= User.where(id: response.sender_id).pluck(:name, :surname).join(' ') %></td>
+        <% if !response.receiver_id.nil? %>
+        <td><%= User.where(id: response.receiver_id).pluck(:name, :surname).join(' ') %></td>
+        <% else %>
+        <td></td>
+        <% end %>
+        <td><%= response.created_at.strftime("%d %b %Y %H:%M") %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% else %>
+<!-- Contenu si l'incident est cloturé  -->
+<h3>Messages :</h3>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="header">
+      <tr>
+        <th>Contenu</th>
+        <th>Contenu-supplémentaire</th>
+        <th>Expéditeur</th>
+        <th>Destinataire</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% Archive.find_by_sql("SELECT * FROM `archives` WHERE `incident_id` = #{@incident.id}").each do |archive| %>
+        <td class="hover-cellule">
+          <%= truncate(strip_tags(archive.content), length: 40) %>
+          <span class="response-hover-cellule">
+            <%=strip_tags(archive.content)%>
+          </span>
+        </td>
+        <% unless archive.file_archives.nil? %>
+        <% archive.file_archives.each do |file| %>
+        <td><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: "form-control")%></td>
+        <% end %>
+        <% else %>
+        <td>Aucun</td>
+        <% end %>
+
+      </td>
+      <td><%= User.where(id: archive.sender_id).pluck(:name, :surname).join(' ') %></td>
+      <% if !archive.receiver_id.nil? %>
+      <td><%= User.where(id: archive.receiver_id).pluck(:name, :surname).join(' ') %></td>
+      <% else %>
+      <td></td>
+      <% end %>
+      <td><%= archive.created_at.strftime("%d %b %Y %H:%M") %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<% end %>
+<% if !clotured_or_rejected?(@incident)%>
+<% @response = Response.new %>
+<button class="btn btn-primary btn-response" name="button" type="button">Message</button>
+<div id="form_response">
+<%= render 'responses/new' %>
+</div>
+
+<script>
+$(document).ready(function () {
+  $("#form_response").hide();
+  $(".btn-response").click(function () {
+    $(".actionsreject").hide()
+    $(".actionsresponses").show()
+    $(".actionsreaffect").hide()
+    $(".actionscloture").hide()
+    $("#form_response").slideDown(500);
+    $('html, body').animate({
+      scrollTop: 100000
+    }, 500);
+  });
+});
+$(document).ready(function () {
+  $(".btn-reject").click(function () {
+    $(".actionsreject").show()
+    $(".actionsreaffect").hide()
+    $(".actionscloture").hide()
+    $(".actionsresponses").hide()
+    $("#form_response").slideDown(500);
+    $('html, body').animate({
+      scrollTop: 100000
+    }, 500);
+  });
+});
+$(document).ready(function () {
+  $(".btn-reaffect").click(function () {
+    $(".actionsreject").hide()
+    $(".actionsresponses").hide()
+    $(".actionscloture").hide()
+    $(".actionsreaffect").show()
+    $("#form_response").slideDown(500);
+    $('html, body').animate({
+      scrollTop: 100000
+    }, 500);
+  });
+});
+$(document).ready(function () {
+  $(".btn-cloture").click(function () {
+    $(".actionsreject").hide()
+    $(".actionsresponses").hide()
+    $(".actionscloture").show()
+    $(".actionsreaffect").hide()
+    $("#form_response").slideDown(500);
+    $('html, body').animate({
+      scrollTop: 100000
+    }, 500);
+  });
+});
+$(document).ready(function () {
+  $(".btn-cancell").click(function () {
+    $("#form_response").slideToggle(500);
+    $('html, body').animate({
+      scrollTop: 100000
+    }, 500);
+  });
+});
+</script>
+<% if !is_pending(@incident)%>
+<% if @incident.incident_state_id_for_tech != 12%>
+<% if Right.where(name: "ask_for_reaffect").pluck(current_user.tech.name).join('')  == 'true' %>
+<% if @incident.tech_id == current_user.id %>
+<button class="btn btn-warning btn-reaffect" name="button" type="button">Réaffecter</button>
+<% end %>
+<% end %>
+<% end %>
+<% if Right.where(name: "delete_incident").pluck(current_user.tech.name).join('')  == 'true' %>
+<%= link_to 'Effacer', incident_path(@incident), method: :delete, data: { confirm: 'Êtes vous sûr ?' }, class: "btn btn-danger"  %>
+<% end %>
+<% if Right.where(name: "cloture_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
+<button class="btn btn-success btn-cloture" name="button" type="button">Cloturer</button>
+<% end %>
+<% if Right.where(name: "reject_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
+<button class="btn btn-danger btn-reject" name="button" type="button">Rejeter</button>
+<% end %>
+<% end %>
+<% end %>
+
+<%else%>
+<% @title = "Accès non autorisé"%>
+<p class="alert_non_authorized">
+Accès non autorisé !
+</p>
+
+<% end %>
+<% else %>
+<% @title = "Accès non autorisé"%>
+<p class="alert_non_authorized">
+Accès non autorisé !
+<%= render 'sessions/new' %>
+</p>
+<% end %>

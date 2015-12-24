@@ -1,0 +1,11 @@
+<% if !current_user.nil? && Right.where(name: "create_new_right").pluck(current_user.tech.name).join('')  == 'true' %>
+<% @title = "Nouveau droit" %>
+<h2 class="form-interface">Nouveau droit</h2>
+<%= render 'form' %>
+<%= link_to 'Annuler', rights_path, class: "btn btn-danger btn-align form-interface" %>
+<% else %>
+<% @title = "Accès non autorisé"%>
+<p class="alert_non_authorized">
+  Accès non autorisé ! <%= render 'sessions/new' %>
+</p>
+<% end %>

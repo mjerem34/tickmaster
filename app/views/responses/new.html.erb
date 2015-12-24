@@ -1,0 +1,32 @@
+<%@title = "Nouvelle réponse" %>
+<h2 class="form-interface">Nouvelle réponse</h2>
+
+<%= simple_form_for [@incident, Response.new] do |f| %>
+<% if @incident.incident_state_id_for_user != 7 || @incident.incident_state_id_for_user != 10 || @incident.incident_state_id_for_user != 1 || @incident.incident_state_id_for_user != 2 %>
+
+  <div class="field">
+    <%= f.text_area :content, class: "form-control next form-interface", placeholder: "Message(Requis)"%>
+    <% if @response.errors[:content].first != nil %>
+    <div class="alert alert-danger">
+      <%= "Message " + @response.errors[:content].first%><br><br>
+    </div>
+    <% end %>
+  </div><br>
+  <div class="actions">
+    <%= f.submit "Envoyer", id: "sendButton", class: "btn btn-success btn-align form-interface", onclick: "disableButton(this.id)" %><br>
+  </div>
+  <% else %>
+  <p>
+    Vous avez cloturé l'incident, vous ne pouvez plus y répondre.
+  </p>
+  <% end %>
+<% end %>
+<br>
+<%= link_to 'Annuler', edit_incident_path(@incident), class: "btn btn-danger btn-align form-interface" %>
+<script type="text/javascript">
+  function disableButton(id){
+    id = document.getElementById(id);
+    id.disabled = "disabled";
+    id.value = "Envoi...";
+  }
+</script>

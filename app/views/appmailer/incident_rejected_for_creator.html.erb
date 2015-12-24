@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <!-- If you delete this meta tag, Earth will fall into the sun. -->
+    <meta content="width=device-width" name="viewport"/>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <title>TickMaster</title>
+    <link charset="utf-8" href="email.css" media="screen" rel="stylesheet">
+  </head>
+  <body bgcolor="#FFF" leftmargin="0" marginheight="0" marginwidth="0" topmargin="0">
+
+    <!-- HEADER -->
+    <table bgcolor="#29549E" class="head-wrap">
+      <tr>
+        <td></td>
+        <td class="header container">
+
+          <div class="content">
+            <table bgcolor="#29549E">
+              <tr>
+                <td>
+                  <h2 class="collapse">TickMaster</h2>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+        </td>
+        <td></td>
+      </tr>
+    </table>
+    <!-- /HEADER -->
+
+    <!-- BODY -->
+    <table class="body-wrap">
+      <tr>
+        <td></td>
+        <td bgcolor="#FFFFFF" class="container">
+
+          <div class="column-wrap">
+
+            <div class="column">
+              <table>
+                <tr>
+                  <td>
+
+                    <h1>Bonjour
+                      <% @incident.user.surname %></h1>
+                    <p>Votre incident vient d'être rejeté</p>
+                    <p>Voici un résumé de votre incident :
+                    </p>
+                    <!-- Callout Panel -->
+
+                    <% if !@incident.title.nil?%>
+                    <p class="callout">
+                      <strong>Titre :
+                      </strong><br><br>
+                      <%= @incident.title %>
+                    </p>
+                    <% end %>
+
+                    <% if !@incident.content.nil?%>
+                    <p class="callout">
+                      <strong>Contenu :
+                      </strong><br><br>
+                      <%=strip_tags(@incident.content)%>
+                    </p>
+                    <!-- /Callout Panel -->
+                    <% end %>
+
+                    <% if !@incident.tech_id.nil?%>
+                    <p class="callout">
+                      <strong>Technicien :
+                      </strong><br><br>
+                      <%= @users.where(id: @incident.tech_id).pluck(:name, :surname).join(' ') %>
+                    </p>
+                    <% end %>
+
+                    <p class="callout">
+                      <strong>Catégorie :
+                      </strong><br><br>
+                      <%= @incident.category.name %>
+                    </p>
+
+                    <p class="callout">
+                      <strong>Sous Catégorie :
+                      </strong><br><br>
+                      <%= @incident.sous_category.name%>
+                    </p>
+
+                    <% if !@incident.lvl_urgence_user.nil?%>
+                    <p class="callout">
+                      <strong>Niveau d'urgence :
+                      </strong><br><br>
+                      <%= @incident.lvl_urgence_user %>
+                    </p>
+                    <% end %>
+                    <%= link_to "Incident &raquo;".html_safe, incident_url(@incident), class: "btn"%>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+          </td>
+        </tr>
+      </table>
+      <!-- /BODY -->
+
+    </body>
+  </html>

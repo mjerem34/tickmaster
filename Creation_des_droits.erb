@@ -1,0 +1,8 @@
+<% if Right.where(name: "NOMDUDROIT").pluck(current_user.tech.name).join('')  == 'true' %>
+
+<%else%>
+<% @title = "Accès non autorisé"%>
+<p class="alert_non_authorized">
+  Accès non autorisé ! <%= render 'sessions/new' %>
+</p>
+<% end %>

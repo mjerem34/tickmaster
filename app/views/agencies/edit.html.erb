@@ -1,0 +1,14 @@
+<% if Right.where(name: "edit_agency").pluck(current_user.tech.name).join('')  == 'true' %>
+<% @title = "Editer agence"%>
+
+<h1 class="title-h1">Editer une agence</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Annuler', agencies_path %>
+<%else%>
+<% @title = "Accès non autorisé"%>
+<p class="alert_non_authorized">
+  Accès non autorisé ! <%= render 'sessions/new' %>
+</p>
+<% end %>

@@ -1,0 +1,56 @@
+<% @title = "Vos incidents à traiter" %>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="header">
+      <tr>
+        <th>#</th>
+        <th>Objet</th>
+        <th>Contenu</th>
+        <th>Demandeur</th>
+        <th>Technicien</th>
+        <th>Categorie</th>
+        <th>Sous-Categorie</th>
+        <th>Date</th>
+        <th>Etat</th>
+        <th>Urgence</th>
+        <th>Niveau</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @incidents.where(tech_id: current_user.id).reorder("created_at DESC").each do |incident|%>
+      <% if !clotured_or_rejected?(incident) %>
+      <tr>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.id%></td>
+        <td class="hover-cellule" onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= truncate(incident.title, length: 20) %>
+          <span>
+            <%=incident.title%>
+          </span>
+        </td>
+        <td class="hover-cellule" onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%=  truncate(strip_tags(incident.content), length: 20)%>
+          <span>
+            <%=strip_tags(incident.content)%>
+          </span>
+        </td>
+        <td onClick="document.location.href='<%= edit_incident_path(incident)%>'"><%= incident.user.name + ' ' + incident.user.surname %></td>
+        <% if incident.tech_id != nil %>
+        <td onClick="document.location.href='<%= edit_incident_path(incident)%>'"><%= User.where(id: incident.tech_id).pluck(:name, :surname).join(" ") %></td>
+        <% else %>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'">Technicien non défini</td>
+        <% end %>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.category.name %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.sous_category.name %></td>
+        <td onClick="document.location.href='<%= edit_incident_path(incident)%>'"><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
+        <td class="hover-cellule" onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:shortcut).join('') %>
+          <span>
+            <%=IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:name).join('')%>
+          </span>
+        </td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_urgence_user %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_urgence_tech %></td>
+      </tr>
+      <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

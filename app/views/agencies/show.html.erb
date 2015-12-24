@@ -1,0 +1,63 @@
+<% if !current_user.nil? && Right.where(name: "view_agency_details").pluck(current_user.tech.name).join('')  == 'true' %>
+<% @title = "Liste des incidents de l'agence : #{@agency.name}" %>
+
+
+<div class="table-responsive">
+
+  <table class="table table-hover">
+    <thead class="header">
+      <tr>
+        <th>Objet</th>
+        <th>Contenu</th>
+        <th>Demandeur</th>
+        <th>Technicien</th>
+        <th>Catégorie</th>
+        <th>Sous-Categorie</th>
+        <th>Date</th>
+        <th>Etat</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <% @agency.incidents.order(["created_at desc"]).each do |incident| %>
+      <tr>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.title %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= truncate(strip_tags(incident.content), length: 17) %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.user.name %>
+          <%=incident.user.surname%></td>
+        <% if incident.tech_id != nil %>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= User.find_by_sql("SELECT `users`.* FROM `users` WHERE `id` = #{incident.tech_id}").collect{ |u| [u.surname, u.name]}.join(" ") %></td>
+        <% else %>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'">Technicien non défini</td>
+        <% end %>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.category.name %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= SousCategory.find_by_sql("SELECT sous_categories . * FROM sous_categories WHERE id = #{incident.sous_category_id}").collect{|u| [u.name]}.join(" ") %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
+          <% if current_user.tech.simple_user == true %>
+          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%= IncidentsState.where(id: "#{incident.incident_state_id_for_user}").pluck(:shortcut).join('') %>
+            <span>
+              <%=IncidentsState.where(id: "#{incident.incident_state_id_for_user}").pluck(:name).join('')%>
+            </span>
+          </td>
+          <% else %>
+          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%= IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:shortcut).join('') %>
+            <span>
+              <%=IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:name).join('')%>
+            </span>
+          </td>
+          <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+
+<%= link_to "Editer l'agence", edit_agency_path(@agency) %>
+
+<% else %>
+<% @title = "Accès non autorisé"%>
+<p class="alert_non_authorized">
+  Accès non autorisé ! <%= render 'sessions/new' %>
+</p>
+<% end %>

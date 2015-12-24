@@ -1,0 +1,48 @@
+
+<%= form_for(@right) do |f| %>
+
+<div class="field">
+  <%= f.text_field :name, class: "form-control next form-interface", placeholder: "Nom(Requis)"  %>
+  <% if @right.errors[:name].first != nil %>
+  <div class="alert alert-danger form-interface">
+  <%= "Nom " + @right.errors[:name].first%><br>
+    <% if @right.errors[:name].second != nil %>
+      <%= "Nom " + @right.errors[:name].second%><br>
+    <% end %>
+</div><!-- DIV ERROR -->
+  <% end %>
+
+</div><br>
+<div class="field">
+  <%= f.text_field :content, class: "form-control next form-interface", placeholder: "Description(Requis)"%>
+  <% if @right.errors[:content].first != nil %>
+  <div class="alert alert-danger form-interface">
+  <%= "Description " + @right.errors[:content].first%><br>
+    <% if @right.errors[:content].second != nil %>
+      <%= "Description " + @right.errors[:content].second%><br>
+    <% end %>
+</div><!-- DIV ERROR -->
+  <% end %>
+
+</div><br>
+<% Tech.all.pluck(:name).each do |t|%>
+<div class='field select_yes_no'>
+  <%= f.label t.capitalize %><br>
+  <%= button_radio = radio_button_tag "right[#{t}]", 'true', false, id: "#{t}_true" %>
+  <%= label_tag "#{t}_true", 'Oui' %>
+  <%= button_radio = radio_button_tag "right[#{t}]", 'false', true, id: "#{t}_false" %>
+  <%= label_tag "#{t}_true", 'Non' %>
+</div><br>
+
+<% end %>
+  <div class="actions">
+    <%= f.submit "Créer", id: "sendButton", class: "btn btn-success btn-align form-interface", onclick: "disableButton(this.id)" %><br>
+  </div><br>
+<% end %>
+<script type="text/javascript">
+  function disableButton(id){
+    id = document.getElementById(id);
+    id.disabled = "disabled";
+    id.value = "Envoi...";
+  }
+</script>

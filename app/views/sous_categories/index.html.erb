@@ -1,0 +1,49 @@
+<% if !current_user.nil? && Right.where(name: "view_index_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+<% @title = "Liste des sous catégories"%>
+
+
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="header">
+      <tr>
+        <th>#</th>
+        <th>Nom</th>
+        <th>Categorie</th>
+
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @sous_categories.each do |sous_category| %>
+      <tr>
+        <td onClick="document.location.href='<%=sous_category_path(sous_category)%>'"><%= sous_category.id %></td>
+        <% if !current_user.nil? && Right.where(name: "view_details_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+        <td onClick="document.location.href='<%=sous_category_path(sous_category)%>'"><%= sous_category.name %></td>
+        <% else %>
+        <td><%= sous_category.name %></td>
+        <% end %>
+        <td><%= Category.where(id: "#{sous_category.category_id}").pluck(:name).join %></td>
+
+        <% if Right.where(name: "edit_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+        <td><%= link_to 'Editer', edit_sous_category_path(sous_category) %></td>
+        <% end %>
+        <% if Right.where(name: "delete_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+        <td><%= link_to 'Supprimer', sous_category, method: :delete, data: { confirm: 'Are you sure?' }%></td>
+        <% end %>
+
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>
+
+<% else %>
+<% @title = "Accès non autorisé"%>
+<p class="alert_non_authorized">
+  Accès non autorisé ! <%= render 'sessions/new' %>
+</p>
+<% end %>

@@ -1,0 +1,62 @@
+<% @title = "Incidents non attribués" %>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="header">
+      <tr>
+        <th>#</th>
+        <th>Objet</th>
+        <th>Contenu</th>
+        <th>Demandeur</th>
+        <th>Technicien</th>
+        <th>Categorie</th>
+        <th>Sous-Categorie</th>
+        <th>Date</th>
+        <th>Etat</th>
+        <th>Urgence</th>
+        <th>Niveau</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @incidents.reorder("created_at DESC").each do |incident|%>
+      <% if !clotured_or_rejected?(incident) %>
+        <tr>
+          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.id%></td>
+          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%= truncate(incident.title, length: 20) %>
+            <span>
+              <%=incident.title%>
+            </span>
+          </td>
+          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%=  truncate(strip_tags(incident.content), length: 20)%>
+            <span>
+              <%=strip_tags(incident.content)%>
+            </span>
+          </td>
+        <td onClick="document.location.href='<%= edit_incident_path(incident)%>'"><%= incident.user.name + ' ' + incident.user.surname %></td>
+        <%= form_for(incident) do |f| %>
+            <td><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}), include_blank: "Technicien non défini...", class: "form-control" %></td>
+            <% end %>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.category.name %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.sous_category.name %></td>
+        <td onClick="document.location.href='<%= edit_incident_path(incident)%>'"><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%= IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:shortcut).join('') %>
+          <span>
+            <%=IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:name).join('')%>
+          </span>
+        </td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_urgence_user %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_urgence_tech %></td>
+
+      </tr>
+      <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<br>
+<p class="submitforms btn btn-success" id="sendButton" type="submit" name="commit">Envoyer </p>
+<script type="text/javascript">
+  $(".submitforms").on("click", (function(){
+         $('.edit_incident').submit();
+  }));
+</script>

@@ -1,0 +1,178 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  hello: "Hello world"
+  activerecord:
+    attributes:
+      response:
+        content: "Message"
+
+      category:
+        name: "Nom"
+
+      sous_category:
+        name: "Nom"
+      rights:
+        name: "Nom"
+        content: "Description"
+
+      agency:
+        name: "Nom"
+        adress: "Adresse"
+        cp: "Code postal"
+        city: "Ville"
+        email: "Adresse Email"
+        tel: "Numéro de téléphone"
+        fax: "Numéro de fax"
+        department: "Département"
+        ip_adress: "Adresse IP "
+
+      incident:
+        title: "Objet"
+        content: "Description"
+        user_id: "Nom d'utilisateur"
+        tech_id: "Nom du technicien"
+        lvl_urgence_user: "Niveau d'urgence"
+        lvl_urgence_tech: "Niveau d'urgence technicien"
+
+      user:
+        email: "Adresse email"
+        pseudo: "Pseudonyme"
+        tel: "Numéro de téléphone"
+        mobile: "Numéro de mobile"
+        name: "Nom"
+        surname: "Prénom"
+        tech_id: "Type d'utilisateur"
+        agency_id: "Agence"
+
+    errors:
+      models:
+
+        incident:
+          attributes:
+            title:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            content:
+              blank: "requise"
+              invalid: "invalide"
+            user_id:
+              blank: "requis"
+              invalid: "invalide"
+            lvl_urgence_user:
+              blank: "requis"
+              invalid: "invalide"
+
+        user:
+          attributes:
+            pseudo:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            name:
+              blank: "requis"
+            surname:
+              blank: "requis"
+            tel:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            mobile:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            email:
+              blank: "requise"
+              invalid: "invalide"
+              taken: "déjà enregistrée"
+            tech_id:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            agency_id:
+              blank: "requise"
+              invalid: "invalide"
+              taken: "déjà enregistrée"
+
+        response:
+          attributes:
+            content:
+              blank: "requis"
+
+        agency:
+          attributes:
+            name:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            adress:
+              blank: "requise"
+              invalid: "invalide"
+              taken: "déjà enregistrée"
+            cp:
+              blank: "requis"
+              invalid: "invalide"
+            city:
+              blank: "requise"
+              invalid: "invalide"
+            email:
+              blank: "requise"
+              invalid: "invalide"
+              taken: "déjà enregistrée"
+            tel:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            fax:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            department:
+              blank: "requis"
+              invalid: "invalide"
+            ip_adress:
+              blank: "requise"
+              invalid: "invalide"
+
+
+        category:
+          attributes:
+            name:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+
+
+        sous_category:
+          attributes:
+            name:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+
+        right:
+          attributes:
+            name:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"

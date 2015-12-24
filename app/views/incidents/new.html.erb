@@ -1,0 +1,15 @@
+<% if !current_user.nil? && Right.where(name: "create_new_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
+<% @title = "Créer un incident" %>
+
+
+<%= render 'form_new' %>
+
+<br><%= link_to 'Annuler', current_user, class: "btn btn-danger btn-cancel", data: { confirm: 'Êtes vous sûr ?', no_turbolink: true}  %>
+
+
+<% else %>
+<% @title = "Accès non autorisé"%>
+<p class="alert_non_authorized">
+  Accès non autorisé ! <%= render 'sessions/new' %>
+</p>
+<% end %>

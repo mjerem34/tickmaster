@@ -1,0 +1,139 @@
+<% @title = "Centre d'aide"%>
+<h1>Bonjour et bienvenue sur le centre d'aide de TickMaster</h1>
+<h3>Avant de commencer, nous vous conseillons de lire ces quelques tutoriels :</h3>
+<ul>
+  <li><h3><a href="#" class="content_link_for_create">1 - Comment <i>créer</i> un nouvel incident ?</a></h3></li>
+  <div class="content content_for_create">
+    <h4>Pour créer un nouvel incident cliquez sur le bouton "Nouvel incident" :</h4>
+    <%= image_tag("help/creer_nouvel_incident.png", alt: "Pour créer un nouvel incident cliquez sur le bouton bleu 'Nouvel incident' à gauche de votre écran") %>
+    <br><br><h4>Cela vous enverra sur cette page :</h4>
+    <%= image_tag("help/new_incident.png", alt: "Image inaccessible", size: "900x400") %>
+      <h4>Vous serez ensuite invité à entrer tous les détails de l'incident dans l'ordre qui suit :</h4>
+      <br><p>
+        1 - Catégorie de l'incident (sert à définir globalement le domaine de l'incident, champ obligatoire !)<br>
+        2 - Sous-Catégorie de l'incident (sert à définir plus précisément le domaine de l'incident, champ obligatoire !).<br>
+        3 - L'objet de la demande de l'incident (entrez ici une brève description de votre problème avec des mots clés, champ obligatoire !).<br>
+        4 - La description de votre incident (c'est ici que vous pourrez montrer vos talents d'écrivains, décrivez votre problème ou demande <strong>le plus précisément possible</strong>, champ obligatoire !).<br>
+        5 - Le niveau d'urgence de votre incident (veuillez ne pas mettre un niveau trop haut si ce n'est pas urgent ou le marteau de Guy frappera sur votre bureau.).<br>
+        6 - Un fichier pour montrer les détails de votre incident (un fichier maximum, tous types de fichiers acceptés.).<br>
+    </p>
+    <h4>Une fois tout ceci fait, vous pouvez envoyer votre ticket d'incident en utilisant le bouton "Envoyer":</h4>
+    <%= image_tag("help/new_incident_send_button.png", alt: "Cliquez sur le bouton vert en bas à gauche de votre écran 'Envoyer'", size: "900x400") %>
+  </div>
+
+
+  <li><h3><a href="#" class="content_link_for_view">2 - Comment <i>voir</i> la liste de mes incidents ?</a></h3></li>
+  <div class="content content_for_view">
+    <h4>Pour voir la liste des incidents que vous avez créé cliquez sur "Incidents" :</h4>
+    <%= image_tag("help/view_list_incidents.png", alt: "Bouton à gauche de votre écran") %>
+    <h4>Un menu déroulant va s'ouvrir, cliquez à présent sur "Mes incidents"</h4>
+    <%= image_tag("help/view_incidents_mes_incidents.png", alt: "Bouton à gauche de votre écran") %>
+    <h4>Vous pouvez aussi accéder à vos incidents cloturés et ainsi revoir vos anciennes demandes en cliquant sur le bouton "Cloturés/Rejetés"</h4>
+    <%= image_tag("help/view_incidents_clotured.png", alt: "Bouton à gauche de votre écran") %>
+    <h4>Vous arriverez enfin sur votre liste :</h4>
+    <%= image_tag("help/incidents_list.png", alt: "", size: "900x400") %>
+    <h4>A partir de là, vos incidents s'afficheront sous forme de liste avec les éléments principaux affichés.</h4>
+    <h4>Pour voir les details d'un incident, il suffit de cliquer dessus.</h4>
+    <%= image_tag("help/incidents_click.png", alt: "", size: "900x400") %>
+  </div>
+
+  <li><h3><a href="#" class="content_link_for_msg">3 - Comment <i>envoyer/répondre</i> à un message ?</a></h3</li>
+  <div class="content content_for_msg">
+    <h4>Pour envoyer ou répondre à un message en rapport avec un incident il suffit d'entrer dans les détails de l'incident et de cliquer sur "Répondre".</h4>
+    <%= image_tag("help/view_incident.png", alt: "", size: "900x400") %>
+    <h4>Ecrire votre message, insérer un fichier si besoin, et cliquer sur "Répondre".</h4>
+    <%= image_tag("help/reply_incident.png", alt: "", size: "900x400") %>
+  </div>
+
+  <li><h3><a href="#" class="content_link_for_clotured">4 - Que faire si mon problème est <i>résolu</i> ?</a></h3></li>
+  <div class="content content_for_clotured">
+    <h4>Si votre problème est résolu, vous <strong>le cloturez</strong> en allant sur les détails de l'incident et en cliquant sur "Cloturer"</h4>
+    <%= image_tag("help/cloture_incident.png", alt: "", size: "900x400") %>
+    <h4>Une fois votre incident cloturé, vous ne pourrez plus envoyer de message.</h4>
+  </div>
+  <li><h3><a href="#" class="content_link_for_rejected">5 - Mon incident à été <i>rejeté</i>. Pourquoi ?</a></h3></li>
+  <div class="content content_for_rejected">
+    <h4>Votre incident a très certainement été rejeté car vous aviez déjà envoyé un incident du même type, dans ce cas vérifiez dans votre liste d'incidents.<br>
+    Si votre incident a été rejeté mais que vous n'aviez pas déjà envoyé un incident similaire, vérifiez si vous n'avez pas reçu une procédure par email.
+    Si votre incident est rejeté, n'essayez pas d'en poster un autre identique, il sera lui aussi rejeté et vous finirez comme Gennaro lawyer.</h4>
+  </div>
+  <li><h3><a href="#" class="content_link_for_email">6 - J'ai reçu un <i>email</i> de TickMaster, pourquoi ?</a></h3></li>
+  <div class="content content_for_email">
+    <h4>Tous les évènements liés à votre incident et depuis sa création vous sont rapportés par email. De ce fait
+    , vous ne pourrez plus manquer une réponse.</h4>
+    <h4>Vous pourrez y retrouver les éléments principaux de votre incident.</h4>
+  </div>
+  <li><h3><a href="#" class="content_link_for_bug">7 - J'ai rencontré un <i>bug</i> ou j'ai une <i>suggestion</i>, comment faire ?</a></h3></li>
+  <div class="content content_for_bug">
+    <h4>Ce programme étant encore en phase de tests, il se peut que vous y rencontriez quelques bugs ou suggestions d'amélioration. Dans ce cas merci d'envoyer un email à : <a href="mailto:jeremy.montesinos@cle-expertises.fr?cc=jerome.guillot@cle-expertises.fr&subject=Bug ou suggestion à propos TickMaster">jeremy.montesinos@cle-expertises.fr</a></h4>
+      <h4>Attention à ne pas confondre erreurs pour votre compte TickMaster et bugs liés à l'application.</h4>
+  </div>
+</ul>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".content").hide();
+    $(".content_link_for_create").click(function(){
+      $(".content_for_create").toggle(800);
+      $(".content_for_view").hide(800);
+      $(".content_for_msg").hide(800);
+      $(".content_for_clotured").hide(800);
+      $(".content_for_rejected").hide(800);
+      $(".content_for_email").hide(800);
+      $(".content_for_bug").hide(800);
+    });
+    $(".content_link_for_view").click(function(){
+      $(".content_for_create").hide(800);
+      $(".content_for_view").toggle(800);
+      $(".content_for_msg").hide(800);
+      $(".content_for_clotured").hide(800);
+      $(".content_for_rejected").hide(800);
+      $(".content_for_email").hide(800);
+      $(".content_for_bug").hide(800);
+    });
+    $(".content_link_for_msg").click(function(){
+      $(".content_for_create").hide(800);
+      $(".content_for_view").hide(800);
+      $(".content_for_msg").toggle(800);
+      $(".content_for_clotured").hide(800);
+      $(".content_for_rejected").hide(800);
+      $(".content_for_email").hide(800);
+      $(".content_for_bug").hide(800);
+    });
+    $(".content_link_for_clotured").click(function(){
+      $(".content_for_create").hide(800);
+      $(".content_for_view").hide(800);
+      $(".content_for_msg").hide(800);
+      $(".content_for_clotured").toggle(800);
+      $(".content_for_rejected").hide(800);
+      $(".content_for_email").hide(800);
+      $(".content_for_bug").hide(800);
+    });
+    $(".content_link_for_rejected").click(function(){
+      $(".content_for_create").hide(800);
+      $(".content_for_view").hide(800);
+      $(".content_for_msg").hide(800);
+      $(".content_for_clotured").hide(800);
+      $(".content_for_rejected").toggle(800);
+      $(".content_for_email").hide(800);
+      $(".content_for_ebug").hide(800);
+    });
+    $(".content_link_for_email").click(function(){
+      $(".content_for_create").hide(800);
+      $(".content_for_view").hide(800);
+      $(".content_for_msg").hide(800);
+      $(".content_for_clotured").hide(800);
+      $(".content_for_rejected").hide(800);
+      $(".content_for_bug").hide(800);
+      $(".content_for_email").toggle(800);
+    });
+    $(".content_link_for_bug").click(function(){
+      $(".content_for_create").hide(800);
+      $(".content_for_view").hide(800);
+      $(".content_for_msg").hide(800);
+      $(".content_for_clotured").hide(800);
+      $(".content_for_rejected").hide(800);
+      $(".content_for_bug").toggle(800);
+      $(".content_for_email").hide(800);
+    });
+  });
+</script>

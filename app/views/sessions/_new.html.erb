@@ -1,0 +1,70 @@
+<% @title = "Se connecter"%>
+<% if current_user == nil %>
+<% content_for :form do %>
+<%= form_for(:session, :url => sessions_path, html: {class: "connect-user"}) do |f| %>
+  <div class="field form-group">
+  <% @arr = [] %>
+    <%@arr = User.find_by_sql('SELECT users.pseudo FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false').collect{|u| u.pseudo}%>
+<h1 class="title-h1">Connexion</h1>
+    <%= f.text_field :pseudo, class: "form-control pseudo-entry", placeholder: "Pseudonyme", id: 'next' %>
+    <%= f.password_field :password, class: "form-control password-entry", placeholder: "Mot de passe" %>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var count = "<%=User.find_by_sql('SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false').count%>";
+        $(".password-entry").hide();
+        $(".password-entry").val(' ');
+        $(".pseudo-entry").keyup(function () {
+
+          for (var i = 0; i < count; i++) {
+            if (<%=@arr.to_json.html_safe%>.indexOf($(".pseudo-entry").val()) > -1) {
+              $(".pseudo-entry").attr('id', 'next');
+              $(".password-entry").addClass('next');
+              $(".password-entry").val('');
+              $(".password-entry").show(100);
+            } else {
+              $(".password-entry").hide(100);
+              $(".password-entry").val(' ');
+              $(".password-entry").attr('id', '');
+            }
+          }
+          $(".pseudo-entry").change(function () {
+            for (var i = 0; i < count; i++) {
+              if (<%=@arr.to_json.html_safe%>.indexOf($(".pseudo-entry").val()) > -1) {
+                $(".password-entry").val('');
+                $(".password-entry").show(100);
+                $(".password-entry").focus();
+              } else {
+                  $(".password-entry").hide(100);
+                $(".password-entry").val(' ');
+              }
+            }
+          });
+        });
+      });
+    </script>
+
+    <% unless flash.now[:error].nil? %>
+    <div class= "alert alert-danger">
+    <%= flash.now[:error]%>
+  </div>
+    <% end %>
+  </div>
+
+  <div class="actions form-group">
+    <%= f.submit "Se connecter", id: "sendButton", class: "btn btn-success btn-create-new-user btn-success btn-align form-interface next", onclick: "disableButton(this.id)" %><br>
+  </div>
+  <% end %>
+<% end %>
+<%else %>
+<p id="connected" class="alert_non_authorized">
+  Vous êtes déjà connecté !
+</p>
+
+<% end %>
+<script type="text/javascript">
+  function disableButton(id){
+    id = document.getElementById(id);
+    id.disabled = "disabled";
+    id.value = "Envoi...";
+  }
+</script>

@@ -1,0 +1,88 @@
+#connected tbody tr:hover td,
+#connected theader tr:hover th {
+  background: $background-td-hover !important;
+}
+td {
+  cursor: pointer;
+}
+table tr th {
+  font-weight: $font-weight-thick !important;
+}
+tbody td {
+  word-wrap: break-word;
+  overflow: hidden;
+}
+thead {
+  box-shadow: 0 4px 2px #888;
+  background: #FFF !important;
+}
+input{
+}
+.hover-cellule span {
+  word-wrap: break-word;
+  max-width: 500px;
+  position: absolute;
+  margin-top: 30px;
+  margin-left: -60px;
+  color: white;
+  background: rgba(0,0,0,0.9);
+  padding: 15px;
+  border-radius: 3px;
+  box-shadow: 0 0 2px rgba(0,0,0,.5);
+  transform: scale(0) rotate(-100deg);
+  transition: all 0.25s;
+  opacity: 0;
+  -webkit-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+}
+.response-hover-cellule{
+  margin-top: -200px !important;
+}
+.hover-cellule:hover span,
+.hover-cellule:focus span {
+  transform: scale(1) rotate(0);
+  opacity: 1;
+}
+
+
+.input-file-container {
+  position: relative;
+  width: 100%;
+
+}
+.js .input-file-trigger {
+  margin-left: 50px;
+  display: block;
+  padding: 14px 45px;
+  background: #39D2B4;
+  color: #fff;
+  font-size: 1em;
+  transition: all .4s;
+  cursor: pointer;
+  width: 200px;
+}
+.js .input-file {
+  position: absolute;
+  width: 300px;
+  opacity: 0;
+  padding: 22px 0;
+  cursor: pointer;
+
+}
+
+.file-return {
+  margin: 0;
+}
+.file-return:not(:empty) {
+  margin: 1em 0;
+}
+.js .file-return {
+  font-style: italic;
+  font-size: .9em;
+  font-weight: bold;
+}
+.js .file-return:not(:empty):before {
+  content: "Selected file: ";
+  font-style: normal;
+  font-weight: normal;
+}

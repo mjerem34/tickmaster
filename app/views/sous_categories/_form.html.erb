@@ -1,0 +1,34 @@
+<%= form_for(@sous_category) do |f| %>
+  <div class="field">
+    <h2 class="form-interface">Nouvelle sous catégorie</h2>
+      <%= select_tag "sous_category[category_id]", options_for_select(User.find_by_sql("SELECT `categories`.* FROM `categories`").collect{ |u| [u.name, u.id]}), class: "form-control form-interface", include_blank: "Catégorie :" %>
+    </div><br>
+  <div class="field">
+    <%= f.text_field :name, class: "form-control form-interface", placeholder: "Nom(Requis)"   %>
+    <% if @sous_category.errors[:name].first != nil %>
+    <div class="alert alert-danger form-interface">
+    <%= "Nom " + @sous_category.errors[:name].first%><br>
+      <% if @sous_category.errors[:name].second != nil %>
+        <%= "Nom " + @sous_category.errors[:name].second%><br>
+      <% end %>
+  </div><!-- DIV ERROR -->
+    <% end %>
+  </div><br>
+
+  <div class="field">
+    <%= select_tag "sous_category[lvl_urgence_max]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10" selected="selected">10</option>'.html_safe, class: 'form-control form-interface' %>
+  </div>
+  <div class="actions">
+  <%= f.submit "Créer", id: "sendButton", class: "btn btn-success btn-align form-interface", onclick: "disableButton(this.id)" %><br><br>
+  </div>
+<% end %>
+<script type="text/javascript">
+  function disableButton(id){
+    id = document.getElementById(id);
+    id.disabled = "disabled";
+    id.value = "Envoi...";
+  }
+</script>
+<script type="text/javascript">
+   $("#sous_category_name").focus();
+</script>

@@ -1,0 +1,14 @@
+<% if !current_user.nil? && Right.where(name: "edit_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+<% @title = "Editer sous catégorie : #{@sous_category.name}"%>
+
+<h1>Editer Sous Categorie</h1>
+
+<%= render 'form' %>
+<%= link_to 'Détails', @sous_category %> |
+<%= link_to 'Annuler', sous_categories_path %>
+<% else %>
+<% @title = "Accès non autorisé"%>
+<p class="alert_non_authorized">
+  Accès non autorisé ! <%= render 'sessions/new' %>
+</p>
+<% end %>
