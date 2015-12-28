@@ -50,6 +50,14 @@
       <%end%>
     </tr>
     <% end %>
+    <tr class="formsnewright">
+      <%= simple_form_for @right do |f| %>
+      <td><p style="font-size:2em;">&raquo;</p></td>
+      <td class="newright"><%= f.text_field :name, class: "form-control form-interface", placeholder: "Nom(Requis)", style: "margin-left:0px;"%></td>
+      <td class="newright"><%= f.text_field :content, class: "form-control form-interface", placeholder: "Description(Requis)", style: "margin-left:0px;"%></td>
+      <td class="newright"><%= f.input :user, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;" %></td>
+    </tr>
+    <% end %>
   </tbody>
   <% else %>
   <tbody>

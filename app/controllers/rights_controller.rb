@@ -3,6 +3,7 @@ class RightsController < ApplicationController
 
   def index
     @rights = Right.all
+    @right = Right.new
   end
 
   def show

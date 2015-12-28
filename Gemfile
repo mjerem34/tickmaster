@@ -46,6 +46,7 @@ gem 'web-console', '~> 2.0'
 gem 'ckeditor', github: 'galetahub/ckeditor'
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 group :development, :test do
+  gem 'thin'
   gem 'factory_girl'
   gem 'rspec-rails', '~> 3.0'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
