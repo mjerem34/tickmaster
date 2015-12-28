@@ -56,8 +56,8 @@ class CategoriesController < ApplicationController
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
-    if Incident.where(category_id: @category.id).nil?
-      @category.destroy
+    if Incident.where(category_id: @category.id).pluck(:title).join('') == ''
+      @category.destroy!
       respond_to do |format|
         format.html { redirect_to categories_url }
         format.json { head :no_content }
@@ -67,7 +67,7 @@ class CategoriesController < ApplicationController
         format.html { redirect_to categories_url }
         format.json { head :no_content }
       end
-end
+    end
   end
 
   private
