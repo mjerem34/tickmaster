@@ -69,10 +69,12 @@
             <%=strip_tags(archive.content)%>
           </span>
         </td>
-        <% unless archive.file_archives.nil? %>
-        <% archive.file_archives.each do |file| %>
-        <td><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: "form-control")%></td>
+        <% file_archive = FileArchive.where(archive_id: archive.id) %>
+        <% unless file_archive.nil?%>
+        <td><% file_archive.each do |file| %>
+        <%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: "form-control")%>
         <% end %>
+        </td>
         <% else %>
         <td>Aucun</td>
         <% end %>

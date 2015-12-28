@@ -19,6 +19,19 @@ class ApplicationController < ActionController::Base
         receiver_id: response.receiver_id,
         ip_adress_sender: response.ip_adress_sender,
         pc_id: response.pc_id)
+        next if response.file_responses.nil?
+        response.file_responses.each do |a| # Alors pour chaque fichier
+          @file_archives = FileArchive.new( # Creer un fichier archive identique a l'ancien dans la table file_archives
+            archive_id: response.id,
+            file: a.file
+          )
+          if @file_archives.save! # Si fichier sauvegarde
+            a.destroy # Detruit l'ancien
+          else
+            redirect_to_back
+          end
+        end
+
       if @archive.save! # Si ok
         response.destroy # et supprime l'ancienne reponse
       else
