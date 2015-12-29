@@ -18,7 +18,7 @@ class RightsController < ApplicationController
   def create
     @right = Right.new(right_params)
     respond_to do |format|
-      if @right.save && !@right.title.nil? && !@right.content.nil?
+      if @right.save && !@right.name.nil? && !@right.content.nil?
         format.html { redirect_to rights_url, notice: 'Droit crée.' }
         format.json { render json: :index, status: :created, location: @right }
       else

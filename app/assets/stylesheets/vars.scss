@@ -23,7 +23,7 @@ $font-size-min-1105: 80%;
 
 /*BACKGROUNDS*/
 $background-connected: rgba(#fff, 1);
-$background:url('background.jpg') no-repeat center fixed;
+$background: $background-connected;
 $background-navbar-disconnected: rgba(#1C1D22, 1);
 $background-navbar-connected: rgba(#1C1D22,1);
 $background-td-hover: #EEE;

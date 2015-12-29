@@ -14,6 +14,9 @@
       <th>Super Tech</th>
       <th>Administrateur</th>
       <th>Dispatcheur</th>
+      <th>Assistant</th>
+      <th>Expert</th>
+      <th>Comptable</th>
     </tr>
   </thead>
   <% if Right.where(name: "edit_rights").pluck(current_user.tech.name).join('') == 'true' %>
@@ -48,14 +51,35 @@
       <%else%>
         <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: red;"><%= right.disp %></td>
       <%end%>
+      <%if right.assistant == true%>
+        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: green;"><%= right.disp %></td>
+      <%else%>
+        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: red;"><%= right.disp %></td>
+      <%end%>
+      <%if right.expert == true%>
+        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: green;"><%= right.disp %></td>
+      <%else%>
+        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: red;"><%= right.disp %></td>
+      <%end%>
+      <%if right.comptable == true%>
+        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: green;"><%= right.disp %></td>
+      <%else%>
+        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: red;"><%= right.disp %></td>
+      <%end%>
     </tr>
     <% end %>
     <tr class="formsnewright">
       <%= simple_form_for @right do |f| %>
-      <td><p style="font-size:2em;">&raquo;</p></td>
       <td class="newright"><%= f.text_field :name, class: "form-control form-interface", placeholder: "Nom(Requis)", style: "margin-left:0px;"%></td>
-      <td class="newright"><%= f.text_field :content, class: "form-control form-interface", placeholder: "Description(Requis)", style: "margin-left:0px;"%></td>
-      <td class="newright"><%= f.input :user, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;" %></td>
+      <td class="newright"><%= f.text_area :content, class: "form-control form-interface", placeholder: "Description(Requis)", style: "margin-left:0px;"%></td>
+      <td class="newright"><%= f.input :user, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
+      <td class="newright"><%= f.input :tech, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
+      <td class="newright"><%= f.input :super_tech, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
+      <td class="newright"><%= f.input :admin, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
+      <td class="newright"><%= f.input :disp, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
+      <td class="newright"><%= f.input :assistant, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
+      <td class="newright"><%= f.input :expert, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
+      <td class="newright"><%= f.input :comptable, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
     </tr>
     <% end %>
   </tbody>
@@ -77,6 +101,9 @@
   <% end %>
 </table>
 </div>
+<div class="actions">
+  <p class="btn btn-success btn-align form-interface submit" id="sendButton" type="submit" name="commit">Envoyer </p>
+</div>
 
 <br>
 <% else %>
@@ -85,3 +112,8 @@
   Accès non autorisé ! <%= render 'sessions/new' %>
 </p>
 <% end %>
+<script type="text/javascript">
+  $(".submit").on("click", (function(){
+    $('.new_right').submit();
+  }));
+</script>
