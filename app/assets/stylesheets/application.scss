@@ -3,6 +3,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "vars.scss";
+@import "bootstrap/variables";
 @import "bootstrap-slider.scss";
 @import "incidents.scss";
 @import "dropdownmenu.scss";
@@ -19,6 +20,7 @@
 @import "media_screen_and_min_width_1105_and_max_width_1599.scss";
 @import "media_screen_and_min_width_1600.scss";
 @import "page_aide.scss";
+@import "theme.bootstrap.min.css";
 /*
 
 /*----- IMPORTATION FIN ----- */

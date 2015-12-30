@@ -17,5 +17,5 @@
 //= require bootstrap-slider
 //= require jquery.tablesorter.min
 //= require jquery.tablesorter.widgets.min
-//= require fixedheadertable
+//= r0equire fixedheadertable
 //= require_tree .

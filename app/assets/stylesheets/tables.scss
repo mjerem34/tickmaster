@@ -47,9 +47,12 @@ input:focus{
 select:nth-child(1){
   font-size: 0.85em;
 }
+.table-hover > tbody > tr:hover {
+  background: transparent !important;
+}
 #connected tbody tr:hover td,
 #connected theader tr:hover th {
-  background: $background-td-hover !important;
+  background: $background-td-hover;
 }
 td {
   cursor: pointer;
