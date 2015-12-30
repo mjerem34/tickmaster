@@ -1,0 +1,44 @@
+@media screen and(min-width:413px) and(max-width:766px) {
+  html {
+  }
+  .updown-arrow{
+    visibility: hidden !important;
+  }
+  .new_user {
+    padding-bottom: 12rem;
+    padding-top: 1rem;
+    width: 100%;
+    padding-left: 15%;
+  }
+  .form-group {
+    width: 85%;
+  }
+  .title-h1 {
+    width: 100%;
+    margin-left: 0;
+  }
+  .btn-create-new-user {
+    width: 100%;
+    margin-left: 0;
+  }
+  .connect-user div.form-group {
+    width: 70%;
+    margin-left: 15%;
+  }
+  .connect-user {
+    margin-top: 5%;
+  }
+  .navbar-btn{
+    width: 90%;
+    margin-right: auto;
+    margin-left: 30%;
+  }
+  input.btn.btn-success.new_incident_button{
+    visibility: hidden;
+  }
+  .brand{
+    visibility: hidden;
+  }
+  /*BUTTON HAMBURGER*/
+/*TABLES*/
+}

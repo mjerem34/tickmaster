@@ -28,6 +28,9 @@ class ApplicationController < ActionController::Base
           if @file_archives.save! # Si fichier sauvegarde
             a.destroy # Detruit l'ancien
           else
+            flash[:notice] = "Une erreur est apparue lors de l'archivage des fichiers de l'incident.
+            Merci de contacter votre administrateur en lui fournissant ces informations :
+            #{@file_archives.inspect} ------ #{response.inspect} ------ #{incident.inspect}"
             redirect_to_back
           end
         end
@@ -35,6 +38,9 @@ class ApplicationController < ActionController::Base
       if @archive.save! # Si ok
         response.destroy # et supprime l'ancienne reponse
       else
+        flash[:notice] = "Une erreur est apparue lors de l'archivage de l'incident.
+        Merci de contacter votre administrateur en lui fournissant ces informations :
+        #{@file_archives.inspect} ------ #{response.inspect} ------ #{incident.inspect}"
         redirect_to_back
       end
     end

@@ -1,0 +1,17 @@
+.updown-arrow,
+.updown-arrow:active,
+.updown-arrow:hover,
+.updown-arrow:focus{
+  position: fixed;
+  float: right;
+  right: 20px;
+  bottom: 20px;
+ background: rgba(0, 0, 0, 0.3);
+ color: white;
+ border-radius: 3px;
+ text-decoration: none;
+ visibility: hidden;
+}
+.updown-arrow:active{
+ color: $background-navbar-connected;
+}

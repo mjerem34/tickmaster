@@ -1,19 +1,26 @@
 /*----- IMPORTATION ----- */
 @import url(https://fonts.googleapis.com/css?family=Black+Ops+One);
-@import url(https://fonts.googleapis.com/css?family=Rubik:400,700);
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "vars.scss";
-@import "bootstrap/variables";
 @import "bootstrap-slider.scss";
 @import "incidents.scss";
-@import "theme.bootstrap.min.css";
 @import "dropdownmenu.scss";
-@import "nprogress";
-@import "nprogress-bootstrap";
 @import "navbar.scss";
+@import "divcontent.scss";
+@import "lateral_bar.scss";
+@import "popup.scss";
+@import "tables.scss";
+@import "buttons.scss";
+@import "arrow_up_page.scss";
+@import "media_screen_and_max_width_412.scss";
+@import "media_screen_and_min_width_412_and_max_width_766.scss";
+@import "media_screen_and_min_width_768_and_max_width_1104.scss";
+@import "media_screen_and_min_width_1105_and_max_width_1599.scss";
+@import "media_screen_and_min_width_1600.scss";
+@import "page_aide.scss";
 /*
-*/
+
 /*----- IMPORTATION FIN ----- */
 /*CONTENU IDENTIQUE*/
 /*navbar*/
@@ -23,16 +30,6 @@
  * Licensed under the Apache License v2.0
  *
  */
- .tablesorter-header-inner{
-  font-size: 0.9em;
- }
- ul li{
-   list-style: none;
- }
-.email{
-  width:49%;
-  display: inline-block;
- }
 #functions li,
 #functions{
   display: inline-block;
@@ -41,63 +38,20 @@
   right:0;
   top:0;
 }
-
- .updown-arrow,
- .updown-arrow:active,
- .updown-arrow:hover,
- .updown-arrow:focus{
-   position: fixed;
-   float: right;
-   right: 20px;
-   bottom: 20px;
-  font-size: 3rem;
-  background: rgba(0, 0, 0, 0.3);
-  color: white;
-  border-radius: 3px;
-  text-decoration: none;
-  visibility: hidden;
+body{
+  background: $background;
 }
-.updown-arrow:active{
-  color: $background-navbar-connected;
-}
-.title-site {
-  font-family: $text-font-title;
-  text-decoration: none;
-  font-weight: 400;
-  font-size: 1.8em;
-  color: white !important;
-  cursor: pointer;
-}
-.navbar {
-  background: $background-navbar-disconnected;
-  border-color: transparent;
-}
-
-header .button {
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: $font-weight-thick;
-  color: $text-color-navbar;
-  margin-right: 10px;
-
-}
-body { padding-top: 50px; } /*BODY PADDING FOR NAVBAR FIXED TOP*/
-header .button:focus {
-  background-color: transparent !important;
-}
-.by-cle{
-  font-size: 0.8rem;
-  margin-bottom: 10px;
+h1.home{
+  text-align:center;
+  padding-top: 100px;
+  color: $text-color;
+  font-weight: 700;
 }
 /*navbar ---------- fin*/
 /*formulaires*/
 .form-interface{
   width:40%;
   margin-left:30%;
-}
-.btn-align{
-  width:20%;
-  margin-left:40%;
 }
 h2.form-interface{
   color: $text-color;
@@ -125,7 +79,7 @@ div.field.select_yes_no{
 .connect-user {
   margin-top: 50px;
   background: $background-new-user;
-  color: $text-color-on-blue;
+  color: $text-color;
   font-weight: $font-weight-thin;
   border-style: solid;
   border-width: thin;
@@ -135,279 +89,10 @@ div.field.select_yes_no{
   color: white !important;
 }
 
-/*----------------------------------MAX 412px----------------------*/
-@media screen and(max-width:412px) {
-  html {
-    font-size: $font-size-min-412;
-  }
-  .updown-arrow{
-    visibility: hidden !important;
-  }
-
-  .title-h1 {
-    width: 100%;
-    margin-left: 0;
-  }
-  header nav ul li h1 {
-    font-size: 1rem;
-    margin-left: 2%;
-  }
-  .button {
-    padding: 0.6rem;
-  }
-  .new_user {
-    width: 100%;
-    padding-left: 15%;
-    margin-top: 5%;
-  }
-  .form-group {
-    width: 85%;
-  }
-  .btn-create-new-user {
-    width: 100%;
-    margin-left: 0;
-  }
-  .connect-user div.form-group {
-    width: 70%;
-    margin-left: 15%;
-  }
-  .connect-user {
-    margin-top: 5%;
-  }
-  input.btn.btn-success.new_incident_button{
-    visibility: hidden;
-  }
-  .brand{
-    visibility: hidden;
-  }
-}
-
-//********************************MIN 413 PX****************************
-@media screen and(min-width:413px) and(max-width:766px) {
-  html {
-    font-size: $font-size-min-413;
-  }
-  .updown-arrow{
-    visibility: hidden !important;
-  }
-  .new_user {
-    padding-bottom: 12rem;
-    padding-top: 1rem;
-    width: 100%;
-    padding-left: 15%;
-  }
-  .form-group {
-    width: 85%;
-  }
-  .title-h1 {
-    width: 100%;
-    margin-left: 0;
-  }
-  .btn-create-new-user {
-    width: 100%;
-    margin-left: 0;
-  }
-  .connect-user div.form-group {
-    width: 70%;
-    margin-left: 15%;
-  }
-  .connect-user {
-    margin-top: 5%;
-  }
-  .navbar-btn{
-    width: 90%;
-    margin-right: auto;
-    margin-left: 30%;
-  }
-  input.btn.btn-success.new_incident_button{
-    visibility: hidden;
-  }
-  .brand{
-    visibility: hidden;
-  }
-  /*BUTTON HAMBURGER*/
-/*TABLES*/
-}
-//******************MIN 992 PX***************
-@media screen and(min-width:767px) and(max-width:1104px) {
-  html {
-    font-size: $font-size-min-737;
-  }
-  header nav ul li h1 {
-    font-size: 1.2rem;
-    margin-left: 10%;
-  }
-  .title-h1 {
-    width: 100%;
-    margin-left: 0;
-  }
-  .button {
-    padding: 1rem;
-  }
-  .new_user {
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    width: 80%;
-    margin-left: 10%;
-  }
-  form.new_user div.form-group {
-    width: 80%;
-    padding-left: 20%;
-  }
-  .btn-create-new-user {
-    width: 100%;
-    margin-left: 0;
-  }
-  form.connect-user div.form-group {
-    width: 70%;
-    margin-left: 15%;
-  }
-  .connect-user {
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    width: 60%;
-    margin-left: 18%;
-  }
-  h3 .title-on-page{
-    font-size: 1.5rem;
-    visibility: hidden;
-
-  }
-  input.btn.btn-success.new_incident_button{
-    visibility: hidden;
-  }
-  .navbar-btn{
-    margin-top: 13px;
-  }
-  .title-on-page{
-    visibility: hidden;
-  }
-}
-@media screen and(min-width:1105px) and(max-width:1599px) {
-  html {
-    font-size: $font-size-min-1105;
-  }
-  .tablesorter-header-inner{
-   font-size: 0.7em;
-  }
-  header nav ul li h1 {
-    font-size: 1.2rem;
-    margin-left: 10%;
-  }
-  .button {
-    padding: 3rem;
-  }
-  #new_user {
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    width: 50%;
-    margin-left: 25%;
-  }
-  form.new_user div.form-group {
-    width: 85%;
-    padding-left: 17.5%;
-  }
-  .btn-create-new-user {
-    width: 100%;
-    margin-left: 0;
-  }
-  .title-h1 {
-    width: 100%;
-    margin-left: 0;
-  }
-  .connect-user {
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    width: 40%;
-    margin-left: 30%;
-  }
-  .connect-user div.form-group {
-    width: 70%;
-    margin-left: 15%;
-  }
-  .navbar-nav > li > a {
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-left: 3px;
-    padding-right: 3px;
-  }
-  input.btn.btn-success.new_incident_button{
-    position: fixed;
-    float: right;
-    top: 13px;
-  }
-  .navbar-btn{
-    margin-top: 13px;
-  }
-
-}
-//******************MIN 1105 PX***************
-@media screen and(min-width:1600px) {
-  html {
-    //PC'S !! **********
-    font-size: $font-size-min-1105;
-  }
-  header nav ul li h1 {
-    font-size: 1.2rem;
-    margin-left: 10%;
-  }
-  .button {
-    padding: 3rem;
-  }
-  #new_user {
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    width: 40%;
-    margin-left: 30%;
-  }
-  form.new_user div.form-group {
-    width: 80%;
-    padding-left: 20%;
-  }
-  .btn-create-new-user {
-    width: 100%;
-    margin-left: 0;
-  }
-  .title-h1 {
-    width: 100%;
-    margin-left: 0;
-  }
-  .connect-user {
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    width: 40%;
-    margin-left: 30%;
-  }
-  .connect-user div.form-group {
-    width: 53%;
-    margin-left: 23.5%;
-  }
-  .navbar-nav > li > a {
-    padding-top: 8px;
-    padding-left: 3px;
-    padding-right: 3px;
-  }
-  input.btn.btn-success.new_incident_button{
-    position: fixed;
-    float: right;
-    top: 13px;
-  }
-  .navbar-btn{
-    margin-top: 13px;
-  }
-
-}
 /*CONTENU IDENTIQUE -------- FIN*/
 /*CONTENU UNIQUEMENT QUAND DECONNECTÉ*/
-#not-connected #content {
-  font-family: $text-font;
-  font-size: $font-size-default;
-  font-weight: $font-weight-normal;
-  background: $background !important;
-  -webkit-background-size: cover;
-}
 #not-connected{
-  background-color: $background-navbar-disconnected;
+  background-color: $background-navbar-connected;
 }
 #not-connected #user_tech_ {
   color: black;
@@ -416,29 +101,11 @@ div.field.select_yes_no{
   font-weight: $font-weight-normal;
   background: rgba(#000000, 0.50);
 }
-.whoisconnected li{
-  margin-top: 10px;
-  display: inline-block;
-  list-style: none;
-  position: relative;
-  right:0;
-  color: white;
-}
-.whoisconnected{
-  position: absolute;
-  right:20px;
-  top:0px;
-}
 /*CONTENU UNIQUEMENT QUAND DECONNECTÉ -------- FIN*/
 /*CONTENU UNIQUEMENT QUAND CONNECTÉ*/
 #connected {
   background: $background-connected;
-  color: $text-color-on-blue;
-}
-#connected .navbar {
-  background: $background-navbar-connected;
-  border-color: transparent;
-  border-radius: 0;
+  color: $text-color;
 }
 #connected .field {
   color: black;
@@ -452,7 +119,6 @@ div.field.select_yes_no{
   width: 100%;
   margin-left: 42%;
   color: red;
-  font-size: 2rem;
 }
 .triangle.openIt{
   width: 0;
@@ -501,58 +167,6 @@ div.field.select_yes_no{
   width:80% !important;
   margin-left: 10%;
 }
-.btn-response, .btn-cloture, .btn-reject, .btn-reaffect, .btn-cancel, .submitforms{
-  position:fixed;
-  width: 248px;
-  left:5px;
-  background-position: center left 70px;
-  background-repeat: no-repeat;
-}
-.btn-response{
-  background-image:image-url("ICOMOON/16px/0006-pencil.png");
-  bottom: 10px;
-}
-.btn-reaffect{
-  background-image:image-url("ICOMOON/16px/0006-pencil.png");
-  bottom: 130px;
-}
-.btn-reject{
-  background-image:image-url("ICOMOON/16px/0272-cross.png");
-  bottom: 90px;
-}
-.btn-cancel{
-  background-image:image-url("ICOMOON/16px/0272-cross.png");
-  bottom: 50px;
-}
-.btn-cloture{
-  background-image:image-url("ICOMOON/16px/0273-checkmark.png");
-  bottom: 50px;
-}
-.btn-response.isOpen{
-  width: 48px;
-  height: 40px;
-}
-.btn-reject.isOpen, .btn-cloture.isOpen, .btn-response.isOpen, .submitforms.isOpen, .btn-reaffect.isOpen{
-  background-position: center;
-  left:5px;
-  width: 48px;
-  height: 40px;
-  text-indent: -9999px;
-}
-
-.btn-reject.isOpen{
-  bottom: 100px;
-}
-.btn-cloture.isOpen{
-  bottom: 55px;
-}
-.btn-reaffect.isOpen{
-  bottom: 145px;
-}
-.submitforms{
-  background-image:image-url("ICOMOON/16px/0273-checkmark.png");
-  bottom:10px;
-}
 .field.col-md-6.left{
   padding-left: 5%;
 }
@@ -563,9 +177,6 @@ div .slider.slider-horizontal{
   margin-left: 10px;
   margin-right:10px;
   width:50% !important;
-}
-ul.liste_accueil{
-  color: black;
 }
 a, a:hover, a:active, a:focus{
   text-decoration: none;

@@ -1,0 +1,56 @@
+.btn-response, .btn-cloture, .btn-reject, .btn-reaffect, .btn-cancel, .submitforms{
+  position:fixed;
+  width: 248px;
+  left:5px;
+  background-position: center left 70px;
+  background-repeat: no-repeat;
+}
+.btn-response{
+  background-image:image-url("ICOMOON/16px/0006-pencil.png");
+  bottom: 10px;
+}
+.btn-reaffect{
+  background-image:image-url("ICOMOON/16px/0006-pencil.png");
+  bottom: 130px;
+}
+.btn-reject{
+  background-image:image-url("ICOMOON/16px/0272-cross.png");
+  bottom: 90px;
+}
+.btn-cancel{
+  background-image:image-url("ICOMOON/16px/0272-cross.png");
+  bottom: 50px;
+}
+.btn-cloture{
+  background-image:image-url("ICOMOON/16px/0273-checkmark.png");
+  bottom: 50px;
+}
+.btn-response.isOpen{
+  width: 48px;
+  height: 40px;
+}
+.btn-reject.isOpen, .btn-cloture.isOpen, .btn-response.isOpen, .submitforms.isOpen, .btn-reaffect.isOpen{
+  background-position: center;
+  left:5px;
+  width: 48px;
+  height: 40px;
+  text-indent: -9999px;
+}
+
+.btn-reject.isOpen{
+  bottom: 100px;
+}
+.btn-cloture.isOpen{
+  bottom: 55px;
+}
+.btn-reaffect.isOpen{
+  bottom: 145px;
+}
+.submitforms{
+  background-image:image-url("ICOMOON/16px/0273-checkmark.png");
+  bottom:10px;
+}
+.btn-align{
+  width:20%;
+  margin-left:40%;
+}

@@ -23,6 +23,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'premailer-rails', '~> 1.8', '>= 1.8.2'
 # bundle exec rake doc:rails generates the API under doc/api.
+gem 'file_validators'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'annotate', '~> 2.6.10'
 gem 'passenger'

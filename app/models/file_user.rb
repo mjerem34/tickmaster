@@ -3,7 +3,6 @@ class FileUser < ActiveRecord::Base
 
   mount_uploader :file, FileUsersUploader
   before_save :save_file_attribute
-
   def save_file_attribute
     if file.present?
       self.content_type = file.content_type

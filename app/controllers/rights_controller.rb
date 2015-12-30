@@ -54,6 +54,6 @@ class RightsController < ApplicationController
     end
 
     def right_params
-      params.require(:right).permit!
+      params.require(:right).permit(:name, :content, :user, :tech, :super_tech, :admin, :disp, :assistant, :expert, :comptable)
     end
 end

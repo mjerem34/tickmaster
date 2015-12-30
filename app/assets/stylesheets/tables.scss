@@ -1,0 +1,67 @@
+.header-fixed{
+  margin-top: -90px;
+  cursor: pointer;
+  height:40px;
+  box-shadow: 0px 1px 5px #888;
+}
+.header{
+  box-shadow: 0 0 0;
+}
+.header-fixed .tablesorter-filter-row{
+  position: absolute;
+  left: -999999999px;
+  top: -999999999px;
+}
+.header-fixed.isOpen{
+  left: 60px !important;
+}
+thead .header{
+  margin-top: -30px !important;
+}
+.tablesorter-filter{
+  max-width: 120px;
+}
+input:focus{
+  box-shadow: 0px 0px 5px #3187b3;
+}
+.row-top{
+  background: $background;
+  border-top-style: solid;
+  border-top-color: #3BA3D8;
+  border-top-width: 2px;
+}
+.row-top .field li{
+  color: #e8e8e8;
+  display: inline;
+  list-style: none;
+}
+.row-top .field{
+  position: relative;
+  margin-left: 650px;
+  margin-top: 0px;
+  width:auto;
+}
+.field.tech_name{
+  list-style: none;
+}
+select:nth-child(1){
+  font-size: 0.85em;
+}
+#connected tbody tr:hover td,
+#connected theader tr:hover th {
+  background: $background-td-hover !important;
+}
+td {
+  cursor: pointer;
+}
+table tr th {
+  font-weight: $font-weight-thick !important;
+}
+tbody td {
+  word-wrap: break-word;
+  overflow: hidden;
+}
+thead {
+  box-shadow: 0 4px 2px #888;
+  background: $background;
+}

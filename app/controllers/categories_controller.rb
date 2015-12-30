@@ -30,7 +30,7 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        format.html { redirect_to :back }
+        format.html { redirect_to :back, notice: "Catégorie crée avec success." }
         format.json { render json: :show, status: :created, location: @category }
       else
         format.html { redirect_to :back }

@@ -3,6 +3,7 @@
 
 
 
+<% if Right.where(name: "edit_rights").pluck(current_user.tech.name).join('') == 'true' %>
 <div class="table-responsive">
   <table class="table table-hover">
     <thead class="header">
@@ -11,7 +12,7 @@
       <th>Description</th>
       <th>Demandeur</th>
       <th>Technicien</th>
-      <th>Super Tech</th>
+      <th>Super-Tech</th>
       <th>Administrateur</th>
       <th>Dispatcheur</th>
       <th>Assistant</th>
@@ -19,10 +20,8 @@
       <th>Comptable</th>
     </tr>
   </thead>
-  <% if Right.where(name: "edit_rights").pluck(current_user.tech.name).join('') == 'true' %>
   <tbody>
     <% @rights.each do |right| %>
-
     <tr>
       <td onClick="document.location.href='<%=edit_right_path(right)%>'"><%= right.name %></td>
       <td onClick="document.location.href='<%=edit_right_path(right)%>'"><%= right.content %></td>
@@ -68,43 +67,75 @@
       <%end%>
     </tr>
     <% end %>
-    <tr class="formsnewright">
-      <%= simple_form_for @right do |f| %>
-      <td class="newright"><%= f.text_field :name, class: "form-control form-interface", placeholder: "Nom(Requis)", style: "margin-left:0px;"%></td>
-      <td class="newright"><%= f.text_area :content, class: "form-control form-interface", placeholder: "Description(Requis)", style: "margin-left:0px;"%></td>
-      <td class="newright"><%= f.input :user, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
-      <td class="newright"><%= f.input :tech, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
-      <td class="newright"><%= f.input :super_tech, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
-      <td class="newright"><%= f.input :admin, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
-      <td class="newright"><%= f.input :disp, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
-      <td class="newright"><%= f.input :assistant, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
-      <td class="newright"><%= f.input :expert, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
-      <td class="newright"><%= f.input :comptable, as: :radio_buttons, class: "form-control form-interface", style: "margin-left:0px; display:inline-block !important;", checked: [false] %></td>
-    </tr>
-    <% end %>
   </tbody>
   <% else %>
-  <tbody>
-    <% @rights.each do |right| %>
-
-    <tr>
-      <td><%= right.name %></td>
-      <td><%= right.content %></td>
-      <td><%= right.user %></td>
-      <td><%= right.tech %></td>
-      <td><%= right.super_tech %></td>
-      <td><%= right.admin %></td>
-      <td><%= right.disp %></td>
-    </tr>
-    <% end %>
-  </tbody>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="header">
+      <tr>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Demandeur</th>
+        <th>Technicien</th>
+        <th>Super-Tech</th>
+        <th>Administrateur</th>
+        <th>Dispatcheur</th>
+        <th>Assistant</th>
+        <th>Expert</th>
+        <th>Comptable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @rights.each do |right| %>
+      <tr>
+        <td onClick="document.location.href='<%=edit_right_path(right)%>'"><%= right.name %></td>
+        <td onClick="document.location.href='<%=edit_right_path(right)%>'"><%= right.content %></td>
+        <%if right.user == true%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: green;"><%= right.user %></td>
+        <%else%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: red;"><%= right.user %></td>
+        <%end%>
+        <%if right.tech == true%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: green;"><%= right.tech %></td>
+        <%else%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: red;"><%= right.tech %></td>
+        <%end%>
+        <%if right.super_tech == true%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: green;"><%= right.super_tech %></td>
+        <%else%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: red;"><%= right.super_tech %></td>
+        <%end%>
+        <%if right.admin == true%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: green;"><%= right.admin %></td>
+        <%else%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: red;"><%= right.admin %></td>
+        <%end%>
+        <%if right.disp == true%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: green;"><%= right.disp %></td>
+        <%else%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: red;"><%= right.disp %></td>
+        <%end%>
+        <%if right.assistant == true%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: green;"><%= right.disp %></td>
+        <%else%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: red;"><%= right.disp %></td>
+        <%end%>
+        <%if right.expert == true%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: green;"><%= right.disp %></td>
+        <%else%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: red;"><%= right.disp %></td>
+        <%end%>
+        <%if right.comptable == true%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: green;"><%= right.disp %></td>
+        <%else%>
+          <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: red;"><%= right.disp %></td>
+        <%end%>
+      </tr>
+      <% end %>
+    </tbody>
   <% end %>
 </table>
 </div>
-<div class="actions">
-  <p class="btn btn-success btn-align form-interface submit" id="sendButton" type="submit" name="commit">Envoyer </p>
-</div>
-
 <br>
 <% else %>
 <% @title = "Accès non autorisé"%>

@@ -46,7 +46,12 @@ class ResponsesController < ApplicationController
     if @response.save!
       unless params[:file_responses].nil?
         params[:file_responses]['file'].each do |a|
-          @file_responses = @response.file_responses.create!(
+          if a.size > 31_457_280
+            flash[:notice] = 'Doit être inférieur à 30 Mo'
+          elsif a.size > 5_242_880
+            flash[:notice] = 'Doit être inférieur à 5 Mo'
+          end
+          @file_responses = @response.file_responses.create(
             response_id: @response.id,
             file: a
           )
@@ -70,58 +75,61 @@ class ResponsesController < ApplicationController
           @response.receiver_id.nil? ? nil : AppMailer.incident_replied_for_receiver(@incident, @users, @response).deliver_now
           AppMailer.incident_replied_for_disp(@incident, @users, @response).deliver_now
         end
+        flash[:notice] = "Votre message a bien été envoyé."
         redirect_to edit_incident_path(@incident)
       when 'Rejeter' then
         reject_it(@incident)
         AppMailer.incident_rejected_for_creator(@incident, @users).deliver_now
         AppMailer.incident_rejected_for_disp(@incident, @users).deliver_now
+        flash[:notice] = "Votre demande de rejet a bien été prise en compte."
         redirect_to edit_incident_path(@incident)
       when 'Réaffecter' then
         reaffect_it(@incident)
         AppMailer.incident_reaffected_for_tech(@incident, @users).deliver_now
         AppMailer.incident_reaffected_for_disp(@incident, @users).deliver_now
+        flash[:notice] = "Votre demande de réaffectation a bien été prise en compte."
         redirect_to edit_incident_path(@incident)
       when 'Cloturer' then
         cloture_it(@incident)
       end
     else
       redirect_to edit_incident_path(@incident)
-  end
-  end
-
-  # PATCH/PUT /responses/1
-  # PATCH/PUT /responses/1.json
-  def update
-    respond_to do |format|
-      if @response.update(response_params)
-        format.html { redirect_to @response }
-        format.json { render :show, status: :ok, location: @response }
-      else
-        format.html { render :edit }
-        format.json { render json: @response.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /responses/1
-  # DELETE /responses/1.json
-
-  def destroy
-    @response.destroy
-    respond_to do |format|
-      format.html { redirect_to responses_url }
-      format.json { head :no_content }
+# PATCH/PUT /responses/1
+# PATCH/PUT /responses/1.json
+def update
+  respond_to do |format|
+    if @response.update(response_params)
+      format.html { redirect_to @response }
+      format.json { render :show, status: :ok, location: @response }
+    else
+      format.html { render :edit }
+      format.json { render json: @response.errors, status: :unprocessable_entity }
     end
   end
+end
 
-  def download
-    send_file "#{Rails.root}/public/uploads/responses/#{@response.file_responses.id}/#{@response.file_responses.identifier}"
+# DELETE /responses/1
+# DELETE /responses/1.json
+
+def destroy
+  @response.destroy
+  respond_to do |format|
+    format.html { redirect_to responses_url }
+    format.json { head :no_content }
   end
+end
+
+def download
+  send_file "#{Rails.root}/public/uploads/responses/#{@response.file_responses.id}/#{@response.file_responses.identifier}"
+end
 
   private
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def response_params
-    params.require(:response).permit(:content, file_responses_attributes: [:id, :response_id, :file, :content_type, :file_size])
-  end
+# Never trust parameters from the scary internet, only allow the white list through.
+def response_params
+  params.require(:response).permit(:content, file_responses_attributes: [:id, :response_id, :file, :content_type, :file_size])
 end

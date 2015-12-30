@@ -1,21 +1,5 @@
-#connected tbody tr:hover td,
-#connected theader tr:hover th {
-  background: $background-td-hover !important;
-}
-td {
-  cursor: pointer;
-}
-table tr th {
-  font-weight: $font-weight-thick !important;
-}
-tbody td {
-  word-wrap: break-word;
-  overflow: hidden;
-}
-thead {
-  box-shadow: 0 4px 2px #888;
-  background: #FFF !important;
-}
+
+
 input{
 }
 .hover-cellule span {
