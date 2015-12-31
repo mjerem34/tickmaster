@@ -53,11 +53,13 @@ class IncidentsController < ApplicationController
 
     respond_to do |format|
       if @incident.save
-        params[:file_incidents]['file'].each do |a|
-          @file_incident = @incident.file_incidents.create!(
-            incident_id: @incident.id,
-            file: a
-          )
+        unless params[:tempfile].nil?
+          params[:file_incidents]['tempfile'].each do |a|
+            @file_incident = @incident.file_incidents.create!(
+              incident_id: @incident.id,
+              file: a
+            )
+          end
         end
         @response = Response.new(
           content: "Incident créé par #{current_user.name}
