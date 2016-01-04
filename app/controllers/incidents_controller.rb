@@ -53,8 +53,8 @@ class IncidentsController < ApplicationController
 
     respond_to do |format|
       if @incident.save
-        unless params[:tempfile].nil?
-          params[:file_incidents]['tempfile'].each do |a|
+        unless params[:file_incidents].nil?
+          params[:file_incidents]['file'].each do |a|
             @file_incident = @incident.file_incidents.create!(
               incident_id: @incident.id,
               file: a

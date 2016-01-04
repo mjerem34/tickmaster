@@ -1,4 +1,4 @@
-<%= form_for @incident, html: { multipart: true, id: "my-awesome-dropzone", class: '' } do |f| %>
+<%= form_for @incident, html: { multipart: true } do |f| %>
 <br>
   <div class="row">
 
@@ -53,40 +53,73 @@
 $("#incident_lvl_urgence_user").slider();
 
 </script>
-<div class="fallback">
+<div class="fallback" id="filesinputs">
     <%= fields_for :file_incidents, @incident.file_incidents do |i| %>
-                <%= f.file_field :file, name: "file", multiple: true %>
+                <%= f.file_field :file, name: "file_incidents[file][]", multiple: false, id: "attachfile" %>
     <% end %>
 </div>
-<div class="dropzone-previews">
+<!--
+<div id="filelist">
 
-</div>
+</div> -->
 
 <div class="actions">
-<button type="button" name="button" class="btn btn-success btn-response" id="btn-send">Envoyer</button>
+  <%= f.submit "Envoyer", id: "sendButton", class: "btn btn-success btn-response", data: { confirm: 'Êtes vous sûr ?' } %>
 </div>
 <% end %>
-
 <script type="text/javascript">
-$(document).ready(function(){
-  // disable auto discover
-  Dropzone.autoDiscover = false;
+var selDiv = "";
+var storedFiles = []; //store the object of the all files
 
-  var dropzone = new Dropzone (".dropzone", {
-    maxFilesize: 50, // Set the maximum file size to 50 MB
-    paramName: "file_incidents[file]", // Rails expects the file upload to be something like model[field_name]
-    addRemoveLinks: false, // Don't show remove links on dropzone itself.
-    autoProcessQueue: false, // Don't send automatically form
-    uploadMultiple: true, // Allow multiple files
-    maxFiles: 5, // Maximum select 5 files
-    previewsContainer: '.dropzone-previews'
-  });
-});
+document.addEventListener("DOMContentLoaded", init, false);
 
-$(document).ready(function{
-  $("#btn-send").click(function(){
-    myDropzone.processQueue();
-  });
-});
+function init() {
+   //To add the change listener on over file element
+   document.querySelector('#attachfile').addEventListener('change', handleFileSelect, false);
+   //allocate division where you want to print file name
+   selDiv = document.querySelector("#filelist");
+}
 
+//function to handle the file select listenere
+function handleFileSelect(e) {
+   //to check that even single file is selected or not
+   if(!e.target.files) return;
+
+   //for clear the value of the selDiv
+   selDiv.innerHTML = "";
+
+   //get the array of file object in files variable
+   var files = e.target.files;
+   var filesArr = Array.prototype.slice.call(files);
+
+   //print if any file is selected previosly
+   for(var i=0;i<storedFiles.length;i++)
+   {
+       selDiv.innerHTML += "<div class='filename'> <span> " + storedFiles[i].name + "</span></div>";
+   }
+   filesArr.forEach(function(f) {
+       //add new selected files into the array list
+       storedFiles.push(f);
+       //print new selected files into the given division
+       selDiv.innerHTML += "<div class='filename'> <span> " + f.name + "</span></div>";
+   });
+
+   //store the array of file in our element this is send to other page by form submit
+}
+</script>
+<script type="text/javascript">
+var divAppended = document.getElementById("filesinputs");
+var input = document.getElementById("attachfile");
+input.addEventListener('change', function(e) {
+  e = e || window.event;
+  e.preventDefault();
+  var nI = document.createElement('input');
+  nI.type = 'file';
+  nI.style.display = 'none';
+  nI.multiple = 'true';
+  nI.name = 'file_incidents[file]';
+  document.getElementById('attachfile').appendChild(nI);
+}, false);
+</script>
+<script type="text/javascript">
 </script>
