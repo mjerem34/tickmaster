@@ -100,20 +100,13 @@
       <a class="title-site navbar-brand openIt" href='/' data-no-turbolink="true">TickMaster</a>
       <a class="title-site navbar-brand by-cle openIt click">by<%= image_tag("cle.png", size: "60x20", alt: "Cle Expertises")%></a>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <h3 class="title-on-page"><%= @title %></h3>
   <% if !current_user.nil? %>
   <ul class="whoisconnected">
-    <li><h5>Connecté en tant que : <%= current_user.name + ' ' + current_user.surname%></h5></li>
+    <li><h5>Connecté en tant que : <%= link_to"#{current_user.name} #{current_user.surname}", profil_user_path(current_user)%></h5></li>
     <li> <%= button_to("Se déconnecter", signout_path, :method => :get, :class => "btn btn-danger")%></li>
-  </ul>
-  <% else %>
-  <ul class="whoisconnected">
-    <li><%= button_to("Se connecter", signin_path, :method => :get, :class => "btn btn-success")%></li>
-    <li><%= button_to("S'inscrire", signup_path, :method => :get, :class => "btn btn-primary")%></li>
   </ul>
   <% end %>
 </nav>
-</div> <!-- /.navbar-collapse -->
 </div>  <!-- /.container-fluid -->
 </header>

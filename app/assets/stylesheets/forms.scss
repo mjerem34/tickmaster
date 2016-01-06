@@ -1,0 +1,51 @@
+// Formulaire d'inscription et formulaire d'inscription
+form#new_user, form.connect-user{
+  width:50%;
+  min-width:200px;
+  max-width: 500px;
+  position:absolute;
+  @media screen and(min-width:1600px) {
+    left:35%;
+    .email{
+      width:49.6%;
+    }
+}
+  @media screen and(min-width:1105px) and(max-width:1599px) {
+    left:29.5%;
+    .email{
+      width:49.6%;
+    }
+  }
+  @media screen and(min-width:768px) and(max-width:1104px) {
+    left:21%;
+    .email{
+      width:49.4%;
+    }
+  }
+  @media screen and(min-width:413px) and(max-width:767px) {
+    left: 15%;
+    .email{
+      width:100%;
+    }
+    .email:first-child{
+      margin-bottom:15px;
+    }
+  }
+  @media screen and(max-width:412px) {
+    left:15%;
+    .email{
+      width:100%;
+    }
+    .email:first-child{
+      margin-bottom:15px;
+    }
+  }
+  .btn{
+    width:100%;
+  }
+}
+
+//Tous les formulaires
+.form-control {
+  font-weight: $font-weight-thick;
+}

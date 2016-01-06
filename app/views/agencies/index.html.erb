@@ -27,18 +27,18 @@
     <tbody>
       <% @agencies.each do |agency| %>
       <tr>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.id == nil ? "Inconnu" : agency.id%></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.name == nil ? "Inconnu" : agency.name %></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.adress == nil ? "Inconnu" : agency.adress%></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.adress2 == nil ? "Inconnu" : agency.adress2%></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.adress3 == nil ? "Inconnu" : agency.adress3%></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.cp == nil ? "Inconnu" : agency.cp %>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.city == nil ? "Inconnu" : agency.city %></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.department == nil ? "Inconnu" : agency.department %></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.email == nil ? "Inconnu" : agency.email %>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.tel == nil ? "Inconnu" : agency.tel %></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.fax == nil ? "Inconnu" : agency.fax %></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.ip_adress == nil ? "Inconnu" : agency.ip_adress %>
+        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.id %></td>
+        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.name %></td>
+        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.adress == 'NULL' ? "" : agency.adress%></td>
+        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.adress2 == "NULL" ? "" : agency.adress2%></td>
+        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.adress3 == "NULL" ? "" : agency.adress3%></td>
+        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.cp == "NULL" ? "" : agency.cp %>
+        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.city == "NULL" ? "" : agency.city %></td>
+        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.department == "NULL" ? "" : agency.department %></td>
+        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.email == "NULL" ? "" : agency.email %>
+        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.tel == "NULL" ? "" : agency.tel %></td>
+        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.fax == "NULL" ? "" : agency.fax %></td>
+        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.ip_adress == "NULL" ? "" : agency.ip_adress %>
       </tr>
       <% end %>
         </tbody>

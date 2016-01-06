@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  before_filter :set_cache_buster
   include SessionsHelper
 
   private
@@ -19,21 +20,21 @@ class ApplicationController < ActionController::Base
         receiver_id: response.receiver_id,
         ip_adress_sender: response.ip_adress_sender,
         pc_id: response.pc_id)
-        next if response.file_responses.nil?
-        response.file_responses.each do |a| # Alors pour chaque fichier
-          @file_archives = FileArchive.new( # Creer un fichier archive identique a l'ancien dans la table file_archives
-            archive_id: response.id,
-            file: a.file
-          )
-          if @file_archives.save! # Si fichier sauvegarde
-            a.destroy # Detruit l'ancien
-          else
-            flash[:notice] = "Une erreur est apparue lors de l'archivage des fichiers de l'incident.
-            Merci de contacter votre administrateur en lui fournissant ces informations :
-            #{@file_archives.inspect} ------ #{response.inspect} ------ #{incident.inspect}"
-            redirect_to_back
-          end
+      next if response.file_responses.nil?
+      response.file_responses.each do |a| # Alors pour chaque fichier
+        @file_archives = FileArchive.new( # Creer un fichier archive identique a l'ancien dans la table file_archives
+          archive_id: response.id,
+          file: a.file
+        )
+        if @file_archives.save! # Si fichier sauvegarde
+          a.destroy # Detruit l'ancien
+        else
+          flash[:notice] = "Une erreur est apparue lors de l'archivage des fichiers de l'incident.
+          Merci de contacter votre administrateur en lui fournissant ces informations :
+          #{@file_archives.inspect} ------ #{response.inspect} ------ #{incident.inspect}"
+          redirect_to_back
         end
+      end
 
       if @archive.save! # Si ok
         response.destroy # et supprime l'ancienne reponse
@@ -58,6 +59,12 @@ class ApplicationController < ActionController::Base
       redirect_to default
     end
   end
+
+  def set_cache_buster
+    response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
+end
 
   def cloture_it(incident)
     @users = User.all # Recuperation de tous les users pour email

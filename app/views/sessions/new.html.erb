@@ -1,11 +1,12 @@
 <% @title = "Se connecter"%>
 <% if current_user == nil %>
 <% content_for :form do %>
+<h1 class="home">Bienvenue sur la page d'accueil de TickMaster.</h1><br><br><br><br><br><br><br>
 <%= form_for(:session, :url => sessions_path, html: {class: "connect-user"}) do |f| %>
 <div class="field form-group">
+
   <% @arr = [] %>
   <%@arr = User.find_by_sql('SELECT users.pseudo FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false').collect{|u| u.pseudo}%>
-  <h1 class="title-h1">Connexion</h1>
   <%= f.text_field :pseudo, class: "form-control pseudo-entry", placeholder: "Pseudonyme", id: 'next' %>
   <%= f.password_field :password, class: "form-control password-entry", placeholder: "Mot de passe" %>
   <script type="text/javascript">
@@ -49,8 +50,9 @@
   <% end %>
 </div>
 <div class="actions form-group">
-  <%= f.submit "Se connecter", id: "sendButton", class: "btn btn-success btn-create-new-user btn-success btn-align form-interface", onclick: "disableButton(this.id)" %><br>
+  <%= f.submit "Se connecter", id: "sendButton", class: "btn btn-success btn-create-new-user", onclick: "disableButton(this.id)" %><br>
 </div>
+<%= link_to "Pas encore inscrit ?", signup_path, class: "btn btn-primary"%>
 <% end %>
 <% end %>
 <%else %>

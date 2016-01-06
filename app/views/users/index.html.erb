@@ -1,15 +1,10 @@
-<% if Right.where(name: "view_index_users").pluck(current_user.tech.name).join('')  == 'true' %>
+<% if !current_user.nil? && Right.where(name: "view_index_users").pluck(current_user.tech.name).join('')  == 'true' %>
 <% @title = "Liste des utilisateurs"%>
-<% Tech.all.each do |tech| %>
-<a href="#<%=tech.name%>" class="btn btn-default"><%=tech.name%></a>
-<% end %>
-<% Tech.all.each do |tech| %>
-<h2 class="form-interface"><%= "Liste des #{tech.name}s" %></h1>
 <div class="table-responsive">
   <table class="table table-hover">
     <thead class="header">
       <tr>
-        <th id='<%=tech.name%>'>#</th>
+        <th>#</th>
         <th>Pseudo</th>
         <th>Email</th>
         <th>Nom</th>
@@ -17,33 +12,28 @@
         <th>Tel</th>
         <th>Mobile</th>
         <th>Agence</th>
-        <th>Inscrit depuis</th>
-        <th>Type de compte</th>
+        <th>Inscription</th>
+        <th>Compte</th>
       </tr>
     </thead>
     <tbody>
       <% @users.each do |user| %>
-      <% if user.tech.name == tech.name %>
       <tr>
-        <td onClick="document.location.href='<%=user_path(user)%>'"><%= user.id%></td>
-        <td onClick="document.location.href='<%=user_path(user)%>'"><%= user.pseudo%></td>
-        <td onClick="document.location.href='<%=user_path(user)%>'"><%= user.email%></td>
-        <td onClick="document.location.href='<%=user_path(user)%>'"><%= user.name%></td>
-        <td onClick="document.location.href='<%=user_path(user)%>'"><%= user.surname%></td>
-        <td onClick="document.location.href='<%=user_path(user)%>'"><%= user.tel == nil ? "Inconnu" : user.tel %></td>
-        <td onClick="document.location.href='<%=user_path(user)%>'"><%= user.mobile == nil ? "Inconnu" : user.mobile %></td>
-        <td onClick="document.location.href='<%=user_path(user)%>'"><%= user.agency.name%></td>
-        <td onClick="document.location.href='<%=user_path(user)%>'"><%= user.created_at == nil ? "Date inconnue" : user.created_at.strftime("%d %b %Y %H:%M")  %></td>
-        <td onClick="document.location.href='<%=user_path(user)%>'"><%= user.tech.name %></td>
-        <% if current_user.tech_id %>
+        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.id%></td>
+        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.pseudo%></td>
+        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.email%></td>
+        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.name%></td>
+        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.surname%></td>
+        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.tel == nil ? "Inconnu" : user.tel %></td>
+        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.mobile == nil ? "Inconnu" : user.mobile %></td>
+        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.agency.name%></td>
+        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.created_at == nil ? "Date inconnue" : user.created_at.strftime("%d %b %Y %H:%M")  %></td>
+        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.tech.name %></td>
       </tr>
-      <% end %>
-      <% end %>
-      <% end %>
+      <%end%>
     </tbody>
   </table>
 </div>
-<%end%>
 
 <%else%>
 <% @title = "Accès non autorisé"%>
