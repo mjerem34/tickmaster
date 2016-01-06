@@ -1,7 +1,7 @@
 <% if !current_user.nil? && (current_user == @user && Right.where(name: "edit_user").pluck(current_user.tech.name).join('')  == 'true') || Right.where(name: "edit_other_user").pluck(current_user.tech.name).join('') == 'true'  %>
 <% @title = "Editer l'utilisateur #{@user.surname} #{@user.name}"%>
 
-
+<br><br>
 <%= form_for(@user) do |f| %>
 <br>
 <div id="next">
@@ -109,13 +109,13 @@
 </div>
 
   <div class="actions form-group">
-    <%= f.submit "Enregistrer", class: "btn btn-success form-interface"%>
+    <%= f.submit "Enregistrer les modifications", class: "btn btn-success form-interface"%>
   </div>
+  <%= link_to 'Voir les incidents de l\'utilisateur', user_path(@user), class: "btn btn-primary form-interface" %>
 
 <% end %>
 
 
-<%= link_to 'Incidents', user_path(@user), class: "btn btn-primary form-interface" %>
 <% else %>
 <% @title = "Accès non autorisé"%>
 <p class="alert_non_authorized">

@@ -1,23 +1,19 @@
 <%= form_for @incident, html: { multipart: true } do |f| %>
 <br>
-  <div class="row">
-
   <div class="field">
     <%= f.label "Catégorie", :class => 'form-interface'  %><br>
-    <%= select_tag "incident[category_id]", options_for_select(@categories.collect{|category| [category.name.titleize, category.id]}), {:class => "form-control form-interface", include_blank: ""}%>
-  </div>
-</div>
-<div class="row">
-    <br>
-    <div class="field">
-    <%= f.label "Sous-Catégorie", :class => 'form-interface'  %><br>
-
+    <%= select_tag "incident[category_id]", options_for_select(@categories.collect{|category| [category.name.titleize, category.id]}), {:class => "form-control form-interface", include_blank: ""}%><br>
     <%= select_tag "incident[sous_category_id]", options_for_select(@sous_categories.collect{|sous_category| [sous_category.name.titleize, sous_category.id]}), {:class => "form-control form-interface", include_blank: "" } %>
+  </div>
     <br>
-  </div>
-  </div>
-
-  <div class="row">
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#incident_sous_category_id").hide();
+    $("#incident_category_id").change(function(){
+      $("#incident_sous_category_id").show(250);
+    });
+  });
+</script>
     <div class="field">
       <%= f.label "Objet", :class => 'form-interface' %><br>
       <%= f.text_field :title, :class => "form-control form-interface"  %>
@@ -26,7 +22,6 @@
         <%= "Objet " + @incident.errors[:title].first%><br><br>
       </div>
       <% end %>
-    </div>
   </div><br>
 
 
@@ -39,6 +34,7 @@
   </div>
   <% end %>
 </div><br>
+
 <div class="field"><br>
   <%= f.label "Niveau d'urgence", :class => 'form-interface'  %><br>
   <div class="form-interface">
@@ -55,13 +51,12 @@ $("#incident_lvl_urgence_user").slider();
 </script>
 <div class="fallback" id="filesinputs">
     <%= fields_for :file_incidents, @incident.file_incidents do |i| %>
-                <%= f.file_field :file, name: "file_incidents[file][]", multiple: false, id: "attachfile" %>
+      <%= i.file_field :file, name: "file_incidents[file][]", multiple: false, id: "attachfile" %>
     <% end %>
 </div>
-<!--
 <div id="filelist">
 
-</div> -->
+</div>
 
 <div class="actions">
   <%= f.submit "Envoyer", id: "sendButton", class: "btn btn-success btn-response", data: { confirm: 'Êtes vous sûr ?' } %>
