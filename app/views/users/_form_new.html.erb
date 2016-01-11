@@ -225,7 +225,7 @@
     <% end %>
   </div>
 
-  <div class="field form-group">
+  <div class="field form-group form-tel">
     <%= f.phone_field :tel, class: "form-control next", placeholder: "Téléphone (ex : 04...)(Requis)", onkeyup: "verif_nombre(this);", maxlength: "10" %>
     <% if @user.errors[:tel].first != nil  %>
     <div class="alert alert-danger">
@@ -238,7 +238,7 @@
     <% end %>
   </div>
 
-  <div class="field form-group">
+  <div class="field form-group form-mobile">
     <%= f.phone_field :mobile, class: "form-control next", placeholder: "Mobile (ex : 06...)", onkeyup: "verif_nombre(this);", maxlength: "10" %>
     <% if @user.errors[:mobile].first != nil  %>
     <div class="alert alert-danger">
@@ -250,6 +250,14 @@
     <!-- DIV ERROR -->
     <% end %>
   </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(".form-mobile").hide();
+      $(".form-tel").change(function(){
+        $(".form-mobile").show(150);
+      });
+    });
+  </script>
   <script language="Javascript">
   function verif_nombre(champ)
     {

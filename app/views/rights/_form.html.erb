@@ -1,5 +1,5 @@
 
-<%= form_for(@right) do |f| %>
+<%= simple_form_for(@right) do |f| %>
 
 <div class="field">
   <%= f.text_field :name, class: "form-control next form-interface", placeholder: "Nom(Requis)"  %>
@@ -25,16 +25,61 @@
   <% end %>
 
 </div><br>
-<% Tech.all.pluck(:name).each do |t|%>
-<div class='field select_yes_no'>
-  <%= f.label t.capitalize %><br>
-  <%= button_radio = radio_button_tag "right[#{t}]", 'true', false, id: "#{t}_true" %>
-  <%= label_tag "#{t}_true", 'Oui' %>
-  <%= button_radio = radio_button_tag "right[#{t}]", 'false', true, id: "#{t}_false" %>
-  <%= label_tag "#{t}_true", 'Non' %>
-</div><br>
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="all_selects col-md-4">
+    <div class="field select_tags">
+      <%= f.label "UTILISATEUR" %><br>
+      <%= radio_button_tag "right[user]", 'true', (@right.user == true), id: "user_true" %>
+      <%= label_tag "user_true", 'Oui' %>
+      <%= radio_button_tag "right[user]", 'false', (@right.user == false), id: "user_false" %>
+      <%= label_tag "user_true", 'Non' %>
+    </div><br><div class="field select_tags">
+      <%= f.label "TECHNICIEN" %><br>
+      <%= radio_button_tag "right[tech]", 'true', (@right.tech == true), id: "tech_true" %>
+      <%= label_tag "tech_true", 'Oui' %>
+      <%= radio_button_tag "right[tech]", 'false', (@right.tech == false), id: "tech_false" %>
+      <%= label_tag "tech_true", 'Non' %>
+    </div><br><div class="field select_tags">
+      <%= f.label "SUPER-TECHNICIEN" %><br>
+      <%= radio_button_tag "right[super_tech]", 'true',  (@right.super_tech == true), id: "super_tech_true" %>
+      <%= label_tag "super_tech_true", 'Oui' %>
+      <%= radio_button_tag "right[super_tech]", 'false',  (@right.super_tech == false), id: "super_tech_false" %>
+      <%= label_tag "super_tech_true", 'Non' %>
+    </div><br><div class="field select_tags">
+      <%= f.label "ADMINISTRATEUR" %><br>
+      <%= radio_button_tag "right[admin]", 'true', (@right.admin == true), id: "admin_true" %>
+      <%= label_tag "admin_true", 'Oui' %>
+      <%= radio_button_tag "right[admin]", 'false', (@right.admin == false), id: "admin_false" %>
+      <%= label_tag "admin_true", 'Non' %>
+    </div><br><div class="field select_tags">
+      <%= f.label "DISPATCHEUR" %><br>
+      <%= radio_button_tag "right[disp]", 'true', (@right.disp == true), id: "disp_true" %>
+      <%= label_tag "disp_true", 'Oui' %>
+      <%= radio_button_tag "right[disp]", 'false', (@right.disp == false), id: "disp_false" %>
+      <%= label_tag "disp_true", 'Non' %>
+    </div><br><div class="field select_tags">
+      <%= f.label "ASSISTANT" %><br>
+      <%= radio_button_tag "right[assistant]", 'true', (@right.assistant == true), id: "assistant_true" %>
+      <%= label_tag "assistant_true", 'Oui' %>
+      <%= radio_button_tag "right[assistant]", 'false', (@right.assistant == false), id: "assistant_false" %>
+      <%= label_tag "assistant_true", 'Non' %>
+    </div><br><div class="field select_tags">
+      <%= f.label "EXPERT" %><br>
+      <%= radio_button_tag "right[expert]", 'true', (@right.expert == true), id: "expert_true" %>
+      <%= label_tag "expert_true", 'Oui' %>
+      <%= radio_button_tag "right[expert]", 'false', (@right.expert == false), id: "expert_false" %>
+      <%= label_tag "expert_true", 'Non' %>
+    </div><br><div class="field select_tags">
+      <%= f.label "COMPTABLE" %><br>
+      <%= radio_button_tag "right[comptable]", 'true', (@right.comptable == true), id: "comptable_true" %>
+      <%= label_tag "comptable_true", 'Oui' %>
+      <%= radio_button_tag "right[comptable]", 'false', (@right.comptable == false), id: "comptable_false" %>
+      <%= label_tag "comptable_true", 'Non' %>
+    </div><br>
+  </div>
+</div>
 
-<% end %>
   <div class="actions">
     <%= f.submit "Enregistrer", id: "sendButton", class: "btn btn-success btn-align form-interface", onclick: "disableButton(this.id)" %><br>
   </div><br>

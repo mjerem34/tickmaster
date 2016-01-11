@@ -15,6 +15,7 @@ class RightsController < ApplicationController
 
   def edit
   end
+
   def create
     @right = Right.new(right_params)
     respond_to do |format|
@@ -31,7 +32,7 @@ class RightsController < ApplicationController
   def update
     respond_to do |format|
       if @right.update(right_params)
-        format.html { redirect_to @right, notice: 'Droit mis à jour.' }
+        format.html { redirect_to rights_path, notice: 'Droit mis à jour.' }
         format.json { render :show, status: :ok, location: @right }
       else
         format.html { render :edit }
@@ -49,11 +50,12 @@ class RightsController < ApplicationController
   end
 
   private
-    def set_right
-      @right = Right.find(params[:id])
-    end
 
-    def right_params
-      params.require(:right).permit(:name, :content, :user, :tech, :super_tech, :admin, :disp, :assistant, :expert, :comptable)
-    end
+  def set_right
+    @right = Right.find(params[:id])
+  end
+
+  def right_params
+    params.require(:right).permit(:name, :content, :user, :tech, :super_tech, :admin, :disp, :assistant, :expert, :comptable)
+  end
 end

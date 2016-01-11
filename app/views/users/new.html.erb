@@ -239,44 +239,55 @@ $(document).ready(function(){
   });
 });
 </script>
-  <div class="form-group">
-    <%= f.phone_field :tel, class: "form-control next", placeholder: "Téléphone/Mobile (ex : 04...)(Requis)", onkeyup: "verif_nombre(this);", required: true, maxlength: "10" %>
-    <% if @user.errors[:tel].first != nil  %>
-    <div class="alert alert-danger">
+<div class="field form-group form-tel">
+  <%= f.phone_field :tel, class: "form-control next", placeholder: "Téléphone (ex : 04...)(Requis)", onkeyup: "verif_nombre(this);", maxlength: "10" %>
+  <% if @user.errors[:tel].first != nil  %>
+  <div class="alert alert-danger">
     <%= "Téléphone " + @user.errors[:tel].first%><br>
-      <% if @user.errors[:tel].second != nil %>
-        <%= "Téléphone " + @user.errors[:tel].second%><br>
-      <% end %>
-  </div><!-- DIV ERROR -->
+    <% if @user.errors[:tel].second != nil %>
+    <%= "Téléphone " + @user.errors[:tel].second%><br>
     <% end %>
   </div>
+  <!-- DIV ERROR -->
+  <% end %>
+</div>
+
+<div class="field form-group form-mobile">
+  <%= f.phone_field :mobile, class: "form-control next", placeholder: "Mobile (ex : 06...)", onkeyup: "verif_nombre(this);", maxlength: "10" %>
+  <% if @user.errors[:mobile].first != nil  %>
+  <div class="alert alert-danger">
+    <%= "Mobile " + @user.errors[:mobile].first%><br>
+    <% if @user.errors[:mobile].second != nil %>
+    <%= "Mobile " + @user.errors[:mobile].second%><br>
+    <% end %>
+  </div>
+  <!-- DIV ERROR -->
+  <% end %>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".form-mobile").hide();
+    $(".form-tel").change(function(){
+      $(".form-mobile").show(150);
+    });
+  });
+</script>
   <script language="Javascript">
   function verif_nombre(champ)
-    {
-  	var chiffres = new RegExp("[0-9]");
-  	var verif;
-  	var points = 0;
+  {
+    var chiffres = new RegExp("[0-9]");
+    var verif;
+    var points = 0;
 
-  	for(x = 0; x < champ.value.length; x++)
-  	{
-              verif = chiffres.test(champ.value.charAt(x));
-  	    if(champ.value.charAt(x) == "."){points++;}
-              if(points > 1){verif = false; points = 1;}
-    	    if(verif == false){champ.value = champ.value.substr(0,x) + champ.value.substr(x+1,champ.value.length-x+1); x--;}
-  	}
+    for(x = 0; x < champ.value.length; x++)
+    {
+      verif = chiffres.test(champ.value.charAt(x));
+      if(champ.value.charAt(x) == "."){points++;}
+      if(points > 1){verif = false; points = 1;}
+      if(verif == false){champ.value = champ.value.substr(0,x) + champ.value.substr(x+1,champ.value.length-x+1); x--;}
     }
+  }
   </script>
-  <div class="form-group">
-    <%= f.phone_field :mobile, class: "form-control next", placeholder: "Téléphone 2 (ex : 06...)", onkeyup: "verif_nombre(this);", maxlength: "10" %>
-    <% if @user.errors[:mobile].first != nil  %>
-    <div class="alert alert-danger">
-    <%= "Mobile " + @user.errors[:mobile].first%><br>
-      <% if @user.errors[:mobile].second != nil %>
-        <%= "Mobile " + @user.errors[:mobile].second%><br>
-      <% end %>
-  </div><!-- DIV ERROR -->
-    <% end %>
-  </div>
   <div class="form-group select_tech">
     <%= select_tag "user[tech_id]", options_for_select(Tech.where(afficher: true).pluck(:name, :id)), class: "form-control text-uppercase", include_blank: "Type d'utilisateur :", required: true %>
     <%= f.password_field :password, class: "form-control", placeholder: "Mot de passe" %>
