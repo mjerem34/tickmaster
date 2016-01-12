@@ -150,7 +150,7 @@
 <div class="actions">
   <% if @incident.incident_state_id_for_user != 7 || @incident.incident_state_id_for_user != 10 || @incident.incident_state_id_for_user != 1 || @incident.incident_state_id_for_user != 2 %>
   <% if Right.where(name: "edit_incidents").pluck(current_user.tech.name).join('') == true %>
-  <%= f.submit "Enregistrer", id: "sendButton", class: "btn btn-success form-interface", onclick: "disableButton(this.id)" %>
+  <%= f.submit "Enregistrer", id: "sendButton", class: "btn btn-success form-interface" %>
 </div>
 <% end %>
 <% end %>

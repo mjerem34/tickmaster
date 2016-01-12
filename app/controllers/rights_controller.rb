@@ -1,5 +1,7 @@
 class RightsController < ApplicationController
   before_action :set_right, only: [:show, :edit, :update, :destroy]
+  before_action :set_expiration
+
 
   def index
     @rights = Right.all
@@ -50,6 +52,10 @@ class RightsController < ApplicationController
   end
 
   private
+
+  def set_expiration
+    expires_in(100.years, public: true)
+  end
 
   def set_right
     @right = Right.find(params[:id])

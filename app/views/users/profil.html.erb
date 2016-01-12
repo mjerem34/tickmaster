@@ -118,7 +118,5 @@
 
 <% else %>
 <% @title = "Accès non autorisé"%>
-<p class="alert_non_authorized">
-  Accès non autorisé ! <%= render 'sessions/new' %>
-</p>
+  <%= flash.now[:notice] = "Accès non autorisé !" %>
 <% end %>

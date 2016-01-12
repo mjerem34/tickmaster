@@ -50,7 +50,7 @@
           </span>
         </td>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_urgence_user %></td>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_urgence_tech %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_of_incident %></td>
       </tr>
       <% end %>
       <% end %>
@@ -114,7 +114,7 @@
           </span>
         </td>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_urgence_user %></td>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_urgence_tech %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_of_incident %></td>
       </tr>
       <% end %>
       <% end %>
@@ -180,7 +180,7 @@
           <%= IncidentsState.where(id: "#{incident.incident_state_id_for_user}").pluck(:shortcut).join('') %>
           <span>
             <%=IncidentsState.where(id: "#{incident.incident_state_id_for_user}").pluck(:name).join('')%>
-          </span>
+        </span>
 
           <% else %>
           <%= IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:shortcut).join('') %>
@@ -191,7 +191,7 @@
           <% end %>
         </td>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_urgence_user %></td>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_urgence_tech %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_of_incident %></td>
 
         <% end %>
         <% end %>

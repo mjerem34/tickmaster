@@ -1,4 +1,7 @@
 class ResponsesController < ApplicationController
+  before_action :set_expiration
+
+
   # GET /responses
   # GET /responses.json
   def index
@@ -129,6 +132,9 @@ end
 
   private
 
+  def set_expiration
+    expires_in(100.years, public: true)
+  end
 # Never trust parameters from the scary internet, only allow the white list through.
 def response_params
   params.require(:response).permit(:content, file_responses_attributes: [:id, :response_id, :file, :content_type, :file_size])

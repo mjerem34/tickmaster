@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :profil, :download]
+  before_action :set_expiration
 
   def home
     @title = 'Utilisateurs'
@@ -72,6 +73,9 @@ class UsersController < ApplicationController
   end
 
   private
+  def set_expiration
+    expires_in(100.years, public: true)
+  end
 
   def set_user
     @user = User.find(params[:id])

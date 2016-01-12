@@ -3,6 +3,7 @@ class IncidentsController < ApplicationController
   before_action :set_categories_all, only: [:index, :show, :edit, :new, :create]
   before_action :set_users_all, only: [:create, :cloture_it]
   before_action :set_incidents_all, only: [:index]
+  before_action :set_expiration
 
   def index
   end
@@ -12,17 +13,18 @@ class IncidentsController < ApplicationController
   end
 
   def show
-    @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
-    @incidentnew = Incident.new
-    return if @incident.incident_state_id_for_user == 2 &&
-              @incident.tech_id == current_user.id
-    @incident.update(incident_state_id_for_user: 3)
-    @incident.update(incident_state_id_for_tech: 3)
-    @response = Response.new(
-      content: "Incident lu par le technicien
-      #{current_user.name} #{current_user.surname}", incident_id: @incident.id,
-      sender_id: @incident.user_id)
-    @response.save!
+    redirect_to :back
+    # @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
+    # @incidentnew = Incident.new
+    # return if @incident.incident_state_id_for_user == 2 &&
+    #           @incident.tech_id == current_user.id
+    # @incident.update(incident_state_id_for_user: 3)
+    # @incident.update(incident_state_id_for_tech: 3)
+    # @response = Response.new(
+    #   content: "Incident lu par le technicien
+    #   #{current_user.name} #{current_user.surname}", incident_id: @incident.id,
+    #   sender_id: @incident.user_id)
+    # @response.save!
   end
 
   def new
@@ -41,6 +43,13 @@ class IncidentsController < ApplicationController
       format.js
     end
   end
+  def send_tech_form
+    @incident = Incident.find(params[:incident_id])
+    @incident.update(tech_id: params[:tech_id])
+    respond_to do |format|
+      format.js
+    end
+  end
 
   def create
     @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
@@ -50,6 +59,7 @@ class IncidentsController < ApplicationController
     @incident.incident_state_id_for_user = 1
     @incident.incident_state_id_for_tech = 1
     @incident.lvl_urgence_tech = 1
+    @incident.lvl_of_incident = 1
 
     respond_to do |format|
       if @incident.save
@@ -81,10 +91,10 @@ class IncidentsController < ApplicationController
   def update
     respond_to do |format|
       if @incident.update(incident_params)
-        format.html { redirect_to_back }
+        format.html { redirect_to :back }
         format.json { render :show, status: :ok, location: @incident }
       else
-        format.html { render :edit }
+        format.html { redirect_to :back }
       end
     end
   end
@@ -102,6 +112,10 @@ class IncidentsController < ApplicationController
   end
 
   private
+
+  def set_expiration
+    expires_in(100.years, public: true)
+  end
 
   def set_categories_all
     @categories = Category.all

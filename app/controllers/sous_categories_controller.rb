@@ -1,6 +1,8 @@
 class SousCategoriesController < ApplicationController
   before_action :set_sous_category, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
+  before_action :set_expiration
+
 
   # GET /sous_categories
   # GET /sous_categories.json
@@ -70,6 +72,9 @@ class SousCategoriesController < ApplicationController
 
   private
 
+  def set_expiration
+    expires_in(100.years, public: true)
+  end
   # Use callbacks to share common setup or constraints between actions.
   def set_sous_category
     @sous_category = SousCategory.find(params[:id])

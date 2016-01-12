@@ -15,12 +15,13 @@
       $(".password-entry").hide();
       $(".password-entry").val(' ');
       $(".pseudo-entry").keyup(function () {
-
+        $(".alert").hide(100);
         for (var i = 0; i < count; i++) {
           if (<%=@arr.to_json.html_safe%>.indexOf($(".pseudo-entry").val()) > -1) {
             $(".pseudo-entry").attr('id', 'next');
             $(".password-entry").addClass('next');
             $(".password-entry").val('');
+            $(".password-entry").focus();
             $(".password-entry").show(100);
           } else {
             $(".password-entry").hide(100);
@@ -28,19 +29,23 @@
             $(".password-entry").attr('id', '');
           }
         }
+      });
+
         $(".pseudo-entry").change(function () {
+          $(".alert").hide(100);
           for (var i = 0; i < count; i++) {
             if (<%=@arr.to_json.html_safe%>.indexOf($(".pseudo-entry").val()) > -1) {
+              $(".pseudo-entry").attr('id', 'next');
+              $(".password-entry").addClass('next');
               $(".password-entry").val('');
-              $(".password-entry").show(100);
               $(".password-entry").focus();
+              $(".password-entry").show(100);
             } else {
                 $(".password-entry").hide(100);
               $(".password-entry").val(' ');
             }
           }
         });
-      });
     });
   </script>
   <% if flash.now[:error] != nil %>
@@ -50,7 +55,7 @@
   <% end %>
 </div>
 <div class="actions form-group">
-  <%= f.submit "Se connecter", id: "sendButton", class: "btn btn-success btn-create-new-user", onclick: "disableButton(this.id)" %><br>
+  <%= f.submit "Se connecter", id: "sendButton", class: "btn btn-success btn-create-new-user" %><br>
 </div>
 <%= link_to "Pas encore inscrit ?", signup_path, class: "btn btn-primary"%>
 <% end %>

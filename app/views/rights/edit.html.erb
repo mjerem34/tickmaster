@@ -8,16 +8,6 @@
 <%= link_to 'Annuler', rights_path, class: "btn btn-danger btn-align form-interface" %>
 <% else %>
 <% @title = "Accès non autorisé"%>
-<p class="alert_non_authorized"><br><br>
-  <p style="font-size:4em; text-align:center; color:red;">
     <%= flash.now[:notice] = "Accès non autorisé !" %>
-  </p>
-  <% if current_user.nil? %>
-  <%= render 'sessions/new' %>
-  <% else %>
-  <script type="text/javascript">
-    window.location.href="/users/<%=current_user.id%>/"
-  </script>
-  <% end %>
 </p>
 <% end %>

@@ -1,5 +1,7 @@
 class AgenciesController < ApplicationController
   before_action :set_agency, only: [:show, :edit, :update, :destroy]
+  before_action :set_expiration
+
 
   # GET /agencies
   # GET /agencies.json
@@ -67,6 +69,10 @@ class AgenciesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_expiration
+      expires_in(100.years, public: true)
+    end
+
     def set_agency
       @agency = Agency.find(params[:id])
     end

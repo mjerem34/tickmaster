@@ -98,6 +98,9 @@ function handleFileSelect(e) {
        //print new selected files into the given division
        selDiv.innerHTML += "<div class='filename'> <span> " + f.name + "</span></div>";
    });
+   $('html, body').animate({
+     scrollTop: 100000
+   }, 500);
 
    //store the array of file in our element this is send to other page by form submit
 }

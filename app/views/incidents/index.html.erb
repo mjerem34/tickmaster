@@ -37,8 +37,8 @@
         <% if incident.tech_id != nil %>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= User.find_by_sql("SELECT `users`.* FROM `users` WHERE `id` = #{incident.tech_id}").collect{ |u| [u.surname, u.name]}.join(" ") %></td>
         <% else %>
-        <%= form_for(incident) do |f| %>
-            <td><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}), include_blank: "Technicien non défini...", class: "form-control" %></td>
+        <%= form_for(incident, html: {class: "edit_incident"}) do |f| %>
+            <td id="to_replace"><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}), include_blank: "Technicien non défini...", class: "form-control", data_name: "#{incident.id}" %></td>
             <% end %>
         <% end %>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.category.name %></td>
@@ -50,14 +50,13 @@
           </span>
         </td>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_urgence_user %></td>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_urgence_tech %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_of_incident %></td>
       </tr>
       <% end %>
     </tbody>
   </table>
 </div>
 <br>
-    <%= link_to 'Envoyer', '#', class: "submitforms btn btn-success", type: "submit", name: "commit", id: "sendButton"%>
 <% else %>
 <% @title = "Accès non autorisé"%>
 <p class="alert_non_authorized">
@@ -65,7 +64,7 @@
 </p>
 <% end %>
 <script type="text/javascript">
-  $(".submitforms").on("click", (function(){
-         $('.edit_incident').submit();
-  }));
+   function submitform(){
+       $('.edit_incident').submit();
+   }
 </script>
