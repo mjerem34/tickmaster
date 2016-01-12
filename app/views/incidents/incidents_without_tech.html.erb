@@ -34,7 +34,7 @@
           </td>
         <td onClick="document.location.href='<%= edit_incident_path(incident)%>'"><%= incident.user.name + ' ' + incident.user.surname %></td>
         <%= form_for(incident) do |f| %>
-            <td><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}), include_blank: "Technicien non défini...", class: "form-control" %></td>
+            <td><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}), include_blank: "Technicien non défini...", class: "form-control", data_name: "#{incident.id}"  %></td>
             <% end %>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.category.name %></td>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.sous_category.name %></td>
