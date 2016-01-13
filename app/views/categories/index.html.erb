@@ -43,7 +43,7 @@
   </table>
 </div>
 <div class="actions">
-  <p class="btn btn-success btn-align form-interface submit" id="sendButton" type="submit" name="commit">Envoyer </p>
+  <p class="btn btn-success btn-align form-interface submit" id="sendButton">Envoyer </p>
 </div>
 
 <br>
@@ -54,8 +54,14 @@
 </p>
 <% end %>
 <script type="text/javascript">
-  $(".submit").on("click", (function(){
-    $('.new_category').submit();
-    $('#category_name').focus();
-  }));
+  $("#sendButton").click(function(){
+    $.ajax({
+      url: '/categories/:id/create_cats',
+      type: 'GET',
+      dataType: 'script',
+      data: {
+        category_name: $("#category_name").val(),
+      }
+    });
+  });
 </script>

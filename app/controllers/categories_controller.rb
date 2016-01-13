@@ -2,7 +2,6 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
   before_action :set_expiration
 
-
   # GET /categories
   # GET /categories.json
   def index
@@ -27,9 +26,8 @@ class CategoriesController < ApplicationController
 
   def create_cats
     @category = Category.new(name: params[:category_name])
-    @category.save
     respond_to do |format|
-      format.js
+      format.js if @category.save
     end
   end
 
@@ -40,7 +38,7 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        format.html { redirect_to :back, notice: "Catégorie crée avec success." }
+        format.html { redirect_to :back, notice: 'Catégorie crée avec success.' }
         format.json { render json: :show, status: :created, location: @category }
       else
         format.html { redirect_to :back }
@@ -85,6 +83,7 @@ class CategoriesController < ApplicationController
   def set_expiration
     expires_in(100.years, public: true)
   end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_category
     @category = Category.find(params[:id])

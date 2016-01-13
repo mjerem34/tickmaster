@@ -5,7 +5,11 @@
 Rails.application.routes.draw do
   resources :agencies
   resources :teches
-  resources :categories
+  resources :categories do
+    member do
+      get :create_cats      
+    end
+  end
   resources :sous_categories do
     member do
       get :create_subcats
