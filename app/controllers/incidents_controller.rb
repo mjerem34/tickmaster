@@ -81,7 +81,7 @@ class IncidentsController < ApplicationController
         AppMailer.incident_created_for_creator(@incident, @users).deliver_now
         AppMailer.incident_created_for_disp(@incident, @users).deliver_now
       else
-        format.html { render :new }
+        format.html { render :new, notice: "Veuillez réessayer" }
       end
     end
   end

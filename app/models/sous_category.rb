@@ -13,8 +13,7 @@ class SousCategory < ActiveRecord::Base
   has_many :incidents
   belongs_to :categorie
 
-  validates :name, :presence => true,
-                    :uniqueness => {:case_sensitive => false}, length: { in: 0..29}
+  validates :name, :presence => true, length: { in: 0..29}
 
 
 end

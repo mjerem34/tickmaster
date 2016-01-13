@@ -27,7 +27,11 @@ class CategoriesController < ApplicationController
   def create_cats
     @category = Category.new(name: params[:category_name])
     respond_to do |format|
-      format.js if @category.save
+      if @category.save
+        format.js
+        @sous_category = SousCategory.new(name: "Autre", category_id: @category.id, lvl_urgence_max: '10')
+        @sous_category.save
+      end
     end
   end
 
@@ -35,7 +39,6 @@ class CategoriesController < ApplicationController
   # POST /categories.json
   def create
     @category = Category.new(category_params)
-
     respond_to do |format|
       if @category.save
         format.html { redirect_to :back, notice: 'Catégorie crée avec success.' }

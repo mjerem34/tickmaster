@@ -2,8 +2,8 @@
 <br>
   <div class="field">
     <%= f.label "Catégorie", :class => 'form-interface'  %><br>
-    <%= select_tag "incident[category_id]", options_for_select(@categories.collect{|category| [category.name.titleize, category.id]}), {:class => "form-control form-interface", include_blank: ""}%><br>
-    <%= select_tag "incident[sous_category_id]", options_for_select(@sous_categories.collect{|sous_category| [sous_category.name.titleize, sous_category.id]}), {:class => "form-control form-interface", include_blank: "" } %>
+    <%= select_tag "incident[category_id]", options_for_select(@categories.collect{|category| [category.name.titleize, category.id]}), {:class => "form-control form-interface", include_blank: "", required: true}%><br>
+    <%= select_tag "incident[sous_category_id]", options_for_select(@sous_categories.collect{|sous_category| [sous_category.name.titleize, sous_category.id]}), {:class => "form-control form-interface", include_blank: "", required: true } %>
   </div>
     <br>
 <script type="text/javascript">
@@ -16,7 +16,7 @@
 </script>
     <div class="field">
       <%= f.label "Objet", :class => 'form-interface' %><br>
-      <%= f.text_field :title, :class => "form-control form-interface"  %>
+      <%= f.text_field :title, :class => "form-control form-interface", required: true  %>
       <% if @incident.errors[:title].first != nil %>
       <div class="alert alert-danger">
         <%= "Objet " + @incident.errors[:title].first%><br><br>
@@ -27,7 +27,7 @@
 
 <div class="field">
   <%= f.label "Description", :class => 'form-interface'  %><br>
-  <%= f.cktext_area :content, :id => 'incident_content incident_content', ckeditor: {uiColor: '#555555'} %>
+  <%= f.cktext_area :content, :id => 'incident_content incident_content', ckeditor: {uiColor: '#555555'}, required: true %>
   <% if @incident.errors[:content].first != nil %>
   <div class="alert alert-danger">
     <%= "Description " + @incident.errors[:content].first %><br><br>
