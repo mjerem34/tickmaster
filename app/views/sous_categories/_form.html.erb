@@ -1,7 +1,6 @@
 <%= form_for(@sous_category) do |f| %>
   <div class="field">
-    <h2 class="form-interface">Nouvelle sous catégorie</h2>
-      <%= select_tag "sous_category[category_id]", options_for_select(User.find_by_sql("SELECT `categories`.* FROM `categories`").collect{ |u| [u.name, u.id]}), class: "form-control form-interface", include_blank: "Catégorie :" %>
+      <%= select_tag "sous_category[category_id]", options_for_select(Category.all.pluck(:name, :id), @category.id), class: "form-control form-interface", include_blank: "Catégorie :" %>
     </div><br>
   <div class="field">
     <%= f.text_field :name, class: "form-control form-interface", placeholder: "Nom(Requis)"   %>

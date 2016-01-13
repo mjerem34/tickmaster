@@ -123,4 +123,13 @@ class ApplicationController < ActionController::Base
     end
     redirect_to incidents_path
   end
+
+  def create_subcats
+    @sous_category = SousCategory.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
 end

@@ -25,6 +25,14 @@ class CategoriesController < ApplicationController
     @sous_category = SousCategory.new
   end
 
+  def create_cats
+    @category = Category.new(name: params[:category_name])
+    @category.save
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # POST /categories
   # POST /categories.json
   def create

@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   resources :agencies
   resources :teches
   resources :categories
-  resources :sous_categories
+  resources :sous_categories do
+    member do
+      get :create_subcats
+    end
+  end
   resources :files_archives
   resources :files_incidents
   resources :files_responses

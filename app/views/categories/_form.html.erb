@@ -59,7 +59,7 @@
     </table>
   </div>
   <div class="actions">
-    <p class="btn btn-success btn-align form-interface submit" id="sendButton" type="submit" name="commit">Envoyer </p>
+    <p class="btn btn-success btn-align form-interface submit" id="sendButton" type="submit" name="commit">Valider</p>
   </div>
 <!-- <script type="text/javascript">
   $(document).ready(function(){
@@ -80,7 +80,16 @@
   }
 </script>
 <script type="text/javascript">
-  $(".submit").on("click", (function(){
-    $('.new_sous_category').submit();
-  }));
+  $(".submit").click(function(){
+    $.ajax({
+      url: '/sous_categories/:id/create_subcats',
+      type: 'GET',
+      dataType: 'script',
+      data: {
+        sous_category_name: $("#sous_category_name").val(),
+        sous_category_category_id: $("#sous_category_category_id option:selected").val(),
+        sous_category_lvl_urgence_max: $("#sous_category_lvl_urgence_max option:selected").val()
+      }
+    });
+  });
 </script>

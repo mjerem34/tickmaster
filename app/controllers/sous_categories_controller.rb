@@ -22,8 +22,16 @@ class SousCategoriesController < ApplicationController
 
   # GET /sous_categories/1/edit
   def edit
+    @category = Category.find(@sous_category.category_id)
   end
 
+  def create_subcats
+    @sous_category = SousCategory.new(name: params[:sous_category_name], category_id: params[:sous_category_category_id], lvl_urgence_max: params[:sous_category_lvl_urgence_max])
+    @sous_category.save
+    respond_to do |format|
+      format.js
+    end
+  end
   # POST /sous_categories
   # POST /sous_categories.json
   def create
