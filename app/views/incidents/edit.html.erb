@@ -168,7 +168,7 @@ $(document).ready(function () {
 <% end %>
 <% end %>
 <% if Right.where(name: "delete_incident").pluck(current_user.tech.name).join('')  == 'true' %>
-<%= link_to 'Effacer', incident_path(@incident), method: :delete, data: { confirm: 'Êtes vous sûr ?' }, class: "btn btn-danger"  %>
+<%= link_to 'Effacer', incident_path(@incident), method: :delete, data: { confirm: 'Êtes vous sûr de vouloir SUPPRIMER cet incident ?' }, class: "btn btn-danger"  %>
 <% end %>
 <% if Right.where(name: "cloture_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
 <button class="btn btn-success btn-cloture" name="button" type="button">Cloturer</button>

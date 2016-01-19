@@ -15,8 +15,5 @@
 //= require ckeditor/init
 //= require jquery_ujs
 //= require bootstrap-slider
-//= require jquery.tablesorter.min
-//= require jquery.tablesorter.widgets.min
-//= require dropzone
-//= require fixedheadertable
 //= require_tree .
+//= require dropzone

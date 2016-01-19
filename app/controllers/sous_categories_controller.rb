@@ -65,15 +65,15 @@ class SousCategoriesController < ApplicationController
   # DELETE /sous_categories/1.json
   def destroy
     if Incident.where(sous_category_id: @sous_category.id).pluck(:title).join('') == ''
-      @sous_category.destroy!
+      @sous_category.destroy
       respond_to do |format|
-        format.html { redirect_to sous_categories_path }
-        format.json { head :no_content }
+        format.html { redirect_to :back }
+        format.json { render json: @sous_category.errors, status: :unprocessable_entity }
       end
     else
       respond_to do |format|
-        format.html { redirect_to sous_categories_path }
-        format.json { head :no_content }
+        format.html { redirect_to categories_url}
+        format.json { render json: @sous_category.errors, status: :unprocessable_entity }
       end
     end
   end

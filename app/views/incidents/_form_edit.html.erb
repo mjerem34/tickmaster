@@ -148,11 +148,12 @@
   </div>
 </div>
 <div class="actions">
-  <% if @incident.incident_state_id_for_user != 7 || @incident.incident_state_id_for_user != 10 || @incident.incident_state_id_for_user != 1 || @incident.incident_state_id_for_user != 2 %>
-  <% if Right.where(name: "edit_incidents").pluck(current_user.tech.name).join('') == true %>
+  <% if @incident.incident_state_id_for_user != 7 || @incident.incident_state_id_for_user != 10 %>
+  <% if Right.where(name: "save_changes_of_edit").pluck(current_user.tech.name).join('')  == 'true' %>
+
   <%= f.submit "Enregistrer", id: "sendButton", class: "btn btn-success form-interface" %>
+  <% end %>
 </div>
-<% end %>
 <% end %>
 <% end %>
 <script type="text/javascript">

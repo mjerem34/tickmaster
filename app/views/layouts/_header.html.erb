@@ -6,15 +6,16 @@
   <div class="menu-list">
     <ul id="menu-content" class="menu-content collapse out">
       <% if !current_user.nil? %>
-      <li class="new_incident_button"><a href="<%= new_incident_path %>"><%= image_tag("ICOMOON/32px/0267-plus.png", alt: "", class: "fa-img") %></a>
+      <li class="new_incident_button">
+        <a href="<%= new_incident_path %>"><%= image_tag("ICOMOON/32px/0267-plus.png", alt: "", class: "fa-img") %></a>
         <a href="/incidents/new" data-no-turbolink="true">
           <i class="fa fa-dashboard fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;">Nouvel incident</i>
         </a>
       </li>
 
-
       <li data-toggle="collapse" data-target="#incidents" class="collapsed active"><%= image_tag("accidents.png", size: "32x32", alt: "", class: "fa-img") %>
-        <a href="#"><i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Incidents</a>
+        <a href="#">
+          <i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Incidents</a>
       </li>
       <ul class="sub-menu collapse" id="incidents">
         <li><%= link_to 'Mes incidents', current_user, class: "", :method => :get %></li>
@@ -29,84 +30,198 @@
       </ul>
       <% end %>
 
-
       <% if !current_user.nil? && Right.where(name: "view_index_categories").pluck(current_user.tech.name).join('')  == 'true' %>
-      <li data-toggle="collapse" data-target="#categories" class="collapsed active"><%= image_tag("ICOMOON/32px/0189-tree.png", alt: "", class: "fa-img") %>
-        <a href="#"><i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Catégories</a>
-      </li>
-      <ul class="sub-menu collapse" id="categories">
-        <li><%= link_to "Categories", categories_url, class: " ", :method => :get  %></li>
-    <% if !current_user.nil? && Right.where(name: "view_index_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
-        <li><%= link_to "Sous categories", sous_categories_url, class: " ", :method => :get  %></li>
-    <% end %>
-      </ul>
+    <li data-toggle="collapse" data-target="#categories" class="collapsed active"><%= image_tag("ICOMOON/32px/0189-tree.png", alt: "", class: "fa-img") %>
+      <a href="#">
+        <i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Catégories</a>
+    </li>
+    <ul class="sub-menu collapse" id="categories">
+      <li><%= link_to "Categories", categories_url, class: " ", :method => :get  %></li>
+      <% if !current_user.nil? && Right.where(name: "view_index_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+      <li><%= link_to "Sous categories", sous_categories_url, class: " ", :method => :get  %></li>
       <% end %>
-
-
-      <% if !current_user.nil? && Right.where(name: "view_index_users").pluck(current_user.tech.name).join('')  == 'true' %>
-      <li data-toggle="collapse" data-target="#users" class="collapsed active"><%= image_tag("ICOMOON/32px/0115-users.png", alt: "", class: "fa-img") %>
-        <a href="#"><i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Utilisateurs</a>
-      </li>
-      <ul class="sub-menu collapse" id="users">
-        <li><%= link_to "Liste des utilisateurs", users_url, class: " ", tabindex: -1, :method => :get  %></li>
-        <% if !current_user.nil? && Right.where(name: "create_new_tech").pluck(current_user.tech.name).join('')  == 'true' %>
-        <li><%= link_to "Créer un utilisateur", signup_path, class: " ", tabindex: -1, :method => :get  %></li>
-        <% end %>
-
-      </ul>
-      <%end%>
-
-
-      <% if !current_user.nil? && Right.where(name: "view_index_rights").pluck(current_user.tech.name).join('')  == 'true' %>
-      <li data-toggle="collapse" data-target="#rights" class="collapsed active"><%= image_tag("ICOMOON/32px/0147-equalizer.png", alt: "", class: "fa-img") %>
-        <a href="#"><i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Droits</a>
-      </li>
-      <ul class="sub-menu collapse" id="rights">
-        <li><%= link_to "Liste des droits", rights_url, class: " ", tabindex: -1, :method => :get  %></li>
-    <% if !current_user.nil? && Right.where(name: "create_new_right").pluck(current_user.tech.name).join('')  == 'true' %>
-        <li><%= link_to "Créer un droit", new_right_path, class: " ", tabindex: -1, :method => :get  %></li>
-    <% end %>
-
-      </ul>
-      <% end %>
-
-      <% if !current_user.nil? && Right.where(name: "view_index_agencies").pluck(current_user.tech.name).join('')  == 'true' %>
-      <li data-toggle="collapse" data-target="#agencies" class="collapsed active"><%= image_tag("ICOMOON/32px/0004-office.png", alt: "", class: "fa-img") %>
-        <a href="#"><i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Agences</a>
-      </li>
-      <ul class="sub-menu collapse" id="agencies">
-        <li><%= link_to "Liste des agences", agencies_url, class: " ", tabindex: -1, :method => :get  %></li>
-    <% if !current_user.nil? && Right.where(name: "create_new_agency").pluck(current_user.tech.name).join('')  == 'true' %>
-        <li><%= link_to "Nouvelle agence", new_agency_path, class: " ", tabindex: -1, :method => :get  %></li>
-    <% end %>
-
-      </ul>
-      <% end %>
-      <% if !current_user.nil? %>
-        <li><%= image_tag("ICOMOON/32px/0492-help.png", alt: "", class: "fa-img")%><i class="fa fa-gift fa-lg"></i>
-            <%= link_to "Aide", pages_help_path, class: "", :method => :get, style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;"  %></li>
-        <li><%= image_tag("ICOMOON/32px/0264-warning.png", alt: "", class: "fa-img")%><i class="fa fa-gift fa-lg"></i>
-            <%= mail_to "jeremy.montesinos@cle-expertises.fr", "Bug/Suggestion", cc: "jerome.guillot@cle-expertises.fr", subject: "Bug ou suggestion à propos de TickMaster", class: "", style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;" %></li>
-      <% end %>
-
     </ul>
-  </div>
+    <% end %>
+
+    <% if !current_user.nil? && Right.where(name: "view_index_users").pluck(current_user.tech.name).join('')  == 'true' %>
+  <li data-toggle="collapse" data-target="#users" class="collapsed active"><%= image_tag("ICOMOON/32px/0115-users.png", alt: "", class: "fa-img") %>
+    <a href="#">
+      <i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Utilisateurs</a>
+  </li>
+  <ul class="sub-menu collapse" id="users">
+    <li><%= link_to "Liste des utilisateurs", users_url, class: " ", tabindex: -1, :method => :get  %></li>
+    <% if !current_user.nil? && Right.where(name: "create_new_tech").pluck(current_user.tech.name).join('')  == 'true' %>
+    <li><%= link_to "Créer un utilisateur", signup_path, class: " ", tabindex: -1, :method => :get  %></li>
+    <% end %>
+
+  </ul>
+  <%end%>
+
+  <% if !current_user.nil? && Right.where(name: "view_index_rights").pluck(current_user.tech.name).join('')  == 'true' %>
+<li data-toggle="collapse" data-target="#rights" class="collapsed active"><%= image_tag("ICOMOON/32px/0147-equalizer.png", alt: "", class: "fa-img") %>
+  <a href="#">
+    <i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Droits</a>
+</li>
+<ul class="sub-menu collapse" id="rights">
+  <li><%= link_to "Liste des droits", rights_url, class: " ", tabindex: -1, :method => :get  %></li>
+  <% if !current_user.nil? && Right.where(name: "create_new_right").pluck(current_user.tech.name).join('')  == 'true' %>
+  <li><%= link_to "Créer un droit", new_right_path, class: " ", tabindex: -1, :method => :get  %></li>
+  <% end %>
+
+</ul>
+<% end %>
+
+<% if !current_user.nil? && Right.where(name: "view_index_agencies").pluck(current_user.tech.name).join('')  == 'true' %>
+<li data-toggle="collapse" data-target="#agencies" class="collapsed active"><%= image_tag("ICOMOON/32px/0004-office.png", alt: "", class: "fa-img") %>
+<a href="#">
+  <i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Agences</a>
+</li>
+<ul class="sub-menu collapse" id="agencies">
+<li><%= link_to "Liste des agences", agencies_url, class: " ", tabindex: -1, :method => :get  %></li>
+<% if !current_user.nil? && Right.where(name: "create_new_agency").pluck(current_user.tech.name).join('')  == 'true' %>
+<li><%= link_to "Nouvelle agence", new_agency_path, class: " ", tabindex: -1, :method => :get  %></li>
+<% end %>
+
+</ul>
+<% end %>
+<% if !current_user.nil? %>
+<li><%= image_tag("ICOMOON/32px/0492-help.png", alt: "", class: "fa-img")%>
+<i class="fa fa-gift fa-lg"></i>
+<%= link_to "Aide", pages_help_path, class: "", :method => :get, style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;"  %></li>
+<li><%= image_tag("ICOMOON/32px/0264-warning.png", alt: "", class: "fa-img")%>
+<i class="fa fa-gift fa-lg"></i>
+<%= mail_to "jeremy.montesinos@cle-expertises.fr", "Bug/Suggestion", cc: "jerome.guillot@cle-expertises.fr", subject: "Bug ou suggestion à propos de TickMaster", class: "", style:"padding-left: 30px !important; padding:20px; padding-right:
+40px
+!important;" %></li>
+<% end %>
+
+</ul>
+</div>
 </div>
 
 <header>
-      <nav class="navbar navbar-default nav-collapse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-      <a class="title-site navbar-brand openIt" href='/' data-no-turbolink="true">TickMaster</a>
-      <a class="title-site navbar-brand by-cle openIt click">by<%= image_tag("cle.png", size: "60x20", alt: "Cle Expertises")%></a>
-        </div>
-  <h3 class="title-on-page"><%= @title %></h3>
-  <% if !current_user.nil? %>
-  <ul class="whoisconnected">
-    <li><h5>Connecté en tant que : <%= link_to"#{current_user.name} #{current_user.surname}", profil_user_path(current_user)%></h5></li>
-    <li> <%= button_to("Se déconnecter", signout_path, :method => :get, :class => "btn btn-danger")%></li>
-  </ul>
-  <% end %>
+<nav class="navbar navbar-default nav-collapse navbar-fixed-top">
+<div class="container-fluid">
+<div class="navbar-header">
+<a class="title-site navbar-brand openIt" href='/' data-no-turbolink="true">TickMaster</a>
+<a class="title-site navbar-brand by-cle openIt click">by<%= image_tag("cle.png", size: "60x20", alt: "Cle Expertises")%></a>
+</div>
+<h3 class="title-on-page"><%= @title %></h3>
+<% if !current_user.nil? %>
+<ul class="whoisconnected">
+<li>
+<h5>Connecté en tant que :
+  <%= link_to"#{current_user.name} #{current_user.surname}", profil_user_path(current_user)%></h5>
+</li>
+<li>
+<%= button_to("Se déconnecter", signout_path, :method => :get, :class => "btn btn-danger")%></li>
+</ul>
+<% end %>
 </nav>
-</div>  <!-- /.container-fluid -->
+</div>
+<!-- /.container-fluid -->
 </header>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  var url = document.URL;
+  segments = url.split("/");
+  var action = segments[3];
+  var idAction = segments[4];
+  var supplementAction = segments[5];
+  switch (action) {
+    case "users":
+      if (jQuery.type(idAction) != "undefined" && (jQuery.type(supplementAction) === "undefined" || supplementAction === "to_treat" || supplementAction === 'allincidents')) {
+        $(".active[data-target='#incidents']").removeClass('collapsed').attr('aria-expanded', true);
+        $("#incidents").addClass('in').attr('aria-expanded', true);
+      } else {
+        $(".active[data-target='#users']").removeClass('collapsed').attr('aria-expanded', true);
+        $("#users").addClass('in').attr('aria-expanded', true);
+      }
+      break;
+
+    case "signup":
+      $(".active[data-target='#users']").removeClass('collapsed').attr('aria-expanded', true);
+      $("#users").addClass('in').attr('aria-expanded', true);
+      break;
+
+    case "incidents":
+      $(".active[data-target='#incidents']").removeClass('collapsed').attr('aria-expanded', true);
+      $("#incidents").addClass('in').attr('aria-expanded', true);
+      break;
+
+    case "categories":
+      $(".active[data-target='#categories']").removeClass('collapsed').attr('aria-expanded', true);
+      $("#categories").addClass('in').attr('aria-expanded', true);
+      break;
+
+    case "sous_categories":
+      $(".active[data-target='#categories']").removeClass('collapsed').attr('aria-expanded', true);
+      $("#categories").addClass('in').attr('aria-expanded', true);
+      break;
+
+    case "rights":
+      $(".active[data-target='#rights']").removeClass('collapsed').attr('aria-expanded', true);
+      $("#rights").addClass('in').attr('aria-expanded', true);
+      break;
+
+    case "agencies":
+      $(".active[data-target='#agencies']").removeClass('collapsed').attr('aria-expanded', true);
+      $("#agencies").addClass('in').attr('aria-expanded', true);
+      break;
+
+    default:
+    break;
+  }
+  $(".active[data-target='#incidents']").click(function(){
+    $(".active[data-target='#categories']").addClass('collapsed').attr('aria-expanded', false);
+    $("#categories").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#users']").addClass('collapsed').attr('aria-expanded', false);
+    $("#users").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#rights']").addClass('collapsed').attr('aria-expanded', false);
+    $("#rights").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#agencies']").addClass('collapsed').attr('aria-expanded', false);
+    $("#agencies").removeClass('in').attr('aria-expanded', false);
+  });
+  $(".active[data-target='#categories']").click(function(){
+    $(".active[data-target='#incidents']").addClass('collapsed').attr('aria-expanded', false);
+    $("#incidents").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#users']").addClass('collapsed').attr('aria-expanded', false);
+    $("#users").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#rights']").addClass('collapsed').attr('aria-expanded', false);
+    $("#rights").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#agencies']").addClass('collapsed').attr('aria-expanded', false);
+    $("#agencies").removeClass('in').attr('aria-expanded', false);
+  });
+  $(".active[data-target='#users']").click(function(){
+    $(".active[data-target='#categories']").addClass('collapsed').attr('aria-expanded', false);
+    $("#categories").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#incidents']").addClass('collapsed').attr('aria-expanded', false);
+    $("#incidents").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#rights']").addClass('collapsed').attr('aria-expanded', false);
+    $("#rights").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#agencies']").addClass('collapsed').attr('aria-expanded', false);
+    $("#agencies").removeClass('in').attr('aria-expanded', false);
+  });
+  $(".active[data-target='#rights']").click(function(){
+    $(".active[data-target='#categories']").addClass('collapsed').attr('aria-expanded', false);
+    $("#categories").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#users']").addClass('collapsed').attr('aria-expanded', false);
+    $("#users").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#incidents']").addClass('collapsed').attr('aria-expanded', false);
+    $("#incidents").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#agencies']").addClass('collapsed').attr('aria-expanded', false);
+    $("#agencies").removeClass('in').attr('aria-expanded', false);
+  });
+  $(".active[data-target='#agencies']").click(function(){
+    $(".active[data-target='#categories']").addClass('collapsed').attr('aria-expanded', false);
+    $("#categories").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#users']").addClass('collapsed').attr('aria-expanded', false);
+    $("#users").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#rights']").addClass('collapsed').attr('aria-expanded', false);
+    $("#rights").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#incidents']").addClass('collapsed').attr('aria-expanded', false);
+    $("#incidents").removeClass('in').attr('aria-expanded', false);
+  });
+});
+</script>

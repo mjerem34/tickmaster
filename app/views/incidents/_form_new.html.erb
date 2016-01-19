@@ -59,10 +59,10 @@ $("#incident_lvl_urgence_user").slider();
 </div>
 
 <div class="actions">
-  <%= f.submit "Envoyer", id: "sendButton", class: "btn btn-success btn-response", data: { confirm: 'Êtes vous sûr ?' } %>
+  <%= f.submit "Envoyer", id: "sendButton", class: "btn btn-success btn-response", data: { confirm: 'Êtes vous sûr de vouloir envoyer l\'incident ?' } %>
 </div>
 <% end %>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 var selDiv = "";
 var storedFiles = []; //store the object of the all files
 
@@ -119,5 +119,4 @@ input.addEventListener('change', function(e) {
   document.getElementById('attachfile').appendChild(nI);
 }, false);
 </script>
-<script type="text/javascript">
-</script>
+ -->

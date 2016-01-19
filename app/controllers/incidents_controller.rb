@@ -9,7 +9,7 @@ class IncidentsController < ApplicationController
   end
 
   def incidents_without_tech
-    @incidents = Incident.where(incident_state_id_for_user: 1)
+    @incidents = Incident.where(tech_id: nil)
   end
 
   def show
