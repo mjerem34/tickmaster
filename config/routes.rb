@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :teches
   resources :categories do
     member do
-      get :create_cats      
+      get :create_cats
     end
   end
   resources :sous_categories do
@@ -58,13 +58,13 @@ Rails.application.routes.draw do
     end
   end
   get '/', to: 'pages#home'
-  get '/users', to: 'users#index'
   get '/categories', to: 'categories#index'
   get '/sous_categories', to: 'sous_categories#index'
   get '/incidents', to: 'incidents#index'
   get '/signup', to: 'users#new'
   get '/signin', to: 'sessions#new'
   get '/signout', to: 'sessions#destroy'
+  get '/forgot', to: 'sessions#forget_identifiers'
   get '/rights', to: 'rights#index'
   get '/agencies', to: 'agencies#index'
   # The priority is based upon order of creation: first created -> highest priority.

@@ -70,7 +70,7 @@ class AgenciesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_expiration
-      expires_in(100.years, public: true)
+      expires_in(10.seconds, public: true)
     end
 
     def set_agency

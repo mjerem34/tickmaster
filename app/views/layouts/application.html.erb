@@ -138,13 +138,13 @@ FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
     </script>
 
   </div>
-  <% if flash[:notice] %>
+  <% if flash.now[:error] %>
   <div id="erreur">
     <p>
       Message :
-    </p>
-    <p class="flash-notice"><br>
-      <%= flash[:notice] %>
+    </p><br>
+    <p class="flash-notice">
+      <%= flash.now[:error] %>
     </p>
     <button class="closepopup" name="button" type="button">Ok</button>
   </div>

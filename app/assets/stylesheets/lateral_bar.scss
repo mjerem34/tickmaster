@@ -75,7 +75,7 @@
   border: none;
   line-height: 28px;
   border-bottom: 1px solid #23282e;
-  margin-left: 0;
+  padding-left: 0;
 }
 .nav-side-menu ul .sub-menu li:hover,
 .nav-side-menu li .sub-menu li:hover {
@@ -101,11 +101,12 @@
   padding-top: 2.5%;
   text-decoration: none;
   color: #BFBFBF;
+  padding-right: 30px;
 }
 .sub-menu.collapse.in li a {
-  padding-right: 20%;
-  padding-bottom: 2.5%;
-  padding-top: 2.5%;
+  padding-right: 25%;
+  padding-bottom: 5%;
+  padding-top: 5%;
   text-decoration: none;
 }
 .sub-menu.collapse.out li a {

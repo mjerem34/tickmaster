@@ -51,15 +51,7 @@ class User < ActiveRecord::Base
 
   def self.authenticate(pseudo, password)
     user = find_by_pseudo(pseudo)
-    if user.nil?
-      return nil
-    else
-      if password == user.password
-        return user
-      else
-        return nil
-      end
-    end
+      !user.nil? && password == user.password ? user : nil
   end
   before_save { |user| user.pseudo.downcase! }
   before_save { |user| user.email.downcase! }

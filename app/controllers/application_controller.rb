@@ -2,19 +2,10 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
-  before_filter :handle_unverified_request
-  before_action :set_expiration
   include SessionsHelper
 
 
   private
-  def handle_unverified_request
-    reset_session
-  end
-
-  def set_expiration
-    expires_in(100.years, public: true)
-  end
 
   def reject_it(incident)
     # Met a jour les params de l'incident pour indiquer qu'il est cloture

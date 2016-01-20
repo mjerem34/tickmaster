@@ -226,7 +226,8 @@
   </div>
 
   <div class="field form-group form-tel">
-    <%= f.phone_field :tel, class: "form-control next", placeholder: "Téléphone (ex : 04...)(Requis)", onkeyup: "verif_nombre(this);", maxlength: "10" %>
+    <%= f.phone_field :tel, class: "form-control next", placeholder: "N° de téléphone 1", onkeyup: "verif_nombre(this);", maxlength: "10" %>
+    <p class="btn btn-success" id="addPhoneField">+</p>
     <% if @user.errors[:tel].first != nil  %>
     <div class="alert alert-danger">
       <%= "Téléphone " + @user.errors[:tel].first%><br>
@@ -239,7 +240,7 @@
   </div>
 
   <div class="field form-group form-mobile">
-    <%= f.phone_field :mobile, class: "form-control next", placeholder: "Mobile (ex : 06...)", onkeyup: "verif_nombre(this);", maxlength: "10" %>
+    <%= f.phone_field :mobile, class: "form-control next", placeholder: "N° de téléphone 2", onkeyup: "verif_nombre(this);", maxlength: "10" %>
     <% if @user.errors[:mobile].first != nil  %>
     <div class="alert alert-danger">
       <%= "Mobile " + @user.errors[:mobile].first%><br>
@@ -253,8 +254,9 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $(".form-mobile").hide();
-      $(".form-tel").change(function(){
+      $("#addPhoneField").click(function(){
         $(".form-mobile").show(150);
+        $("#addPhoneField").hide(150);
       });
     });
   </script>

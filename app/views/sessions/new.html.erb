@@ -7,7 +7,7 @@
 
   <% @arr = [] %>
   <%@arr = User.find_by_sql('SELECT users.pseudo FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false').collect{|u| u.pseudo}%>
-  <%= f.text_field :pseudo, class: "form-control pseudo-entry", placeholder: "Pseudonyme", id: 'next' %>
+  <%= f.text_field :pseudo, class: "form-control pseudo-entry", placeholder: "Pseudonyme(en minuscules)", id: 'next' %>
   <%= f.password_field :password, class: "form-control password-entry", placeholder: "Mot de passe" %>
   <script type="text/javascript">
     $(document).ready(function () {
@@ -17,7 +17,7 @@
       $(".pseudo-entry").keyup(function () {
         $(".alert").hide(100);
         for (var i = 0; i < count; i++) {
-          if (<%=@arr.to_json.html_safe%>.indexOf($(".pseudo-entry").val()) > -1) {
+          if (<%= @arr.to_json.html_safe %>.indexOf($(".pseudo-entry").val()) > -1) {
             $(".pseudo-entry").attr('id', 'next');
             $(".password-entry").addClass('next');
             $(".password-entry").val('');
@@ -57,7 +57,14 @@
 <div class="actions form-group">
   <%= f.submit "Se connecter", id: "sendButton", class: "btn btn-success btn-create-new-user" %><br>
 </div>
-<%= link_to "Pas encore inscrit ?", signup_path, class: "btn btn-primary"%>
+<div class="row">
+  <div class="col-md-6">
+    <%= link_to "Pas encore inscrit ?", signup_path, class: "btn btn-primary"%>
+  </div>
+<div class="col-md-6">
+  <%= link_to 'Pseudonyme oublié ?', forgot_path, class: "btn btn-danger" %>
+</div>
+</div>
 <% end %>
 <% end %>
 <%else %>

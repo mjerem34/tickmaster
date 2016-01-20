@@ -42,7 +42,7 @@ class UsersController < ApplicationController
           end
           format.html do
             redirect_to pages_help_path,
-                        success: 'Utilisateur créé.'
+                        notice: 'Bienvenue, votre inscription a bien été prise en compte.'
           end
         else
           format.html { render :new }
@@ -65,16 +65,21 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
+      if @user.destroy
+        format.html { redirect_to users_url }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to :back }
+    end
     end
   end
 
+
   private
+
   def set_expiration
-    expires_in(100.years, public: true)
+    expires_in(10.seconds, public: true)
   end
 
   def set_user

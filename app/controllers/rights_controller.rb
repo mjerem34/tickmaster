@@ -54,7 +54,7 @@ class RightsController < ApplicationController
   private
 
   def set_expiration
-    expires_in(100.years, public: true)
+    expires_in(10.seconds, public: true)
   end
 
   def set_right

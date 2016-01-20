@@ -61,7 +61,7 @@ class ResponsesController < ApplicationController
         end
       end
       case params[:commit]
-      when 'Répondre' then
+      when 'Valider' then
         if @response.sender_id == @incident.user_id
           @incident.update(incident_state_id_for_user: 6)
           @incident.update(incident_state_id_for_tech: 4)
@@ -133,7 +133,7 @@ end
   private
 
   def set_expiration
-    expires_in(100.years, public: true)
+    expires_in(10.seconds, public: true)
   end
 # Never trust parameters from the scary internet, only allow the white list through.
 def response_params

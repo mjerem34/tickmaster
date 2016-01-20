@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
-  before_action :set_expiration
-
+before_action :set_expiration
   def home
+    redirect_to new_session_path if current_user.nil?
   end
 
   def teches
@@ -11,10 +11,7 @@ class PagesController < ApplicationController
   def incidents
     @title = "Tickets d'incidents"
   end
-
-  private
-
   def set_expiration
-    expires_in(100.years, public: true)
+    expires_in(10.seconds, public: true)
   end
 end

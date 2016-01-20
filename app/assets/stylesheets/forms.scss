@@ -50,28 +50,29 @@ form#new_user, form.connect-user, form.edit_user{
 
 //Formulaire de création d'incident
 form#new_incident{
-  min-width:200px;
+  min-width: 200px;
   max-width: 900px;
   position:absolute;
   label{
     color: $text-color;
   }
   @media screen and(min-width:1600px) {
-    left:20%;
-    width:100%;
+    left: 10%;
+    width: 100%;
 }
   @media screen and(min-width:1105px) and(max-width:1599px) {
-    width:80%;
-    left:15%;
+    left: 5%;
+    width: 80%;
   }
   @media screen and(min-width:768px) and(max-width:1104px) {
-    left:21%;
+    left: 2%;
+    width: 89%;
   }
   @media screen and(min-width:413px) and(max-width:767px) {
-    left: 15%;
+    left: 1%;
   }
   @media screen and(max-width:412px) {
-    left:15%;
+    left: 1%;
   }
 
 }

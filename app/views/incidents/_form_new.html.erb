@@ -26,7 +26,6 @@
 
 
 <div class="field">
-  <%= f.label "Description", :class => 'form-interface'  %><br>
   <%= f.cktext_area :content, :id => 'incident_content incident_content', ckeditor: {uiColor: '#555555'}, required: true %>
   <% if @incident.errors[:content].first != nil %>
   <div class="alert alert-danger">
@@ -59,7 +58,7 @@ $("#incident_lvl_urgence_user").slider();
 </div>
 
 <div class="actions">
-  <%= f.submit "Envoyer", id: "sendButton", class: "btn btn-success btn-response", data: { confirm: 'Êtes vous sûr de vouloir envoyer l\'incident ?' } %>
+  <%= f.submit "Valider", id: "sendButton", class: "btn btn-success btn-response", data: { confirm: 'Êtes vous sûr de vouloir envoyer l\'incident ?' } %>
 </div>
 <% end %>
 <!-- <script type="text/javascript">
