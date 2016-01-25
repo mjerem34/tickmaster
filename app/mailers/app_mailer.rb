@@ -1,4 +1,5 @@
 class AppMailer < ApplicationMailer
+  before_filter :test_connection
   default from: 'ticket@cle-expertises.fr'
 
   def incident_created_for_disp(incident, users)
@@ -178,4 +179,16 @@ class AppMailer < ApplicationMailer
          subject: "Demande d'oubli de pseudonyme",
          template_path: '/appmailer', template_name: 'pseudonyme_forgeted')
   end
+
+private
+
+  def test_connection
+    if smtp = Net::SMTP.start('auth.smtp.1and1.fr', 587)
+      return true
+    else
+      return false
+    end
+    smtp.finish()
+  end
+
 end

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :files_users
   get 'pages/home'
   get 'pages/help'
+  get 'pages/404'
 
   resources :rights
   resources :file

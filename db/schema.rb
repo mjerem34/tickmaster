@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019081406) do
+ActiveRecord::Schema.define(version: 20160125141130) do
 
   create_table "agencies", force: :cascade do |t|
     t.string "name",       limit: 45
@@ -53,32 +53,40 @@ ActiveRecord::Schema.define(version: 20151019081406) do
     t.datetime "updated_at",            null: false
   end
 
-  create_table "files_archives", force: :cascade do |t|
-    t.integer  "archive_id", limit: 4
-    t.string   "file",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "file_archives", force: :cascade do |t|
+    t.integer  "archive_id",   limit: 4
+    t.string   "file",         limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "file_size",    limit: 4
+    t.string   "content_type", limit: 255
   end
 
-  create_table "files_incidents", force: :cascade do |t|
-    t.integer  "incident_id", limit: 4
-    t.string   "file",        limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+  create_table "file_incidents", force: :cascade do |t|
+    t.integer  "incident_id",  limit: 4
+    t.string   "file",         limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "file_size",    limit: 4
+    t.string   "content_type", limit: 255
   end
 
-  create_table "files_responses", force: :cascade do |t|
-    t.integer  "response_id", limit: 4
-    t.string   "file",        limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+  create_table "file_responses", force: :cascade do |t|
+    t.integer  "response_id",  limit: 4
+    t.string   "file",         limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "file_size",    limit: 4
+    t.string   "content_type", limit: 255
   end
 
-  create_table "files_users", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.string   "file",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "file_users", force: :cascade do |t|
+    t.integer  "user_id",      limit: 4
+    t.string   "file",         limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "file_size",    limit: 4
+    t.string   "content_type", limit: 255
   end
 
   create_table "incidents", force: :cascade do |t|
@@ -91,6 +99,7 @@ ActiveRecord::Schema.define(version: 20151019081406) do
     t.integer  "agency_id",                  limit: 2
     t.integer  "lvl_urgence_user",           limit: 1
     t.integer  "lvl_urgence_tech",           limit: 1
+    t.string   "lvl_of_incident",            limit: 45
     t.boolean  "cloture_user"
     t.boolean  "cloture_tech"
     t.integer  "pc_id",                      limit: 4
@@ -102,7 +111,6 @@ ActiveRecord::Schema.define(version: 20151019081406) do
     t.integer  "incident_state_id_for_tech", limit: 1
     t.datetime "archived_at"
     t.datetime "resolved_at"
-    t.string   "file",                       limit: 255
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
   end
@@ -112,6 +120,17 @@ ActiveRecord::Schema.define(version: 20151019081406) do
   create_table "incidents_states", force: :cascade do |t|
     t.string "name",     limit: 255
     t.string "shortcut", limit: 255
+  end
+
+  create_table "mails_waiting", force: :cascade do |t|
+    t.string   "sender_mail",        limit: 255
+    t.string   "receiver_mail",      limit: 255
+    t.string   "object",             limit: 255
+    t.text     "content",            limit: 65535
+    t.date     "date_to_attempt"
+    t.integer  "number_of_attempts", limit: 4
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   create_table "pcs", force: :cascade do |t|

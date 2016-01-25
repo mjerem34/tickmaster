@@ -60,6 +60,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def send_mails_delayed
+    @mails = Mail.all
+  end
 
   def cloture_it(incident)
     @users = User.all # Recuperation de tous les users pour email

@@ -24,8 +24,8 @@
         </div>
           <% else %>
         </div>
-          <%= form_for(incident, html: {class: "edit_incident"}) do |f| %>
-              <p><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}), include_blank: "Technicien non défini...", class: "form-control", data_name: "#{incident.id}" %></p>
+          <%= form_for(incident, html: {class: "edit_incident", style: "left:0% !important;"}) do |f| %>
+              <%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}), include_blank: "Technicien non défini...", class: "form-control", data_name: "#{incident.id}" %>
               <% end %>
           <% end %>
   <div class="secondPart" onClick="document.location.href='<%=edit_incident_path(incident)%>'">

@@ -37,9 +37,6 @@
     </li>
     <ul class="sub-menu collapse" id="categories">
       <li><%= link_to "Categories", categories_url, class: " ", :method => :get  %></li>
-      <% if !current_user.nil? && Right.where(name: "view_index_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
-      <li><%= link_to "Sous categories", sous_categories_url, class: " ", :method => :get  %></li>
-      <% end %>
     </ul>
     <% end %>
 

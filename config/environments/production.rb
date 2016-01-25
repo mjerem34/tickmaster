@@ -27,7 +27,7 @@ Rails.application.configure do
     address: 'auth.smtp.1and1.fr',
     port: '587',
     user_name: 'ticket@cle-expertises.fr',
-    password: 'sonya88',
+    password: 'sonya8',
     authentication: :plain,
     enable_starttls_auto: true}
     config.action_mailer.default_url_options = {:host => "10.0.171.250"}

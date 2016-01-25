@@ -50,7 +50,7 @@ $("#incident_lvl_urgence_user").slider();
 </script>
 <div class="fallback" id="filesinputs">
     <%= fields_for :file_incidents, @incident.file_incidents do |i| %>
-      <%= i.file_field :file, name: "file_incidents[file][]", multiple: false, id: "attachfile" %>
+      <%= i.file_field :file, name: "file_incidents[file][]", multiple: true, id: "attachfile" %>
     <% end %>
 </div>
 <div id="filelist">

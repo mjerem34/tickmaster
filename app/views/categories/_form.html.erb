@@ -1,7 +1,7 @@
 <%= form_for(@category) do |f| %>
 
   <div class="field form-group">
-    <h2 class="form-interface">Catégorie</h2>
+    <h2 class="form-interface">Catégorie : </h2>
 
     <%= f.text_field :name, class: "form-control form-interface", placeholder: "Nom(champ requis)" %>
     <% if @category.errors[:name].first != nil %>
@@ -22,6 +22,7 @@
         <tr>
           <th>Nom</th>
           <th>Categorie</th>
+          <th>Niveau d'urgence maximum</th>
           <th colspan="2"></th>
         </tr>
       </thead>
@@ -35,6 +36,7 @@
           <td><%= sous_category.name %></td>
           <% end %>
           <td><%= Category.where(id: "#{sous_category.category_id}").pluck(:name).join %></td>
+          <td><%= sous_category.lvl_urgence_max %></td>
 
           <% if Right.where(name: "edit_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
           <td><%= link_to 'Editer', edit_sous_category_path(sous_category) %></td>
