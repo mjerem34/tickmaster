@@ -4,7 +4,7 @@
 <% if @incident.incident_state_id_for_user != 7 || @incident.incident_state_id_for_user != 10 || @incident.incident_state_id_for_user != 1 || @incident.incident_state_id_for_user != 2 %>
 
   <div class="field">
-    <%= f.text_area :content, class: "form-control next form-interface", placeholder: "Message(Requis)"%>
+    <%= f.text_area :content, class: "form-control next", placeholder: "Un petit merci fait toujours plaisir !"%>
     <% if @response.errors[:content].first != nil %>
     <div class="alert alert-danger">
       <%= "Message " + @response.errors[:content].first%><br><br>

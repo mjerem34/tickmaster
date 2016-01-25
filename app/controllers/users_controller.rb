@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if User.exists?(pseudo: @user.pseudo)
-      flash[:alert] = 'Utilisateur déjà enregistré'
+      flash[:notice] = 'Utilisateur déjà enregistré.'
       redirect_to_back
     else
       respond_to do |format|
@@ -65,7 +65,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user }
+        format.html { redirect_to @user, notice: "Vos informations ont bien été actualisées." }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   def destroy
     respond_to do |format|
       if @user.destroy
-        format.html { redirect_to users_url }
+        format.html { redirect_to users_url, notice: "Vous venez de supprimer un utilisateur, ce n'est pas bien de prendre une vie ..." }
         format.json { head :no_content }
       else
         format.html { redirect_to :back }

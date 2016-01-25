@@ -1,4 +1,4 @@
-.btn-response, .btn-cloture, .btn-reject, .btn-reaffect, .btn-cancel, .submitforms{
+.btn-response, .btn-cloture, .btn-reject, .btn-reaffect, .btn-cancel, .submitforms, .btn-save{
   position:fixed;
   right:5px;
   background-position: center left 70px;
@@ -25,8 +25,12 @@
 
 }
 .btn-response{
-  background:url("ICOMOON/16px/0273-checkmark.png") 8px no-repeat;
+  background:url("ICOMOON/16px/0108-bubble.png") 8px no-repeat;
   bottom: 10px;
+}
+.btn-save{
+  background:url("ICOMOON/16px/0273-checkmark.png") 8px no-repeat;
+  bottom: 170px;
 }
 .btn-reaffect{
   background:url("ICOMOON/16px/0006-pencil.png") 8px no-repeat;
@@ -41,7 +45,7 @@
   bottom: 50px;
 }
 .btn-cloture{
-  background:url("ICOMOON/16px/0273-checkmark.png") 8px no-repeat;
+  background:url("ICOMOON/16px/0058-ticket.png") 8px no-repeat;
   bottom: 50px;
 }
 

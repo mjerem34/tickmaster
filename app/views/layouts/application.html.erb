@@ -138,15 +138,15 @@ FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
     </script>
 
   </div>
-  <% if flash.now[:error] %>
+  <% if flash.now[:notice] %>
   <div id="erreur">
     <p>
       Message :
     </p><br>
     <p class="flash-notice">
-      <%= flash.now[:error] %>
+      <%= flash.now[:notice] %>
     </p>
-    <button class="closepopup" name="button" type="button">Ok</button>
+    <%= link_to 'Ok', '#', class: "closepopup btn btn-success", style: "margin-left: 40%; width: 20%; margin-top:30px;padding: 10px 20px 10px 20px;"%>
   </div>
   <script type="text/javascript">
     $(document).ready(function () {
@@ -162,6 +162,30 @@ FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
     });
   </script>
   <% end %>
+  <% if flash.now[:not_authorized] %>
+  <div id="erreur">
+    <p>
+      Message :
+    </p><br>
+    <p class="flash-notice">
+      <%= flash.now[:not_authorized] %>
+    </p>
+    <%= link_to 'Ok', current_user, class: "closepopup btn btn-success", style: "margin-left: 40%; width: 20%; margin-top:30px;padding: 10px 20px 10px 20px;"%>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $(".closepopup").click(function () {
+        $("#erreur").hide(300);
+      });
+      $("#content").click(function () {
+        $("#erreur").hide(300);
+      });
+      $(".nav-side-menu").click(function () {
+        $("#erreur").hide(300);
+      });
+    });
+  </script>
+<% end %>
 </body>
 
 </html>

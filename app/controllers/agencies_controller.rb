@@ -34,7 +34,7 @@ class AgenciesController < ApplicationController
 
     respond_to do |format|
       if @agency.save
-        format.html { redirect_to @agency }
+        format.html { redirect_to @agency, notice: "Vous venez de créer une agence." }
         format.json { render :show, status: :created, location: @agency }
       else
         format.html { render :new }
@@ -48,7 +48,7 @@ class AgenciesController < ApplicationController
   def update
     respond_to do |format|
       if @agency.update(agency_params)
-        format.html { redirect_to @agency }
+        format.html { redirect_to @agency, notice: "Les paramètres de cette agence ont bien été actualisés." }
         format.json { render :show, status: :ok, location: @agency }
       else
         format.html { render :edit }
@@ -62,7 +62,7 @@ class AgenciesController < ApplicationController
   def destroy
     @agency.destroy
     respond_to do |format|
-      format.html { redirect_to agencies_url}
+      format.html { redirect_to agencies_url, notice: "Vous venez d'arracher plusieurs vies innocentes en supprimant cette agence ..."}
       format.json { head :no_content }
     end
   end

@@ -39,7 +39,7 @@ class SousCategoriesController < ApplicationController
     @sous_category.lvl_urgence_max.nil? ? @sous_category.lvl_urgence_max = 10 : false
     respond_to do |format|
       if @sous_category.save
-        format.html { redirect_to :back }
+        format.html { redirect_to :back, notice: "Vous venez de créer une sous catégorie." }
         format.json { render :show, status: :ok, location: @sous_category }
       else
         format.html { redirect_to :back }
@@ -52,7 +52,7 @@ class SousCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @sous_category.update(sous_category_params)
-        format.html { redirect_to :back }
+        format.html { redirect_to :back, notice: "Les paramètres de la sous catégorie ont été actualisés." }
         format.json { render :show, status: :ok, location: @sous_category }
       else
         format.html { render :edit }
@@ -67,12 +67,12 @@ class SousCategoriesController < ApplicationController
     if Incident.where(sous_category_id: @sous_category.id).pluck(:title).join('') == ''
       @sous_category.destroy
       respond_to do |format|
-        format.html { redirect_to :back }
+        format.html { redirect_to :back, notice: "La sous catégorie vient d'être supprimée." }
         format.json { render json: @sous_category.errors, status: :unprocessable_entity }
       end
     else
       respond_to do |format|
-        format.html { redirect_to categories_url}
+        format.html { redirect_to categories_url, notice: "Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents."}
         format.json { render json: @sous_category.errors, status: :unprocessable_entity }
       end
     end

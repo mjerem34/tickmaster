@@ -12,11 +12,11 @@
 </div>
 <% end %>
 <div class="row-top">
-  <ul class="field form-interface" style="font-size:1.2em;">
+  <ul class="field form-interface">
     <li>
       <strong>Date :</strong>
     </li>
-    <li><%= @incident.created_at.strftime("%d %b %Y %H:%M") %></li>
+    <li><%= @incident.created_at.strftime("%d %b %Y %H:%M") %></li><br>
     <li>
       <strong>Etat de l'incident :</strong>
       <% if current_user.tech.simple_user == true %>
@@ -151,7 +151,7 @@
   <% if @incident.incident_state_id_for_user != 7 || @incident.incident_state_id_for_user != 10 %>
   <% if Right.where(name: "save_changes_of_edit").pluck(current_user.tech.name).join('')  == 'true' %>
 
-  <%= f.submit "Enregistrer", id: "sendButton", class: "btn btn-success form-interface" %>
+  <%= f.submit "Valider", id: "sendButton", class: "btn btn-success form-interface btn-save" %>
   <% end %>
 </div>
 <% end %>

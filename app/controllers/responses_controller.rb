@@ -27,6 +27,7 @@ class ResponsesController < ApplicationController
   # POST /responses
   # POST /responses.json
   def create
+    @users = User.all
     @incident = Incident.find(params[:incident_id])
     @response = @incident.responses.new(response_params)
     case params[:commit]
@@ -44,7 +45,6 @@ class ResponsesController < ApplicationController
     else
       @response.receiver_id = @incident.tech_id
     end
-    @users = User.all
 
     if @response.save!
       unless params[:file_responses].nil?
@@ -67,7 +67,7 @@ class ResponsesController < ApplicationController
           @incident.update(incident_state_id_for_tech: 4)
         elsif @response.sender_id == @incident.tech_id
           @incident.update(incident_state_id_for_user: 4)
-          @incident.update(incident_state_id_for_user: 5)
+          @incident.update(incident_state_id_for_tech: 5)
         end
         if @users.where(id: @response.sender_id).pluck(:tech_id).join == '5'
           @response.receiver_id.nil? ? nil : AppMailer.incident_replied_for_tech_if_disp_answered(@incident, @users, @response).deliver_now

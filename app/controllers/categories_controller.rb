@@ -55,7 +55,7 @@ class CategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to :back }
+        format.html { redirect_to :back, notice: "Catégorie actualisée avec success." }
         format.json { render :show, status: :ok, location: @category }
       else
         format.html { render :edit }
@@ -70,12 +70,12 @@ class CategoriesController < ApplicationController
     if Incident.where(category_id: @category.id).pluck(:title).join('') == ''
       @category.destroy!
       respond_to do |format|
-        format.html { redirect_to categories_url }
+        format.html { redirect_to categories_url, notice: "Catégorie supprimée" }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to categories_url }
+        format.html { redirect_to categories_url, notice: "Vous ne pouvez pas supprimer cette catégorie car elle contient des incidents !" }
         format.json { head :no_content }
       end
     end

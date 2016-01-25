@@ -33,7 +33,6 @@
             if (<%=@arr.to_json.html_safe%>.indexOf($(".pseudo-entry").val()) > -1) {
               $(".password-entry").val('');
               $(".password-entry").show(100);
-              $(".password-entry").focus();
             } else {
                 $(".password-entry").hide(100);
               $(".password-entry").val(' ');

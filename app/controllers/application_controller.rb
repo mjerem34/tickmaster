@@ -103,16 +103,12 @@ class ApplicationController < ActionController::Base
       incident.update( # Met a jour l'incident : en attente de cloture
         resolved_at: Time.now, incident_state_id_for_tech: 9,
         incident_state_id_for_user: 8)
-      @response = Response.new(
-        content: "Demande de cloture envoyée par #{current_user.name}
-        #{current_user.surname}",
-        incident_id: incident.id, sender_id: incident.user_id) # MODIFIER POUR QUE SENDER_ID SOIT incident.TECH_ID ET RECEIVER_ID SOIT incident.USER_ID
       @response.save!
       AppMailer.incident_clotured_for_creator_if_is_tech_clotured(incident, @users, @responses).deliver_now
       AppMailer.incident_clotured_for_tech_if_is_tech_clotured(incident, @users).deliver_now
       AppMailer.incident_clotured_for_disp_if_is_tech_clotured(incident, @users).deliver_now
     end
-    redirect_to incidents_path
+    redirect_to current_user
   end
 
   def create_subcats

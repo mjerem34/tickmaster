@@ -4,7 +4,5 @@
 <%= link_to 'Annuler', sous_categories_path, class: "btn btn-danger btn-align form-interface" %>
 <% else %>
 <% @title = "Accès non autorisé"%>
-<p class="alert_non_authorized">
-  Accès non autorisé ! <%= render 'sessions/new' %>
-</p>
+<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
 <% end %>

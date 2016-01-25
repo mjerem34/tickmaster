@@ -19,7 +19,6 @@
     <% end %>
   <% end %>
   <% else %>
-  <p class="alert_non_authorized" id="connected">
-    Vous êtes déjà connecté ! Pour voir votre pseudonyme rendez vous sur la page <%= link_to 'Mon profil', profil_user_url(current_user)%>
-  </p>
+  <%= flash.now[:not_authorized] = "Vous êtes déjà connecté, pour voir votre pseudonyme, rendez vous sur la page 'Mon profil'." %>
+
 <% end %>

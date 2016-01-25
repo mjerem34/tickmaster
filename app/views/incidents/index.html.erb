@@ -1,39 +1,44 @@
-<% @title = "Liste de tous les incidents" %>
+<% if Right.where(name: "view_index_all_of_incidents").pluck(current_user.tech.name).join('') == 'true' %>
+  <% @title = "Liste de tous les incidents" %>
 
-<% @incidents.order(["created_at desc"]).each do |incident| %>
-<% case incident.incident_state_id_for_tech %>
-<% when 1 %>
-  <div class="col-md-4" style="cursor:pointer; margin:10px; max-width: 300px; height: 400px; background: #d73b3b; border-style: ; border-width:1px; border-radius:5px;">
-<% when 2 %>
-  <div class="col-md-4" style="cursor:pointer; margin:10px; max-width: 300px; height: 400px; background: #50c25c; border-style: ; border-width:1px; border-radius:5px;">
-<% when 4 %>
-  <div class="col-md-4" style="cursor:pointer; margin:10px; max-width: 300px; height: 400px; background: #ff9e39; border-style: ; border-width:1px; border-radius:5px;">
+  <% @incidents.order(["created_at desc"]).each do |incident| %>
+  <% case incident.incident_state_id_for_tech %>
+  <% when 1 %>
+    <div class="col-md-4" style="cursor:pointer; margin:10px; max-width: 300px; height: 400px; background: #d73b3b; border-style: ; border-width:1px; border-radius:5px;">
+  <% when 2 %>
+    <div class="col-md-4" style="cursor:pointer; margin:10px; max-width: 300px; height: 400px; background: #50c25c; border-style: ; border-width:1px; border-radius:5px;">
+  <% when 4 %>
+    <div class="col-md-4" style="cursor:pointer; margin:10px; max-width: 300px; height: 400px; background: #ff9e39; border-style: ; border-width:1px; border-radius:5px;">
 
-  <% else %>
-  <div class="col-md-4" style="cursor:pointer; margin:10px; max-width: 300px; height: 400px; background: #2A3947; border-style: ; border-width:1px; border-radius:5px;">
-<% end %>
-  <div class="firstPart" onClick="document.location.href='<%=edit_incident_path(incident)%>'">
+    <% else %>
+    <div class="col-md-4" style="cursor:pointer; margin:10px; max-width: 300px; height: 400px; background: #2A3947; border-style: ; border-width:1px; border-radius:5px;">
+  <% end %>
+    <div class="firstPart" onClick="document.location.href='<%=edit_incident_path(incident)%>'">
 
-        <p> <%= incident.id %></p>
-        <p class="hover-cellule" style="word-break: break-all;">Objet : <b><%= truncate(incident.title, length: 100) %></b></p>
-        <p class="hover-cellule" style="word-break: break-all;">Contenu : <b><%= truncate(strip_tags(incident.content), length: 100)%></b></p>
-        <p>Demandeur : <b><%= incident.user.name%></b></p>
-        <% if incident.tech_id != nil %>
-        <p>Technicien : <b><%= User.find_by_sql("SELECT `users`.* FROM `users` WHERE `id` = #{incident.tech_id}").collect{ |u| [u.surname, u.name]}.join(" ") %></b></p>
-      </div>
-        <% else %>
-      </div>
-        <%= form_for(incident, html: {class: "edit_incident"}) do |f| %>
-            <p><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}), include_blank: "Technicien non défini...", class: "form-control", data_name: "#{incident.id}" %></p>
-            <% end %>
-        <% end %>
-<div class="secondPart" onClick="document.location.href='<%=edit_incident_path(incident)%>'">
+          <p> <%= incident.id %></p>
+          <p class="hover-cellule" style="word-break: break-all;">Objet : <b><%= truncate(incident.title, length: 100) %></b></p>
+          <p class="hover-cellule" style="word-break: break-all;">Contenu : <b><%= truncate(strip_tags(incident.content), length: 100)%></b></p>
+          <p>Demandeur : <b><%= incident.user.name%></b></p>
+          <% if incident.tech_id != nil %>
+          <p>Technicien : <b><%= User.find_by_sql("SELECT `users`.* FROM `users` WHERE `id` = #{incident.tech_id}").collect{ |u| [u.surname, u.name]}.join(" ") %></b></p>
+        </div>
+          <% else %>
+        </div>
+          <%= form_for(incident, html: {class: "edit_incident"}) do |f| %>
+              <p><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}), include_blank: "Technicien non défini...", class: "form-control", data_name: "#{incident.id}" %></p>
+              <% end %>
+          <% end %>
+  <div class="secondPart" onClick="document.location.href='<%=edit_incident_path(incident)%>'">
 
-        <p>Catégorie : <b><%= incident.category.name %></b></p>
-        <p>Sous-Categorie : <b><%= SousCategory.find(incident.sous_category).name %></b></p>
-        <p>Date : <b><%= incident.created_at.strftime("%d %b %Y %H:%M")%></b></p>
-        <p>Etat : <b><%= IncidentsState.find(incident.incident_state_id_for_tech).shortcut%></b></p>
-        <p>Urgence : <b><%= incident.lvl_urgence_user %></b></p>
-      </div>
-</div>
+          <p>Catégorie : <b><%= incident.category.name %></b></p>
+          <p>Sous-Categorie : <b><%= SousCategory.find(incident.sous_category).name %></b></p>
+          <p>Date : <b><%= incident.created_at.strftime("%d %b %Y %H:%M")%></b></p>
+          <p>Etat : <b><%= IncidentsState.find(incident.incident_state_id_for_tech).shortcut%></b></p>
+          <p>Urgence : <b><%= incident.lvl_urgence_user %></b></p>
+        </div>
+  </div>
+  <% end %>
+<% else %>
+<% @title = "Accès non autorisé"%>
+<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
 <% end %>
