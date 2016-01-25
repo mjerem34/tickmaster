@@ -13,6 +13,7 @@ class IncidentsController < ApplicationController
   end
 
   def show
+    # Permet de renvoyer la connexion quand ce lien est tapé dans l'url
     redirect_to :back
     # @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
     # @incidentnew = Incident.new

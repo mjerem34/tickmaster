@@ -21,21 +21,4 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to '/'
   end
-
-  def forget_identifiers
-    @title = 'Pseudonyme oublié'
-    if User.find_by_email(params[:email])
-      redirect_to :back
-    else
-      redirect_to '/pages/home'
-    end
-  end
-
-  def recover_pseudonyme
-    if user
-      redirect_to :back
-    else
-      redirect_to '/'
-    end
-  end
 end

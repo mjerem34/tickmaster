@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <!-- If you delete this meta tag, Earth will fall into the sun. -->
+    <meta content="width=device-width" name="viewport"/>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <title>TickMaster</title>
+    <link charset="utf-8" href="email.css" media="screen" rel="stylesheet">
+  </head>
+  <body bgcolor="#FFF" leftmargin="0" marginheight="0" marginwidth="0" topmargin="0">
+
+    <!-- HEADER -->
+    <table bgcolor="#29549E" class="head-wrap">
+      <tr>
+        <td></td>
+        <td class="header container">
+
+          <div class="content">
+            <table bgcolor="#29549E">
+              <tr>
+                <td>
+                  <h2 class="collapse">TickMaster</h2>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+        </td>
+        <td></td>
+      </tr>
+    </table>
+    <!-- /HEADER -->
+
+    <!-- BODY -->
+    <table class="body-wrap">
+      <tr>
+        <td></td>
+        <td bgcolor="#FFFFFF" class="container">
+
+          <div class="column-wrap">
+
+            <div class="column">
+              <table>
+                <tr>
+                  <td>
+                    <h1>Bonjour
+                      <%= @user.surname%></h1>
+                    <p>Vous venez de demander un rappel pour votre pseudonyme</p>
+                    <p class="callout">
+                      <strong>Pseudonyme :
+                      </strong><br><br>
+                      <%= @user.pseudo %>
+                    </p>
+
+                    <%= link_to "Se connecter &raquo;".html_safe, signin_url, class: "btn"%>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+          </td>
+        </tr>
+      </table>
+<p>
+  Si ce n'est pas vous qui avez fait cette demande, veuillez ignorer ce mail et prévenir votre administrateur système de sa présence.
+</p>
+<!-- /BODY -->
+    </body>
+  </html>

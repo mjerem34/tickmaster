@@ -1,6 +1,0 @@
-<% content_for :form do %>
-  <%= form_tag @user, method: :post, class: "navbar-form navbar-left search-form" do %>
-    <%= email_field_tag :email, params[:email], class: "form-control", placeholder: "Adresse email" %>
-    <%= submit_tag "Valider", class:"btn btn-success form-control" %>
-  <% end %>
-<% end %>

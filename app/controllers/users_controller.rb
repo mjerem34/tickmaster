@@ -6,8 +6,18 @@ class UsersController < ApplicationController
     @title = 'Utilisateurs'
   end
 
-  def index
+  def index # Page liste des utilisateurs
     @users = User.all
+  end
+
+  def forget_identifiers # Fonction pour oubli de pseudonyme
+    @title = "Identifiants oubliés"
+    @user = User.find_by_email(params[:email])
+    unless @user.nil?
+      AppMailer.pseudonyme_forgeted(@user).deliver_now
+      flash[:notice] = "Un email contenant votre pseudonyme vient de vous être envoyé."
+      redirect_to signin_path
+    end
   end
 
   def show

@@ -5,7 +5,6 @@
 <%= form_for(@user) do |f| %>
 <br>
 <div id="next">
-<% if Right.where(name: "edit_all_user").pluck(current_user.tech.name).join('') == 'true' %>
   <div class="field form-group">
     <%= f.label "Pseudonyme", class: "form-interface"%>
 
@@ -19,6 +18,7 @@
   </div><!-- DIV ERROR -->
     <% end %>
   </div>
+  <% if Right.where(name: "edit_all_user").pluck(current_user.tech.name).join('') == 'true' %>
   <div class="field form-group">
     <%= f.label "Adresse email", class: "form-interface"%>
     <%= f.email_field :email, class: "form-control form-interface next", placeholder: "Adresse email" %>

@@ -172,4 +172,10 @@ class AppMailer < ApplicationMailer
          subject: "Demande de réaffectation pour l'incident n°#{incident.id}",
          template_path: '/appmailer', template_name: 'incident_reaffected_for_disp')
   end
+  def pseudonyme_forgeted(user)
+    @user = user
+    mail(to: "#{user.email}",
+         subject: "Demande d'oubli de pseudonyme",
+         template_path: '/appmailer', template_name: 'pseudonyme_forgeted')
+  end
 end

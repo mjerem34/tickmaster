@@ -55,6 +55,8 @@ Rails.application.routes.draw do
       get :to_treat
       get :profil
       get :download
+      get :forget_identifiers
+      post :forget_identifiers
     end
   end
   get '/', to: 'pages#home'
@@ -64,7 +66,6 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new'
   get '/signin', to: 'sessions#new'
   get '/signout', to: 'sessions#destroy'
-  get '/forgot', to: 'sessions#forget_identifiers'
   get '/rights', to: 'rights#index'
   get '/agencies', to: 'agencies#index'
   # The priority is based upon order of creation: first created -> highest priority.

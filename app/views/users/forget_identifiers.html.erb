@@ -1,0 +1,25 @@
+<% if current_user == nil %>
+  <% content_for :form do %>
+    <h1 class="home">Bienvenue sur la page d'accueil de TickMaster.</h1><br><br><br><br><br><br><br>
+    <%= form_tag @user, class: "connect-user" do %>
+      <div class="field form-group">
+        <%= email_field_tag :email, params[:email], class: "form-control pseudo-entry", placeholder: "Adresse email", required: true %>
+      </div>
+      <div class="actions form-group">
+        <%= submit_tag "Valider", class:"btn btn-success btn-create-new-user" %>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <%= link_to "Pas encore inscrit ?", signup_path, class: "btn btn-primary"%>
+        </div>
+        <div class="col-md-6">
+          <%= link_to 'Déjà inscrit ?', signin_path, class: "btn btn-danger" %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <% else %>
+  <p class="alert_non_authorized" id="connected">
+    Vous êtes déjà connecté ! Pour voir votre pseudonyme rendez vous sur la page <%= link_to 'Mon profil', profil_user_url(current_user)%>
+  </p>
+<% end %>
