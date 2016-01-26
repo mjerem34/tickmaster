@@ -1,4 +1,5 @@
 <% @title = "Vos incidents à traiter" %>
+<% if RightsController.verify_rights_for("dispatch_incidents", current_user) then %>
 
 <div class="table-responsive">
   <table class="table table-hover">
@@ -54,3 +55,10 @@
     </tbody>
   </table>
 </div>
+<% else %>
+
+<% @title = "Accès non autorisé"%>
+
+<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
+
+<% end %>

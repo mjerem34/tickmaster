@@ -1,5 +1,5 @@
-<% if !current_user.nil? && Right.where(name: "view_index_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
 <% @title = "Liste des sous catégories"%>
+<% if !current_user.nil? && Right.where(name: "view_index_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
 
 
 

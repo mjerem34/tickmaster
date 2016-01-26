@@ -1,5 +1,5 @@
-<% if Right.where(name: "view_index_agencies").pluck(current_user.tech.name).join('')  == 'true' %>
 <% @title = "Liste de toutes les agences" %>
+<% !current_user.nil? && if Right.where(name: "view_index_agencies").pluck(current_user.tech.name).join('')  == 'true' %>
 
 
 

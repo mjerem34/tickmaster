@@ -1,7 +1,7 @@
+<% @title = "Incident n° #{@incident.id} de #{@incident.user.surname} #{@incident.user.name}" %>
 <% if !current_user.nil? %>
 <% case %>
 <% when Right.where(name: "view_details_incident_of_other_member").pluck(current_user.tech.name).join('')  == 'true', @incident.tech_id == current_user.id, @incident.user_id == current_user.id %>
-<% @title = "Incident n° #{@incident.id} de #{@incident.user.surname} #{@incident.user.name}" %>
 
 <p>
   <strong>Objet :</strong>

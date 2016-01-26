@@ -1,5 +1,5 @@
-<% if !current_user.nil? && Right.where(name: "create_new_right").pluck(current_user.tech.name).join('')  == 'true' %>
 <% @title = "Nouveau droit" %>
+<% if !current_user.nil? && Right.where(name: "create_new_right").pluck(current_user.tech.name).join('')  == 'true' %>
 <h2 class="form-interface">Nouveau droit</h2>
 <%= render 'form' %>
 <%= link_to 'Annuler', rights_path, class: "btn btn-danger btn-align form-interface" %>

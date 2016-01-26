@@ -4,7 +4,6 @@
 
 Rails.application.routes.draw do
   resources :agencies
-  resources :teches
   resources :categories do
     member do
       get :create_cats
@@ -49,7 +48,6 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :teches
   resources :users do
     member do
       get :allincidents

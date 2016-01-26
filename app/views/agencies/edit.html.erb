@@ -1,5 +1,5 @@
-<% if Right.where(name: "edit_agency").pluck(current_user.tech.name).join('')  == 'true' %>
 <% @title = "Editer agence"%>
+<% !current_user.nil? && if Right.where(name: "edit_agency").pluck(current_user.tech.name).join('')  == 'true' %>
 
 <h1 class="title-h1">Editer une agence</h1>
 

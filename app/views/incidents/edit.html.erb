@@ -1,6 +1,5 @@
-<% if !current_user.nil? %>
-  <% if Right.where(name: "view_detail_incident").pluck(current_user.tech.name).join('')  == 'true' %>
-    <% @title = "Incident n°#{@incident.id} de #{@incident.user.name} #{@incident.user.surname}" %>
+<% @title = "Incident n°#{@incident.id} de #{@incident.user.name} #{@incident.user.surname}" %>
+  <% if !current_user.nil? && Right.where(name: "view_detail_incident").pluck(current_user.tech.name).join('')  == 'true' %>
     <%= render 'form_edit' %>
     <!-- Contenu si l'incident n'est pas cloturé -->
     <% if !clotured_or_rejected?(@incident)%>

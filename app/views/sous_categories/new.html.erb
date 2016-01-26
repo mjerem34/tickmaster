@@ -1,5 +1,5 @@
-<% if !current_user.nil? && Right.where(name: "create_new_subcategory").pluck(current_user.tech.name).join('')  == 'true' %>
 <% @title = "Nouvelle sous catégorie"%>
+<% if !current_user.nil? && Right.where(name: "create_new_subcategory").pluck(current_user.tech.name).join('')  == 'true' %>
 <%= render 'form' %>
 <%= link_to 'Annuler', sous_categories_path, class: "btn btn-danger btn-align form-interface" %>
 <% else %>

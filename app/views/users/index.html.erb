@@ -1,5 +1,5 @@
-<% if !current_user.nil? && Right.where(name: "view_index_users").pluck(current_user.tech.name).join('')  == 'true' %>
 <% @title = "Liste des utilisateurs"%>
+<% if !current_user.nil? && Right.where(name: "view_index_users").pluck(current_user.tech.name).join('')  == 'true' %>
 <div class="table-responsive">
   <table class="table table-hover">
     <thead class="header">

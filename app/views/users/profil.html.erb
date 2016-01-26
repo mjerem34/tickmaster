@@ -1,5 +1,5 @@
+<% @title = "Profil d'utilisateur #{@user.surname} #{@user.name}"%>
 <% if !current_user.nil? && (current_user == @user && Right.where(name: "edit_user").pluck(current_user.tech.name).join('')  == 'true') || Right.where(name: "edit_other_user").pluck(current_user.tech.name).join('') == 'true'  %>
-<% @title = "Editer l'utilisateur #{@user.surname} #{@user.name}"%>
 
 <br><br>
 <%= form_for(@user) do |f| %>

@@ -1,5 +1,5 @@
-<% if !current_user.nil? && Right.where(name: "edit_category").pluck(current_user.tech.name).join('')  == 'true' %>
 <% @title = "Editer catégorie : #{@category.name}" %>
+<% if !current_user.nil? && Right.where(name: "edit_category").pluck(current_user.tech.name).join('')  == 'true' %>
 
 <%= render 'form' %><br>
 <%= link_to 'Annuler', categories_path, class: "btn btn-danger btn-align form-interface" %>

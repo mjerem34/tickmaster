@@ -1,5 +1,5 @@
-<% if !current_user.nil? && Right.where(name: "view_index_rights").pluck(current_user.tech.name).join('')  == 'true' %>
 <% @title = "Liste des droits" %>
+<% if !current_user.nil? && Right.where(name: "view_index_rights").pluck(current_user.tech.name).join('')  == 'true' %>
 
 
 

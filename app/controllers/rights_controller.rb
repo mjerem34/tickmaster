@@ -51,6 +51,10 @@ class RightsController < ApplicationController
     end
   end
 
+  def self.verify_rights_for(right_name, current_user)
+    return true if !current_user.nil? && Right.where(name: right_name).pluck(current_user.tech.name).join('') == 'true'
+  end
+
   private
 
   def set_expiration

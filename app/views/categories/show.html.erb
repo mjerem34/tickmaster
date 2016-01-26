@@ -1,5 +1,5 @@
-<% if !current_user.nil? && Right.where(name: "view_details_category").pluck(current_user.tech.name).join('')  == 'true' %>
 <% @title = "Liste des sous catégories de catégorie : #{@category.name}" %>
+<% if !current_user.nil? && Right.where(name: "view_details_category").pluck(current_user.tech.name).join('')  == 'true' %>
 
 
 <div class="table-responsive">

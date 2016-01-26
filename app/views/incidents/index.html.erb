@@ -1,5 +1,5 @@
-<% if Right.where(name: "view_index_all_of_incidents").pluck(current_user.tech.name).join('') == 'true' %>
-  <% @title = "Liste de tous les incidents" %>
+<% @title = "Liste de tous les incidents" %>
+<% if RightsController.verify_rights_for("view_index_all_of_incidents", current_user) then %>
 
   <% @incidents.order(["created_at desc"]).each do |incident| %>
   <% case incident.incident_state_id_for_tech %>
