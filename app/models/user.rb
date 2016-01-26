@@ -35,8 +35,8 @@ class User < ActiveRecord::Base
   validates :pseudo, presence: true,
                      format: { with: pseudo_regexp },
                      uniqueness: { case_sensitive: false }, length: { in: 0..49 }
-  validates :name, presence: true, length: { in: 0..19 }
-  validates :surname, presence: true, length: { in: 0..19 }
+  validates :name, presence: true, length: { in: 0..100 }
+  validates :surname, presence: true, length: { in: 0..100 }
   validates :tech_id, presence: true
   validates :agency_id, presence: true
 
