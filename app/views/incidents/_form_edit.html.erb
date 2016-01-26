@@ -74,22 +74,22 @@
       <% end %>
     </div>
   </div>
-  <div class="col-md-4">
 
-    <ul class="field">
+  <div class="col-md-4">
+    <div class="field">
       <%= f.label "Sous_Catégorie de l'incident", class: "form-interface"  %><br>
       <% if Right.where(name: "edit_categories_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
       <% case @incident.incident_state_id_for_user %>
       <% when 7, 10 %>
-      <li><%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), disabled: "disabled", class: "form-control form-interface" )%></li>
+      <%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), disabled: "disabled", class: "form-control form-interface" )%>
       <% else %>
-      <li><%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), class: "form-control form-interface" )%></li>
+      <%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), class: "form-control form-interface" )%>
       <% end %>
       <% else %>
-      <li><%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), disabled: "disabled", class: "form-control form-interface" )%></li>
+      <%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), disabled: "disabled", class: "form-control form-interface" )%>
       <% end %>
 
-    </ul>
+    </div>
   </div>
 </div>
 <div class="row">
@@ -138,6 +138,7 @@
 </div>
 <div class="row">
   <div class="col-md-7 col-md-offset-2">
+    <%= f.label "Fichiers :"%>
     <% @incident.file_incidents.each do |file|%>
     <% if file.content_type.include?("image") %>
     <%= link_to "#{image_tag(file.file_url, size: '800x400')}".html_safe, file.file_url%>

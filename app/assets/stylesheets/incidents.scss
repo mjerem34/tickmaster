@@ -1,27 +1,26 @@
 
-input{
-}
-.hover-cellule span {
-  word-wrap: break-word;
-  max-width: 500px;
-  position: absolute;
-  margin-left: -60px;
-  color: white;
-  background: rgba(0,0,0,0.9);
-  padding: 15px;
+div.response-hover-cellule {
+  position: fixed;
+  top: 20vh;
+  padding: 30px;
+  margin-left: 5%;
+  margin-right: auto;
+  width: 800px;
+  height: 450px;
+
+  color: black;
+  background: floralwhite;
   border-radius: 3px;
-  box-shadow: 0 0 2px rgba(0,0,0,.5);
-  transform: scale(0) rotate(-100deg);
-  transition: all 0.25s;
-  opacity: 0;
-  -webkit-transition-delay: 0.5s;
-  transition-delay: 0.5s;
+  div.content-response-hover-cellule{
+    overflow-y:auto;
+    max-height: 280px;
+    line-height: 25px;
+  }
+  div.menu-response-hover-cellule{
+    border-bottom: 1px lightgray solid;
+  }
 }
-.hover-cellule:hover span,
-.hover-cellule:focus span {
-  transform: scale(1) rotate(0);
-  opacity: 1;
-}
+
 
 
 .input-file-container {

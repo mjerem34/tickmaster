@@ -16,19 +16,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
               <% Response.find_by_sql("SELECT `responses`.* FROM `responses` WHERE `incident_id` = #{@incident.id}").each do |response| %>
-              <td class="hover-cellule">
+              <tr>
+              <td class="hover-cellule <%= response.id %>">
                 <%= truncate(strip_tags(response.content), length: 40) %>
-                <span class="response-hover-cellule">
-                  <%=strip_tags(response.content)%>
-                </span>
               </td>
               <% if !response.file_responses.nil? %>
-                <td><% response.file_responses.each do |file| %>
-                  <%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-default')%><br>
-                </td>
+              <td>
+                <ol>
+                <% response.file_responses.each do |file| %>
+                  <li><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-default')%></li>
               <% end %>
+            </ol>
+              </td>
               <% else %>
                 <td>Aucun</td>
               <% end %>
@@ -40,10 +40,32 @@
               <% end %>
               <td><%= response.created_at.strftime("%d %b %Y %H:%M") %></td>
             </tr>
+            <div class="response-hover-cellule <%= response.id %>">
+              <div class="menu-response-hover-cellule">
+                <p class="btn btn-default cross-close-response-hover-cellule">X</p>
+                <h1 style="text-align:center;">Contenu détaillé du message </h1>
+              </div><br>
+              <div class="content-response-hover-cellule">
+                <%= strip_tags(response.content) %>
+              </div>
+            </div>
+            <script type="text/javascript">
+            $(document).ready(function(){
+              $(".response-hover-cellule.<%= response.id%>").hide();
+              $(".hover-cellule.<%= response.id %>").click(function(){
+                $(".response-hover-cellule").hide(450);
+                $(".response-hover-cellule.<%= response.id%>").show(500);
+              });
+              $(".cross-close-response-hover-cellule").click(function(){
+                $(".response-hover-cellule").hide(450);
+              });
+            });
+            </script>
             <% end %>
           </tbody>
         </table>
       </div>
+
     <% else %>
     <!-- Contenu si l'incident est cloturé  -->
       <div class="table-responsive messages_in_edit_incident">

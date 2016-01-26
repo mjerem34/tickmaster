@@ -1,5 +1,6 @@
 /*----- IMPORTATION ----- */
 @import url(https://fonts.googleapis.com/css?family=Black+Ops+One);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,700,900,300);
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "vars.scss";
@@ -45,6 +46,8 @@
   top:0;
 }
 body{
+  font-family: $text-font;
+  font-weight: $font-weight-normal;
   background: $background;
 }
 h1.home{

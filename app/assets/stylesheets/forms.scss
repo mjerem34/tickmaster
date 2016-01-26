@@ -108,3 +108,26 @@ form.edit_incident, div.messages_in_edit_incident{
   }
 
 }
+
+.text_area_response{
+  position: relative;
+  @media screen and(min-width:1600px) {
+    left: 25%;
+    width: 100%;
+}
+  @media screen and(min-width:1105px) and(max-width:1599px) {
+    left: 30%;
+    width: 80%;
+  }
+  @media screen and(min-width:768px) and(max-width:1104px) {
+    left: 2%;
+    width: 89%;
+  }
+  @media screen and(min-width:413px) and(max-width:767px) {
+    left: 1%;
+  }
+  @media screen and(max-width:412px) {
+    left: 1%;
+  }
+
+}
