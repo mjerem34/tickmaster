@@ -159,10 +159,15 @@ FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
       $(".nav-side-menu").click(function () {
         $("#erreur").hide(300);
       });
+      $(document).keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13'){
+          $(".closepopup").click();
+        }
+      });
     });
   </script>
-  <% end %>
-  <% if flash.now[:not_authorized] %>
+  <% elsif flash.now[:not_authorized] %>
   <div id="erreur">
     <p>
       Message :
@@ -182,6 +187,12 @@ FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
       });
       $(".nav-side-menu").click(function () {
         $("#erreur").hide(300);
+      });
+      $(document).keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13'){
+          $(".closepopup").click();
+        }
       });
     });
   </script>
