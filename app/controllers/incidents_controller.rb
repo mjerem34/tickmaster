@@ -2,10 +2,18 @@ class IncidentsController < ApplicationController
   before_action :set_incident, only: [:show, :edit, :update, :destroy, :reply, :download]
   before_action :set_categories_all, only: [:index, :show, :edit, :new, :create]
   before_action :set_users_all, only: [:create, :cloture_it]
-  before_action :set_incidents_all, only: [:index]
   before_action :set_expiration
 
   def index
+    @techs = User.joins(:tech).where('teches.simple_user = false').collect{ |p| [[p.surname, p.name].join(' '), p.id] }
+    if params[:order_by].nil?
+      @incidents = Incident.order("created_at asc")
+    else
+      @incidents = Incident.order(params[:order_by])
+      respond_to do |format|
+        format.js {render action: :order_by}
+      end
+    end
   end
 
   def incidents_without_tech
@@ -128,10 +136,6 @@ class IncidentsController < ApplicationController
 
   def set_users_all
     @users = User.all
-  end
-
-  def set_incidents_all
-    @incidents = Incident.all
   end
 
   def incident_params

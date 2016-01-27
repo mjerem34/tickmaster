@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
     attr_accessor :pseudo, :id, :email, :name, :surname, :tel, :mobile, :tech_id, :agency_id
   end
 
-  has_many :incidents
+  has_many :user_incidents, class_name: 'Incident', foreign_key: 'user_id'
+  has_many :tech_incidents, class_name: 'Incident', foreign_key: 'tech_id'
   has_many :files_users
   accepts_nested_attributes_for :files_users, allow_destroy: true
   has_many :responses

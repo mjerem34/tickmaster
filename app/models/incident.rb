@@ -1,6 +1,8 @@
 class Incident < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :tech
+  belongs_to :user, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :tech, class_name: 'User', foreign_key: 'tech_id'
+  belongs_to :incident_state_id_for_tech, class_name: 'IncidentsState', foreign_key: 'incident_state_id_for_tech'
+  belongs_to :incident_state_id_for_user, class_name: 'IncidentsState', foreign_key: 'incident_state_id_for_user'
   belongs_to :sous_category
   belongs_to :category
   belongs_to :agency
@@ -8,8 +10,6 @@ class Incident < ActiveRecord::Base
   has_many :archives
   has_many :file_incidents
   accepts_nested_attributes_for :file_incidents
-  belongs_to :incidents_states
-  belongs_to :incidents_states
   module Incidentmod
     attr_accessor :name, :content, :tech_id, :incident_state_id_for_user, :incident_state_id_for_tech, :lvl_urgence_user, :lvl_urgence_tech, :file
   end
@@ -23,8 +23,8 @@ class Incident < ActiveRecord::Base
 
   def verify_if_incident_is_reaffected
     if self.tech_id_changed?
-      self.incident_state_id_for_user = '2'
-      self.incident_state_id_for_tech = '2'
+      self.incident_state_id_for_user.id = '2'
+      self.incident_state_id_for_tech.id = '2'
       @users = User.all
       @response = Response.new(content: 'Incident affecté', incident_id: id, sender_id: user_id)
       @response.save!

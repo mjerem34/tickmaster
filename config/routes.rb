@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       get :send_tech_form
       get :download
       post :show
+      get :order_by
     end
     resources :responses do
       member do
