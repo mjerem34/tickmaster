@@ -1,60 +1,79 @@
 <% @title = "Incidents non attribués" %>
 <% if RightsController.verify_rights_for("dispatch_incidents", current_user) then %>
-<div class="table-responsive">
-  <table class="table table-hover">
-    <thead class="header">
-      <tr>
-        <th>#</th>
-        <th>Objet</th>
-        <th>Contenu</th>
-        <th>Demandeur</th>
-        <th>Technicien</th>
-        <th>Categorie</th>
-        <th>Sous-Categorie</th>
-        <th>Date</th>
-        <th>Etat</th>
-        <th>Urgence</th>
-        <th>Niveau</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @incidents.reorder("created_at DESC").each do |incident|%>
-      <% if !clotured_or_rejected?(incident) %>
-        <tr>
-          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.id%></td>
-          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%= truncate(incident.title, length: 20) %>
-            <span>
-              <%=incident.title%>
-            </span>
-          </td>
-          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%=  truncate(strip_tags(incident.content), length: 20)%>
-            <span>
-              <%=strip_tags(incident.content)%>
-            </span>
-          </td>
-        <td onClick="document.location.href='<%= edit_incident_path(incident)%>'"><%= incident.user.name + ' ' + incident.user.surname %></td>
-        <%= form_for(incident) do |f| %>
-            <td><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}), include_blank: "Technicien non défini...", class: "form-control", data_name: "#{incident.id}"  %></td>
-            <% end %>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.category.name %></td>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.sous_category.name %></td>
-        <td onClick="document.location.href='<%= edit_incident_path(incident)%>'"><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%= IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:shortcut).join('') %>
-          <span>
-            <%=IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:name).join('')%>
-          </span>
-        </td>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_urgence_user %></td>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.lvl_of_incident %></td>
+    <div class="tri-cards-list-incidents">
+      <%= select_tag 'Tri', "
+      <option data-tri='id asc'>Récents</option>
+      <option data-tri='id desc'>Anciens</option>
+      <option data-tri='title asc'>Objet: A à Z</option>
+      <option data-tri='title desc'>Objet Z à A</option>
+      <option data-tri='content asc'>Contenu: A à Z</option>
+      <option data-tri='content desc'>Contenu: Z à A</option>
+      <option data-tri='users.name asc'>Demandeur: A à Z</option>
+      <option data-tri='users.name desc'>Demandeur: Z à A</option>
+      <option data-tri='categories.name asc'>Catégorie: A à Z</option>
+      <option data-tri='categories.name desc'>Catégorie: Z à A</option>
+      <option data-tri='sous_categories.name asc'>Sous-catégorie: A à Z</option>
+      <option data-tri='sous_categories.name desc'>Sous-catégorie: Z à A</option>
+      <option data-tri='incident_state_id_for_tech asc'>Etat &#9650;</option>
+      <option data-tri='incident_state_id_for_tech desc'>Etat &#9660;</option>
+      <option data-tri='lvl_urgence_user asc'>Priorité &#9650;</option>
+      <option data-tri='lvl_urgence_user desc'>Priorité &#9660;</option>
+      ", include_blank: "Trier par :", class: "form-control select-tri-cards-list-incidents"%>
+    </div>
 
-      </tr>
-      <% end %>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<br>
-<% else %>
-<% @title = "Accès non autorisé"%>
-<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
-<% end %>
+    <div class="cards-list-incidents">
+    <% @incidents.each do |incident| %>
+    <% case incident.incident_state_id_for_tech.id %>
+    <% when 1 %>
+      <div class="col-md-4 card-incident" style=" background: #d73b3b;">
+    <% when 2 %>
+      <div class="col-md-4 card-incident" style="background: #50c25c;">
+    <% when 4 %>
+      <div class="col-md-4 card-incident" style="background: #ffea00; color:dimgrey;">
+      <% else %>
+      <div class="col-md-4 card-incident" style="background: #2A3947; ">
+    <% end %>
+      <div class="firstPart" onClick="document.location.href='<%=edit_incident_path(incident)%>'">
+
+            <p> N°<%= incident.id %></p><br>
+            <p class="hover-cellule" style="word-break: break-all;">Objet : <b><%= truncate(incident.title, length: 70) %></b></p>
+            <p class="hover-cellule" style="word-break: break-all;">Contenu : <b><%= truncate(strip_tags(incident.content), length: 100)%></b></p>
+            <p>Demandeur : <b><%= incident.user.name%> <%= incident.user.surname%></b></p>
+            <% if incident.tech_id != nil %>
+            <p>Technicien : <b><%= incident.tech.name %> <%= incident.tech.surname %></b></p>
+          </div>
+            <% else %>
+          </div>
+            <%= form_for(incident, html: {class: "edit_incident", style: "left:0% !important;"}) do |f| %>
+            <%= select_tag "incident[tech_id]", options_for_select(@techs), include_blank: "Technicien non défini...", class: "form-control", data_name: "#{incident.id}" %>
+                <% end %>
+            <% end %>
+    <div class="secondPart" onClick="document.location.href='<%=edit_incident_path(incident)%>'">
+
+            <p>Catégorie : <b><%= incident.category.name %></b></p>
+            <p>Sous-Categorie : <b><%= incident.sous_category.name%></p>
+            <p>Date : <b><%= incident.created_at.strftime("%d %b %Y %H:%M")%></b></p>
+            <p>Etat : <b><%= incident.incident_state_id_for_tech.shortcut %></b></p>
+            <p>Urgence : <b><%= incident.lvl_urgence_user %></b></p>
+          </div>
+    </div>
+    <% end %>
+  </div>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $(".select-tri-cards-list-incidents").change(function(){
+      $.ajax({
+        url: '/incidents/:id/incidents_without_tech',
+        type: 'GET',
+        dataType: 'script',
+        data: {
+          order_by: $(".select-tri-cards-list-incidents option:selected").attr("data-tri")
+        }
+      });
+    });
+  });
+  </script>
+  <% else %>
+  <% @title = "Accès non autorisé"%>
+  <%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
+  <% end %>

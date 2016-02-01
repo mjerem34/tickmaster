@@ -1,13 +1,25 @@
 <% @title = "Liste de tous les incidents" %>
 <% if RightsController.verify_rights_for("view_index_all_of_incidents", current_user) then %>
-  <div class="tri-cards-list-incidents">
-    <ul>
-      <li class="btn btn-default btn-tri-cards-list-incidents" data-tri="id asc">0 > 1</li>
-      <li class="btn btn-default btn-tri-cards-list-incidents" data-tri="id desc">1 > 0</li>
-      <li class="btn btn-default btn-tri-cards-list-incidents" data-tri="title asc">a > b</li>
-      <li class="btn btn-default btn-tri-cards-list-incidents" data-tri="title desc">b > a</li>
-    </ul>
-  </div>
+<div class="tri-cards-list-incidents">
+  <%= select_tag 'Tri', "
+  <option data-tri='id asc'>Récents</option>
+  <option data-tri='id desc'>Anciens</option>
+  <option data-tri='title asc'>Objet: A à Z</option>
+  <option data-tri='title desc'>Objet Z à A</option>
+  <option data-tri='content asc'>Contenu: A à Z</option>
+  <option data-tri='content desc'>Contenu: Z à A</option>
+  <option data-tri='users.name asc'>Demandeur: A à Z</option>
+  <option data-tri='users.name desc'>Demandeur: Z à A</option>
+  <option data-tri='categories.name asc'>Catégorie: A à Z</option>
+  <option data-tri='categories.name desc'>Catégorie: Z à A</option>
+  <option data-tri='sous_categories.name asc'>Sous-catégorie: A à Z</option>
+  <option data-tri='sous_categories.name desc'>Sous-catégorie: Z à A</option>
+  <option data-tri='incident_state_id_for_tech asc'>Etat &#9650;</option>
+  <option data-tri='incident_state_id_for_tech desc'>Etat &#9660;</option>
+  <option data-tri='lvl_urgence_user asc'>Priorité &#9650;</option>
+  <option data-tri='lvl_urgence_user desc'>Priorité &#9660;</option>
+  ", include_blank: "Trier par :", class: "form-control select-tri-cards-list-incidents"%>
+</div>
 
   <div class="cards-list-incidents">
   <% @incidents.each do |incident| %>
@@ -49,13 +61,13 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
-  $(".btn-tri-cards-list-incidents").click(function(){
+  $(".select-tri-cards-list-incidents").change(function(){
     $.ajax({
       url: '/incidents',
       type: 'GET',
       dataType: 'script',
       data: {
-        order_by: $(this).attr("data-tri")
+        order_by: $(".select-tri-cards-list-incidents option:selected").attr("data-tri")
       }
     });
   });

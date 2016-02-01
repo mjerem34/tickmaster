@@ -21,13 +21,28 @@ class UsersController < ApplicationController
   end
 
   def show
+    if params[:order_by].nil?
+      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).order("created_at asc")
+    else
+      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).order(params[:order_by])
+      respond_to do |format|
+        format.js {render action: :order_by}
+      end
+    end
   end
 
   def profil
   end
 
   def to_treat
-    @incidents = Incident.where(tech_id: current_user.id)
+    if params[:order_by].nil?
+      @incidents = Incident.where(tech_id: current_user.id).includes(:user, :category, :sous_category).order("created_at asc")
+    else
+      @incidents = Incident.where(tech_id: current_user.id).includes(:user, :category, :sous_category).order(params[:order_by])
+      respond_to do |format|
+        format.js {render action: :order_by}
+      end
+    end
   end
 
   def new
@@ -35,6 +50,17 @@ class UsersController < ApplicationController
   end
 
   def edit
+  end
+
+  def allincidents
+    if params[:order_by].nil?
+      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user: [7, 10]).order("created_at asc")
+    else
+      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user: [7, 10]).order(params[:order_by])
+      respond_to do |format|
+        format.js {render action: :order_by}
+      end
+    end
   end
 
   def create

@@ -1,6 +1,6 @@
 $(".cards-list-incidents").empty().append("
   <% @incidents.each do |incident| %>
-    <% case incident.incident_state_id_for_user.id %>
+    <% case incident.incident_state_id_for_tech.id %>
       <% when 1 %>
         <div class='col-md-4 card-incident' style='background: #d73b3b;'>
       <% when 2 %>
@@ -18,12 +18,10 @@ $(".cards-list-incidents").empty().append("
         <p>Demandeur : <b><%= incident.user.name%> <%= incident.user.surname %></b></p>
         <% if incident.tech_id != nil %>
           <p>Technicien : <b><%= incident.tech.name %> <%= incident.tech.surname %></b></p>
-      </div>
         <% else %>
-      </div>
-          <%= escape_javascript(form_tag(incident, html: {class: 'edit_incident', style: 'left:0% !important;'})) %>
-          <%= escape_javascript(select_tag 'incident[tech_id]', options_for_select(@techs), include_blank: 'Technicien non defini...', class: 'form-control', data_name: incident.id) %>
+          <p>Technicien : <b>Technicien non attribué</b></p>
           <% end %>
+          </div>
           <div class='secondPart' onClick='document.location.href=`<%=edit_incident_path(incident)%>`'>
             <p>Catégorie : <b><%= incident.category.name %></b></p>
             <p>Sous-Categorie : <b><%= incident.sous_category.name%></p>

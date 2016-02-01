@@ -137,7 +137,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-7 col-md-offset-2">
+  <div class="col-md-7 col-md-offset-1">
     <%= f.label "Fichiers :"%>
     <% @incident.file_incidents.each do |file|%>
     <% if file.content_type.include?("image") %>
@@ -149,13 +149,12 @@
   </div>
 </div>
 <div class="actions">
-  <% if @incident.incident_state_id_for_user != 7 || @incident.incident_state_id_for_user != 10 %>
-  <% if Right.where(name: "save_changes_of_edit").pluck(current_user.tech.name).join('')  == 'true' %>
-
-  <%= f.submit "Valider", id: "sendButton", class: "btn btn-success form-interface btn-save" %>
+  <% if !clotured_or_rejected?(@incident) %>
+    <% if Right.where(name: "save_changes_of_edit").pluck(current_user.tech.name).join('')  == 'true' %>
+      <%= f.submit "Valider", id: "sendButton", class: "btn btn-success form-interface btn-save" %>
+    <% end %>
   <% end %>
 </div>
-<% end %>
 <% end %>
 <script type="text/javascript">
   function disableButton(id) {

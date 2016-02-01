@@ -9,7 +9,7 @@ module IncidentsHelper
   end
 
   def clotured_or_rejected?(incident)
-      case incident.incident_state_id_for_user
+      case incident.incident_state_id_for_user.id
       when 10, 7
         true
       else

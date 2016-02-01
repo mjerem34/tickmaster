@@ -7,9 +7,9 @@ class IncidentsController < ApplicationController
   def index
     @techs = User.joins(:tech).where('teches.simple_user = false').collect{ |p| [[p.surname, p.name].join(' '), p.id] }
     if params[:order_by].nil?
-      @incidents = Incident.order("created_at asc")
+      @incidents = Incident.includes(:user, :category, :sous_category).order("created_at asc")
     else
-      @incidents = Incident.order(params[:order_by])
+      @incidents = Incident.includes(:user, :category, :sous_category).order(params[:order_by])
       respond_to do |format|
         format.js {render action: :order_by}
       end
@@ -17,7 +17,16 @@ class IncidentsController < ApplicationController
   end
 
   def incidents_without_tech
-    @incidents = Incident.where(tech_id: nil)
+    @techs = User.joins(:tech).where('teches.simple_user = false').collect{ |p| [[p.surname, p.name].join(' '), p.id] }
+    if params[:order_by].nil?
+      @incidents = Incident.where(tech_id: nil).includes(:user, :category, :sous_category).order("created_at asc")
+    else
+      @incidents = Incident.where(tech_id: nil).includes(:user, :category, :sous_category).order(params[:order_by])
+      respond_to do |format|
+        format.js {render action: :order_by}
+      end
+    end
+
   end
 
   def show
@@ -42,6 +51,7 @@ class IncidentsController < ApplicationController
   end
 
   def edit
+    @response = Response.new
     @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
   end
 
