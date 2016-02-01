@@ -20,9 +20,9 @@
     <li>
       <strong>Etat de l'incident :</strong>
       <% if current_user.tech.simple_user == true %>
-    <li><%= IncidentsState.where(id: "#{@incident.incident_state_id_for_user}").pluck(:name).join('') %></li>
+    <li><%= @incident.incident_state_id_for_user.name %></li>
     <% else %>
-    <li><%= IncidentsState.where(id: "#{@incident.incident_state_id_for_tech}").pluck(:name).join('') %></li>
+    <li><%= @incident.incident_state_id_for_tech.name  %></li>
     <% end %><br><br>
   </ul>
 </div>
@@ -47,7 +47,7 @@
     <ul class="field tech_name">
       <li><%= f.label "Nom du technicien", class: "form-interface"  %><br></li>
       <% if Right.where(name: "dispatch_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
-      <% case @incident.incident_state_id_for_user %>
+      <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10%>
       <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), disabled: 'disabled', class: "form-control form-interface"  %></li>
       <% else %>
@@ -63,7 +63,7 @@
     <div class="field category_name">
       <%= f.label "Catégorie de l'incident", class: "form-interface"  %><br>
       <% if Right.where(name: "edit_categories_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
-      <% case @incident.incident_state_id_for_user %>
+      <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10 %>
       <%= select_tag("incident[category_id]", options_for_select(@categories.collect{ |u| [u.name, u.id]}, selected: @incident.category_id), disabled: "disabled", class: "form-control form-interface")%>
       <% else %>
@@ -79,7 +79,7 @@
     <div class="field">
       <%= f.label "Sous_Catégorie de l'incident", class: "form-interface"  %><br>
       <% if Right.where(name: "edit_categories_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
-      <% case @incident.incident_state_id_for_user %>
+      <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10 %>
       <%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), disabled: "disabled", class: "form-control form-interface" )%>
       <% else %>

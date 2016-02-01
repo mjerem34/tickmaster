@@ -1,5 +1,5 @@
 <% if !current_user.nil? %>
-<% if !current_user.user_incidents.nil?%>
+<% if current_user.user_incidents.nil?%>
 <%= render 'help' %>
 
 <h2>Vous n'avez aucun incident pour le moment.</h2>
@@ -11,46 +11,46 @@
   <li>
     <h2>
       <strong><%= Incident.where(user_id: current_user).count %></strong>
-      incidents créés</h2>
+      incidents créés.</h2>
   </li>
   <li>
     <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user: [1,10]).count %></strong>
+      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: [1, 2, 3, 4, 5, 6, 8, 9, 11, 12]).count %></strong>
       incidents en cours.</h2>
   </li>
   <li>
     <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user: 1).count %></strong>
+      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 1).count %></strong>
       incidents en attente d'affectation.</h2>
   </li>
   <li>
     <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user: 3).count %></strong>
+      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 3).count %></strong>
       incidents pris en charge par un technicien.</h2>
   </li>
   <li>
     <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user: 4).count %></strong>
+      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 4).count %></strong>
       incidents ayant reçu une réponse.</h2>
   </li>
   <li>
     <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user: 6).count %></strong>
+      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 6).count %></strong>
       incidents en attente d'une réponse du technicien.</h2>
   </li>
   <li>
     <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user: 7).count %></strong>
-      incidents cloturés</h2>
+      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 7).count %></strong>
+      incidents cloturés.</h2>
   </li>
   <li>
     <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user: 10).count %></strong>
+      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 10).count %></strong>
       incidents rejetés.</h2>
   </li>
   <li>
     <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user: 8).count %></strong>
+      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 8).count %></strong>
       incidents en attente de cloture de votre part.</h2>
   </li>
 </ul>

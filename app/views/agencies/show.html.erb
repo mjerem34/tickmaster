@@ -34,9 +34,9 @@
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= SousCategory.find_by_sql("SELECT sous_categories . * FROM sous_categories WHERE id = #{incident.sous_category_id}").collect{|u| [u.name]}.join(" ") %></td>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
           <% if current_user.tech.simple_user == true %>
-          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%= IncidentsState.where(id: "#{incident.incident_state_id_for_user}").pluck(:shortcut).join('') %>
+          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%= IncidentsState.where(id: "#{incident.incident_state_id_for_user_id}").pluck(:shortcut).join('') %>
             <span>
-              <%=IncidentsState.where(id: "#{incident.incident_state_id_for_user}").pluck(:name).join('')%>
+              <%=IncidentsState.where(id: "#{incident.incident_state_id_for_user_id}").pluck(:name).join('')%>
             </span>
           </td>
           <% else %>

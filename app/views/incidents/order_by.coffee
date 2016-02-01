@@ -1,6 +1,6 @@
 $(".cards-list-incidents").empty().append("
   <% @incidents.each do |incident| %>
-    <% case incident.incident_state_id_for_user.id %>
+    <% case incident.incident_state_id_for_user_id %>
       <% when 1 %>
         <div class='col-md-4 card-incident' style='background: #d73b3b;'>
       <% when 2 %>

@@ -54,9 +54,9 @@ class UsersController < ApplicationController
 
   def allincidents
     if params[:order_by].nil?
-      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user: [7, 10]).order("created_at asc")
+      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user_id: [7, 10]).order("created_at asc")
     else
-      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user: [7, 10]).order(params[:order_by])
+      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user_id: [7, 10]).order(params[:order_by])
       respond_to do |format|
         format.js {render action: :order_by}
       end

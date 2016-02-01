@@ -107,8 +107,8 @@ ActiveRecord::Schema.define(version: 20160125141130) do
     t.text     "solution",                   limit: 65535
     t.string   "keywords",                   limit: 255
     t.string   "link_faq",                   limit: 255
-    t.integer  "incident_state_id_for_user", limit: 1
-    t.integer  "incident_state_id_for_tech", limit: 1
+    t.integer  "incident_state_id_for_user_id", limit: 1
+    t.integer  "incident_state_id_for_tech_id", limit: 1
     t.datetime "archived_at"
     t.datetime "resolved_at"
     t.datetime "created_at",                               null: false

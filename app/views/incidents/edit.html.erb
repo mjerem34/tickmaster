@@ -84,32 +84,53 @@
         </tr>
       </thead>
       <tbody>
+        <% Archive.find_by_sql("SELECT * FROM `archives` WHERE `incident_id` = #{@incident.id}").each do |response| %>
+        <% file_responses = FileArchive.where(archive_id: response.id) %>
         <tr>
-          <% Archive.find_by_sql("SELECT * FROM `archives` WHERE `incident_id` = #{@incident.id}").each do |archive| %>
-          <td class="hover-cellule">
-            <%= truncate(strip_tags(archive.content), length: 40) %>
-            <span class="response-hover-cellule">
-              <%=strip_tags(archive.content)%>
-            </span>
+          <td class="hover-cellule <%= response.id %>">
+            <%= truncate(strip_tags(response.content), length: 40) %>
           </td>
-          <% file_archive = FileArchive.where(archive_id: archive.id) %>
-          <% if !file_archive.nil?%>
-            <td><% file_archive.each do |file| %>
-              <%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: "form-control")%>
-            <% end %>
+          <% if !file_responses.nil? %>
+            <td>
+              <ol>
+                <% file_responses.each do |file| %>
+                  <li><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-default')%></li>
+                <% end %>
+              </ol>
             </td>
           <% else %>
             <td>Aucun</td>
           <% end %>
-          </td>
-        <td><%= User.where(id: archive.sender_id).pluck(:name, :surname).join(' ') %></td>
-        <% if !archive.receiver_id.nil? %>
-        <td><%= User.where(id: archive.receiver_id).pluck(:name, :surname).join(' ') %></td>
-      <% else %>
-        <td></td>
-        <% end %>
-        <td><%= archive.created_at.strftime("%d %b %Y %H:%M") %></td>
-      </tr>
+          <td><%= User.where(id: response.sender_id).pluck(:name, :surname).join(' ') %></td>
+          <% if !response.receiver_id.nil? %>
+            <td><%= User.where(id: response.receiver_id).pluck(:name, :surname).join(' ') %></td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <td><%= response.created_at.strftime("%d %b %Y %H:%M") %></td>
+        </tr>
+        <div class="response-hover-cellule <%= response.id %>">
+          <div class="menu-response-hover-cellule">
+            <p class="btn btn-danger cross-close-response-hover-cellule">X</p>
+            <h1 style="text-align:center;">Contenu détaillé du message</h1>
+          </div><br>
+          <div class="content-response-hover-cellule">
+            <%= strip_tags(response.content) %>
+          </div>
+        </div>
+        <script type="text/javascript">
+          $(document).ready(function () {
+            $(".response-hover-cellule.<%= response.id%>").hide();
+            $(".hover-cellule.<%= response.id %>").click(function () {
+              $(".response-hover-cellule").hide(450);
+              $(".response-hover-cellule.<%= response.id%>").show(500);
+            });
+            $(".cross-close-response-hover-cellule").click(function () {
+              $(".response-hover-cellule").hide(450);
+            });
+          });
+        </script>
+
       <% end %>
     </tbody>
   </table>

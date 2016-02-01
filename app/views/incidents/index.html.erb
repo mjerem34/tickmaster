@@ -2,8 +2,8 @@
 <% if RightsController.verify_rights_for("view_index_all_of_incidents", current_user) then %>
 <div class="tri-cards-list-incidents">
   <%= select_tag 'Tri', "
-  <option data-tri='id asc'>Récents</option>
-  <option data-tri='id desc'>Anciens</option>
+  <option data-tri='id desc'>Récents</option>
+  <option data-tri='id asc'>Anciens</option>
   <option data-tri='title asc'>Objet: A à Z</option>
   <option data-tri='title desc'>Objet Z à A</option>
   <option data-tri='content asc'>Contenu: A à Z</option>
@@ -14,8 +14,8 @@
   <option data-tri='categories.name desc'>Catégorie: Z à A</option>
   <option data-tri='sous_categories.name asc'>Sous-catégorie: A à Z</option>
   <option data-tri='sous_categories.name desc'>Sous-catégorie: Z à A</option>
-  <option data-tri='incident_state_id_for_tech asc'>Etat &#9650;</option>
-  <option data-tri='incident_state_id_for_tech desc'>Etat &#9660;</option>
+  <option data-tri='incident_state_id_for_tech_id asc'>Etat &#9650;</option>
+  <option data-tri='incident_state_id_for_tech_id desc'>Etat &#9660;</option>
   <option data-tri='lvl_urgence_user asc'>Priorité &#9650;</option>
   <option data-tri='lvl_urgence_user desc'>Priorité &#9660;</option>
   ", include_blank: "Trier par :", class: "form-control select-tri-cards-list-incidents"%>

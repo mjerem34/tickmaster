@@ -72,14 +72,14 @@
         <td><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule">
           <% if current_user.tech.simple_user == true %>
-          <%= IncidentsState.where(id: "#{incident.incident_state_id_for_user}").pluck(:shortcut).join('') %>
+          <%= IncidentsState.where(id: "#{incident.incident_state_id_for_user_id}").pluck(:shortcut).join('') %>
           <span>
-            <%=IncidentsState.where(id: "#{incident.incident_state_id_for_user}").pluck(:name).join('')%>
+            <%=IncidentsState.where(id: "#{incident.incident_state_id_for_user_id}").pluck(:name).join('')%>
           </span>
           <% else %>
-          <%= IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:shortcut).join('') %>
+          <%= IncidentsState.where(id: "#{incident.incident_state_id_for_tech_id}").pluck(:shortcut).join('') %>
           <span>
-            <%=IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:name).join('')%>
+            <%=IncidentsState.where(id: "#{incident.incident_state_id_for_tech_id}").pluck(:name).join('')%>
           </span>
           <% end %>
         </td>

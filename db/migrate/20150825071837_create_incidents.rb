@@ -18,8 +18,8 @@ class CreateIncidents < ActiveRecord::Migration
       t.text :solution
       t.string :keywords, limit: 255
       t.string :link_faq, limit: 255
-      t.integer :incident_state_id_for_user, limit: 1
-      t.integer :incident_state_id_for_tech, limit: 1
+      t.integer :incident_state_id_for_user_id, limit: 1
+      t.integer :incident_state_id_for_tech_id, limit: 1
       t.datetime :archived_at
       t.datetime :resolved_at
       t.timestamps null: false

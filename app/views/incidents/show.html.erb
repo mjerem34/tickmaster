@@ -44,9 +44,9 @@
 <p>
   <strong>Etat de l'incident :</strong>
   <% if current_user.tech.simple_user == true %>
-<%= IncidentsState.where(id: "#{@incident.incident_state_id_for_user}").pluck(:shortcut).join('') %>
+<%= IncidentsState.where(id: "#{@incident.incident_state_id_for_user_id}").pluck(:shortcut).join('') %>
 <% else %>
-<%= IncidentsState.where(id: "#{@incident.incident_state_id_for_tech}").pluck(:shortcut).join('') %>
+<%= IncidentsState.where(id: "#{@incident.incident_state_id_for_tech_id}").pluck(:shortcut).join('') %>
 <% end %><br><br>
 <strong>Fichiers :</strong>
 <% if @incident.attach_content_type.include? "image"%>

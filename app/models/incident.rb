@@ -1,8 +1,8 @@
 class Incident < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'user_id'
   belongs_to :tech, class_name: 'User', foreign_key: 'tech_id'
-  belongs_to :incident_state_id_for_tech, class_name: 'IncidentsState', foreign_key: 'incident_state_id_for_tech'
-  belongs_to :incident_state_id_for_user, class_name: 'IncidentsState', foreign_key: 'incident_state_id_for_user'
+  belongs_to :incident_state_id_for_tech, class_name: 'IncidentsState', foreign_key: 'incident_state_id_for_tech_id'
+  belongs_to :incident_state_id_for_user, class_name: 'IncidentsState', foreign_key: 'incident_state_id_for_user_id'
   belongs_to :sous_category
   belongs_to :category
   belongs_to :agency
@@ -23,8 +23,8 @@ class Incident < ActiveRecord::Base
 
   def verify_if_incident_is_reaffected
     if self.tech_id_changed?
-      self.incident_state_id_for_user.id = '2'
-      self.incident_state_id_for_tech.id = '2'
+      self.incident_state_id_for_user_id = '2'
+      self.incident_state_id_for_tech_id = '2'
       @users = User.all
       @response = Response.new(content: 'Incident affecté', incident_id: id, sender_id: user_id)
       @response.save!
@@ -47,9 +47,9 @@ class Incident < ActiveRecord::Base
 
   def self.cloture_automaticaly
     @users = User.all
-    Incident.where(incident_state_id_for_tech: 9).each do |incident|
+    Incident.where(incident_state_id_for_tech_id: 9).each do |incident|
       next unless Time.now - 3.days > incident.resolved_at - 1.hour
-      incident.update(incident_state_id_for_user: 7, incident_state_id_for_tech: 7)
+      incident.update(incident_state_id_for_user_id: 7, incident_state_id_for_tech_id: 7)
 
       @response = Response.new(content: 'Incident cloturé automatiquement', incident_id: incident.id, sender_id: incident.tech_id)
       @response.save!

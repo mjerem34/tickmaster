@@ -1,6 +1,6 @@
 module IncidentsHelper
   def reply_possible(incident)
-    case incident.incident_state_id_for_user
+    case incident.incident_state_id_for_user_id
       when 10, 8, 7
         true
       else
@@ -9,7 +9,7 @@ module IncidentsHelper
   end
 
   def clotured_or_rejected?(incident)
-      case incident.incident_state_id_for_user.id
+      case incident.incident_state_id_for_user_id
       when 10, 7
         true
       else
@@ -18,6 +18,6 @@ module IncidentsHelper
   end
 
   def is_pending(incident)
-    incident.incident_state_id_for_user == 8 ? true : false
+    incident.incident_state_id_for_user_id == 8 ? true : false
   end
 end
