@@ -8,6 +8,7 @@
 
   <table class="table table-hover">
     <thead class="header">
+      <% if RightsController.verify_rights_for("edit_agency", current_user) then %>
       <tr>
         <th>#</th>
         <th>Nom</th>
@@ -22,10 +23,25 @@
         <th>Fax</th>
         <th>IP</th>
       </tr>
+      <% else %>
+      <tr>
+        <th>Nom</th>
+        <th>Adresse</th>
+        <th>Adresse 2</th>
+        <th>Adresse 3</th>
+        <th>CP</th>
+        <th>Ville</th>
+        <th>Département</th>
+        <th>Adresse email</th>
+        <th>Téléphone</th>
+        <th>Fax</th>
+      </tr>
+      <% end %>
     </thead>
 
     <tbody>
       <% @agencies.each do |agency| %>
+      <% if RightsController.verify_rights_for("edit_agency", current_user) then %>
       <tr>
         <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.id %></td>
         <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.name %></td>
@@ -40,6 +56,20 @@
         <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.fax == "NULL" ? "" : agency.fax %></td>
         <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.ip_adress == "NULL" ? "" : agency.ip_adress %>
       </tr>
+      <% else %>
+      <tr>
+        <td><%= agency.name %></td>
+        <td><%= agency.adress == 'NULL' ? "" : agency.adress%></td>
+        <td><%= agency.adress2 == "NULL" ? "" : agency.adress2%></td>
+        <td><%= agency.adress3 == "NULL" ? "" : agency.adress3%></td>
+        <td><%= agency.cp == "NULL" ? "" : agency.cp %>
+        <td><%= agency.city == "NULL" ? "" : agency.city %></td>
+        <td><%= agency.department == "NULL" ? "" : agency.department %></td>
+        <td><%= agency.email == "NULL" ? "" : agency.email %>
+        <td><%= agency.tel == "NULL" ? "" : agency.tel %></td>
+        <td><%= agency.fax == "NULL" ? "" : agency.fax %></td>
+      </tr>
+      <% end %>
       <% end %>
         </tbody>
       </table>

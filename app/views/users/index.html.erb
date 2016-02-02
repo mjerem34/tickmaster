@@ -3,6 +3,7 @@
 <div class="table-responsive">
   <table class="table table-hover">
     <thead class="header">
+      <% if RightsController.verify_rights_for("edit_other_user", current_user) then %>
       <tr>
         <th>#</th>
         <th>Pseudo</th>
@@ -15,9 +16,21 @@
         <th>Inscription</th>
         <th>Compte</th>
       </tr>
+      <% else %>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Tel</th>
+        <th>Mobile</th>
+        <th>Email</th>
+        <th>Agence</th>
+      </tr>
+      <% end %>
     </thead>
     <tbody>
       <% @users.each do |user| %>
+      <% if RightsController.verify_rights_for("edit_other_user", current_user) then %>
+      <!-- Vue pour les administrateurs -->
       <tr>
         <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.id%></td>
         <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.pseudo%></td>
@@ -30,6 +43,17 @@
         <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.created_at == nil ? "Date inconnue" : user.created_at.strftime("%d %b %Y %H:%M")  %></td>
         <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.tech.name %></td>
       </tr>
+      <% else %>
+      <!-- Vue pour les utilisateurs -->
+      <tr>
+        <td><%= user.name%></td>
+        <td><%= user.surname%></td>
+        <td><%= user.tel == nil ? "Inconnu" : user.tel %></td>
+        <td><%= user.mobile == nil ? "Inconnu" : user.mobile %></td>
+        <td><%= user.email%></td>
+        <td><%= user.agency.name%></td>
+      </tr>
+      <% end %>
       <%end%>
     </tbody>
   </table>

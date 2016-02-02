@@ -1,11 +1,10 @@
 <% @title = "Editer agence"%>
 <% !current_user.nil? && if Right.where(name: "edit_agency").pluck(current_user.tech.name).join('')  == 'true' %>
 
-<h1 class="title-h1">Editer une agence</h1>
-
 <%= render 'form' %>
 
-<%= link_to 'Annuler', agencies_path %>
+<%= link_to 'Annuler', agencies_path, class: "btn btn-danger form-interface btn-align", data: { confirm: 'Êtes vous sûr de vouloir annuler (les modifications seront perdues) ?', no_turbolink: true}  %>
+
 <%else%>
 <% @title = "Accès non autorisé"%>
 <%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>

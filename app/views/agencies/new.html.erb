@@ -1,7 +1,7 @@
 <% @title = "Nouvelle agence"%>
 <% !current_user.nil? && if Right.where(name: "create_new_agency").pluck(current_user.tech.name).join('')  == 'true' %>
 <%= render 'form' %>
-<%= link_to 'Annuler', agencies_path, class: "btn btn-danger btn-align form-interface" %>
+<%= link_to 'Annuler', agencies_path, class: "btn btn-danger btn-align form-interface", data: { confirm: 'Êtes vous sûr de vouloir annuler (les modifications seront perdues) ?'} %>
 
 <%else%>
 <% @title = "Accès non autorisé"%>

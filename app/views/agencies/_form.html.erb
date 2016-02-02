@@ -1,7 +1,6 @@
 <%= form_for(@agency) do |f| %>
   <div id="next form-interface">
   <div class="field form-group">
-    <h2 class="form-interface">Créer une agence</h2>
     <%= f.text_field :name, class: "form-control next form-interface", placeholder: "Nom(champ requis)"%>
     <% if @agency.errors[:name].first != nil %>
     <div class="alert alert-danger form-interface">

@@ -10,7 +10,7 @@ class AgenciesController < ApplicationController
   end
 
   def index
-    @agencies = Agency.all
+    @agencies = Agency.order("name asc")
   end
 
   # GET /agencies/1

@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def index # Page liste des utilisateurs
-    @users = User.all
+    @users = User.order("name asc")
   end
 
   def forget_identifiers # Fonction pour oubli de pseudonyme

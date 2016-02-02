@@ -36,7 +36,7 @@ class Incident < ActiveRecord::Base
   end
 
   def set_lvl_urgence_user_if_it_is_too_larger_than_lvl_urgence_max
-    self.lvl_urgence_user = 1 if lvl_urgence_user == '50'
+    self.lvl_urgence_user = '1' if lvl_urgence_user == '50'
 
     self.lvl_urgence_user = sous_category.lvl_urgence_max if lvl_urgence_user > sous_category.lvl_urgence_max
   end

@@ -63,11 +63,15 @@ class ResponsesController < ApplicationController
       case params[:commit]
       when 'Valider' then
         if @response.sender_id == @incident.user_id
-          @incident.update(incident_state_id_for_user_id: 6)
-          @incident.update(incident_state_id_for_tech_id: 4)
+          unless @incident.incident_state_id_for_user_id == 1
+            @incident.update(incident_state_id_for_user_id: 6)
+            @incident.update(incident_state_id_for_tech_id: 4)
+          end
         elsif @response.sender_id == @incident.tech_id
-          @incident.update(incident_state_id_for_user_id: 4)
-          @incident.update(incident_state_id_for_tech_id: 5)
+          unless @incident.incident_state_id_for_user_id == 1
+            @incident.update(incident_state_id_for_user_id: 4)
+            @incident.update(incident_state_id_for_tech_id: 5)
+          end
         end
         if @users.where(id: @response.sender_id).pluck(:tech_id).join == '5'
           @response.receiver_id.nil? ? nil : AppMailer.incident_replied_for_tech_if_disp_answered(@incident, @users, @response).deliver_now

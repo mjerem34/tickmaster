@@ -105,7 +105,7 @@
     </div>
     <div class="col-md-6">
 
-      <%= f.label "Niveau de l'incident", class: "form-interface"  %><br>
+      <%= f.label "Niveau d'urgence suggéré par le technicien", class: "form-interface"  %><br>
         <% case @incident.lvl_urgence_tech %>
         <% when 1%>
         <%= select_tag("incident[lvl_urgence_tech]", '<option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control form-interface")%>
