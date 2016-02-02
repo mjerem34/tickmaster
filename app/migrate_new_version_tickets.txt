@@ -1,0 +1,8 @@
+sudo service nginx stop
+sudo umount /home/ticket/Bureau/TickMasterV2/public/uploads
+sudo rm -rf /home/ticket/Bureau/TickMasterV2
+cd /home/ticket/Bureau/
+git clone https://git.framasoft.org/mjerem34/TickMasterV2.git
+mkdir TickMasterV2/public/uploads
+sudo mount -a
+sudo service nginx start

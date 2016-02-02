@@ -1,5 +1,5 @@
 <% @title = "Liste des incidents de l'agence : #{@agency.name}" %>
-<% !current_user.nil? && Right.where(name: "view_agency_details").pluck(current_user.tech.name).join('')  == 'true' %>
+<% if !current_user.nil? && Right.where(name: "view_agency_details").pluck(current_user.tech.name).join('')  == 'true' %>
 
 
 <div class="table-responsive">

@@ -3,7 +3,6 @@ Rails.application.configure do
 
   # Code is not reloaded between requests.
   config.cache_classes = true
-  config.web_console.whitelisted_ips = '10.0.171.250'
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -12,7 +11,7 @@ Rails.application.configure do
   config.eager_load = true
   config.serve_static_files = true
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
@@ -22,12 +21,12 @@ Rails.application.configure do
   # config.action_dispatch.rack_cache = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.raise_delivery_errors = false
   config.action_mailer.smtp_settings = {
     address: 'auth.smtp.1and1.fr',
     port: '587',
     user_name: 'ticket@cle-expertises.fr',
-    password: 'sonya8',
+    password: 'sonya88',
     authentication: :plain,
     enable_starttls_auto: true}
     config.action_mailer.default_url_options = {:host => "10.0.171.250"}
