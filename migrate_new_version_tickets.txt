@@ -1,3 +1,4 @@
+ssh ticket@10.0.171.250
 sudo service nginx stop
 sudo umount /home/ticket/Bureau/TickMasterV2/public/uploads
 sudo rm -rf /home/ticket/Bureau/TickMasterV2
