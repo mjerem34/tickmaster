@@ -1,7 +1,7 @@
 <% @title = "Nouvelle sous catégorie"%>
 <% if !current_user.nil? && Right.where(name: "create_new_subcategory").pluck(current_user.tech.name).join('')  == 'true' %>
 <%= render 'form' %>
-<%= link_to 'Annuler', sous_categories_path, class: "btn btn-danger btn-align form-interface" %>
+<%= link_to 'Annuler', sous_categories_path, class: "btn btn-danger btn-align " %>
 <% else %>
 <% @title = "Accès non autorisé"%>
 <%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>

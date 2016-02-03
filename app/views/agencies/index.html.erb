@@ -1,5 +1,5 @@
 <% @title = "Liste de toutes les agences" %>
-<% !current_user.nil? && if Right.where(name: "view_index_agencies").pluck(current_user.tech.name).join('')  == 'true' %>
+<% !current_user.nil? && if RightsController.verify_rights_for("view_index_agencies", current_user) then %>
 
 
 
@@ -22,6 +22,7 @@
         <th>Téléphone</th>
         <th>Fax</th>
         <th>IP</th>
+        <th colspan="1"></th>
       </tr>
       <% else %>
       <tr>
@@ -55,6 +56,7 @@
         <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.tel == "NULL" ? "" : agency.tel %></td>
         <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.fax == "NULL" ? "" : agency.fax %></td>
         <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.ip_adress == "NULL" ? "" : agency.ip_adress %>
+        <td><%= link_to "", edit_agency_path(agency), class: "btn btn-primary btn-edit-agency" %></td>
       </tr>
       <% else %>
       <tr>

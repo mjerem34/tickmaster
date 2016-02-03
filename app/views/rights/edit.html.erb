@@ -1,11 +1,11 @@
 <% @title = "Editer droit : #{@right.name}" %>
 <% if !current_user.nil? && Right.where(name: "edit_rights").pluck(current_user.tech.name).join('')  == 'true' %>
 
-<h2 class="form-interface">Editer droit</h2>
+<h2 class="">Editer droit</h2>
 
 <%= render 'form' %>
 
-<%= link_to 'Annuler', rights_path, class: "btn btn-danger btn-align form-interface" %>
+<%= link_to 'Annuler', rights_path, class: "btn btn-danger btn-align " %>
 <% else %>
 <% @title = "Accès non autorisé"%>
     <%= flash.now[:notice] = "Accès non autorisé !" %>

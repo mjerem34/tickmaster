@@ -25,11 +25,11 @@
   <% @incidents.each do |incident| %>
   <% case incident.incident_state_id_for_tech.id %>
   <% when 1 %>
-    <div class="col-md-4 card-incident" style=" background: #d73b3b;">
+    <div class="col-md-4 card-incident" style=" background: #f44336;">
   <% when 2 %>
-    <div class="col-md-4 card-incident" style="background: #50c25c;">
+    <div class="col-md-4 card-incident" style="background: #4CAF50;">
   <% when 4 %>
-    <div class="col-md-4 card-incident" style="background: #ffea00; color:dimgrey;">
+    <div class="col-md-4 card-incident" style="background: #FFEB3B; color:#212121;">
     <% else %>
     <div class="col-md-4 card-incident" style="background: #2A3947; ">
   <% end %>

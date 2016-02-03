@@ -3,7 +3,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Annuler', categories_path, class: "btn btn-danger btn-align form-interface" %>
+<%= link_to 'Annuler', categories_path, class: "btn btn-danger btn-align " %>
 <% else %>
 <% @title = "Accès non autorisé"%>
 <%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>

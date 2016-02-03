@@ -2,7 +2,6 @@
 <% if !current_user.nil? && Right.where(name: "edit_category").pluck(current_user.tech.name).join('')  == 'true' %>
 
 <%= render 'form' %><br>
-<%= link_to 'Annuler', categories_path, class: "btn btn-danger btn-align form-interface" %>
 <% else %>
 <% @title = "Accès non autorisé"%>
 <%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>

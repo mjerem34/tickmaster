@@ -83,3 +83,21 @@
     font-size: 0.9em;
   }
 }
+.btn-edit-agency, .btn-edit-category{
+  width: 40px;
+  height:40px;
+
+  background:image-url("ICOMOON/16px/0006-pencil.png") no-repeat center;
+}
+.btn-edit-category{
+ width: 35px;
+ height:35px;
+
+ background:image-url("ICOMOON/16px/0006-pencil.png") no-repeat center;
+}
+.btn-create-category{
+  width: 35px;
+  height:35px;
+  background:image-url("ICOMOON/16px/0267-plus.png") no-repeat center;
+
+}

@@ -1,4 +1,4 @@
-<h2 class="form-interface">Nouveau message</h2>
+<h2 class="">Nouveau message</h2>
 
 <%= simple_form_for [@incident, Response.new], html: { multipart: true} do |f| %>
 <% if @incident.incident_state_id_for_user_id != 7 || @incident.incident_state_id_for_user_id != 10 || @incident.incident_state_id_for_user_id != 1 || @incident.incident_state_id_for_user_id != 2 %>
@@ -13,11 +13,11 @@
     </div>
 
     <div class="input-file-container js">
-      <ul class="form-interface js" style="margin-left: 35.5%;">
+      <ul class=" js" style="margin-left: 35.5%;">
         <%= fields_for :file_responses, @response.file_responses do |r| %>
         <li style="display:inline-block;"><%= r.file_field :file, name: "file_responses[file][]",class: "js input-file", multiple: true %></li>
-        <%= r.label "Selectionnez un fichier...", class: "js form-interface label-file input-file-trigger", for: 'my-file', tabindex: '0' %><br>
-        <li style="display:inline-block;"><button id="cancel_file_send" name="button" type="button" class='js btn form-interface input-file-trigger'>Supprimer fichier</button></li>
+        <%= r.label "Selectionnez un fichier...", class: "js  label-file input-file-trigger", for: 'my-file', tabindex: '0' %><br>
+        <li style="display:inline-block;"><button id="cancel_file_send" name="button" type="button" class='js btn  input-file-trigger'>Supprimer fichier</button></li>
         <% end %>
       </ul>
     </div>
@@ -51,16 +51,16 @@
 </ul>
 <br>
   <div class="actionsresponses">
-    <%= f.submit "Save", name: "commit", value: "Valider", id: "sendButton", class: "btn btn-success btn-align form-interface" %><br>
+    <%= f.submit "Save", name: "commit", value: "Valider", id: "sendButton", class: "btn btn-success btn-align " %><br>
   </div>
   <div class="actionsreject">
-    <%= f.submit "Save", name: "commit", value: "Rejeter", id: "sendButton", class: "btn btn-success btn-align form-interface" %><br>
+    <%= f.submit "Save", name: "commit", value: "Rejeter", id: "sendButton", class: "btn btn-success btn-align " %><br>
   </div>
   <div class="actionsreaffect">
-    <%= f.submit "Save", name: "commit", value: "Réaffecter", id: "sendButton", class: "btn btn-success btn-align form-interface" %><br>
+    <%= f.submit "Save", name: "commit", value: "Réaffecter", id: "sendButton", class: "btn btn-success btn-align " %><br>
   </div>
   <div class="actionscloture">
-    <%= f.submit "Save", name: "commit", value: "Cloturer", id: "sendButton", class: "btn btn-success btn-align form-interface" %><br>
+    <%= f.submit "Save", name: "commit", value: "Cloturer", id: "sendButton", class: "btn btn-success btn-align " %><br>
   </div>
   <% else %>
   <p>
@@ -69,4 +69,4 @@
   <% end %>
 <% end %>
 <br>
-<button type="button" class="btn btn-danger btn-align form-interface" name="button">Annuler</button>
+<button type="button" class="btn btn-danger btn-align " name="button">Annuler</button>

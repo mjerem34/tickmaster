@@ -25,7 +25,7 @@
         <td><%= category.name %></td>
         <% end %>
         <% if Right.where(name: "delete_category").pluck(current_user.tech.name).join('')  == 'true' %>
-        <td><%= link_to 'Supprimer', category, method: :delete, data: { confirm: 'Êtes vous sûr de vouloir supprimer cette catégorie ?' }%></td>
+        <td><%= link_to 'Supprimer', category, method: :delete, data: { confirm: 'Êtes vous VRAIMENT sûr de vouloir supprimer cette catégorie ? Non, je dis ça parce que si vous la supprimez le monde entier va exploser ! Je vous aurais prévenu !' }%></td>
         <% end %>
         <td><p>&laquo;</p></td>
 
@@ -35,15 +35,15 @@
       <tr class="formsnewsubcats">
         <%= simple_form_for(@category) do |f| %>
         <td><p style="font-size:2em;">&raquo;</p></td>
-        <td class='newsubcat'><%= f.text_field :name, class: "form-control form-interface", placeholder: "Nom(Requis)", style: "margin-left:0px;"%></td>
+        <td class='newsubcat'><%= f.text_field :name, class: "form-control ", placeholder: "Nom(Requis)", style: "margin-left:0px;"%></td>
+        <td colspan="1"></td>
+        <td class='newsubcat'><p type="submit" name="commit" class="btn btn-success btn-create-category submit" id="sendButton"></p></td>
         <% end %>
-        <td colspan="2"></td>
       </tr>
     </tbody>
   </table>
 </div>
 <div class="actions">
-  <p class="btn btn-success btn-align form-interface submit" id="sendButton">Valider</p>
 </div>
 
 <br>

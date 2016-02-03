@@ -1,11 +1,11 @@
 <%= form_for(@sous_category) do |f| %>
   <div class="field">
-      <%= select_tag "sous_category[category_id]", options_for_select(Category.all.pluck(:name, :id), @category.id), class: "form-control form-interface", include_blank: "Catégorie :" %>
+      <%= select_tag "sous_category[category_id]", options_for_select(Category.all.pluck(:name, :id), @category.id), class: "form-control ", include_blank: "Catégorie :" %>
     </div><br>
   <div class="field">
-    <%= f.text_field :name, class: "form-control form-interface", placeholder: "Nom(Requis)"   %>
+    <%= f.text_field :name, class: "form-control ", placeholder: "Nom(Requis)"   %>
     <% if @sous_category.errors[:name].first != nil %>
-    <div class="alert alert-danger form-interface">
+    <div class="alert alert-danger ">
     <%= "Nom " + @sous_category.errors[:name].first%><br>
       <% if @sous_category.errors[:name].second != nil %>
         <%= "Nom " + @sous_category.errors[:name].second%><br>
@@ -15,10 +15,10 @@
   </div><br>
 
   <div class="field">
-    <%= select_tag "sous_category[lvl_urgence_max]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10" selected="selected">10</option>'.html_safe, class: 'form-control form-interface' %>
+    <%= select_tag "sous_category[lvl_urgence_max]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10" selected="selected">10</option>'.html_safe, class: 'form-control ' %>
   </div>
   <div class="actions">
-  <%= f.submit "Créer", id: "sendButton", class: "btn btn-success btn-align form-interface" %><br><br>
+  <%= f.submit "Créer", id: "sendButton", class: "btn btn-success btn-align " %><br><br>
   </div>
 <% end %>
 <script type="text/javascript">

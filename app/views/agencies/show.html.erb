@@ -26,25 +26,17 @@
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.user.name %>
           <%=incident.user.surname%></td>
         <% if incident.tech_id != nil %>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= User.find_by_sql("SELECT `users`.* FROM `users` WHERE `id` = #{incident.tech_id}").collect{ |u| [u.surname, u.name]}.join(" ") %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><% incident.tech.surname %> <%=incident.tech.name %></td>
         <% else %>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'">Technicien non défini</td>
         <% end %>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.category.name %></td>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= SousCategory.find_by_sql("SELECT sous_categories . * FROM sous_categories WHERE id = #{incident.sous_category_id}").collect{|u| [u.name]}.join(" ") %></td>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.sous_category.name %></td>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
           <% if current_user.tech.simple_user == true %>
-          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%= IncidentsState.where(id: "#{incident.incident_state_id_for_user_id}").pluck(:shortcut).join('') %>
-            <span>
-              <%=IncidentsState.where(id: "#{incident.incident_state_id_for_user_id}").pluck(:name).join('')%>
-            </span>
-          </td>
+          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.incident_state_id_for_user.shotcut %></td>
           <% else %>
-          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%= IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:shortcut).join('') %>
-            <span>
-              <%=IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:name).join('')%>
-            </span>
-          </td>
+          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.incident_state_id_for_tech.shortcut %></td>
           <% end %>
       </tr>
       <% end %>
@@ -53,7 +45,6 @@
 
 </div>
 
-<%= link_to "Editer l'agence", edit_agency_path(@agency) %>
 
 <% else %>
 <% @title = "Accès non autorisé"%>

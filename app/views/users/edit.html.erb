@@ -4,7 +4,7 @@
 
 <%= form_for(@user) do |f| %>
 <div id="next">
-<h2 class="form-interface">Modifier un utilisateur</h2>
+<h2 class="">Modifier un utilisateur</h2>
 <% if Right.where(name: "edit_all_user").pluck(current_user.tech.name).join('') == 'true' %>
   <div class="field form-group">
     <%= f.text_field :pseudo, class: "form-control next", placeholder: "Pseudonyme" %>
@@ -100,13 +100,13 @@
 </div>
 
   <div class="actions form-group">
-    <%= f.submit "Sauvegarder", class: "btn btn-success btn-align form-interface"%>
+    <%= f.submit "Sauvegarder", class: "btn btn-success btn-align "%>
   </div>
 
 <% end %>
 
 
-<%= link_to 'Annuler', user_path(@user), class: "btn btn-danger btn-align form-interface" %>
+<%= link_to 'Annuler', user_path(@user), class: "btn btn-danger btn-align " %>
 <% else %>
 <% @title = "Accès non autorisé"%>
 <%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>

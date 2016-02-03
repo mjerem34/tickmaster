@@ -6,9 +6,9 @@
 <br>
 <div id="next">
   <div class="field form-group">
-    <%= f.label "Pseudonyme", class: "form-interface"%>
+    <%= f.label "Pseudonyme", class: ""%>
 
-    <%= f.text_field :pseudo, class: "form-control form-interface next", placeholder: "Pseudonyme" %>
+    <%= f.text_field :pseudo, class: "form-control  next", placeholder: "Pseudonyme" %>
     <% if @user.errors[:pseudo].first != nil %>
     <div class="alert alert-danger">
     <%= "Pseudonyme " + @user.errors[:pseudo].first%><br>
@@ -20,8 +20,8 @@
   </div>
   <% if Right.where(name: "edit_all_user").pluck(current_user.tech.name).join('') == 'true' %>
   <div class="field form-group">
-    <%= f.label "Adresse email", class: "form-interface"%>
-    <%= f.email_field :email, class: "form-control form-interface next", placeholder: "Adresse email" %>
+    <%= f.label "Adresse email", class: ""%>
+    <%= f.email_field :email, class: "form-control  next", placeholder: "Adresse email" %>
     <% if @user.errors[:email].first != nil  %>
     <div class="alert alert-danger">
     <%= "Adresse email " + @user.errors[:email].first%><br>
@@ -34,8 +34,8 @@
 <% end %>
 
   <div class="field form-group">
-    <%= f.label "Nom", class: "form-interface"%>
-    <%= f.text_field :name, class: "form-control form-interface next", placeholder: "Nom" %>
+    <%= f.label "Nom", class: ""%>
+    <%= f.text_field :name, class: "form-control  next", placeholder: "Nom" %>
     <% if @user.errors[:name].first != nil  %>
     <div class="alert alert-danger">
     <%= "Nom " + @user.errors[:name].first%><br>
@@ -44,8 +44,8 @@
   </div>
 
   <div class="field form-group">
-    <%= f.label "Prénom", class: "form-interface"%>
-    <%= f.text_field :surname, class: "form-control form-interface next", placeholder: "Prénom" %>
+    <%= f.label "Prénom", class: ""%>
+    <%= f.text_field :surname, class: "form-control  next", placeholder: "Prénom" %>
     <% if @user.errors[:surname].first != nil  %>
     <div class="alert alert-danger">
     <%= "Prénom " + @user.errors[:surname].first%><br>
@@ -54,8 +54,8 @@
   </div>
 
   <div class="field form-group">
-    <%= f.label "Numéro de téléphone 1", class: "form-interface"%>
-    <%= f.phone_field :tel, class: "form-control form-interface next", placeholder: "Téléphone (ex : 04...)" %>
+    <%= f.label "Numéro de téléphone 1", class: ""%>
+    <%= f.phone_field :tel, class: "form-control  next", placeholder: "Téléphone (ex : 04...)" %>
     <% if @user.errors[:tel].first != nil  %>
     <div class="alert alert-danger">
     <%= "Téléphone " + @user.errors[:tel].first%><br>
@@ -67,8 +67,8 @@
   </div>
 
   <div class="field form-group">
-    <%= f.label "Numéro de téléphone 2", class: "form-interface"%>
-    <%= f.phone_field :mobile, class: "form-control form-interface next", placeholder: "Mobile (ex : 06...)" %>
+    <%= f.label "Numéro de téléphone 2", class: ""%>
+    <%= f.phone_field :mobile, class: "form-control  next", placeholder: "Mobile (ex : 06...)" %>
     <% if @user.errors[:mobile].first != nil  %>
     <div class="alert alert-danger">
     <%= "Mobile " + @user.errors[:mobile].first%><br>
@@ -82,8 +82,8 @@
 
 <% if Right.where(name: "edit_like_a_boss").pluck(current_user.tech.name).join('') == 'true' %>
 <div class="field form-group select_tag">
-  <%= f.label "Type d'utilisateur", class: "form-interface"%>
-  <%= select_tag "user[tech_id]", options_for_select(Tech.all.pluck(:name, :id), selected: @user.tech_id), class: "form-control form-interface text-uppercase", include_blank: "Type d'utilisateur :"%>
+  <%= f.label "Type d'utilisateur", class: ""%>
+  <%= select_tag "user[tech_id]", options_for_select(Tech.all.pluck(:name, :id), selected: @user.tech_id), class: "form-control  text-uppercase", include_blank: "Type d'utilisateur :"%>
   <% if @user.errors[:tech_id].first != nil  %>
   <div class="alert alert-danger">
   <%= "Type d'utilisateur " + @user.errors[:tech_id].first%><br>
@@ -96,8 +96,8 @@
 <% end %>
 
 <div class="field form-group select_tech">
-  <%= f.label "Agence", class: "form-interface"%>
-  <%= select_tag "user[agency_id]", options_for_select(Agency.all.pluck(:name, :id), selected: @user.agency_id), class: "form-control form-interface form-interface text-uppercase", include_blank: "Agence :" %>
+  <%= f.label "Agence", class: ""%>
+  <%= select_tag "user[agency_id]", options_for_select(Agency.all.pluck(:name, :id), selected: @user.agency_id), class: "form-control   text-uppercase", include_blank: "Agence :" %>
   <% if @user.errors[:agency_id].first != nil  %>
   <div class="alert alert-danger">
   <%= "Agence " + @user.errors[:agency_id].first%><br>
@@ -109,9 +109,9 @@
 </div>
 
   <div class="actions form-group">
-    <%= f.submit "Enregistrer les modifications", class: "btn btn-success form-interface"%>
+    <%= f.submit "Enregistrer les modifications", class: "btn btn-success "%>
   </div>
-  <%= link_to 'Voir les incidents de l\'utilisateur', user_path(@user), class: "btn btn-primary form-interface" %>
+  <%= link_to 'Voir les incidents de l\'utilisateur', user_path(@user), class: "btn btn-primary " %>
 
 <% end %>
 

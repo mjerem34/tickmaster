@@ -21,10 +21,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    if params[:order_by].nil?
-      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).order("created_at asc")
-    else
-      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).order(params[:order_by])
+    @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).order("created_at asc")
+    unless params[:order_by].nil?
+      @incidents = @incidents.reorder(params[:order_by])
       respond_to do |format|
         format.js {render action: :order_by}
       end

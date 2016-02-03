@@ -1,97 +1,97 @@
-<% @title = "Liste des sous catégories de catégorie : #{@category.name}" %>
-<% if !current_user.nil? && Right.where(name: "view_details_category").pluck(current_user.tech.name).join('')  == 'true' %>
-
-
-<div class="table-responsive">
-  <table class="table table-hover">
-    <thead class="header">
-      <tr>
-        <th>#</th>
-        <th>Nom</th>
-        <th colspan="3"></th>
-        <th colspan="3"></th>
-        <th colspan="3"></th>
-        <th colspan="3"></th>
-        <th colspan="3"></th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% SousCategory.where(category_id: "#{@category.id}").pluck(:id, :name).each do |sous_category| %>
-      <tr>
-        <td onClick="document.location.href='<%=sous_category_path(sous_category.first)%>'"><%= sous_category.first %></td>
-        <% if !current_user.nil? && Right.where(name: "view_details_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
-        <td onClick="document.location.href='<%=sous_category_path(sous_category.first)%>'"><%= sous_category.second %></td>
-        <% else %>
-        <td><%= sous_category.second %></td>
-        <% end %>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<h2>Liste des Incidents de
-  <%= @category.name %></h2>
-<div class="table-responsive">
-  <table class="table table-hover">
-    <thead class="header">
-      <tr>
-        <th>#</th>
-        <th>Objet</th>
-        <th>Contenu</th>
-        <th>Demandeur</th>
-        <th>Technicien</th>
-        <th>Categorie</th>
-        <th>Date</th>
-        <th>Etat</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @category.incidents.order(["created_at desc"]).each do |incident| %>
-      <tr>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.id%></td>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%= truncate(incident.title, length: 20) %>
-          <span>
-            <%=incident.title%>
-          </span>
-        </td>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%=  truncate(strip_tags(incident.content), length: 20)%>
-          <span>
-            <%=strip_tags(incident.content)%>
-          </span>
-
-        </td>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.user.name %></td>
-        <% if incident.tech_id != nil %>
-        <td class="hover-cellule" onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= User.find_by_sql("SELECT `users`.* FROM `users` WHERE `id` = #{incident.tech_id}").collect{ |u| [u.surname, u.name]}.join(" ") %></td>
-        <% else %>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'">Technicien non défini</td>
-        <% end %>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= @category.name %></td>
-        <td><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule">
-          <% if current_user.tech.simple_user == true %>
-          <%= IncidentsState.where(id: "#{incident.incident_state_id_for_user_id}").pluck(:shortcut).join('') %>
-          <span>
-            <%=IncidentsState.where(id: "#{incident.incident_state_id_for_user_id}").pluck(:name).join('')%>
-          </span>
-          <% else %>
-          <%= IncidentsState.where(id: "#{incident.incident_state_id_for_tech_id}").pluck(:shortcut).join('') %>
-          <span>
-            <%=IncidentsState.where(id: "#{incident.incident_state_id_for_tech_id}").pluck(:name).join('')%>
-          </span>
-          <% end %>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<% else %>
-<% @title = "Accès non autorisé"%>
-<p class="alert_non_authorized">
-  Accès non autorisé !
-  <%= render 'sessions/new' %>
-</p>
-<% end %>
+<!-- # <% @title = "Liste des sous catégories de catégorie : #{@category.name}" %>
+# <% if !current_user.nil? && Right.where(name: "view_details_category").pluck(current_user.tech.name).join('')  == 'true' %>
+#
+#
+# <div class="table-responsive">
+#   <table class="table table-hover">
+#     <thead class="header">
+#       <tr>
+#         <th>#</th>
+#         <th>Nom</th>
+#         <th colspan="3"></th>
+#         <th colspan="3"></th>
+#         <th colspan="3"></th>
+#         <th colspan="3"></th>
+#         <th colspan="3"></th>
+#         <th colspan="3"></th>
+#       </tr>
+#     </thead>
+#
+#     <tbody>
+#       <% @sous_categories.each do |sous_category| %>
+#       <tr>
+#         <td onClick="document.location.href='<%=sous_category_path(sous_category.first)%>'"><%= sous_category.first %></td>
+#         <% if !current_user.nil? && Right.where(name: "view_details_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+#         <td onClick="document.location.href='<%=sous_category_path(sous_category.first)%>'"><%= sous_category.second %></td>
+#         <% else %>
+#         <td><%= sous_category.second %></td>
+#         <% end %>
+#       </tr>
+#       <% end %>
+#     </tbody>
+#   </table>
+# </div>
+# <h2>Liste des Incidents de
+#   <%= @category.name %></h2>
+# <div class="table-responsive">
+#   <table class="table table-hover">
+#     <thead class="header">
+#       <tr>
+#         <th>#</th>
+#         <th>Objet</th>
+#         <th>Contenu</th>
+#         <th>Demandeur</th>
+#         <th>Technicien</th>
+#         <th>Categorie</th>
+#         <th>Date</th>
+#         <th>Etat</th>
+#       </tr>
+#     </thead>
+#     <tbody>
+#       <% @category.incidents.order(["created_at desc"]).each do |incident| %>
+#       <tr>
+#         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.id%></td>
+#         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%= truncate(incident.title, length: 20) %>
+#           <span>
+#             <%=incident.title%>
+#           </span>
+#         </td>
+#         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%=  truncate(strip_tags(incident.content), length: 20)%>
+#           <span>
+#             <%=strip_tags(incident.content)%>
+#           </span>
+#
+#         </td>
+#         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.user.name %></td>
+#         <% if incident.tech_id != nil %>
+#         <td class="hover-cellule" onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= User.find_by_sql("SELECT `users`.* FROM `users` WHERE `id` = #{incident.tech_id}").collect{ |u| [u.surname, u.name]}.join(" ") %></td>
+#         <% else %>
+#         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'">Technicien non défini</td>
+#         <% end %>
+#         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= @category.name %></td>
+#         <td><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
+#         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule">
+#           <% if current_user.tech.simple_user == true %>
+#           <%= IncidentsState.where(id: "#{incident.incident_state_id_for_user_id}").pluck(:shortcut).join('') %>
+#           <span>
+#             <%=IncidentsState.where(id: "#{incident.incident_state_id_for_user_id}").pluck(:name).join('')%>
+#           </span>
+#           <% else %>
+#           <%= IncidentsState.where(id: "#{incident.incident_state_id_for_tech_id}").pluck(:shortcut).join('') %>
+#           <span>
+#             <%=IncidentsState.where(id: "#{incident.incident_state_id_for_tech_id}").pluck(:name).join('')%>
+#           </span>
+#           <% end %>
+#         </td>
+#       </tr>
+#       <% end %>
+#     </tbody>
+#   </table>
+# </div>
+# <% else %>
+# <% @title = "Accès non autorisé"%>
+# <p class="alert_non_authorized">
+#   Accès non autorisé !
+#   <%= render 'sessions/new' %>
+# </p>
+# <% end %> -->

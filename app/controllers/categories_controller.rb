@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: [:edit, :update, :destroy]
   before_action :set_expiration
 
   # GET /categories
@@ -12,6 +12,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
+    redirect_to_back
   end
 
   # GET /categories/new
@@ -43,6 +44,8 @@ class CategoriesController < ApplicationController
       if @category.save
         format.html { redirect_to :back, notice: 'Catégorie crée avec success.' }
         format.json { render json: :show, status: :created, location: @category }
+        @sous_category = SousCategory.new(name: "Autre", category_id: @category.id, lvl_urgence_max: '10')
+        @sous_category.save
       else
         format.html { redirect_to :back }
         format.json { render json: @category.errors, status: :unprocessable_entity }

@@ -12,7 +12,7 @@
 </div>
 <% end %>
 <div class="row-top">
-  <ul class="field form-interface">
+  <ul class="field ">
     <li>
       <strong>Date :</strong>
     </li>
@@ -27,66 +27,66 @@
   </ul>
 </div>
 <div class="field">
-  <%= f.label "Objet", class: "form-interface"  %><br>
+  <%= f.label "Objet", class: ""  %><br>
   <% if Right.where(name: "edit_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
-  <%= f.text_field :title, class: "form-control form-interface"  %>
+  <%= f.text_field :title, class: "form-control "  %>
   <% else %>
-  <%= f.text_field :title, disabled: "disabled", class: "form-control form-interface"  %>
+  <%= f.text_field :title, disabled: "disabled", class: "form-control "  %>
   <% end %>
 </div>
 <div class="field">
-  <%= f.label "Contenu", class: "form-interface"  %><br>
+  <%= f.label "Contenu", class: ""  %><br>
   <% if Right.where(name: "edit_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
-  <%=f.cktext_area :content, :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control form-interface"%>
+  <%=f.cktext_area :content, :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control "%>
   <% else %>
-  <%=f.cktext_area :content, :disabled => "disabled", :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control form-interface"%>
+  <%=f.cktext_area :content, :disabled => "disabled", :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control "%>
   <% end %>
 </div>
 <div class="row">
   <div class="col-md-4">
     <ul class="field tech_name">
-      <li><%= f.label "Nom du technicien", class: "form-interface"  %><br></li>
+      <li><%= f.label "Nom du technicien", class: ""  %><br></li>
       <% if Right.where(name: "dispatch_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
       <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10%>
-      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), disabled: 'disabled', class: "form-control form-interface"  %></li>
+      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), disabled: 'disabled', class: "form-control "  %></li>
       <% else %>
-      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), class: "form-control form-interface", include_blank: "Technicien non défini..."  %></li>
+      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), class: "form-control ", include_blank: "Technicien non défini..."  %></li>
       <% end %>
       <% else %>
-      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), include_blank: "Technicien non défini...", disabled: 'disabled', class: "form-control form-interface"  %></li>
+      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), include_blank: "Technicien non défini...", disabled: 'disabled', class: "form-control "  %></li>
       <% end %>
 
     </ul>
   </div>
   <div class="col-md-4">
     <div class="field category_name">
-      <%= f.label "Catégorie de l'incident", class: "form-interface"  %><br>
+      <%= f.label "Catégorie de l'incident", class: ""  %><br>
       <% if Right.where(name: "edit_categories_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
       <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10 %>
-      <%= select_tag("incident[category_id]", options_for_select(@categories.collect{ |u| [u.name, u.id]}, selected: @incident.category_id), disabled: "disabled", class: "form-control form-interface")%>
+      <%= select_tag("incident[category_id]", options_for_select(@categories.collect{ |u| [u.name, u.id]}, selected: @incident.category_id), disabled: "disabled", class: "form-control ")%>
       <% else %>
-      <%= select_tag("incident[category_id]", options_for_select(@categories.collect{ |u| [u.name, u.id]}, selected: @incident.category_id), class: "form-control form-interface" )%>
+      <%= select_tag("incident[category_id]", options_for_select(@categories.collect{ |u| [u.name, u.id]}, selected: @incident.category_id), class: "form-control " )%>
       <% end %>
       <% else %>
-      <%= select_tag("incident[category_id]", options_for_select(@categories.collect{ |u| [u.name, u.id]}, selected: @incident.category_id), disabled: "disabled", class: "form-control form-interface")%>
+      <%= select_tag("incident[category_id]", options_for_select(@categories.collect{ |u| [u.name, u.id]}, selected: @incident.category_id), disabled: "disabled", class: "form-control ")%>
       <% end %>
     </div>
   </div>
 
   <div class="col-md-4">
     <div class="field">
-      <%= f.label "Sous_Catégorie de l'incident", class: "form-interface"  %><br>
+      <%= f.label "Sous_Catégorie de l'incident", class: ""  %><br>
       <% if Right.where(name: "edit_categories_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
       <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10 %>
-      <%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), disabled: "disabled", class: "form-control form-interface" )%>
+      <%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), disabled: "disabled", class: "form-control " )%>
       <% else %>
-      <%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), class: "form-control form-interface" )%>
+      <%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), class: "form-control " )%>
       <% end %>
       <% else %>
-      <%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), disabled: "disabled", class: "form-control form-interface" )%>
+      <%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), disabled: "disabled", class: "form-control " )%>
       <% end %>
 
     </div>
@@ -98,38 +98,38 @@
 
     <ul class="field">
       <% if Right.where(name: "edit_lvl_incident").pluck(current_user.tech.name).join('')  == 'true' %>
-      <%= f.label "Niveau d'urgence suggéré par l'utilisateur", class: "form-interface"%>
-      <p class="form-control form-interface">
+      <%= f.label "Niveau d'urgence suggéré par l'utilisateur", class: ""%>
+      <p class="form-control ">
         <%= @incident.lvl_urgence_user %>
       </p>
     </div>
     <div class="col-md-6">
 
-      <%= f.label "Niveau d'urgence suggéré par le technicien", class: "form-interface"  %><br>
+      <%= f.label "Niveau d'urgence suggéré par le technicien", class: ""  %><br>
         <% case @incident.lvl_urgence_tech %>
         <% when 1%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control form-interface")%>
+        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
         <% when 2%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2" selected="selected">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control form-interface")%>
+        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2" selected="selected">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
         <% when 3%>
         <!--A AMELIORER-->
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3" selected="selected">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control form-interface")%>
+        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3" selected="selected">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
         <% when 4%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected="selected">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control form-interface")%>
+        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected="selected">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
         <% when 5%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected="selected">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control form-interface")%>
+        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected="selected">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
         <% when 6%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6" selected="selected">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control form-interface")%>
+        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6" selected="selected">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
         <% when 7%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7" selected="selected">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control form-interface")%>
+        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7" selected="selected">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
         <% when 8%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8" selected="selected">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control form-interface")%>
+        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8" selected="selected">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
         <% when 9%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9" selected="selected">9</option><option value="10">10</option>'.html_safe, class: "form-control form-interface")%>
+        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9" selected="selected">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
         <% when 10%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10" selected="selected">10</option>'.html_safe, class: "form-control form-interface")%>
+        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10" selected="selected">10</option>'.html_safe, class: "form-control ")%>
         <% else %>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control form-interface", include_blank: true)%>
+        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ", include_blank: true)%>
         <% end %>
         <br><br><br><br>
       <% end %>
@@ -143,7 +143,7 @@
     <% if file.content_type.include?("image") %>
     <%= link_to "#{image_tag(file.file_url, size: '800x400')}".html_safe, file.file_url%>
     <% else %>
-    <%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: "form-control form-interface") %>
+    <%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: "form-control ") %>
     <% end %>
     <% end %>
   </div>
@@ -151,7 +151,7 @@
 <div class="actions">
   <% if !clotured_or_rejected?(@incident) %>
     <% if Right.where(name: "save_changes_of_edit").pluck(current_user.tech.name).join('')  == 'true' %>
-      <%= f.submit "Valider", id: "sendButton", class: "btn btn-success form-interface btn-save" %>
+      <%= f.submit "Valider", id: "sendButton", class: "btn btn-success  btn-save" %>
     <% end %>
   <% end %>
 </div>

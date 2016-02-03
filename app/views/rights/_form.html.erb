@@ -2,9 +2,9 @@
 <%= simple_form_for(@right) do |f| %>
 
 <div class="field">
-  <%= f.text_field :name, class: "form-control next form-interface", placeholder: "Nom(Requis)"  %>
+  <%= f.text_field :name, class: "form-control next ", placeholder: "Nom(Requis)"  %>
   <% if @right.errors[:name].first != nil %>
-  <div class="alert alert-danger form-interface">
+  <div class="alert alert-danger ">
   <%= "Nom " + @right.errors[:name].first%><br>
     <% if @right.errors[:name].second != nil %>
       <%= "Nom " + @right.errors[:name].second%><br>
@@ -14,9 +14,9 @@
 
 </div><br>
 <div class="field">
-  <%= f.text_field :content, class: "form-control next form-interface", placeholder: "Description(Requis)"%>
+  <%= f.text_field :content, class: "form-control next ", placeholder: "Description(Requis)"%>
   <% if @right.errors[:content].first != nil %>
-  <div class="alert alert-danger form-interface">
+  <div class="alert alert-danger ">
   <%= "Description " + @right.errors[:content].first%><br>
     <% if @right.errors[:content].second != nil %>
       <%= "Description " + @right.errors[:content].second%><br>
@@ -81,7 +81,7 @@
 </div>
 
   <div class="actions">
-    <%= f.submit "Enregistrer", id: "sendButton", class: "btn btn-success btn-align form-interface" %><br>
+    <%= f.submit "Enregistrer", id: "sendButton", class: "btn btn-success btn-align " %><br>
   </div><br>
 <% end %>
 <script type="text/javascript">
