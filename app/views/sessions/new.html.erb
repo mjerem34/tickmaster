@@ -68,13 +68,7 @@
 <% end %>
 <%else %>
 <p class="alert_non_authorized" id="connected">
-  <script type="text/javascript">
-    // This for the local testing
-    // window.location.href = "http://localhost:3000/";
-
-    // This for the prod
-    window.location.href = "http://10.0.171.250/";
-  </script>
+  <%= flash.now[:not_authorized] = "Vous êtes déjà connecté !"%>
 </p>
 
 <% end %>

@@ -1,7 +1,6 @@
 <% if !current_user.nil? %>
 <% if current_user.user_incidents.nil?%>
 <%= render 'help' %>
-
 <h2>Vous n'avez aucun incident pour le moment.</h2>
 <% else %>
 <% @title = 'Accueil ' %>
