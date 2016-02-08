@@ -1,6 +1,8 @@
+<br><br>
 <%= form_for(@agency) do |f| %>
   <div id="next ">
   <div class="field form-group">
+    <%= f.label "Nom" %>
     <%= f.text_field :name, class: "form-control next ", placeholder: "Nom(champ requis)"%>
     <% if @agency.errors[:name].first != nil %>
     <div class="alert alert-danger ">
@@ -13,6 +15,7 @@
 
   </div>
   <div class="field form-group">
+    <%= f.label "Adresse" %>
     <%= f.text_field :adress, class: "form-control next ", placeholder: "Adresse(champ requis)" %>
     <% if @agency.errors[:adress].first != nil %>
     <div class="alert alert-danger ">
@@ -25,6 +28,7 @@
 
   </div>
   <div class="field form-group">
+    <%= f.label "Complément d'adresse" %>
     <%= f.text_field :adress2, class: "form-control next ", placeholder: "Complément d'adresse" %>
     <% if @agency.errors[:adress2].first != nil %>
     <div class="alert alert-danger ">
@@ -37,6 +41,7 @@
 
   </div>
   <div class="field form-group">
+    <%= f.label "Supplément d'adresse" %>
     <%= f.text_field :adress3, class: "form-control next ", placeholder: "Supplément d'addresse" %>
     <% if @agency.errors[:adress3].first != nil %>
     <div class="alert alert-danger ">
@@ -49,6 +54,7 @@
 
   </div>
   <div class="field form-group">
+    <%= f.label "Code postal" %>
     <%= f.text_field :cp, class: "form-control next ", placeholder: "Code Postal(champ requis)" %>
     <% if @agency.errors[:cp].first != nil %>
     <div class="alert alert-danger ">
@@ -61,6 +67,7 @@
 
   </div>
   <div class="field form-group">
+    <%= f.label "Ville" %>
     <%= f.text_field :city, class: "form-control next ", placeholder: "Ville(champ requis)" %>
     <% if @agency.errors[:city].first != nil %>
     <div class="alert alert-danger ">
@@ -73,6 +80,7 @@
 
   </div>
   <div class="field form-group">
+    <%= f.label "Email" %>
     <%= f.text_field :email, class: "form-control next ", placeholder: "Adresse Email(champ requis)"%>
     <% if @agency.errors[:email].first != nil %>
     <div class="alert alert-danger ">
@@ -85,6 +93,7 @@
 
   </div>
   <div class="field form-group">
+    <%= f.label "Téléphone" %>
     <%= f.text_field :tel, class: "form-control next ", placeholder: "Téléphone(champ requis)" %>
     <% if @agency.errors[:tel].first != nil %>
     <div class="alert alert-danger ">
@@ -97,6 +106,7 @@
 
   </div>
   <div class="field form-group">
+    <%= f.label "Fax" %>
     <%= f.text_field :fax, class: "form-control next ", placeholder: "Fax(champ requis)" %>
     <% if @agency.errors[:fax].first != nil %>
     <div class="alert alert-danger ">
@@ -109,6 +119,7 @@
 
   </div>
   <div class="field form-group">
+    <%= f.label "Département" %>
     <%= f.text_field :department, class: "form-control next ", placeholder: "Département(champ requis)" %>
     <% if @agency.errors[:department].first != nil %>
     <div class="alert alert-danger ">
@@ -121,6 +132,7 @@
 
   </div>
   <div class="field form-group">
+    <%= f.label "Adresse IP" %>
     <%= f.text_field :ip_adress, class: "form-control next ", placeholder: "Adresse IP" %>
     <% if @agency.errors[:ip_adress].first != nil %>
     <div class="alert alert-danger ">
@@ -135,7 +147,8 @@
   </div>
 
   <div class="actions form-group">
-    <%= f.submit "Valider", id: "sendButton", class: "btn btn-success btn-align btn-to-disable", data: {confirm: "Êtes vous sur de vouloir créer cette agence ?"} %><br>
+    <%= f.submit "Valider", id: "sendButton", class: "btn btn-success btn-to-disable", data: {confirm: "Êtes vous sur de vouloir créer cette agence ?"} %><br><br>
+    <%= link_to 'Annuler', agencies_path, class: "btn btn-danger", data: { confirm: 'Êtes vous sûr de vouloir annuler (les modifications seront perdues) ?'}  %>
 
   </div>
 <% end %>

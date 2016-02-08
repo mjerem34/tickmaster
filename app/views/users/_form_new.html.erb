@@ -1,8 +1,9 @@
 <% @title = "Créer un utilisateur"%>
 
 <%= form_for(@user) do |f| %>
+<br><br><br>
 <div id="next">
-  <div class="field form-group">
+  <div class="form-group">
     <%= f.text_field :surname, class: "form-control next", placeholder: "Prénom(Requis)" %>
     <% if @user.errors[:surname].first != nil  %>
     <div class="alert alert-danger">
@@ -12,7 +13,7 @@
     <% end %>
   </div>
 
-  <div class="field form-group">
+  <div class="form-group">
     <%= f.text_field :name, class: "form-control next", placeholder: "Nom(Requis)" %>
     <% if @user.errors[:name].first != nil  %>
     <div class="alert alert-danger">
@@ -188,7 +189,7 @@
 }());
 </script>
 
-  <div class="field form-group">
+  <div class="form-group">
     <%= f.text_field :pseudo, class: "form-control next", placeholder: "Pseudonyme(Requis)" %>
     <% if @user.errors[:pseudo].first != nil %>
     <div class="alert alert-danger">
@@ -201,7 +202,7 @@
     <% end %>
   </div>
 
-  <div class="field form-group">
+  <div class="form-group">
     <script type="text/javascript">
       $(document).ready(function () {
         $("#user_email").val($("#user_email").val().slice(0, $("#user_email").val().indexOf("@")))
@@ -211,6 +212,7 @@
         });
       });
     </script>
+    <div class="form-group form-inline">
 
     <%= f.email_field :email, class: "email form-control next", placeholder: "Adresse email(Requis)" %>
     <%= select_tag :postmail, options_for_select(["@cle-expertises.fr", "@exact-etude.fr", "@eximo.fr"]), class: "email form-control"%>
@@ -225,7 +227,7 @@
     <% end %>
   </div>
 
-  <div class="field form-group form-tel">
+  <div class="form-group form-tel">
     <%= f.phone_field :tel, class: "form-control next", placeholder: "N° de téléphone 1", onkeyup: "verif_nombre(this);", maxlength: "10" %>
     <p class="btn btn-success" id="addPhoneField">+</p>
     <% if @user.errors[:tel].first != nil  %>
@@ -239,7 +241,7 @@
     <% end %>
   </div>
 
-  <div class="field form-group form-mobile">
+  <div class="form-group form-mobile">
     <%= f.phone_field :mobile, class: "form-control next", placeholder: "N° de téléphone 2", onkeyup: "verif_nombre(this);", maxlength: "10" %>
     <% if @user.errors[:mobile].first != nil  %>
     <div class="alert alert-danger">
@@ -278,7 +280,7 @@
   </script>
 
 </div>
-<div class="field form-group select_tag">
+<div class="form-group select_tag">
   <%= select_tag "user[tech_id]", options_for_select(Tech.all.pluck(:name, :id)), class: "form-control text-uppercase", include_blank: "Type d'utilisateur :" %>
   <%= f.password_field :password, class: "form-control", placeholder: "Mot de passe" %>
 
@@ -309,7 +311,7 @@
     });
   </script>
 </div>
-<div class="field form-group select_tech">
+<div class="form-group select_tech">
   <%= select_tag "user[agency_id]", options_for_select(Agency.all.pluck(:name, :id).sort), class: "form-control text-uppercase", include_blank: "Agence :" %>
   <% if @user.errors[:agency_id].first != nil  %>
   <div class="alert alert-danger">
@@ -323,6 +325,6 @@
 </div>
 
 <div class="actions form-group">
-  <%= f.submit "S'inscrire", id: "sendButton", class: "btn btn-create-new-user btn-success btn-to-disable" %><br>
+  <%= f.submit "Valider", id: "sendButton", class: "btn btn-create-new-user btn-success btn-to-disable" %><br>
 </div>
 <% end %>
