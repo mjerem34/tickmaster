@@ -81,13 +81,6 @@
 </div>
 
   <div class="actions">
-    <%= f.submit "Enregistrer", id: "sendButton", class: "btn btn-success btn-align " %><br>
+    <%= f.submit "Valider", id: "sendButton", class: "btn btn-success btn-align btn-to-disable" %><br>
   </div><br>
 <% end %>
-<script type="text/javascript">
-  function disableButton(id){
-    id = document.getElementById(id);
-    id.disabled = "disabled";
-    id.value = "Envoi...";
-  }
-</script>

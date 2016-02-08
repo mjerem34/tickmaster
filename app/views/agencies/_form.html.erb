@@ -135,14 +135,7 @@
   </div>
 
   <div class="actions form-group">
-    <%= f.submit "Créer", id: "sendButton", class: "btn btn-success btn-align " %><br>
+    <%= f.submit "Valider", id: "sendButton", class: "btn btn-success btn-align btn-to-disable", data: {confirm: "Êtes vous sur de vouloir créer cette agence ?"} %><br>
 
   </div>
 <% end %>
-<script type="text/javascript">
-  function disableButton(id){
-    id = document.getElementById(id);
-    id.disabled = "disabled";
-    id.value = "Envoi...";
-  }
-</script>

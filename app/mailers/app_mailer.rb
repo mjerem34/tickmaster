@@ -1,7 +1,8 @@
 class AppMailer < ApplicationMailer
   before_filter :test_connection
-  default from: 'ticket@cle-expertises.fr'
-
+  default from: 'ticket@cle-expertises.fr',
+          cc: 'jeremy.montesinos@cle-expertises.fr',
+          cc: 'ticket@cle-expertises.fr'
   def incident_created_for_disp(incident, users)
     @incident = incident
     @users = users

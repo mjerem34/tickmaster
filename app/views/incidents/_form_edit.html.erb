@@ -151,15 +151,8 @@
 <div class="actions">
   <% if !clotured_or_rejected?(@incident) %>
     <% if Right.where(name: "save_changes_of_edit").pluck(current_user.tech.name).join('')  == 'true' %>
-      <%= f.submit "Valider", id: "sendButton", class: "btn btn-success  btn-save" %>
+      <%= f.submit "Valider", id: "sendButton", class: "btn btn-success btn-save btn-to-disable" %>
     <% end %>
   <% end %>
 </div>
 <% end %>
-<script type="text/javascript">
-  function disableButton(id) {
-    id = document.getElementById(id);
-    id.disabled = "disabled";
-    id.value = "Envoi...";
-  }
-</script>

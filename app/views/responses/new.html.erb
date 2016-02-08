@@ -13,7 +13,7 @@
     <% end %>
   </div><br>
   <div class="actions">
-    <%= f.submit "Valider", id: "sendButton", class: "btn btn-success btn-align " %><br>
+    <%= f.submit "Valider", id: "sendButton", class: "btn btn-success btn-align btn-to-disable " %><br>
   </div>
   <% else %>
   <p>
@@ -23,10 +23,3 @@
 <% end %>
 <br>
 <%= link_to 'Annuler', edit_incident_path(@incident), class: "btn btn-danger btn-align " %>
-<script type="text/javascript">
-  function disableButton(id){
-    id = document.getElementById(id);
-    id.disabled = "disabled";
-    id.value = "Envoi...";
-  }
-</script>

@@ -51,16 +51,16 @@
 </ul>
 <br>
   <div class="actionsresponses">
-    <%= f.submit "Save", name: "commit", value: "Valider", id: "sendButton", class: "btn btn-success btn-align " %><br>
+    <%= f.submit "Save", name: "commit", value: "Valider", id: "sendButton", class: "btn btn-success btn-align btn-to-disable " %><br>
   </div>
   <div class="actionsreject">
-    <%= f.submit "Save", name: "commit", value: "Rejeter", id: "sendButton", class: "btn btn-success btn-align " %><br>
+    <%= f.submit "Save", name: "commit", value: "Rejeter", id: "sendButton", class: "btn btn-success btn-align btn-to-disable " %><br>
   </div>
   <div class="actionsreaffect">
-    <%= f.submit "Save", name: "commit", value: "Réaffecter", id: "sendButton", class: "btn btn-success btn-align " %><br>
+    <%= f.submit "Save", name: "commit", value: "Réaffecter", id: "sendButton", class: "btn btn-success btn-align btn-to-disable " %><br>
   </div>
   <div class="actionscloture">
-    <%= f.submit "Save", name: "commit", value: "Cloturer", id: "sendButton", class: "btn btn-success btn-align " %><br>
+    <%= f.submit "Save", name: "commit", value: "Cloturer", id: "sendButton", class: "btn btn-success btn-align btn-to-disable " %><br>
   </div>
   <% else %>
   <p>
@@ -69,4 +69,4 @@
   <% end %>
 <% end %>
 <br>
-<button type="button" class="btn btn-danger btn-align " name="button">Annuler</button>
+<button type="button" class="btn btn-danger btn-align btn-annuler" name="button">Annuler</button>

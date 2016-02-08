@@ -137,7 +137,7 @@
   </div>
   <% end %>
   <% if !clotured_or_rejected?(@incident)%>
-  <button class="btn btn-primary btn-response" name="button" type="button">Message</button>
+  <button class="btn btn-primary btn-response btn-response-icon btn-response-bottom" name="button" type="button">Message</button>
   <div id="form_response">
   <%= render 'responses/new' %>
   </div>
@@ -203,9 +203,6 @@
   </script>
   <% if @incident.incident_state_id_for_tech != 12 && Right.where(name: "ask_for_reaffect").pluck(current_user.tech.name).join('')  == 'true' && @incident.tech_id == current_user.id && !clotured_or_rejected?(@incident)%>
   <button class="btn btn-warning btn-reaffect" name="button" type="button">Réaffecter</button>
-  <% end %>
-  <% if Right.where(name: "delete_incident").pluck(current_user.tech.name).join('')  == 'true' %>
-  <%= link_to 'Effacer', incident_path(@incident), method: :delete, data: { confirm: 'Êtes vous sûr de vouloir SUPPRIMER cet incident ?' }, class: "btn btn-danger"  %>
   <% end %>
   <% if Right.where(name: "cloture_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
   <button class="btn btn-success btn-cloture" name="button" type="button">Cloturer</button>

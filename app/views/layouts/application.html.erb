@@ -198,6 +198,16 @@ FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
     });
   </script>
 <% end %>
+<script type="text/javascript">
+$(".btn-to-disable").click(function() {
+  var $btn = $(this);
+  $(this).addClass("btn-loading");
+  setTimeout(function () {
+    $btn.removeClass("btn-loading");
+  }, 20000);
+});
+</script>
+
 </body>
 
 </html>

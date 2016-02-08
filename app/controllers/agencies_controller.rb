@@ -34,7 +34,7 @@ class AgenciesController < ApplicationController
 
     respond_to do |format|
       if @agency.save
-        format.html { redirect_to @agency, notice: "Vous venez de créer une agence." }
+        format.html { redirect_to @agency, notice: "Vous venez de créer une agence. Merci d'avoir contribué à la baisse du chômage." }
         format.json { render :show, status: :created, location: @agency }
       else
         format.html { render :new }
