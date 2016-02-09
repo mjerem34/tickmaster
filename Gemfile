@@ -48,7 +48,7 @@ gem 'web-console', '~> 2.0'
 gem 'ckeditor', github: 'galetahub/ckeditor'
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 gem "exception_notification",
-    :git => "git://github.com/rails/exception_notification.git",
+    :github => "git://github.com/rails/exception_notification.git",
     :require => "exception_notifier"
 group :development, :test do
   gem 'thin'
