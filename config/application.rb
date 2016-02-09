@@ -21,7 +21,8 @@ module Tickets
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     # Exception Notification
-    config.middleware.use ExceptionNotifier, {
+    config.middleware.use ExceptionNotification::Rack,
+    email: {
       email_prefix: '[Website Error] ',
       sender_address: 'ticket@cle-expertises.fr',
       exception_recipients: ['jeremy.montesinos@cle-expertises.fr']
