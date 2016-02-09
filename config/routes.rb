@@ -68,6 +68,10 @@ Rails.application.routes.draw do
   get '/signout', to: 'sessions#destroy'
   get '/rights', to: 'rights#index'
   get '/agencies', to: 'agencies#index'
+  # get '/test_exception', to: 'application#test_exception'
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
