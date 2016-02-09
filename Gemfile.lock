@@ -16,12 +16,6 @@ GIT
       cocaine
       orm_adapter (~> 0.5.0)
 
-GIT
-  remote: git://github.com/rails/exception_notification.git
-  revision: 192a49a02d63d28b23ed41cebadfedd490929cf1
-  specs:
-    exception_notification (1.0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -125,6 +119,9 @@ GEM
       http_parser.rb (~> 0.6.0)
     erubis (2.7.0)
     eventmachine (1.0.8)
+    exception_notification (4.1.4)
+      actionmailer (~> 4.0)
+      activesupport (~> 4.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -316,7 +313,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   compass-rails!
   dropzonejs-rails
-  exception_notification!
+  exception_notification
   factory_girl
   file_validators
   guard-livereload (~> 2.4)
