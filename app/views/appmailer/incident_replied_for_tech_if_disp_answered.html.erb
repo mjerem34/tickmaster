@@ -52,7 +52,7 @@
                     </h1>
                     <p>Vous venez de recevoir une réponse liée a l'incident n°
                       <%=@incident.id%>
-                    </p>
+                    </p><br>
 
                     <p class="callout">
                       <strong>Expéditeur :
@@ -60,7 +60,7 @@
                       <br>
                       <br>
                       <%= @users.where(id: @response.sender_id).pluck(:name, :surname).join(' ') %>
-                    </p>
+                    </p><br>
 
                     <p class="callout">
                       <strong>Réponse :
@@ -68,13 +68,13 @@
                       <br>
                       <br>
                       <%= @response.content %>
-                    </p>
+                    </p><br>
                     <br>
                     <br>
                     <br>
 
                     <p>Voici un résumé de l'incident :
-                    </p>
+                    </p><br>
                     <!-- Callout Panel -->
                     <p class="callout">
                       <strong>Créateur :
@@ -82,7 +82,7 @@
                       <br>
                       <br>
                       <%= @incident.user.name + ' ' + @incident.user.surname %>
-                    </p>
+                    </p><br>
 
                     <% if !@incident.title.nil?%>
                     <p class="callout">
@@ -91,7 +91,7 @@
                       <br>
                       <br>
                       <%= @incident.title %>
-                    </p>
+                    </p><br>
                     <% end %>
 
                     <% if !@incident.content.nil?%>
@@ -101,7 +101,7 @@
                       <br>
                       <br>
                       <%=strip_tags(@incident.content)%>
-                    </p>
+                    </p><br>
                     <!-- /Callout Panel -->
                     <% end %>
 
@@ -112,7 +112,7 @@
                       <br>
                       <br>
                       <%= @users.where(id: @incident.tech_id).pluck(:name, :surname).join(' ') %>
-                    </p>
+                    </p><br>
                     <% end %>
 
                     <p class="callout">
@@ -121,7 +121,7 @@
                       <br>
                       <br>
                       <%= @incident.category.name %>
-                    </p>
+                    </p><br>
 
                     <p class="callout">
                       <strong>Sous Catégorie :
@@ -129,7 +129,7 @@
                       <br>
                       <br>
                       <%= @incident.sous_category.name%>
-                    </p>
+                    </p><br>
 
                     <% if !@incident.lvl_urgence_user.nil?%>
                     <p class="callout">
@@ -138,7 +138,7 @@
                       <br>
                       <br>
                       <%= @incident.lvl_urgence_user %>
-                    </p>
+                    </p><br>
                     <% end %>
                     <%= link_to "Incident &raquo;".html_safe, incident_url(@incident), class: "btn"%>
 

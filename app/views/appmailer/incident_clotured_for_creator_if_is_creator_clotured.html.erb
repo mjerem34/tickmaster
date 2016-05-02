@@ -47,37 +47,37 @@
 
                     <h1>Bonjour
                       <%= @incident.user.surname %></h1>
-                    <p>Vous venez de cloturer votre incident n°<%=@incident.id%></p>
+                    <p>Vous venez de cloturer votre incident n°<%=@incident.id%></p><br>
 
                     <p>Voici un résumé de votre incident :
-                    </p>
+                    </p><br>
                     <!-- Callout Panel -->
                     <p class="callout">
                       <strong>Titre :
-                      </strong><br><br>
+                      </strong><br>
                       <%= @incident.title %>
-                    </p>
+                    </p><br>
                     <p class="callout">
                       <strong>Contenu :
-                      </strong><br><br>
+                      </strong><br>
                       <%=strip_tags(@incident.content)%>
-                    </p>
+                    </p><br>
                     <!-- /Callout Panel -->
                     <p class="callout">
                       <strong>Catégorie :
-                      </strong><br><br>
+                      </strong><br>
                       <%= @incident.category.name %>
-                    </p>
+                    </p><br>
                     <p class="callout">
                       <strong>Sous Catégorie :
-                      </strong><br><br>
+                      </strong><br>
                       <%= @incident.sous_category.name%>
-                    </p>
+                    </p><br>
                     <p class="callout">
                       <strong>Niveau d'urgence :
-                      </strong><br><br>
+                      </strong><br>
                       <%= @incident.lvl_urgence_user %>
-                    </p>
+                    </p><br>
                     <% @responses.each do |response| %>
                     <% if !response.receiver_id.nil? %>
 
@@ -90,15 +90,15 @@
                         <% end %>
                         le <%= response.created_at.strftime("%d %b %Y à %H:%M") %>
                         :
-                      </strong><br><br>
+                      </strong><br>
                       <%= response.content %>
-                    </p>
+                    </p><br>
                     <% else %>
                     <p class="callout">
                       <strong>Évenement : </strong>
                       <strong><%= response.created_at.strftime("%d %b %Y à %H:%M")%></strong>
                       <%= response.content %>
-                    </p>
+                    </p><br>
                     <% end %>
                     <% end %>
 

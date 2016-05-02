@@ -50,7 +50,7 @@
         <td><%= user.surname%></td>
         <td><%= user.tel == nil ? "Inconnu" : user.tel %></td>
         <td><%= user.mobile == nil ? "Inconnu" : user.mobile %></td>
-        <td><%= user.email%></td>
+        <td><a href="mailto:<%= user.email%>"><%= user.email%></a></td>
         <td><%= user.agency.name%></td>
       </tr>
       <% end %>
