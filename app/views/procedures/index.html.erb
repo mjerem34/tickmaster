@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+<% @title = 'Accueil ' %>
+
+<h1>Listing Procedures</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Contenu</th>
+      <th>Resolution</th>
+      <th>Category</th>
+      <th>Sous category</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @procedures.each do |procedure| %>
+      <tr>
+        <td><%= procedure.nom %></td>
+        <td><%= procedure.contenu %></td>
+        <td><%= procedure.resolution %></td>
+        <td><%= procedure.category_id %></td>
+        <td><%= procedure.sous_category_id %></td>
+        <td><%= link_to 'Show', procedure %></td>
+        <td><%= link_to 'Edit', edit_procedure_path(procedure) %></td>
+        <td><%= link_to 'Destroy', procedure, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Procedure', new_procedure_path %>

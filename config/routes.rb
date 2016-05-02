@@ -3,6 +3,8 @@
 #
 
 Rails.application.routes.draw do
+  resources :procedures
+  resources :msg_procedures
   resources :agencies
   resources :categories do
     member do
@@ -16,6 +18,8 @@ Rails.application.routes.draw do
   end
   resources :files_archives
   resources :files_incidents
+  resources :files_msg_procedures
+  resources :files_procedures
   resources :files_responses
   resources :files_users
   get 'pages/home'

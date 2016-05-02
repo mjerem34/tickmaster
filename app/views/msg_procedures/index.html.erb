@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Msg Procedures</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id procedures</th>
+      <th>Contenu</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @msg_procedures.each do |msg_procedure| %>
+      <tr>
+        <td><%= msg_procedure.id_procedures %></td>
+        <td><%= msg_procedure.contenu %></td>
+        <td><%= link_to 'Show', msg_procedure %></td>
+        <td><%= link_to 'Edit', edit_msg_procedure_path(msg_procedure) %></td>
+        <td><%= link_to 'Destroy', msg_procedure, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Msg procedure', new_msg_procedure_path %>

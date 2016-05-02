@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nom:</strong>
+  <%= @procedure.nom %>
+</p>
+
+<p>
+  <strong>Contenu:</strong>
+  <%= @procedure.contenu %>
+</p>
+
+<p>
+  <strong>Resolution:</strong>
+  <%= @procedure.resolution %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @procedure.category_id %>
+</p>
+
+<p>
+  <strong>Sous category:</strong>
+  <%= @procedure.sous_category_id %>
+</p>
+
+<%= link_to 'Edit', edit_procedure_path(@procedure) %> |
+<%= link_to 'Back', procedures_path %>

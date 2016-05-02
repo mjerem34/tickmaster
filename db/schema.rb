@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125141130) do
+ActiveRecord::Schema.define(version: 20160502144426) do
 
   create_table "agencies", force: :cascade do |t|
     t.string "name",       limit: 45
@@ -90,29 +90,29 @@ ActiveRecord::Schema.define(version: 20160125141130) do
   end
 
   create_table "incidents", force: :cascade do |t|
-    t.string   "title",                      limit: 200
-    t.text     "content",                    limit: 65535
-    t.integer  "user_id",                    limit: 2
-    t.integer  "tech_id",                    limit: 2
-    t.integer  "category_id",                limit: 2
-    t.integer  "sous_category_id",           limit: 2
-    t.integer  "agency_id",                  limit: 2
-    t.integer  "lvl_urgence_user",           limit: 1
-    t.integer  "lvl_urgence_tech",           limit: 1
-    t.string   "lvl_of_incident",            limit: 45
+    t.string   "title",                         limit: 200
+    t.text     "content",                       limit: 65535
+    t.integer  "user_id",                       limit: 2
+    t.integer  "tech_id",                       limit: 2
+    t.integer  "category_id",                   limit: 2
+    t.integer  "sous_category_id",              limit: 2
+    t.integer  "agency_id",                     limit: 2
+    t.integer  "lvl_urgence_user",              limit: 1
+    t.integer  "lvl_urgence_tech",              limit: 1
+    t.string   "lvl_of_incident",               limit: 45
     t.boolean  "cloture_user"
     t.boolean  "cloture_tech"
-    t.integer  "pc_id",                      limit: 4
-    t.string   "ip_adress",                  limit: 255
-    t.text     "solution",                   limit: 65535
-    t.string   "keywords",                   limit: 255
-    t.string   "link_faq",                   limit: 255
+    t.integer  "pc_id",                         limit: 4
+    t.string   "ip_adress",                     limit: 255
+    t.text     "solution",                      limit: 65535
+    t.string   "keywords",                      limit: 255
+    t.string   "link_faq",                      limit: 255
     t.integer  "incident_state_id_for_user_id", limit: 1
     t.integer  "incident_state_id_for_tech_id", limit: 1
     t.datetime "archived_at"
     t.datetime "resolved_at"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
   end
 
   add_index "incidents", ["pc_id"], name: "index_incidents_on_pc_id", using: :btree
@@ -133,6 +133,13 @@ ActiveRecord::Schema.define(version: 20160125141130) do
     t.datetime "updated_at",                       null: false
   end
 
+  create_table "msg_procedures", force: :cascade do |t|
+    t.integer  "id_procedures", limit: 4
+    t.text     "contenu",       limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
   create_table "pcs", force: :cascade do |t|
     t.string   "ip_adress",     limit: 255
     t.string   "serial_number", limit: 255
@@ -140,6 +147,16 @@ ActiveRecord::Schema.define(version: 20160125141130) do
     t.string   "name_holder",   limit: 255
     t.datetime "buy_date"
     t.datetime "warranty_date"
+  end
+
+  create_table "procedures", force: :cascade do |t|
+    t.string   "nom",              limit: 255
+    t.text     "contenu",          limit: 65535
+    t.text     "resolution",       limit: 65535
+    t.integer  "category_id",      limit: 4
+    t.integer  "sous_category_id", limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "responses", force: :cascade do |t|
@@ -189,12 +206,12 @@ ActiveRecord::Schema.define(version: 20160125141130) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "pseudo",     limit: 50
-    t.string   "email",      limit: 50
+    t.string   "pseudo",     limit: 100
+    t.string   "email",      limit: 255
     t.string   "tel",        limit: 30
     t.string   "mobile",     limit: 15
-    t.string   "name",       limit: 20
-    t.string   "surname",    limit: 20
+    t.string   "name",       limit: 100
+    t.string   "surname",    limit: 100
     t.string   "password",   limit: 255
     t.string   "salt",       limit: 255
     t.integer  "tech_id",    limit: 4

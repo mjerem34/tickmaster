@@ -1,0 +1,2 @@
+module MsgProceduresHelper
+end

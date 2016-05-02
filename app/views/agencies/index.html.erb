@@ -58,7 +58,9 @@
                 <p>IP : <%= agency.ip_adress == "NULL" ? "" : agency.ip_adress %></p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <%= link_to "Editer", edit_agency_path(agency), class: "btn btn-primary"%>
+                <%= link_to "Liste des incidents", agency, class: "btn btn-default"%>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
               </div>
             </div>
 
