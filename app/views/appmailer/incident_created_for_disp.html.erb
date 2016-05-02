@@ -45,21 +45,21 @@
 
 						<h1>Bonjour
 							<%= @users.where(tech_id: '5').pluck(:surname).join('') %></h1>
-						<p>Un incident a été créé sur la plateforme.</p><br>
-						<p>Voici un résumé de cet incident : </p><br>
+						<p>Un incident a été créé sur la plateforme.</p>
+						<p>Voici un résumé de cet incident : </p>
 						<!-- Callout Panel -->
 						<p class="callout">
 							<strong>Créateur :
 							</strong><br>
 							<%= @incident.user.name + ' ' + @incident.user.surname %>
-						</p><br><br>
+						</p><br>
 
 						<% if !@incident.title.nil?%>
 						<p class="callout">
 							<strong>Titre :
 							</strong><br>
 							<%= @incident.title %>
-						</p><br><br>
+						</p><br>
 						<% end %>
 
 						<% if !@incident.content.nil?%>
@@ -67,7 +67,7 @@
 							<strong>Contenu :
 							</strong><br>
 							<%=strip_tags(@incident.content)%>
-						</p><br><br>
+						</p><br>
 						<!-- /Callout Panel -->
 						<% end %>
 
@@ -76,27 +76,27 @@
 							<strong>Technicien :
 							</strong><br>
 							<%= @users.where(id: @incident.tech_id).pluck(:name, :surname).join(' ') %>
-						</p><br><br>
+						</p><br>
 						<% end %>
 
 						<p class="callout">
 							<strong>Catégorie :
 							</strong><br>
 							<%= @incident.category.name %>
-						</p><br><br>
+						</p><br>
 
 						<p class="callout">
 							<strong>Sous Catégorie :
 							</strong><br>
 							<%= @incident.sous_category.name%>
-						</p><br><br>
+						</p><br>
 
 						<% if !@incident.lvl_urgence_user.nil?%>
 						<p class="callout">
 							<strong>Niveau d'urgence suggéré par le créateur :
 							</strong><br>
 							<%= @incident.lvl_urgence_user %>
-						</p><br><br>
+						</p><br>
 						<% end %>
 						<%= link_to "Incident &raquo;".html_safe, incident_url(@incident), class: "btn"%>
 					</td>

@@ -46,12 +46,12 @@
                   <td>
                     <h1>Bonjour
                       <%= @user.surname%></h1>
-                    <p>Vous venez de demander un rappel pour votre pseudonyme</p><br>
+                    <p>Vous venez de demander un rappel pour votre pseudonyme</p>
                     <p class="callout">
                       <strong>Pseudonyme :
                       </strong><br>
                       <%= @user.pseudo %>
-                    </p><br>
+                    </p>
 
                     <%= link_to "Se connecter &raquo;".html_safe, signin_url, class: "btn"%>
                   </td>
@@ -64,7 +64,7 @@
       </table>
 <p>
   Si ce n'est pas vous qui avez fait cette demande, veuillez ignorer ce mail et prévenir votre administrateur système de sa présence.
-</p><br>
+</p>
 <!-- /BODY -->
     </body>
   </html>

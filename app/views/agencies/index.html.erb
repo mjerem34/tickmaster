@@ -10,24 +10,14 @@
     <thead class="header">
       <% if RightsController.verify_rights_for("edit_agency", current_user) then %>
       <tr>
-        <th>#</th>
         <th>Nom</th>
-        <th>Adresse</th>
-        <th>Adresse 2</th>
-        <th>Adresse 3</th>
-        <th>CP</th>
-        <th>Ville</th>
-        <th>Département</th>
         <th>Adresse email</th>
         <th>Téléphone</th>
-        <th>Fax</th>
         <th>IP</th>
-        <th colspan="1"></th>
       </tr>
       <% else %>
       <tr>
         <th>Nom</th>
-        <th>Ville</th>
         <th>Adresse email</th>
         <th>Téléphone</th>
       </tr>
@@ -38,27 +28,50 @@
       <% if RightsController.verify_rights_for("edit_agency", current_user) then %>
       <% @agencies.each do |agency| %>
       <tr>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.id %></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.name %></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.adress == 'NULL' ? "" : agency.adress%></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.adress2 == "NULL" ? "" : agency.adress2%></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.adress3 == "NULL" ? "" : agency.adress3%></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.cp == "NULL" ? "" : agency.cp %>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.city == "NULL" ? "" : agency.city %></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.department == "NULL" ? "" : agency.department %></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.email == "NULL" ? "" : agency.email %>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.tel == "NULL" ? "" : agency.tel %></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.fax == "NULL" ? "" : agency.fax %></td>
-        <td onClick="document.location.href='<%=agency_path(agency)%>'"><%= agency.ip_adress == "NULL" ? "" : agency.ip_adress %>
-        <td><%= link_to "", edit_agency_path(agency), class: "btn btn-primary btn-edit-agency" %></td>
-
-        <% end %>
+        <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.name %></td>
+        <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.email == "NULL" ? "" : agency.email %>
+        <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.tel == "NULL" ? "" : agency.tel %></td>
+        <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.ip_adress == "NULL" ? "" : agency.ip_adress %>
       </tr>
+      <div class="container-modal">
+        <!-- Modal -->
+        <div class="modal fade" id="<%= agency.id %>" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Détails de l'agence</h4>
+              </div>
+              <div class="modal-body">
+                <p>ID : <%= agency.id %></p>
+                <p>NOM : <%= agency.name %></p>
+                <p>ADDRESSE : <%= agency.adress == 'NULL' ? "" : agency.adress%></p>
+                <p>COMPL. ADDRESSE : <%= agency.adress2 == "NULL" ? "" : agency.adress2%></p>
+                <p>SUPPL. ADRESSE : <%= agency.adress3 == "NULL" ? "" : agency.adress3%></p>
+                <p>CODE POSTAL : <%= agency.cp == "NULL" ? "" : agency.cp %>
+                <p>VILLE : <%= agency.city == "NULL" ? "" : agency.city %></p>
+                <p>DEPARTEMENT : <%= agency.department == "NULL" ? "" : agency.department %></p>
+                <p>ADRESSE EMAIL : <%= agency.email == "NULL" ? "" : agency.email %>
+                <p>TÉLÉPHONE : <%= agency.tel == "NULL" ? "" : agency.tel %></p>
+                <p>FAX : <%= agency.fax == "NULL" ? "" : agency.fax %></p>
+                <p>IP : <%= agency.ip_adress == "NULL" ? "" : agency.ip_adress %></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <% end %>
+
       <% else %>
       <% @agencies.each do |agency| %>
       <tr>
         <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.name %></td>
-        <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.city == "NULL" ? "" : agency.city %></td>
         <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.email == "NULL" ? "" : agency.email %>
         <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.tel == "NULL" ? "" : agency.tel %></td>
       </tr>
@@ -73,16 +86,16 @@
                 <h4 class="modal-title">Détails de l'agence</h4>
               </div>
               <div class="modal-body">
-                <p><%= agency.name %></p>
-                <p><%= agency.adress == 'NULL' ? "" : agency.adress%></p>
-                <p><%= agency.adress2 == "NULL" ? "" : agency.adress2%></p>
-                <p><%= agency.adress3 == "NULL" ? "" : agency.adress3%></p>
-                <p><%= agency.cp == "NULL" ? "" : agency.cp %>
-                <p><%= agency.city == "NULL" ? "" : agency.city %></p>
-                <p><%= agency.department == "NULL" ? "" : agency.department %></p>
-                <p><%= agency.email == "NULL" ? "" : agency.email %>
-                <p><%= agency.tel == "NULL" ? "" : agency.tel %></p>
-                <p><%= agency.fax == "NULL" ? "" : agency.fax %></p>
+                <p>NOM : <%= agency.name %></p>
+                <p>ADDRESSE : <%= agency.adress == 'NULL' ? "" : agency.adress%></p>
+                <p>COMPL. ADDRESSE : <%= agency.adress2 == "NULL" ? "" : agency.adress2%></p>
+                <p>SUPPL. ADRESSE : <%= agency.adress3 == "NULL" ? "" : agency.adress3%></p>
+                <p>CODE POSTAL : <%= agency.cp == "NULL" ? "" : agency.cp %>
+                <p>VILLE : <%= agency.city == "NULL" ? "" : agency.city %></p>
+                <p>DEPARTEMENT : <%= agency.department == "NULL" ? "" : agency.department %></p>
+                <p>ADRESSE EMAIL : <%= agency.email == "NULL" ? "" : agency.email %>
+                <p>TÉLÉPHONE : <%= agency.tel == "NULL" ? "" : agency.tel %></p>
+                <p>FAX : <%= agency.fax == "NULL" ? "" : agency.fax %></p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>

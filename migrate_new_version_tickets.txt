@@ -1,9 +1,12 @@
 ssh ticket@10.0.171.250
 sudo service nginx stop
 sudo umount /home/ticket/Bureau/TickMasterV2/public/uploads
-sudo rm -rf /home/ticket/Bureau/TickMasterV2
+sudo mv /home/ticket/Bureau/TickMasterV2 /home/ticket/Bureau/TickMasterV2BAK
 cd /home/ticket/Bureau/
-git clone https://git.framasoft.org/mjerem34/TickMasterV2.git
+git clone https://mjerem34@framagit.org/mjerem34/TickMasterV2.git
 mkdir TickMasterV2/public/uploads
 sudo mount -a
 sudo service nginx start
+
+SI TOUT A FONCTIONNÉ ALORS FAIRE :
+sudo rm -rf /home/ticket/Bureau/TickMasterV2BAK
