@@ -49,12 +49,12 @@
       <% if Right.where(name: "dispatch_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
       <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10%>
-      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), disabled: 'disabled', class: "form-control "  %></li>
+      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), disabled: 'disabled', class: "form-control ", data_name: @incident.id  %></li>
       <% else %>
-      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), class: "form-control ", include_blank: "Technicien non défini..."  %></li>
+      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), class: "form-control ", include_blank: "Technicien non défini...", data_name: @incident.id  %></li>
       <% end %>
       <% else %>
-      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), include_blank: "Technicien non défini...", disabled: 'disabled', class: "form-control "  %></li>
+      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), include_blank: "Technicien non défini...", disabled: 'disabled', class: "form-control ", data_name: @incident.id  %></li>
       <% end %>
 
     </ul>

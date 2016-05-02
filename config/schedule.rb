@@ -22,6 +22,9 @@
 every 1.day, at: "12:59pm" do
   runner 'Incident.cloture_automaticaly', environment: "production"
 end
+# every 1.day, at: "3:28pm" do
+#   runner 'Incident.cloture_automaticaly', environment: "development"
+# end
 every 1.hour do
   runner 'Application.send_mails_delayed' environment: "production"
 end

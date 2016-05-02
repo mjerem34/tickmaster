@@ -55,11 +55,11 @@ class Incident < ActiveRecord::Base
       @response.save!
       @responses = Response.all.where(incident_id: incident.id)
       @responses.each do |response|
-        if !response.attach_updated_at.nil?
-          @archive = Archive.new(content: response.content, incident_id: response.incident_id, sender_id: response.sender_id, receiver_id: response.receiver_id, ip_adress_sender: response.ip_adress_sender, pc_id: response.pc_id, attach_updated_at: response.attach_updated_at, attach_content_type: response.attach_content_type, attach_file_name: response.attach_file_name, attach_file_size: response.attach_file_size)
-        else
+        # if !response.attach_updated_at.nil?
+          # @archive = Archive.new(content: response.content, incident_id: response.incident_id, sender_id: response.sender_id, receiver_id: response.receiver_id, ip_adress_sender: response.ip_adress_sender, pc_id: response.pc_id, attach_updated_at: response.attach_updated_at, attach_content_type: response.attach_content_type, attach_file_name: response.attach_file_name, attach_file_size: response.attach_file_size)
+        # else
           @archive = Archive.new(content: response.content, incident_id: response.incident_id, sender_id: response.sender_id, receiver_id: response.receiver_id, ip_adress_sender: response.ip_adress_sender, pc_id: response.pc_id)
-        end
+        # end
         response.destroy if @archive.save!
         AppMailer.incident_clotured_for_creator_if_is_creator_clotured(incident, @users, @responses).deliver_now
         unless incident.tech_id.nil?
