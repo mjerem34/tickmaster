@@ -28,6 +28,15 @@ class ProceduresController < ApplicationController
 
     respond_to do |format|
       if @procedure.save
+        unless params[:file_procedures].nil?
+          params[:file_procedures]['file'].each do |a|
+            @file_procedure = @procedure.file_procedures.create!(
+              procedure_id: @procedure.id,
+              file: params[:file_procedures].inspect
+            )
+ActiveRecord::Base.logger.info "LOG /////// " + params[:file_procedures].inspect
+          end
+        end
         format.html { redirect_to @procedure, notice: 'Procedure was successfully created.' }
         format.json { render :show, status: :created, location: @procedure }
       else
@@ -60,6 +69,9 @@ class ProceduresController < ApplicationController
       format.json { head :no_content }
     end
   end
+  def download
+    send_file "#{Rails.root}/public/uploads/procedures/#{@procedure.file_procedure.id}/#{@procedure.file_procedure.identifier}"
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -69,6 +81,9 @@ class ProceduresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def procedure_params
-      params.require(:procedure).permit(:nom, :contenu, :resolution, :category_id, :sous_category_id)
+      params.require(:procedure).permit(
+      :nom, :contenu, :resolution, :category_id,
+      :sous_category_id,
+      file_procedures_attributes: [:file])
     end
 end

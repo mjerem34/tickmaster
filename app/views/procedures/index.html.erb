@@ -1,7 +1,6 @@
 <p id="notice"><%= notice %></p>
-<% @title = 'Accueil ' %>
+<% @title = 'Liste des procedures'%>
 
-<h1>Listing Procedures</h1>
 
 <table>
   <thead>
@@ -9,28 +8,48 @@
       <th>Nom</th>
       <th>Contenu</th>
       <th>Resolution</th>
-      <th>Category</th>
-      <th>Sous category</th>
-      <th colspan="3"></th>
+      <th>Categorie</th>
+      <th>SousCategorie</th>
     </tr>
   </thead>
 
   <tbody>
+    <% if RightsController.verify_rights_for("edit_procedure", current_user) then %>
     <% @procedures.each do |procedure| %>
       <tr>
-        <td><%= procedure.nom %></td>
-        <td><%= procedure.contenu %></td>
-        <td><%= procedure.resolution %></td>
-        <td><%= procedure.category_id %></td>
-        <td><%= procedure.sous_category_id %></td>
-        <td><%= link_to 'Show', procedure %></td>
-        <td><%= link_to 'Edit', edit_procedure_path(procedure) %></td>
-        <td><%= link_to 'Destroy', procedure, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="hover-cellule <%= procedure.id %>" data-toggle="modal" data-target="#<%= procedure.id %>"><%= procedure.nom %></td>
+        <td class="hover-cellule <%= procedure.id %>" data-toggle="modal" data-target="#<%= procedure.id %>"><%= procedure.contenu %></td>
+        <td class="hover-cellule <%= procedure.id %>" data-toggle="modal" data-target="#<%= procedure.id %>"><%= procedure.resolution %></td>
+        <td class="hover-cellule <%= procedure.id %>" data-toggle="modal" data-target="#<%= procedure.id %>"><%= procedure.category_id %></td>
+        <td class="hover-cellule <%= procedure.id %>" data-toggle="modal" data-target="#<%= procedure.id %>"><%= procedure.sous_category_id %></td>
       </tr>
+      <div class="container-modal">
+        <!-- Modal -->
+        <div class="modal fade" id="<%= procedure.id %>" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><%= procedure.nom %></h4>
+              </div>
+              <div class="modal-body">
+                <p>Contenu : <%= procedure.contenu %></p>
+              </div>
+              <div class="modal-footer">
+                <%= link_to "Détails", edit_procedure_path(procedure), class: "btn btn-primary"%>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    <% end %>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Procedure', new_procedure_path %>

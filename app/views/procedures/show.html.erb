@@ -1,4 +1,5 @@
-<p id="notice"><%= notice %></p>
+<%= @title = "Procedure : " + @procedure.nom %>
+
 
 <p>
   <strong>Nom:</strong>
@@ -16,14 +17,11 @@
 </p>
 
 <p>
-  <strong>Category:</strong>
+  <strong>Categorie:</strong>
   <%= @procedure.category_id %>
 </p>
 
 <p>
-  <strong>Sous category:</strong>
+  <strong>Sous categorie:</strong>
   <%= @procedure.sous_category_id %>
 </p>
-
-<%= link_to 'Edit', edit_procedure_path(@procedure) %> |
-<%= link_to 'Back', procedures_path %>

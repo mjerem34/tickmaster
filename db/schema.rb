@@ -71,6 +71,24 @@ ActiveRecord::Schema.define(version: 20160502144426) do
     t.string   "content_type", limit: 255
   end
 
+  create_table "file_msg_procedures", force: :cascade do |t|
+    t.integer  "msg_procedures_id", limit: 4
+    t.string   "file",              limit: 255
+    t.integer  "file_size",         limit: 4
+    t.string   "content_type",      limit: 255
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  create_table "file_procedures", force: :cascade do |t|
+    t.integer  "procedures_id", limit: 4
+    t.string   "file",          limit: 255
+    t.integer  "file_size",     limit: 4
+    t.string   "content_type",  limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
   create_table "file_responses", force: :cascade do |t|
     t.integer  "response_id",  limit: 4
     t.string   "file",         limit: 255

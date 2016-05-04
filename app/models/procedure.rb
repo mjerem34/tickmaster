@@ -9,4 +9,8 @@ class Procedure < ActiveRecord::Base
   validates :resolution, presence: true, length: { in: 0..65535 }
   validates :category_id, presence: true
   validates :sous_category_id, presence: true
+  module Proceduremod
+    attr_accessor :file, :file_procedures
+  end
+
 end
