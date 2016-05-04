@@ -1,65 +1,142 @@
 // Formulaire d'inscription et formulaire d'inscription
-form#new_user, form.connect-user, form.edit_user, form.edit_agency, form#new_agency{
-  width:50%;
-  min-width:200px;
+form#new_agency,
+form#new_user,
+form.connect-user,
+form.edit_agency,
+form.edit_user {
+  width: 50%;
+  min-width: 200px;
   max-width: 500px;
-  position:absolute;
-  label{
+  position: absolute;
+  label {
     color: $text-color;
   }
   @media screen and(min-width:1600px) {
-    left:35%;
-    .email{
-      width:49.6%;
+    left: 35%;
+    .email {
+      width: 49.6%;
     }
-}
+  }
   @media screen and(min-width:1105px) and(max-width:1599px) {
-    left:29.5%;
-    .email{
-      width:49.6%;
+    left: 29.5%;
+    .email {
+      width: 49.6%;
     }
   }
   @media screen and(min-width:768px) and(max-width:1104px) {
-    left:21%;
-    .email{
-      width:49.4%;
+    left: 21%;
+    .email {
+      width: 49.4%;
     }
   }
   @media screen and(min-width:413px) and(max-width:767px) {
     left: 15%;
-    .email{
-      width:100%;
+    .email {
+      width: 100%;
     }
-    .email:first-child{
-      margin-bottom:15px;
+    .email:first-child {
+      margin-bottom: 15px;
     }
   }
   @media screen and(max-width:412px) {
-    left:15%;
-    .email{
-      width:100%;
+    left: 15%;
+    .email {
+      width: 100%;
     }
-    .email:first-child{
-      margin-bottom:15px;
+    .email:first-child {
+      margin-bottom: 15px;
     }
   }
-  .btn{
-    width:100%;
+  .btn {
+    width: 100%;
   }
 }
-
+form#new_user, form.connect-user {
+  background: white;
+  padding: 20px;
+  -moz-box-shadow: 10px 10px 5px #111;
+  -webkit-box-shadow: 10px 10px 5px #111;
+  -o-box-shadow: 10px 10px 5px #111;
+  box-shadow: 10px 10px 5px #111;
+  border-radius: 5px;
+  filter:progid:DXImageTransform.Microsoft.Shadow(color= '#1111', Direction=135, Strength=5);
+  .form-control {
+    border-radius: 0;
+    background: white;
+    border-color: rgba(#000000, 0.0);
+    border-bottom-width: medium;
+    border-bottom-color: rgba(#000000, 0.4);
+  }
+  .form-control:focus {
+    box-shadow: 0 0 0 #FFF;
+    border-bottom-color: #3BA3D8;
+  }
+  .form-control:focus::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #3BA3D8;
+  }
+  .form-control:focus:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #3BA3D8;
+    opacity: 1;
+  }
+  .form-control:focus::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #3BA3D8;
+    opacity: 1;
+  }
+  .form-control:focus:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #3BA3D8;
+  }
+  .btn-pseudo, .btn-inscription, .btn-validate{
+    width: 100%;
+    color:white;
+  }
+  .btn-pseudo{
+    background: #E71D36 ;
+  }
+  .btn-inscription{
+    background: #011627 ;
+  }
+  .btn-validate{
+    background: #3BA3D8;
+  }
+  .btn-create-new-user,
+  .btn-inscrit{
+    // margin-left: 100px;
+    color: white;
+    font-weight: 600;
+    width: auto;
+    :visited {
+      text-decoration: none;
+    }
+    border-color: rgba(#000, 0.0);
+    border-width: 3px;
+    border-radius: 5px;
+    background: #3BA3D8;
+  }
+  .btn-inscrit {
+    background: #011627;
+  }
+  #addPhoneField {
+    background: white;
+    color: #3BA3D8;
+    border-color: #3BA3D8;
+  }
+}
 //Formulaire de création d'incident
-form#new_incident{
+form#new_incident {
   min-width: 200px;
   max-width: 900px;
-  position:absolute;
-  label{
+  position: absolute;
+  label {
     color: $text-color;
   }
   @media screen and(min-width:1600px) {
     left: 10%;
     width: 100%;
-}
+  }
   @media screen and(min-width:1105px) and(max-width:1599px) {
     left: 5%;
     width: 80%;
@@ -74,24 +151,23 @@ form#new_incident{
   @media screen and(max-width:412px) {
     left: 1%;
   }
-
 }
-
 //Tous les formulaires
 .form-control {
   font-weight: $font-weight-thick;
 }
-form.edit_incident, div.messages_in_edit_incident{
+div.messages_in_edit_incident,
+form.edit_incident {
   min-width: 200px;
   max-width: 900px;
   position: relative;
-  label{
+  label {
     color: $text-color;
   }
   @media screen and(min-width:1600px) {
     left: 10%;
     width: 100%;
-}
+  }
   @media screen and(min-width:1105px) and(max-width:1599px) {
     left: 5%;
     width: 80%;
@@ -106,15 +182,13 @@ form.edit_incident, div.messages_in_edit_incident{
   @media screen and(max-width:412px) {
     left: 1%;
   }
-
 }
-
-.text_area_response{
+.text_area_response {
   position: relative;
   @media screen and(min-width:1600px) {
     left: 25%;
     width: 100%;
-}
+  }
   @media screen and(min-width:1105px) and(max-width:1599px) {
     left: 30%;
     width: 80%;
@@ -129,5 +203,4 @@ form.edit_incident, div.messages_in_edit_incident{
   @media screen and(max-width:412px) {
     left: 1%;
   }
-
 }

@@ -25,16 +25,14 @@ class ProceduresController < ApplicationController
   # POST /procedures.json
   def create
     @procedure = Procedure.new(procedure_params)
-
     respond_to do |format|
       if @procedure.save
         unless params[:file_procedures].nil?
           params[:file_procedures]['file'].each do |a|
             @file_procedure = @procedure.file_procedures.create!(
               procedure_id: @procedure.id,
-              file: params[:file_procedures].inspect
+              file: a
             )
-ActiveRecord::Base.logger.info "LOG /////// " + params[:file_procedures].inspect
           end
         end
         format.html { redirect_to @procedure, notice: 'Procedure was successfully created.' }

@@ -54,14 +54,14 @@
   <% end %>
 </div>
 <div class="actions form-group">
-  <%= f.submit "Se connecter", id: "sendButton", class: "btn btn-success btn-create-new-user" %><br>
+  <%= f.submit "Se connecter", id: "sendButton", class: "btn btn-validate" %><br>
 </div>
 <div class="row">
   <div class="col-md-6">
-    <%= link_to "Pas encore inscrit ?", signup_path, class: "btn btn-primary"%>
+    <%= link_to "Pas encore inscrit ?", signup_path, class: "btn btn-inscription"%>
   </div>
 <div class="col-md-6">
-  <%= link_to 'Pseudonyme oublié ?', forget_identifiers_user_path(:id), class: "btn btn-danger" %>
+  <%= link_to 'Pseudonyme oublié ?', forget_identifiers_user_path(:id), class: "btn btn-pseudo" %>
 </div>
 </div>
 <% end %>

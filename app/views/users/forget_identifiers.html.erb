@@ -6,14 +6,14 @@
         <%= email_field_tag :email, params[:email], class: "form-control pseudo-entry", placeholder: "Adresse email", required: true %>
       </div>
       <div class="actions form-group">
-        <%= submit_tag "Valider", class:"btn btn-success btn-create-new-user btn-to-disable" %>
+        <%= submit_tag "Valider", class:"btn btn-success btn-validate" %>
       </div>
       <div class="row">
         <div class="col-md-6">
-          <%= link_to "Pas encore inscrit ?", signup_path, class: "btn btn-primary"%>
+          <%= link_to "S'inscrire", signup_path, class: "btn btn-inscription"%>
         </div>
         <div class="col-md-6">
-          <%= link_to 'Déjà inscrit ?', signin_path, class: "btn btn-danger" %>
+          <%= link_to 'Se connecter', signin_path, class: "btn btn-pseudo" %>
         </div>
       </div>
     <% end %>

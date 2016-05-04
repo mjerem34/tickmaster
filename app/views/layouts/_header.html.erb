@@ -30,15 +30,14 @@
     </li>
 
     <li data-toggle="collapse" data-target="#incidents" class="collapsed active"><%= image_tag("accidents.png", size: "32x32", alt: "", class: "fa-img") %>
-      <a href="#">
-        <i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Incidents</a>
+      <a href="#"><i class="fa fa-gift fa-lg" style="padding-right:20px !important; padding-top:20px; padding-bottom:20px;"></i>Incidents</a>
     </li>
     <ul class="sub-menu collapse" id="incidents">
       <li><%= link_to 'Mes incidents', current_user, class: "", :method => :get %></li>
-      <% if !current_user.nil? && Right.where(name: "view_index_all_of_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
       <% if !current_user.tech.simple_user %>
       <li><%= link_to "A traiter", to_treat_user_path(current_user), class: "", :method => :get %></li>
       <li><%= link_to "Non attribués", incidents_without_tech_incident_path(current_user), class: "", :method => :get%></li>
+      <% if Right.where(name: "view_index_all_of_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
       <li><%= link_to "Tous les incidents", incidents_url, class: "", :method => :get%></li>
       <% end %>
       <% end %>
@@ -64,6 +63,7 @@
 <ul class="sub-menu collapse" id="users">
   <li><%= link_to "Liste des utilisateurs", users_url, class: " ", tabindex: -1, :method => :get  %></li>
   <li><%= link_to "Créer un utilisateur", signup_path, class: " ", tabindex: -1, :method => :get  %></li>
+</ul>
   <% else %>
   <% if !current_user.nil? && Right.where(name: "view_index_users").pluck(current_user.tech.name).join('')  == 'true' %>
   <li><%= image_tag("ICOMOON/32px/0115-users.png", alt: "", class: "fa-img")%>
@@ -71,7 +71,6 @@
   <%= link_to "Utilisateurs", users_url, class: "", method: :get, style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;"  %></li>
   <% end %>
 
-</ul>
 <%end%>
 
 <% if !current_user.nil? && Right.where(name: "view_index_rights").pluck(current_user.tech.name).join('')  == 'true' %>

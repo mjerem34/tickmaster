@@ -1,27 +1,29 @@
-<%= @title = "Procedure : " + @procedure.nom %>
+<% @title = "Procedure : " + @procedure.nom %>
 
+<div class="procedures">
 
-<p>
-  <strong>Nom:</strong>
+<h1 class="procedure_nom">
+  <!-- <strong>Nom:</strong> -->
   <%= @procedure.nom %>
-</p>
+</h1>
 
-<p>
-  <strong>Contenu:</strong>
-  <%= @procedure.contenu %>
-</p>
-
-<p>
-  <strong>Resolution:</strong>
-  <%= @procedure.resolution %>
-</p>
-
-<p>
+<h3 class="procedure_categorie">
   <strong>Categorie:</strong>
   <%= @procedure.category_id %>
-</p>
+</h3>
 
-<p>
+<h3 class="procedure_souscategorie">
   <strong>Sous categorie:</strong>
   <%= @procedure.sous_category_id %>
+</h3>
+
+<p class="procedure_contenu">
+  <!-- <strong>Contenu:</strong> -->
+  <%= raw @procedure.contenu %>
 </p>
+<br><hr><hr><br>
+<h1 class="procedure_resolution_title">Resolution:</h1>
+<p class="procedure_resolution">
+  <%= raw @procedure.resolution %>
+</p>
+</div>

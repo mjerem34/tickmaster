@@ -1,25 +1,26 @@
+<% if true %>
+<%= render 'pages/under_construction'%>
+<% else %>
 <p id="notice"><%= notice %></p>
 <% @title = 'Liste des procedures'%>
 
+<div class="table-responsive">
 
-<table>
-  <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Contenu</th>
-      <th>Resolution</th>
-      <th>Categorie</th>
-      <th>SousCategorie</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% if RightsController.verify_rights_for("edit_procedure", current_user) then %>
-    <% @procedures.each do |procedure| %>
+  <table class="table table-hover">
+    <thead class="header">
       <tr>
-        <td class="hover-cellule <%= procedure.id %>" data-toggle="modal" data-target="#<%= procedure.id %>"><%= procedure.nom %></td>
-        <td class="hover-cellule <%= procedure.id %>" data-toggle="modal" data-target="#<%= procedure.id %>"><%= procedure.contenu %></td>
-        <td class="hover-cellule <%= procedure.id %>" data-toggle="modal" data-target="#<%= procedure.id %>"><%= procedure.resolution %></td>
+        <th>Nom</th>
+        <th>Contenu</th>
+        <th>Categorie</th>
+        <th>SousCategorie</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @procedures.each do |procedure| %>
+      <tr>
+        <td class="hover-cellule <%= procedure.id %>" data-toggle="modal" data-target="#<%= procedure.id %>"><%= truncate(strip_tags(procedure.nom), length: 50) %></td>
+        <td class="hover-cellule <%= procedure.id %>" data-toggle="modal" data-target="#<%= procedure.id %>"><%= truncate(strip_tags(procedure.contenu), length: 50) %></td>
         <td class="hover-cellule <%= procedure.id %>" data-toggle="modal" data-target="#<%= procedure.id %>"><%= procedure.category_id %></td>
         <td class="hover-cellule <%= procedure.id %>" data-toggle="modal" data-target="#<%= procedure.id %>"><%= procedure.sous_category_id %></td>
       </tr>
@@ -31,13 +32,17 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"><%= procedure.nom %></h4>
+                <h4 class="modal-title"><%= truncate(strip_tags(procedure.nom), length: 50) %></h4>
+
               </div>
               <div class="modal-body">
-                <p>Contenu : <%= procedure.contenu %></p>
+                <p><%= truncate(strip_tags(procedure.contenu), length: 200) %></p>
               </div>
               <div class="modal-footer">
-                <%= link_to "Détails", edit_procedure_path(procedure), class: "btn btn-primary"%>
+                <% if RightsController.verify_rights_for("edit_procedure", current_user) then %>
+                <%= link_to "Editer", edit_procedure_path(procedure), class: "btn btn-primary"%>
+                <% end %>
+                <%= link_to "Détails", procedure, class: "btn btn-success"%>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
               </div>
             </div>
@@ -47,9 +52,10 @@
 
       </div>
 
-    <% end %>
-    <% end %>
-  </tbody>
-</table>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <br>
+<% end %>

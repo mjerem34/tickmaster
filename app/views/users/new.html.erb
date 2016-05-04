@@ -5,8 +5,8 @@
 
 
 <% content_for :form do %>
-
-<h1 class="home">Bonjour et bienvenue sur la page d'accueil de TickMaster.</h1>
+<br><br>
+<!-- <h1 class="home">Bonjour et bienvenue sur la page d'accueil de TickMaster.</h1> -->
 <%= form_for(@user) do |f| %>
 <div id="next">
   <div class="form-group">
@@ -241,7 +241,8 @@ $(document).ready(function(){
 </script>
 <div class="field form-group form-tel">
   <%= f.phone_field :tel, class: "form-control next", placeholder: "N° de téléphone 1", onkeyup: "verif_nombre(this);", maxlength: "10" %>
-  <p class="btn btn-success" id="addPhoneField">+</p>
+<br id="remove">
+<p class="btn" id="addPhoneField">+</p>
   <% if @user.errors[:tel].first != nil  %>
   <div class="alert alert-danger">
     <%= "Téléphone " + @user.errors[:tel].first%><br>
@@ -252,7 +253,6 @@ $(document).ready(function(){
   <!-- DIV ERROR -->
   <% end %>
 </div>
-
 <div class="field form-group form-mobile">
   <%= f.phone_field :mobile, class: "form-control next", placeholder: "N° de téléphone 2", onkeyup: "verif_nombre(this);", maxlength: "10" %>
   <% if @user.errors[:mobile].first != nil  %>
@@ -271,6 +271,7 @@ $(document).ready(function(){
     $("#addPhoneField").click(function(){
       $(".form-mobile").show(150);
       $("#addPhoneField").hide(150);
+      $("#remove").hide(150);
     });
   });
 </script>
@@ -313,9 +314,16 @@ $(document).ready(function(){
 
 </div>
   <div class="actions form-group">
-    <%= f.submit "S'inscrire", id: "sendButton", class: "btn btn-create-new-user btn-success btn-to-disable" %><br>
+    <%= f.submit "S'inscrire", id: "sendButton", class: "btn btn-validate" %><br><br>
+    <div class="row">
+      <div class="col-md-6">
+        <%= link_to "Déjà inscrit ?", signin_path, class: "btn btn-inscription"%>
+      </div>
+    <div class="col-md-6">
+      <%= link_to 'Pseudonyme oublié ?', forget_identifiers_user_path(:id), class: "btn btn-pseudo" %>
+    </div>
+    </div>
   </div>
-    <%= link_to "Déjà inscrit ?", signin_path, class: "btn btn-primary"%>
 <% end %>
 <% end %>
 <%end%>
