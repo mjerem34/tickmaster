@@ -8,5 +8,26 @@ mkdir TickMasterV2/public/uploads
 sudo mount -a
 sudo service nginx start
 
+
+
+
+
+
+
 SI TOUT A FONCTIONNÉ ALORS FAIRE :
 sudo rm -rf /home/ticket/Bureau/TickMasterV2BAK
+
+
+
+
+
+POUR REMETTRE A LANCIENNE VERSION FAIRE
+//SE CONNECTER EN SSH AU SERVEUR
+ssh ticket@10.0.171.250
+sudo service nginx stop
+sudo umount /home/ticket/Bureau/TickMasterV2/public/uploads
+sudo rm -rf /home/ticket/Bureau/TickMasterV2
+sudo mv /home/ticket/Bureau/TickMasterV2BAK /home/ticket/Bureau/TickMasterV2
+mkdir /home/ticket/Bureau/TickMasterV2/public/uploads
+sudo mount -a
+sudo service nginx start

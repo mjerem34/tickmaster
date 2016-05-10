@@ -1,5 +1,7 @@
 class ProceduresController < ApplicationController
   before_action :set_procedure, only: [:show, :edit, :update, :destroy]
+  before_action :set_categories_all, only: [:index, :show, :edit, :new, :create]
+
 
   # GET /procedures
   # GET /procedures.json
@@ -15,6 +17,25 @@ class ProceduresController < ApplicationController
   # GET /procedures/new
   def new
     @procedure = Procedure.new
+    @nom = params[:nom]
+    @contenu = params[:contenu]
+    @messages = params[:messages]
+    @category_id = params[:category_id]
+    @sous_category_id = params[:sous_category_id]
+    if @category_id.nil?
+      @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
+    else
+      @sous_categories = SousCategory.where('category_id = ?', @category_id)
+    end
+
+  end
+
+  def update_subcats
+    @sous_categories = SousCategory.where('category_id = ?',
+                                          params[:category_id])
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /procedures/1/edit
@@ -77,6 +98,9 @@ class ProceduresController < ApplicationController
       @procedure = Procedure.find(params[:id])
     end
 
+    def set_categories_all
+      @categories = Category.all
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def procedure_params
       params.require(:procedure).permit(

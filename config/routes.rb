@@ -45,12 +45,16 @@ Rails.application.routes.draw do
       get :download
       post :show
       get :order_by
+      get :procedurer
     end
     resources :responses do
       member do
         get :download
       end
     end
+  end
+  resources :procedures do
+    get :update_subcats
   end
   resources :users do
     member do

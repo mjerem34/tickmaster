@@ -30,19 +30,7 @@ class IncidentsController < ApplicationController
   end
 
   def show
-    # Permet de renvoyer la connexion quand ce lien est tapé dans l'url
     redirect_to :back
-    # @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
-    # @incidentnew = Incident.new
-    # return if @incident.incident_state_id_for_user == 2 &&
-    #           @incident.tech_id == current_user.id
-    # @incident.update(incident_state_id_for_user: 3)
-    # @incident.update(incident_state_id_for_tech: 3)
-    # @response = Response.new(
-    #   content: "Incident lu par le technicien
-    #   #{current_user.name} #{current_user.surname}", incident_id: @incident.id,
-    #   sender_id: @incident.user_id)
-    # @response.save!
   end
 
   def new
@@ -69,6 +57,19 @@ class IncidentsController < ApplicationController
       format.js
     end
   end
+
+  # def procedurer
+  #   @incident = Incident.find(params[:id])
+  #   @procedure = Procedure.new(nom: @incident.title, contenu: @incident.content,
+  #   category_id: @incident.category_id, sous_category_id: @incident.sous_category_id)
+  #   Rails.logger.debug { "_______________________________" }
+  #   Rails.logger.debug { @procedure.nom }
+  #   Rails.logger.debug { "_______________________________" }
+  #
+  #   respond_to do |format|
+  #       format.html { redirect_to :new_procedure}
+  #     end
+  # end
 
   def create
     @sous_categories = SousCategory.where('category_id = ?', Category.first.id)

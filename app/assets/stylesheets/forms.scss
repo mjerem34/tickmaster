@@ -126,7 +126,7 @@ form#new_user, form.connect-user {
   }
 }
 //Formulaire de création d'incident
-form#new_incident {
+form#new_incident, form#new_procedure {
   min-width: 200px;
   max-width: 900px;
   position: absolute;

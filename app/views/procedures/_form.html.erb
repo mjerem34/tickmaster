@@ -2,7 +2,7 @@
 
   <br><div class="field">
     <%= f.label "Titre"%><br>
-    <%= f.text_field :nom, size: "100" %><br><br>
+    <%= f.text_field :nom, size: "100", value: @nom, class: "form-control" %><br><br>
     <% if @procedure.errors[:title].first != nil %>
     <div class="alert alert-danger">
       <%= "Objet " + @procedure.errors[:title].first%><br><br><br>
@@ -11,20 +11,18 @@
   </div>
     <div class="field">
       <%= f.label "Problème rencontré"%><br>
-      <%= f.cktext_area :contenu, :id => 'procedure_contenu procedure_contenu', ckeditor: {uiColor: '#555555'}, required: true%><br>
+      <%= f.cktext_area :contenu, :id => 'procedure_contenu procedure_contenu', ckeditor: {uiColor: '#555555'}, required: true, value: @contenu%><br>
     </div>
       <div class="field">
-        <%= f.label "Solution"%><br>
-        <%= f.cktext_area :resolution, :id => 'procedure_resolution procedure_resolution', ckeditor: {uiColor: '#555555'}, required: true%><br>
+        <%= f.label "Résolution"%><br>
+        <%= f.cktext_area :resolution, :id => 'procedure_resolution procedure_resolution', ckeditor: {uiColor: '#555555'}, required: true, value: @messages%><br>
       </div>
-        <div class="field">
-          <%= f.label "Categorie du problème"%><br>
-          <%= f.text_field :category_id %><br>
-        </div>
-  <div class="field">
-    <%= f.label "Sous categorie du problème"%><br>
-    <%= f.text_field :sous_category_id %><br>
-  </div>
+      <div class="field">
+        <%= f.label "Catégorie", :class => ''  %><br>
+        <%= select_tag "procedure[category_id]", options_for_select(@categories.collect{|category| [category.name.titleize, category.id]}, selected: @category_id), {:class => "form-control ", include_blank: "", required: true}%><br>
+        <%= select_tag "procedure[sous_category_id]", options_for_select(@sous_categories.collect{|sous_category| [sous_category.name.titleize, sous_category.id]}, selected: @sous_category_id), {:class => "form-control ", include_blank: "", required: true} %>
+      </div>
+
   <div class="fallback" id="filesinputs">
     <%= f.label "Fichiers"%><br>
       <%= fields_for :file_procedures, @procedure.file_procedures do |i| %>
