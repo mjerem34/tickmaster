@@ -214,6 +214,7 @@
 <% if RightsController.verify_rights_for("create_procedure", current_user) %>
 <% @reps = "" %>
 <% @responses.each do |response| %>
+<% if response.%>
     <% @reps = @reps + response.content + "," %>
     <% Rails.logger.debug { "__________________________________" }%>
     <% Rails.logger.debug { @reps }%>
