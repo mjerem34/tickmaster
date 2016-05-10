@@ -20,6 +20,13 @@ class ProceduresController < ApplicationController
     @nom = params[:nom]
     @contenu = params[:contenu]
     @messages = params[:messages]
+    @a = ""
+    i = 0
+    msg = @messages.split(";;")
+    msg = msg.each do |m|
+      i += 1
+      @a = @a + "<h4><b><u>Message N° " + i.to_s + " : </u></b><h4>" + m + "<br>"
+    end
     @category_id = params[:category_id]
     @sous_category_id = params[:sous_category_id]
     if @category_id.nil?
@@ -56,7 +63,7 @@ class ProceduresController < ApplicationController
             )
           end
         end
-        format.html { redirect_to @procedure, notice: 'Procedure was successfully created.' }
+        format.html { redirect_to @procedure, notice: 'La procedure a été créée.' }
         format.json { render :show, status: :created, location: @procedure }
       else
         format.html { render :new }
@@ -70,7 +77,7 @@ class ProceduresController < ApplicationController
   def update
     respond_to do |format|
       if @procedure.update(procedure_params)
-        format.html { redirect_to @procedure, notice: 'Procedure was successfully updated.' }
+        format.html { redirect_to @procedure, notice: 'La procedure a été mise a jour.' }
         format.json { render :show, status: :ok, location: @procedure }
       else
         format.html { render :edit }
@@ -84,7 +91,7 @@ class ProceduresController < ApplicationController
   def destroy
     @procedure.destroy
     respond_to do |format|
-      format.html { redirect_to procedures_url, notice: 'Procedure was successfully destroyed.' }
+      format.html { redirect_to procedures_url, notice: 'La procedure a été supprimée.' }
       format.json { head :no_content }
     end
   end

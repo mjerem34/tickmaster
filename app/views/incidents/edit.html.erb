@@ -214,12 +214,11 @@
 <% if RightsController.verify_rights_for("create_procedure", current_user) %>
 <% @reps = "" %>
 <% @responses.each do |response| %>
-<% if response.%>
-    <% @reps = @reps + response.content + "," %>
-    <% Rails.logger.debug { "__________________________________" }%>
-    <% Rails.logger.debug { @reps }%>
-    <% Rails.logger.debug { "__________________________________" }%>
+    <% @reps = @reps + response.content + ";;" %>
   <% end %>
+  <% Rails.logger.debug { "______________________" }%>
+  <% Rails.logger.debug { @reps }%>
+  <% Rails.logger.debug { "______________________" }%>
 <%= link_to "Procedure", new_procedure_path(nom: @incident.title,
   contenu: @incident.content, category_id: @incident.category_id,
   sous_category_id: @incident.sous_category_id, messages: @reps),

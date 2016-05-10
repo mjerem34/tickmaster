@@ -1,9 +1,10 @@
-<% @title = "Procedure : " + @procedure.nom %>
+<% @title = "Procedure N° " + @procedure.id.to_s  %>
 
 <div class="procedures">
-
-<h1 class="procedure_nom">
+<h1 class="procedure_nom">Problème rencontré :</h1>
+<h1 class="">
   <!-- <strong>Nom:</strong> -->
+
   <%= @procedure.nom %>
 </h1>
 
@@ -21,7 +22,7 @@
   <!-- <strong>Contenu:</strong> -->
   <%= raw @procedure.contenu %>
 </p>
-<br><hr><hr><br>
+<br><hr><br>
 <h1 class="procedure_resolution_title">Resolution:</h1>
 <p class="procedure_resolution">
   <%= raw @procedure.resolution %>
