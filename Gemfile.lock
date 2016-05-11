@@ -76,6 +76,7 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    chartkick (1.5.2)
     chosen-rails (1.4.3)
       coffee-rails (>= 3.2)
       compass-rails (>= 2.0.4)
@@ -132,6 +133,8 @@ GEM
     formatador (0.2.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    groupdate (2.5.3)
+      activesupport (>= 3)
     guard (2.13.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, <= 4.0)
@@ -169,6 +172,7 @@ GEM
     method_source (0.8.2)
     mime-types (2.6.2)
     mimemagic (0.3.0)
+    mini_magick (4.5.1)
     mini_portile (0.6.2)
     minitest (5.8.1)
     multi_json (1.11.2)
@@ -308,6 +312,7 @@ DEPENDENCIES
   bootstrap-slider-rails
   byebug
   carrierwave
+  chartkick
   chosen-rails
   ckeditor!
   coffee-rails (~> 4.1.0)
@@ -316,9 +321,11 @@ DEPENDENCIES
   exception_notification
   factory_girl
   file_validators
+  groupdate
   guard-livereload (~> 2.4)
   jbuilder (~> 2.0)
   jquery-rails
+  mini_magick
   mysql2 (= 0.3.19)
   nokogiri
   nprogress-rails

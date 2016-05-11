@@ -5,7 +5,7 @@ class Incident < ActiveRecord::Base
   belongs_to :incident_state_id_for_user, class_name: 'IncidentsState', foreign_key: 'incident_state_id_for_user_id'
   belongs_to :sous_category
   belongs_to :category
-  belongs_to :agency
+  has_many :agency, as: :user
   has_many :responses
   has_many :archives
   has_many :file_incidents

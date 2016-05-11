@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   has_many :responses
   has_many :archives
   has_many :rights
-  belongs_to :agency
+  belongs_to :agency, polymorphic: true
   belongs_to :tech
 
   email_regexp = /\A[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,4}$\z/

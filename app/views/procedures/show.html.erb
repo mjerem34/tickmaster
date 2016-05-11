@@ -10,12 +10,12 @@
 
 <h3 class="procedure_categorie">
   <strong>Categorie:</strong>
-  <%= @procedure.category_id %>
+  <%= @procedure.category.name %>
 </h3>
 
 <h3 class="procedure_souscategorie">
   <strong>Sous categorie:</strong>
-  <%= @procedure.sous_category_id %>
+  <%= @procedure.sous_category.name %>
 </h3>
 
 <p class="procedure_contenu">
@@ -27,4 +27,12 @@
 <p class="procedure_resolution">
   <%= raw @procedure.resolution %>
 </p>
+<h1 class="procedure_file">Fichiers nécéssaires à la résolution :</h1>
+<% @procedure.file_procedures.each do |file|%>
+<% if file.content_type.include?("image") %>
+<%= link_to "#{image_tag(file.file_url, size: '800x400')}".html_safe, file.file_url%>
+<% else %>
+<%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: "form-control ") %>
+<% end %>
+<% end %>
 </div>

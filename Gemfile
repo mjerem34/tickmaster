@@ -46,8 +46,13 @@ gem 'carrierwave'
 gem 'chosen-rails'
 gem 'web-console', '~> 2.0'
 gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'mini_magick'
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
-gem "exception_notification"
+gem "chartkick"
+gem 'groupdate'
+group :production do
+  gem "exception_notification"
+end
 group :development, :test do
   gem 'thin'
   gem 'factory_girl'

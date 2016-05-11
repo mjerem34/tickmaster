@@ -1,151 +1,98 @@
 <% if !current_user.nil? %>
-<% if current_user.user_incidents.nil?%>
-<%= render 'help' %>
-<h2>Vous n'avez aucun incident pour le moment.</h2>
-<% else %>
-<% @title = 'Accueil ' %>
-<% case %>
-<% when current_user.tech.simple_user == true %>
-<ul class="liste_accueil">
-  <li>
-    <h2>
-      <strong><%= Incident.where(user_id: current_user).count %></strong>
-      incidents créés.</h2>
-  </li>
-  <li>
-    <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: [1, 2, 3, 4, 5, 6, 8, 9, 11, 12]).count %></strong>
-      incidents en cours.</h2>
-  </li>
-  <li>
-    <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 1).count %></strong>
-      incidents en attente d'affectation.</h2>
-  </li>
-  <li>
-    <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 3).count %></strong>
-      incidents pris en charge par un technicien.</h2>
-  </li>
-  <li>
-    <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 4).count %></strong>
-      incidents ayant reçu une réponse.</h2>
-  </li>
-  <li>
-    <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 6).count %></strong>
-      incidents en attente d'une réponse du technicien.</h2>
-  </li>
-  <li>
-    <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 7).count %></strong>
-      incidents cloturés.</h2>
-  </li>
-  <li>
-    <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 10).count %></strong>
-      incidents rejetés.</h2>
-  </li>
-  <li>
-    <h2>
-      <strong><%= Incident.where(user_id: current_user, incident_state_id_for_user_id: 8).count %></strong>
-      incidents en attente de cloture de votre part.</h2>
-  </li>
-</ul>
+<% @title = 'Tableau de bord' %>
+<% @incidents = Incident.all.order("created_at asc") %>
+<% @incidents_without_tech = @incidents.where(tech_id: nil).includes(:user, :category, :sous_category).order("created_at asc") %>
+<% @incidents_to_treat = @incidents.where(tech_id: current_user.id, incident_state_id_for_user_id: [2, 3, 4, 5, 6, 11, 12]).limit(20).includes(:user, :category, :sous_category).order("created_at asc") %>
+<br>
+<div class="tableau-de-bord">
+<div class="row">
+  <div class="col-md-4 col-sm-6 col-xs-12">
+    <label>Derniers incidents</label>
+    <div class="table-responsive">
+    <table class="table">
+      <thead class="header">
+        <tr>
+          <th>Demandeur</th>
+          <th>Technicien</th>
+          <th>Categorie</th>
+          <th>Etat</th>
+          <th>Urgence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for incident in @incidents do %>
+        <tr>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.user.name %></td>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.tech.nil? ? "" : incident.tech.name %></td>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.category.name %></td>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.incident_state_id_for_tech.name %></td>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.lvl_urgence_tech %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+  <div class="col-md-4 col-sm-6 col-xs-12">
+    <label>Incidents non attribués</label>
+    <div class="table-responsive">
+    <table class="table">
+      <thead class="header">
+        <tr>
+          <th>Demandeur</th>
+          <th>Technicien</th>
+          <th>Categorie</th>
+          <th>Etat</th>
+          <th>Urgence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for incident in @incidents_without_tech do %>
+        <tr>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.user.name %></td>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.tech.nil? ? "" : incident.tech.name %></td>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.category.name %></td>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.incident_state_id_for_tech.name %></td>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.lvl_urgence_tech %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
-<% when current_user.tech.simple_user == false %>
-<ul class='liste_accueil'>
-  <% if current_user.tech_id == 5 %>
-  <li>
-    <h2>
-      <strong><%= Incident.all.count%></strong>
-      incidents actuellement.
-      <%= link_to 'Details', '#', class: 'details', style: 'color:darkblue;' %></h2>
-  </li>
-  <ul class='liste_accueil' id='list_for_disp'>
-    <li>
-      <h2>
-        <strong><%= Incident.where(user_id: current_user.id).count%></strong>
-        incidents créés.</h2>
-    </li>
-    <li>
-      <h2>
-        <strong><%= egg = Incident.where(tech_id: current_user.id).count%></strong>
-        incidents à traiter.
-        <%= egg > 42 ? "Cela vous prendra environ 7,5 millions d'années pour tout résoudre." : "" %></h2>
-    </li>
-    <li>
-      <h2>
-        <strong><%= Incident.where(incident_state_id_for_tech: 9).count %></strong>
-        incidents en attente de cloture de la part de l'utilisateur.</h2>
-    </li>
-    <li>
-      <h2>
-        <strong><%= Incident.where(tech_id: nil).count %></strong>
-        incidents en attente d'affectation.</h2>
-    </li>
-    <li>
-      <h2>
-        <strong><%= Incident.where(incident_state_id_for_tech: 4).count %></strong>
-        incidents en attente d'une réponse de votre part.</h2>
-    </li>
-    <li>
-      <h2>
-        <strong><%= Incident.where(incident_state_id_for_tech: 5).count %></strong>
-        incidents en attente d'une réponse de la part de l'utilisateur.</h2>
-    </li>
-    <li>
-      <h2>
-        <strong><%= Incident.where(incident_state_id_for_tech: 7).count %></strong>
-        incidents cloturés.</h2>
-    </li>
-    <li>
-      <h2>
-        <strong><%= Incident.where(incident_state_id_for_tech: 10).count %></strong>
-        incidents rejetés.</h2>
-    </li>
-    <br><br><br></ul>
-  <% end %>
-<li>
-  <h2>
-    <strong><%= Incident.where(user_id: current_user.id).count%></strong>
-    incidents créés.</h2>
-</li>
-<li>
-  <h2>
-    <strong><%= egg = Incident.where(tech_id: current_user.id).count%></strong>
-    incidents à traiter.
-    <%= egg > 42 ? "Cela vous prendra environ 7,5 millions d'années pour tout résoudre." : "" %></h2>
-</li>
-<li>
-  <h2>
-    <strong><%= Incident.where(tech_id: current_user.id, incident_state_id_for_tech: 9).count %></strong>
-    incidents en attente de cloture de la part de l'utilisateur.</h2>
-</li>
-<li>
-  <h2>
-    <strong><%= Incident.where(tech_id: current_user.id, incident_state_id_for_tech: 4).count %></strong>
-    incidents en attente d'une réponse de votre part.</h2>
-</li>
-<li>
-  <h2>
-    <strong><%= Incident.where(tech_id: current_user.id, incident_state_id_for_tech: 5).count %></strong>
-    incidents en attente d'une réponse de la part de l'utilisateur.</h2>
-</li>
-<li>
-  <h2>
-    <strong><%= Incident.where(tech_id: current_user.id, incident_state_id_for_tech: 7).count %></strong>
-    incidents cloturés.</h2>
-</li>
-<li>
-  <h2>
-    <strong><%= Incident.where(tech_id: current_user.id, incident_state_id_for_tech: 10).count %></strong>
-    incidents rejetés.</h2>
-</li>
-</ul>
-<% end %>
-<% end %>
+</div>
+  <div class="col-md-4 col-sm-6 col-xs-12">
+    <label>Incidents a traiter</label>
+    <div class="table-responsive">
+    <table class="table">
+      <thead class="header">
+        <tr>
+          <th>Demandeur</th>
+          <th>Categorie</th>
+          <th>Etat</th>
+          <th>Urgence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for incident in @incidents_to_treat do %>
+        <tr>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.user.name %></td>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.category.name %></td>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.incident_state_id_for_tech.name %></td>
+          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.lvl_urgence_tech %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</div>
+<div class="row">
+  <div class="col-md-4 col-sm-6 col-xs-12"> <%= area_chart @incidents.group_by_day(:created_at).count %></div>
+  <!-- <div class="col-md-4 col-sm-6 col-xs-12">pie_chart @incidents.group(:agency).count</div> -->
+  <div class="col-md-4 col-sm-6 col-xs-12"></div>
+</div>
 
 <% else %>
 <% @title = 'Accueil' %>
@@ -154,10 +101,11 @@
 <% end %>
 <% end %>
 <script type="text/javascript">
-$(document).ready(function () {
-  $("#list_for_disp").hide();
-  $("a.details").click(function () {
-    $("#list_for_disp").toggle();
+  $(document).ready(function () {
+    $("#list_for_disp").hide();
+    $("a.details").click(function () {
+      $("#list_for_disp").toggle();
+    });
   });
-});
 </script>
+</div>

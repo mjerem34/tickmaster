@@ -13,6 +13,6 @@ CKEDITOR.editorConfig = function (config) {
 	{ name: 'colors', items : [ 'TextColor','BGColor' ] }
   ];
   config.toolbar = "mini";
-
+  config.height = 300;
   // ... rest of the original config.js  ...
 }

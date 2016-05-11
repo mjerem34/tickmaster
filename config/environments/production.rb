@@ -19,6 +19,14 @@ Rails.application.configure do
   # For large-scale production use, consider using a caching reverse proxy like
   # NGINX, varnish or squid.
   # config.action_dispatch.rack_cache = true
+  config.middleware.use ExceptionNotification::Rack,
+  email: {
+    email_prefix: '[Website Error] ',
+    sender_address: 'ticket@cle-expertises.fr',
+    exception_recipients: ['jeremy.montesinos@cle-expertises.fr']
+  }
+end
+
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false

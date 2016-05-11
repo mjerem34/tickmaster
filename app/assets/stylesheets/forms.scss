@@ -126,7 +126,34 @@ form#new_user, form.connect-user {
   }
 }
 //Formulaire de création d'incident
-form#new_incident, form#new_procedure {
+form#new_incident {
+  min-width: 200px;
+  max-width: 1600px;
+  position: absolute;
+  label {
+    color: $text-color;
+  }
+  @media screen and(min-width:1600px) {
+    left: 10%;
+    width: 85%;
+  }
+  @media screen and(min-width:1105px) and(max-width:1599px) {
+    left: 5%;
+    width: 90%;
+  }
+  @media screen and(min-width:768px) and(max-width:1104px) {
+    left: 2%;
+    width: 89%;
+  }
+  @media screen and(min-width:413px) and(max-width:767px) {
+    left: 1%;
+  }
+  @media screen and(max-width:412px) {
+    left: 1%;
+  }
+}
+// Formulaire de création de procedure
+form#new_procedure, form.edit_procedure {
   min-width: 200px;
   max-width: 900px;
   position: absolute;
@@ -170,7 +197,7 @@ form.edit_incident {
   }
   @media screen and(min-width:1105px) and(max-width:1599px) {
     left: 5%;
-    width: 80%;
+    width: 79%;
   }
   @media screen and(min-width:768px) and(max-width:1104px) {
     left: 2%;

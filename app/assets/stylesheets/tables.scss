@@ -1,49 +1,49 @@
-.header-fixed{
+.header-fixed {
   margin-top: -90px;
   cursor: pointer;
-  height:45px;
+  height: 45px;
 }
-.header{
+.header {
   box-shadow: 0 0 0;
 }
-.header-fixed .tablesorter-filter-row{
+.header-fixed .tablesorter-filter-row {
   position: absolute;
   left: -999999999px;
   top: -999999999px;
 }
-.header-fixed.isOpen{
+.header-fixed.isOpen {
   left: 60px !important;
 }
-thead .header{
+thead .header {
   margin-top: -30px !important;
 }
-.tablesorter-filter{
+.tablesorter-filter {
   max-width: 120px;
 }
-input:focus{
-  box-shadow: 0px 0px 5px #3187b3;
+input:focus {
+  box-shadow: 0 0 5px #3187b3;
 }
-.row-top{
+.row-top {
   background: $background;
   border-top-style: solid;
   border-top-color: #3BA3D8;
   border-top-width: 2px;
 }
-.row-top .field li{
+.row-top .field li {
   color: #e8e8e8;
   display: inline;
   list-style: none;
 }
-.row-top .field{
+.row-top .field {
   position: relative;
   margin-left: 650px;
-  margin-top: 0px;
-  width:auto;
+  margin-top: 0;
+  width: auto;
 }
-.field.tech_name{
+.field.tech_name {
   list-style: none;
 }
-select:nth-child(1){
+select:nth-child(1) {
   font-size: 0.85em;
 }
 .table-hover > tbody > tr:hover {
@@ -65,4 +65,19 @@ tbody td {
 }
 thead {
   background: $background;
+}
+.tableau-de-bord {
+  label {
+    margin-left: 25%;
+    margin-right: auto;
+    width: 50%;
+    text-align: center;
+  }
+  .table-responsive {
+    height: 300px !important;
+    overflow-y: scroll;
+    table {
+      table-layout: fixed;
+    }
+  }
 }

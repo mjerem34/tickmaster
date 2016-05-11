@@ -15,5 +15,6 @@
 //= require ckeditor/init
 //= require jquery_ujs
 //= require bootstrap-slider
+//= require chartkick
 //= require_tree .
 //= require dropzone
