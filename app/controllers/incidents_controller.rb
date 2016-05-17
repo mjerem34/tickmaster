@@ -30,7 +30,7 @@ class IncidentsController < ApplicationController
   end
 
   def show
-    redirect_to :back
+    redirect_to edit_incident_path(@incident)
   end
 
   def new
@@ -80,7 +80,7 @@ class IncidentsController < ApplicationController
     @incident.incident_state_id_for_tech_id ||= 1
     @incident.lvl_urgence_tech = 1
     @incident.lvl_of_incident = 1
-
+    @incident.agency_id ||= current_user.agency_id
     respond_to do |format|
       if @incident.save
         unless params[:file_incidents].nil?

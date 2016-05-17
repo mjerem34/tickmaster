@@ -3,6 +3,8 @@
   right:5px;
   background-position: center left 70px;
   background-repeat: no-repeat;
+  color: $text-color;
+
   @media screen and(min-width:1600px) {
     width: 18%;
   }
@@ -23,6 +25,10 @@
     background-position: center;
   }
 
+}
+.btn-se-deco{
+  background: $btn-se-deco-color;
+  color: $link-hover;
 }
 .btn-response{
   background:url("ICOMOON/16px/0108-bubble.png") 8px no-repeat;

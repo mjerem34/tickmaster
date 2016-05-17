@@ -11,55 +11,42 @@
   </ul>
 </div>
 <% end %>
-<div class="row-top"><br>
-  <ul class="field ">
-    <li>
-      <strong>Date :</strong>
-    </li>
-    <li><%= @incident.created_at.strftime("%d %b %Y %H:%M") %></li><br>
-    <li>
-      <strong>Etat de l'incident :</strong>
-      <% if current_user.tech.simple_user == true %>
-    <li><%= @incident.incident_state_id_for_user.name %></li>
-    <% else %>
-    <li><%= @incident.incident_state_id_for_tech.name  %></li>
-    <% end %><br><br>
-  </ul>
-</div>
-<div class="field">
-  <%= f.label "Objet", class: ""  %><br>
-  <% if Right.where(name: "edit_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
-  <%= f.text_field :title, class: "form-control "  %>
-  <% else %>
-  <%= f.text_field :title, disabled: "disabled", class: "form-control "  %>
-  <% end %>
-</div>
-<div class="field">
-  <%= f.label "Contenu", class: ""  %><br>
-  <% if Right.where(name: "edit_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
-  <%=f.cktext_area :content, :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control "%>
-  <% else %>
-  <%=f.cktext_area :content, :disabled => "disabled", :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control "%>
-  <% end %>
-</div>
+<br>
 <div class="row">
   <div class="col-md-4">
-    <ul class="field tech_name">
-      <li><%= f.label "Nom du technicien", class: ""  %><br></li>
+      <div class="field">
+          <p>
+          Date :
+          <%= @incident.created_at.strftime("%d %b %Y %H:%M") %></p>
+          <p>Etat de l'incident :
+          <% if current_user.tech.simple_user == true %>
+        <%= @incident.incident_state_id_for_user.name %></p>
+        <% else %>
+        <%= @incident.incident_state_id_for_tech.name  %></p>
+        <% end %><br>
+      </div>
+    <div class="field">
+      <%= f.label "Objet", class: ""  %><br>
+      <% if Right.where(name: "edit_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
+      <%= f.text_field :title, class: "form-control "  %>
+      <% else %>
+      <%= f.text_field :title, disabled: "disabled", class: "form-control "  %>
+      <% end %>
+    </div>
+
+    <div class="field tech_name">
+      <%= f.label "Nom du technicien", class: ""  %>
       <% if Right.where(name: "dispatch_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
       <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10%>
-      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), disabled: 'disabled', class: "form-control ", data_name: @incident.id  %></li>
+      <%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), disabled: 'disabled', class: "form-control ", data_name: @incident.id  %>
       <% else %>
-      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), class: "form-control ", include_blank: "Technicien non défini...", data_name: @incident.id  %></li>
+      <%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), class: "form-control ", include_blank: "Technicien non défini...", data_name: @incident.id  %>
       <% end %>
       <% else %>
-      <li><%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), include_blank: "Technicien non défini...", disabled: 'disabled', class: "form-control ", data_name: @incident.id  %></li>
+      <%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), include_blank: "Technicien non défini...", disabled: 'disabled', class: "form-control ", data_name: @incident.id  %>
       <% end %>
-
-    </ul>
-  </div>
-  <div class="col-md-4">
+    </div>
     <div class="field category_name">
       <%= f.label "Catégorie de l'incident", class: ""  %><br>
       <% if Right.where(name: "edit_categories_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
@@ -73,9 +60,7 @@
       <%= select_tag("incident[category_id]", options_for_select(@categories.collect{ |u| [u.name, u.id]}, selected: @incident.category_id), disabled: "disabled", class: "form-control ")%>
       <% end %>
     </div>
-  </div>
 
-  <div class="col-md-4">
     <div class="field">
       <%= f.label "Sous_Catégorie de l'incident", class: ""  %><br>
       <% if Right.where(name: "edit_categories_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
@@ -90,21 +75,7 @@
       <% end %>
 
     </div>
-  </div>
-</div>
-<div class="row">
-
-  <div class="col-md-6">
-
-    <ul class="field">
-      <% if Right.where(name: "edit_lvl_incident").pluck(current_user.tech.name).join('')  == 'true' %>
-      <%= f.label "Niveau d'urgence suggéré par l'utilisateur", class: ""%>
-      <p class="form-control ">
-        <%= @incident.lvl_urgence_user %>
-      </p>
-    </div>
-    <div class="col-md-6">
-
+    <div class="field">
       <%= f.label "Niveau d'urgence suggéré par le technicien", class: ""  %><br>
         <% case @incident.lvl_urgence_tech %>
         <% when 1%>
@@ -131,28 +102,54 @@
         <% else %>
         <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ", include_blank: true)%>
         <% end %>
-        <br><br><br><br>
-      <% end %>
     </ul>
   </div>
+  <div class="field">
+    <% if Right.where(name: "edit_lvl_incident").pluck(current_user.tech.name).join('')  == 'true' %>
+    <%= f.label "Niveau d'urgence suggéré par l'utilisateur", class: ""%>
+    <p class="form-control ">
+      <%= @incident.lvl_urgence_user %>
+    </p>
+  </div>
+
+
+  </div>
+  <div class="col-md-8">
+    <div class="field">
+      <%= f.label "Contenu", class: ""  %><br>
+      <% if Right.where(name: "edit_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
+      <%=f.cktext_area :content, :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control "%>
+      <% else %>
+      <%=f.cktext_area :content, :disabled => "disabled", :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control "%>
+      <% end %>
+    </div>
+
+  </div>
 </div>
+
 <div class="row">
-  <div class="col-md-7 col-md-offset-1">
-    <%= f.label "Fichiers :"%>
+  <div class="col-md-12">
+    <%= f.label "Fichiers :"%><br>
     <% @incident.file_incidents.each do |file|%>
     <% if file.content_type.include?("image") %>
     <%= link_to "#{image_tag(file.file_url, size: '800x400')}".html_safe, file.file_url%>
     <% else %>
     <%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: "form-control ") %>
     <% end %>
+    <br><br>
     <% end %>
   </div>
 </div>
-<div class="actions">
-  <% if !clotured_or_rejected?(@incident) %>
-    <% if Right.where(name: "save_changes_of_edit").pluck(current_user.tech.name).join('')  == 'true' %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="actions">
+      <% if !clotured_or_rejected?(@incident) %>
+      <% if Right.where(name: "save_changes_of_edit").pluck(current_user.tech.name).join('')  == 'true' %>
       <%= f.submit "Valider", id: "sendButton", class: "btn btn-success btn-save btn-to-disable" %>
-    <% end %>
-  <% end %>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
+<% end %>
 <% end %>

@@ -7,7 +7,7 @@
     <ul id="menu-content" class="menu-content collapse out">
       <% if !current_user.nil? %>
       <% if Right.where(name: "create_procedure").pluck(current_user.tech.name).join('')  == 'true' %>
-      <li data-toggle="collapse" data-target="#procedures" class="collapsed active"><%= image_tag("ICOMOON/32px/0032-book.png", size: "16x16", alt: "", class: "fa-img") %>
+      <li data-toggle="collapse" data-target="#procedures" class="collapsed active"><%= image_tag("ICOMOON/32pxBlack/032-book.png", size: "16x16", alt: "", class: "fa-img") %>
         <a href="#">
           <i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Procédures</a>
       </li>
@@ -16,14 +16,14 @@
         <li><%= link_to "Créer procédure", new_procedure_path, class: "", :method => :get %></li>
         <% else %>
         <% if Right.where(name: "view_procedures").pluck(current_user.tech.name).join('')  == 'true' %>
-        <li><%= image_tag("ICOMOON/32px/0032-book.png", size: "16x16", alt: "", class: "fa-img")%>
+        <li><%= image_tag("ICOMOON/32pxBlack/032-book.png", size: "16x16", alt: "", class: "fa-img")%>
         <i class="fa fa-gift fa-lg"></i>
         <%= link_to "Procedures", procedures_path, class: "", method: :get, style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;"  %></li>
         <% end %>
         <% end %>
       </ul>
     <li class="new_incident_button">
-      <a href="<%= new_incident_path %>"><%= image_tag("ICOMOON/32px/0267-plus.png", size: "16x16", alt: "", class: "fa-img") %></a>
+      <a href="<%= new_incident_path %>"><%= image_tag("ICOMOON/32pxBlack/267-plus.png", size: "16x16", alt: "", class: "fa-img") %></a>
       <a href="/incidents/new" data-no-turbolink="true">
         <i class="fa fa-dashboard fa-lg" style="padding-top:20px; padding-bottom:20px;">Nouvel incident</i>
       </a>
@@ -33,10 +33,13 @@
       <a href="#"><i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Incidents</a>
     </li>
     <ul class="sub-menu collapse" id="incidents">
-      <li><%= link_to 'Mes incidents', current_user, class: "", :method => :get %></li>
+      <% my_incidents = current_user.user_incidents.where(incident_state_id_for_user: [4, 8]).count %>
+      <li><%= link_to 'Mes incidents', current_user, class: "", :method => :get %><%= my_incidents > 0 ? "(#{my_incidents})" : nil %></li>
       <% if !current_user.tech.simple_user %>
-      <li><%= link_to "A traiter", to_treat_user_path(current_user), class: "", :method => :get %></li>
-      <li><%= link_to "Non attribués", incidents_without_tech_incident_path(current_user), class: "", :method => :get%></li>
+      <% to_treat = current_user.tech_incidents.where(incident_state_id_for_tech: [2, 3]).count %>
+      <li><%= link_to "A traiter", to_treat_user_path(current_user), class: "", :method => :get %><%= to_treat > 0 ? "(#{to_treat})" : nil %></li>
+      <% without_tech = Incident.where(tech_id: nil).count %>
+      <li><%= link_to "Non attribués", incidents_without_tech_incident_path(current_user), class: "", :method => :get%><%= without_tech > 0 ? "(#{without_tech})" : nil %></li>
       <% if Right.where(name: "view_index_all_of_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
       <li><%= link_to "Tous les incidents", incidents_url, class: "", :method => :get%></li>
       <% end %>
@@ -46,17 +49,13 @@
     <% end %>
 
     <% if !current_user.nil? && Right.where(name: "view_index_categories").pluck(current_user.tech.name).join('')  == 'true' %>
-  <li data-toggle="collapse" data-target="#categories" class="collapsed active"><%= image_tag("ICOMOON/32px/0189-tree.png", size: "16x16", alt: "", class: "fa-img") %>
-    <a href="#">
-      <i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Catégories</a>
-  </li>
-  <ul class="sub-menu collapse" id="categories">
-    <li><%= link_to "Categories", categories_url, class: " ", :method => :get  %></li>
-  </ul>
+    <li><%= image_tag("ICOMOON/32pxBlack/189-tree.png", size: "16x16", alt: "", class: "fa-img")%>
+    <i class="fa fa-gift fa-lg"></i>
+    <%= link_to "Categories", categories_url, class: "", method: :get, style:"padding:20px; padding-right: 40px !important;"  %></li>
   <% end %>
 
   <% if !current_user.nil? && Right.where(name: "create_new_tech").pluck(current_user.tech.name).join('')  == 'true' %>
-<li data-toggle="collapse" data-target="#users" class="collapsed active"><%= image_tag("ICOMOON/32px/0115-users.png", size: "16x16", alt: "", class: "fa-img") %>
+<li data-toggle="collapse" data-target="#users" class="collapsed active"><%= image_tag("ICOMOON/32pxBlack/115-users.png", size: "16x16", alt: "", class: "fa-img") %>
   <a href="#">
     <i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Utilisateurs</a>
 </li>
@@ -66,7 +65,7 @@
 </ul>
   <% else %>
   <% if !current_user.nil? && Right.where(name: "view_index_users").pluck(current_user.tech.name).join('')  == 'true' %>
-  <li><%= image_tag("ICOMOON/32px/0115-users.png", size: "16x16", alt: "", class: "fa-img")%>
+  <li><%= image_tag("ICOMOON/32pxBlack/115-users.png", size: "16x16", alt: "", class: "fa-img")%>
   <i class="fa fa-gift fa-lg"></i>
   <%= link_to "Utilisateurs", users_url, class: "", method: :get, style:"padding:20px; padding-right: 40px !important;"  %></li>
   <% end %>
@@ -74,7 +73,7 @@
 <%end%>
 
 <% if !current_user.nil? && Right.where(name: "view_index_rights").pluck(current_user.tech.name).join('')  == 'true' %>
-<li data-toggle="collapse" data-target="#rights" class="collapsed active"><%= image_tag("ICOMOON/32px/0147-equalizer.png", size: "16x16", alt: "", class: "fa-img") %>
+<li data-toggle="collapse" data-target="#rights" class="collapsed active"><%= image_tag("ICOMOON/32pxBlack/147-equalizer.png", size: "16x16", alt: "", class: "fa-img") %>
 <a href="#">
   <i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Droits</a>
 </li>
@@ -89,7 +88,7 @@
 
 
 <% if !current_user.nil? && Right.where(name: "create_new_agency").pluck(current_user.tech.name).join('')  == 'true' %>
-<li data-toggle="collapse" data-target="#agencies" class="collapsed active"><%= image_tag("ICOMOON/32px/0004-office.png", size: "16x16", alt: "", class: "fa-img") %>
+<li data-toggle="collapse" data-target="#agencies" class="collapsed active"><%= image_tag("ICOMOON/32pxBlack/004-office.png", size: "16x16", alt: "", class: "fa-img") %>
 <a href="#">
 <i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Agences</a>
 </li>
@@ -99,7 +98,7 @@
 </ul>
 <% else %>
 <% if !current_user.nil? &&  Right.where(name: "view_index_agencies").pluck(current_user.tech.name).join('')  == 'true' %>
-<li><%= image_tag("ICOMOON/32px/0004-office.png", size: "16x16", alt: "", class: "fa-img")%>
+<li><%= image_tag("ICOMOON/32pxBlack/004-office.png", size: "16x16", alt: "", class: "fa-img")%>
 <i class="fa fa-gift fa-lg"></i>
 <%= link_to "Agences", agencies_url, class: "", method: :get, style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;"  %></li>
 <% end %>
@@ -108,43 +107,48 @@
 
 
 <% if !current_user.nil? %>
-<li><%= image_tag("ICOMOON/32px/0492-help.png", size: "16x16", size: "16x16", alt: "", class: "fa-img")%>
+<li><%= image_tag("ICOMOON/32pxBlack/066-lifebuoy.png", size: "16x16", size: "16x16", alt: "", class: "fa-img")%>
 <i class="fa fa-gift fa-lg"></i>
 <%= link_to "Aide", pages_help_path, class: "", method: :get, style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;"  %></li>
-<li><%= image_tag("ICOMOON/32px/0264-warning.png", size: "16x16", alt: "", class: "fa-img")%>
+<li><%= image_tag("ICOMOON/32pxBlack/264-warning.png", size: "16x16", alt: "", class: "fa-img")%>
 <i class="fa fa-gift fa-lg"></i>
 <%= mail_to "jeremy.montesinos@cle-expertises.fr", "Bug/Suggestion", cc: "jerome.guillot@cle-expertises.fr", subject: "Bug ou suggestion à propos de TickMaster", class: "", style:"padding-left: 30px !important; padding:20px; padding-right: 40px
 !important;" %></li>
 <% end %>
 
-</ul>
-</div>
+    </ul>
+  </div>
 </div>
 
 <header>
-<nav class="navbar navbar-default nav-collapse navbar-fixed-top">
-<div class="container-fluid">
-<div class="navbar-header">
-<a class="title-site navbar-brand openIt" href='/' data-no-turbolink="true">TickMaster</a>
-<a class="title-site navbar-brand by-cle openIt click">by<%= image_tag("cle.png", size: "60x20", alt: "Cle Expertises")%></a>
-</div>
-<h3 class="title-on-page"><%= @title %></h3>
-<% if !current_user.nil? %>
-<ul class="whoisconnected">
-<li>
-<h5>Connecté en tant que :
-<%= link_to"#{current_user.name} #{current_user.surname}", profil_user_path(current_user)%></h5>
-</li>
-<li>
-<%= link_to("Se déconnecter", signout_path, :method => :get, :class => "btn btn-danger")%></li>
-</ul>
-<% end %>
-</nav>
-</div>
-<!-- /.container-fluid -->
+    <nav class="navbar navbar-default nav-collapse navbar-fixed-top navbar-right">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="title-site navbar-brand openIt" href='/' data-no-turbolink="true">TickMaster</a>
+          <a class="title-site navbar-brand by-cle openIt click">by<%= image_tag("cle.png", size: "60x20", alt: "Cle Expertises")%></a>
+        </div>
+        <h3 class="title-on-page"><%= @title %></h3>
+        <% if !current_user.nil? %>
+        <li class="whoisconnected">
+
+          <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag "ICOMOON/32pxBlack/114-user.png" %><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#"><%= link_to"#{current_user.name} #{current_user.surname}", profil_user_path(current_user)%></a></li>
+            <li><%= link_to "Se déconnecter", signout_path, method: :get %></li>
+          </ul>
+
+        </li>
+        <% end %>
+      </div>
+    </nav>
+  <!-- /.container-fluid -->
 </header>
 
 <script type="text/javascript">
+function contrast(){
+  $("#content").css("background", "url('app/assets/images/halftone.png') repeat fixed !important");
+}
+
 $(document).ready(function () {
   var url = document.URL;
   segments = url.split("/");

@@ -1,32 +1,33 @@
 // Formulaire d'inscription et formulaire d'inscription
+.row-top .field li {
+  color: $text-color;
+  list-style: none;
+}
+
 form#new_agency,
 form#new_user,
 form.connect-user,
 form.edit_agency,
 form.edit_user {
-  width: 50%;
-  min-width: 200px;
-  max-width: 500px;
-  position: absolute;
   label {
     color: $text-color;
   }
   @media screen and(min-width:1600px) {
     left: 35%;
     .email {
-      width: 49.6%;
+      width: 49%;
     }
   }
   @media screen and(min-width:1105px) and(max-width:1599px) {
     left: 29.5%;
     .email {
-      width: 49.6%;
+      width: 49%;
     }
   }
   @media screen and(min-width:768px) and(max-width:1104px) {
     left: 21%;
     .email {
-      width: 49.4%;
+      width: 49%;
     }
   }
   @media screen and(min-width:413px) and(max-width:767px) {
@@ -52,12 +53,11 @@ form.edit_user {
   }
 }
 form#new_user, form.connect-user {
-  background: white;
-  padding: 20px;
-  -moz-box-shadow: 10px 10px 5px #111;
-  -webkit-box-shadow: 10px 10px 5px #111;
-  -o-box-shadow: 10px 10px 5px #111;
-  box-shadow: 10px 10px 5px #111;
+  background: background-new-user;
+  -moz-box-shadow: $box-shadow-form-user;
+  -webkit-box-shadow: $box-shadow-form-user;
+  -o-box-shadow: $box-shadow-form-user;
+  box-shadow: $box-shadow-form-user;
   border-radius: 5px;
   filter:progid:DXImageTransform.Microsoft.Shadow(color= '#1111', Direction=135, Strength=5);
   .form-control {
@@ -69,38 +69,38 @@ form#new_user, form.connect-user {
   }
   .form-control:focus {
     box-shadow: 0 0 0 #FFF;
-    border-bottom-color: #3BA3D8;
+    border-bottom-color: $background-placeholder-bottom-bar-color ;
   }
   .form-control:focus::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #3BA3D8;
+    color: $background-placeholder-bottom-bar-color;
   }
   .form-control:focus:-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #3BA3D8;
+    color: $background-placeholder-bottom-bar-color;
     opacity: 1;
   }
   .form-control:focus::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #3BA3D8;
+    color: $background-placeholder-bottom-bar-color;
     opacity: 1;
   }
   .form-control:focus:-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #3BA3D8;
+    color: $background-placeholder-bottom-bar-color;
   }
   .btn-pseudo, .btn-inscription, .btn-validate{
     width: 100%;
     color:white;
   }
   .btn-pseudo{
-    background: #E71D36 ;
+    background: $bouton-pseudo-oublie-background;
   }
   .btn-inscription{
-    background: #011627 ;
+    background: $bouton-pas-inscrit-background ;
   }
   .btn-validate{
-    background: #3BA3D8;
+    background: $bouton-validate-color;
   }
   .btn-create-new-user,
   .btn-inscrit{
@@ -114,19 +114,22 @@ form#new_user, form.connect-user {
     border-color: rgba(#000, 0.0);
     border-width: 3px;
     border-radius: 5px;
-    background: #3BA3D8;
+    background: #47b8e0;
   }
   .btn-inscrit {
-    background: #011627;
+    background: #34314c;
   }
   #addPhoneField {
     background: white;
-    color: #3BA3D8;
-    border-color: #3BA3D8;
+    color: #47b8e0;
+    border-color: #47b8e0;
   }
 }
 //Formulaire de création d'incident
 form#new_incident {
+  .lvl_urgence_slider{
+    color: $text-color;
+  }
   min-width: 200px;
   max-width: 1600px;
   position: absolute;
@@ -181,7 +184,7 @@ form#new_procedure, form.edit_procedure {
 }
 //Tous les formulaires
 .form-control {
-  font-weight: $font-weight-thick;
+  font-weight: $font-weight;
 }
 div.messages_in_edit_incident,
 form.edit_incident {

@@ -1,6 +1,8 @@
 <% if !current_user.nil? %>
 <% @title = 'Tableau de bord' %>
+<% if !current_user.tech.simple_user %>
 <% @incidents = Incident.all.order("created_at asc") %>
+<% @agencies = Agency.all %>
 <% @incidents_without_tech = @incidents.where(tech_id: nil).includes(:user, :category, :sous_category).order("created_at asc") %>
 <% @incidents_to_treat = @incidents.where(tech_id: current_user.id, incident_state_id_for_user_id: [2, 3, 4, 5, 6, 11, 12]).limit(20).includes(:user, :category, :sous_category).order("created_at asc") %>
 <br>
@@ -22,12 +24,36 @@
       <tbody>
         <% for incident in @incidents do %>
         <tr>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.user.name %></td>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.tech.nil? ? "" : incident.tech.name %></td>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.category.name %></td>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.incident_state_id_for_tech.name %></td>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.lvl_urgence_tech %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#last<%= incident.id %>"><%= incident.user.name %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#last<%= incident.id %>"><%= incident.tech.nil? ? "" : incident.tech.name %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#last<%= incident.id %>"><%= incident.category.name %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#last<%= incident.id %>"><%= incident.incident_state_id_for_tech.name %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#last<%= incident.id %>"><%= incident.lvl_urgence_tech %></td>
         </tr>
+        <div class="container-modal">
+          <!-- Modal -->
+          <div class="modal fade" id="last<%= incident.id %>" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"><%= truncate(strip_tags(incident.title), length: 50)%></h4>
+                </div>
+                <div class="modal-body">
+                  <p style="width:600px;"><%= strip_tags(incident.content) %></p>
+                </div>
+                <div class="modal-footer">
+                  <%= link_to "Details", edit_incident_path(incident), class: "btn btn-primary"%>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
         <% end %>
       </tbody>
     </table>
@@ -49,12 +75,36 @@
       <tbody>
         <% for incident in @incidents_without_tech do %>
         <tr>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.user.name %></td>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.tech.nil? ? "" : incident.tech.name %></td>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.category.name %></td>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.incident_state_id_for_tech.name %></td>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.lvl_urgence_tech %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#withouttech<%= incident.id %>"><%= incident.user.name %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#withouttech<%= incident.id %>"><%= incident.tech.nil? ? "" : incident.tech.name %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#withouttech<%= incident.id %>"><%= incident.category.name %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#withouttech<%= incident.id %>"><%= incident.incident_state_id_for_tech.name %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#withouttech<%= incident.id %>"><%= incident.lvl_urgence_tech %></td>
         </tr>
+        <div class="container-modal">
+          <!-- Modal -->
+          <div class="modal fade" id="withouttech<%= incident.id %>" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"><%= truncate(strip_tags(incident.title), length: 50)%></h4>
+                </div>
+                <div class="modal-body">
+                  <p style="width:600px;"><%= strip_tags(incident.content) %></p>
+                </div>
+                <div class="modal-footer">
+                  <%= link_to "Details", edit_incident_path(incident), class: "btn btn-primary"%>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
         <% end %>
       </tbody>
     </table>
@@ -76,11 +126,35 @@
       <tbody>
         <% for incident in @incidents_to_treat do %>
         <tr>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.user.name %></td>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.category.name %></td>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.incident_state_id_for_tech.name %></td>
-          <td class="hover-cellule <%= 'agency.id' %>" data-toggle="modal" data-target="#<%= 'agency.id' %>"><%= incident.lvl_urgence_tech %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#totreat<%= incident.id %>"><%= incident.user.name %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#totreat<%= incident.id %>"><%= incident.category.name %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#totreat<%= incident.id %>"><%= incident.incident_state_id_for_tech.name %></td>
+          <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#totreat<%= incident.id %>"><%= incident.lvl_urgence_tech %></td>
         </tr>
+        <div class="container-modal">
+          <!-- Modal -->
+          <div class="modal fade" id="totreat<%= incident.id %>" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"><%= truncate(strip_tags(incident.title), length: 50)%></h4>
+                </div>
+                <div class="modal-body">
+                  <p style="width:600px;"><%= strip_tags(incident.content) %></p>
+                </div>
+                <div class="modal-footer">
+                  <%= link_to "Details", edit_incident_path(incident), class: "btn btn-primary"%>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
         <% end %>
       </tbody>
     </table>
@@ -88,12 +162,28 @@
 
 </div>
 </div>
+<br>
 <div class="row">
-  <div class="col-md-4 col-sm-6 col-xs-12"> <%= area_chart @incidents.group_by_day(:created_at).count %></div>
-  <!-- <div class="col-md-4 col-sm-6 col-xs-12">pie_chart @incidents.group(:agency).count</div> -->
-  <div class="col-md-4 col-sm-6 col-xs-12"></div>
+  <div class="col-md-4 col-sm-6 col-xs-12">
+    <label>
+      Incidents créés (total)
+    </label>
+    <%= area_chart @incidents.group_by_day(:created_at).count %>
+  </div>
+  <%@dataAgencies = Array.new%>
+  <% for agency in @agencies do %>
+  <% @dataAgencies = @dataAgencies + Array({"#{agency.name}" => "#{agency.incidents.count}"})%>
+  <% end %>
+  <div class="col-md-4 col-sm-6 col-xs-12">
+    <label>
+      Incidents créés par agence
+    </label>
+    <%= pie_chart(@dataAgencies) %>
+  </div>
+  <div class="col-md-4 col-sm-6 col-xs-12">
+  </div>
 </div>
-
+<% end %>
 <% else %>
 <% @title = 'Accueil' %>
 <% content_for :accueil do %>

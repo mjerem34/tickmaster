@@ -6,22 +6,25 @@
   cursor: pointer;
 }
 .navbar {
-  background: $background-navbar-connected;
+  background: transparent;
+
   // box-shadow: 5px 5px 10px rgba(#222, 0.5);
-  border-bottom-color: white;
+  border-bottom-color: $border-bottom-color-navbar;
 }
 #connected .navbar {
   background: $background-navbar-connected;
+  background-size: 100% 100%;
+
   border-radius: 0;
 }
 .title-on-page{
-  color: white;
+  color: $text-color;
 }
 
 header .button {
   text-decoration: none;
   text-transform: uppercase;
-  font-weight: $font-weight-thick;
+  font-weight: $font-weight;
   color: $text-color-navbar;
   margin-right: 10px;
 
@@ -36,16 +39,11 @@ header .button:focus {
 .by-cle{
   margin-bottom: 10px;
 }
-.whoisconnected li{
-  margin-top: 10px;
+.whoisconnected{
   display: inline-block;
   list-style: none;
-  position: relative;
-  right:0;
-  color: white;
-}
-.whoisconnected{
+  color: $text-color;
   position: absolute;
   right:20px;
-  top:0px;
+  top:10px;
 }

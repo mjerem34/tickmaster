@@ -1,16 +1,16 @@
 /*FONTS*/
 /*color*/
-$text-color: #DDD;
-$text-color-title: #3BA3D8;
-$link-hover:#FFF;
+$text-color: #111;
+$text-color-title: #47b8e0 ;
+$link-hover:#FFF !important;
 $text-color-navbar: #000 !important;
+
 /*police*/
 $text-font: "Open Sans",Arial,cursive;
 $text-font-title: 'Black Ops One', cursive;
 /*weight*/
-$font-weight-thin: 300;
-$font-weight-normal: 400;
-$font-weight-thick: 700;
+$font-weight: 700;
+$font-weight-tables: 300;
 /*size*/
 $font-size-big: 3em;
 $font-size-default: 2em;
@@ -22,18 +22,37 @@ $font-size-extra-little: 1em;
 
 
 /*BACKGROUNDS*/
-$special_color: rgba(#3BA3D8, 1);
-$background: url("debut_dark.png") repeat fixed;
-$background-connected: $background;
-$background-navbar-connected: $background;
+$background-link-lateral-bar-open: #EEE;
+$special_color: #47b8e0;
+$background: url("test.png") no-repeat fixed 20px 70px;
+$background-connected: url("debut_light.png") repeat fixed;
+$background-navbar-connected: #FFF;
 $background-content: $background;
 $background-td-hover: rgba(#000, 0.2);
-$background-new-user: rgba(#000,0.2);
+$background-new-user: rgba(#000,0.0);
 $background_dropdown: $background-connected;
 $background_dropdown-hover: rgba(#fff, 1);
 $background_form: #f5f5f5;
+$background-nav-side-menu-open-hover: #34314c ;
+$background-placeholder-bottom-bar-color: #47b8e0;
+$bouton-validate-color: #47b8e0;
+$bouton-pas-inscrit-background: #34314c ;
+$bouton-pseudo-oublie-background:#ff7473 ;
 /*BACKGROUNDS*/
 
 /*POSITIONS*/
 
 /*POSITIONS*/
+// SHADOWS
+$box-shadow-form-user: 0 0 0;
+// $box-shadow-form-user: 10px 10px 5px #111;
+
+//btn
+$btn-se-deco-color: #FF7473;
+
+// OTHERS
+
+$border-bottom-color-navbar: transparent;
+$border-left-nav-side-menu-buttons: 3px solid #47b8e0;
+$border-bottom-nav-side-menu-open: 1px solid #FFF;
+$border-nav-side-menu-nouvel-incident: 3px solid #47b8e0;

@@ -1,22 +1,30 @@
 <% if current_user == nil %>
   <% content_for :form do %>
-    <h1 class="home">Bienvenue sur la page d'accueil de TickMaster.</h1><br><br><br><br><br><br><br>
-    <%= form_tag @user, class: "connect-user" do %>
-      <div class="field form-group">
-        <%= email_field_tag :email, params[:email], class: "form-control pseudo-entry", placeholder: "Adresse email", required: true %>
-      </div>
-      <div class="actions form-group">
-        <%= submit_tag "Valider", class:"btn btn-success btn-validate" %>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <%= link_to "S'inscrire", signup_path, class: "btn btn-inscription"%>
+
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <h1 class="home">Bienvenue sur la page d'accueil de TickMaster.</h1><br><br><br><br><br><br><br>
+      <%= form_tag @user, class: "connect-user" do %>
+        <div class="field form-group">
+          <%= email_field_tag :email, params[:email], class: "form-control pseudo-entry", placeholder: "Adresse email", required: true %>
         </div>
-        <div class="col-md-6">
-          <%= link_to 'Se connecter', signin_path, class: "btn btn-pseudo" %>
+        <div class="actions form-group">
+          <%= submit_tag "Valider", class:"btn btn-success btn-validate" %>
         </div>
-      </div>
-    <% end %>
+        <div class="row">
+          <div class="col-md-6">
+            <%= link_to "S'inscrire", signup_path, class: "btn btn-inscription"%>
+          </div>
+          <div class="col-md-6">
+            <%= link_to 'Se connecter', signin_path, class: "btn btn-pseudo" %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+    <div class="col-md-4"></div>
+  </div>
   <% end %>
   <% else %>
   <%= flash.now[:not_authorized] = "Vous êtes déjà connecté, pour voir votre pseudonyme, rendez vous sur la page 'Mon profil'." %>

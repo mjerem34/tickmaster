@@ -35,7 +35,7 @@ class UsersController < ApplicationController
 
   def to_treat
     if params[:order_by].nil?
-      @incidents = Incident.where(tech_id: current_user.id).includes(:user, :category, :sous_category).order("created_at asc")
+      @incidents = current_user.tech_incidents.where(incident_state_id_for_tech: [2, 3]).order("created_at asc")
     else
       @incidents = Incident.where(tech_id: current_user.id).includes(:user, :category, :sous_category).order(params[:order_by])
       respond_to do |format|

@@ -25,7 +25,7 @@ body {
 /* -------------------------------------
 		ELEMENTS
 ------------------------------------- */
-a { color: #2BA6CB;}
+a { color: #47b8e0 ;}
 
 .btn {
 	text-decoration:none;
@@ -48,7 +48,7 @@ p.callout {
 }
 .callout a {
 	font-weight:bold;
-	color: #2BA6CB;
+	color: #47b8e0;
 }
 
 table.social {
@@ -65,9 +65,9 @@ table.social {
 	display:block;
 	text-align:center;
 }
-a.fb { background-color: #3B5998!important; }
-a.tw { background-color: #1daced!important; }
-a.gp { background-color: #DB4A39!important; }
+a.fb { background-color: #34314c !important; }
+a.tw { background-color: #47b8e0!important; }
+a.gp { background-color: #ff7473 !important; }
 a.ms { background-color: #000!important; }
 
 .sidebar .soc-btn {
