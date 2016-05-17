@@ -25,7 +25,6 @@ Rails.application.configure do
     sender_address: 'ticket@cle-expertises.fr',
     exception_recipients: ['jeremy.montesinos@cle-expertises.fr']
   }
-end
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
