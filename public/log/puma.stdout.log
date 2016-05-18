@@ -5365,3 +5365,7 @@ Started GET "/assets/ICOMOON/32pxBlack/114-user-7b2b82480e9f9abeb0994c1c04d7e6ef
 
 
 Started GET "/assets/cle-c319308aead7c1c410e868f42fbc6158.png" for 127.0.0.1 at 2016-05-18 09:36:20 +0200
+[4819] - Gracefully shutting down workers...
+[4819] === puma shutdown: 2016-05-18 09:56:15 +0200 ===
+[4819] - Goodbye!
+Exiting

@@ -29,7 +29,7 @@
       </a>
     </li>
 
-    <li data-toggle="collapse" data-target="#incidents" class="collapsed active"><%= image_tag("accidents.png", size: "16x16", size: "16x16", alt: "", class: "fa-img") %>
+    <li data-toggle="collapse" data-target="#incidents" class="collapsed active"><%= image_tag("accidents.png", size: "16x16", alt: "", class: "fa-img") %>
       <a href="#"><i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Incidents</a>
     </li>
     <ul class="sub-menu collapse" id="incidents">
@@ -107,7 +107,7 @@
 
 
 <% if !current_user.nil? %>
-<li><%= image_tag("ICOMOON/32pxBlack/066-lifebuoy.png", size: "16x16", size: "16x16", alt: "", class: "fa-img")%>
+<li><%= image_tag("ICOMOON/32pxBlack/066-lifebuoy.png", size: "16x16", alt: "", class: "fa-img")%>
 <i class="fa fa-gift fa-lg"></i>
 <%= link_to "Aide", pages_help_path, class: "", method: :get, style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;"  %></li>
 <li><%= image_tag("ICOMOON/32pxBlack/264-warning.png", size: "16x16", alt: "", class: "fa-img")%>
