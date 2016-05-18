@@ -5382,3 +5382,12 @@ Exiting
 [6717] === puma shutdown: 2016-05-18 10:29:04 +0200 ===
 [6717] - Goodbye!
 Exiting
+=== puma startup: 2016-05-18 17:12:56 +0200 ===
+[11121] * Starting control server on unix:///tmp/puma-status-1463584376492-11121
+[11121] - Gracefully shutting down workers...
+[11131] Early termination of worker
+[11137] Early termination of worker
+[11127] Early termination of worker
+[11133] Early termination of worker
+[11121] === puma shutdown: 2016-05-18 17:12:57 +0200 ===
+[11121] - Goodbye!

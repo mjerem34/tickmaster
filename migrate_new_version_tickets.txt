@@ -1,12 +1,35 @@
 ssh ticket@10.0.171.250
+
+LANCER LE SCRIPT :
+cd /home/ticket/ && sudo ./deploy.sh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! DEPRECATED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 sudo service nginx stop
 sudo umount /home/ticket/Bureau/TickMasterV2/public/uploads
 sudo mv /home/ticket/Bureau/TickMasterV2 /home/ticket/Bureau/TickMasterV2BAK
 cd /home/ticket/Bureau/
 git clone https://mjerem34@framagit.org/mjerem34/TickMasterV2.git
-mkdir TickMasterV2/public/uploads
+mkdir /home/ticket/Bureau/TickMasterV2/public/uploads
+mkdir /home/ticket/Bureau/TickMasterV2/public/sockets
 sudo mount -a
 sudo service nginx start
+cd /home/ticket/
+./start_TickMasterV2.sh
 
 
 
