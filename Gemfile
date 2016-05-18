@@ -50,11 +50,12 @@ gem 'mini_magick'
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 gem "chartkick"
 gem 'groupdate'
+gem 'puma', '~> 3.4.0'
 group :production do
   gem "exception_notification"
 end
 group :development, :test do
-  gem 'thin'
+  # gem 'thin'
   gem 'factory_girl'
   gem 'rspec-rails', '~> 3.0'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
