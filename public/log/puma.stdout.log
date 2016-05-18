@@ -5369,3 +5369,16 @@ Started GET "/assets/cle-c319308aead7c1c410e868f42fbc6158.png" for 127.0.0.1 at 
 [4819] === puma shutdown: 2016-05-18 09:56:15 +0200 ===
 [4819] - Goodbye!
 Exiting
+=== puma startup: 2016-05-18 10:28:56 +0200 ===
+[6694] * Starting control server on unix:///tmp/puma-status-1463560136916-6694
+[6694] - Worker 0 (pid: 6700) booted, phase: 0
+[6694] - Gracefully shutting down workers...
+[6694] === puma shutdown: 2016-05-18 10:28:59 +0200 ===
+[6694] - Goodbye!
+=== puma startup: 2016-05-18 10:29:02 +0200 ===
+[6717] * Starting control server on unix:///tmp/puma-status-1463560142846-6717
+[6717] - Worker 0 (pid: 6725) booted, phase: 0
+[6717] - Gracefully shutting down workers...
+[6717] === puma shutdown: 2016-05-18 10:29:04 +0200 ===
+[6717] - Goodbye!
+Exiting
