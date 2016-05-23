@@ -1,8 +1,13 @@
 Tous les fichiers présents dans le dossier Script doivent être placés dans le
 dossier ~/ du pc cible.
 
-Vous devez mettre dans les cron jobs ces taches :
+Faire aussi l'ajout de droit avec :
 
+$ sudo chmod 770 ~/Scripts -R
+
+
+
+Vous devez mettre dans les cron jobs ces taches :
 # m h  dom mon dow ident.  command
 
 @reboot /bin/bash -l -c '/home/ticket/Scripts/pumaStart.sh' >> /home/ticket/Scripts/pumaStart.log 2>&1
