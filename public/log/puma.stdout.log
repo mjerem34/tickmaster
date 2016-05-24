@@ -5391,3 +5391,2393 @@ Exiting
 [11133] Early termination of worker
 [11121] === puma shutdown: 2016-05-18 17:12:57 +0200 ===
 [11121] - Goodbye!
+=== puma startup: 2016-05-24 10:24:33 +0200 ===
+[8075] * Starting control server on unix:///tmp/puma-status-1464078273730-8075
+[8075] - Worker 2 (pid: 8089) booted, phase: 0
+[8075] - Worker 3 (pid: 8093) booted, phase: 0
+[8075] - Worker 1 (pid: 8085) booted, phase: 0
+[8075] - Worker 0 (pid: 8081) booted, phase: 0
+[8075] - Gracefully shutting down workers...
+[8075] === puma shutdown: 2016-05-24 10:24:47 +0200 ===
+[8075] - Goodbye!
+=== puma startup: 2016-05-24 10:24:51 +0200 ===
+[8132] * Starting control server on unix:///tmp/puma-status-1464078291348-8132
+[8132] - Worker 0 (pid: 8140) booted, phase: 0
+[8132] - Worker 2 (pid: 8148) booted, phase: 0
+[8132] - Worker 3 (pid: 8152) booted, phase: 0
+[8132] - Worker 1 (pid: 8142) booted, phase: 0
+
+
+Started GET "/" for 127.0.0.1 at 2016-05-24 10:24:52 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Processing by PagesController#home as HTML
+  [1m[35mUser Load (0.2ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+Redirected to http://localhost:3000/sessions/new
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+Completed 302 Found in 22ms (ActiveRecord: 0.7ms)
+
+
+Started GET "/sessions/new" for 127.0.0.1 at 2016-05-24 10:24:52 +0200
+Processing by SessionsController#new as HTML
+  [1m[35mUser Load (0.1ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT users.pseudo FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false
+  Rendered sessions/new.html.erb within layouts/application (19.4ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  Rendered layouts/_header.html.erb (11.3ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 1196ms (Views: 1195.2ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/assets/application-f16e9f90774d66b6c243f7942a31982c.css?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/bootstrap/collapse-2388931b28922c87b9d067e091918f79.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/bootstrap/carousel-ab9494d16078563fa942fa36f51606ce.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/bootstrap/dropdown-a2d3f333085e0bc153c5d488f9c25beb.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+
+
+Started GET "/assets/bootstrap/tab-b0e0085ddbe601df70783e3b00a44a66.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+Started GET "/assets/bootstrap/alert-b393e4a3c7100b53fff3a72ca2563886.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/bootstrap/transition-9486a84e28a255d97b73f24291099503.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+
+
+Started GET "/assets/bootstrap/scrollspy-3f18290693c0ab56cf81606aa54c14af.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/bootstrap/affix-47fdb29aafe4a822de223cafa771308d.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/bootstrap/modal-8d7b95e2d768d4ece3faa24139930b0b.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/jquery-4075e3b7b3964707c653f61b66f46dec.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+
+
+Started GET "/assets/bootstrap/tooltip-f84ca665f20377fe06f80929f5951ab6.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+
+
+Started GET "/assets/bootstrap/popover-05732afcfe8b7487e51d82ce3f8a0c14.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/bootstrap/button-a2a5158d99c02fae2b04bc27d371a4b6.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/ckeditor/init-8ef0e941b8cbe6163deaf34190cbefb8.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/bootstrap-sprockets-8424ed52c356487c7b529345da7d256c.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/ckeditor/ckeditor-bcd3a7251d8340ec678abd66f8fb06aa.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/chartkick-2fb2ca4a6204233d47f34bbf2e65dd43.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/bootstrap-slider-d3cc2c020927c831ec390d7e3f792522.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/jquery_ujs-f9f4ae336c0d19804775e0e2c8749423.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/agencies-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/fixedheadertable-cb1be93c8be9b97ead45a72c234fe895.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/categories-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/ckeditor/config-4f07e116ae9e8138b8889bd06c920c37.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/application-eb5dd600d1301047e16680b131a6a101.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/jquery.tablesorter.min-f57356c4810970658fb35dbe323ca7e6.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/nprogress-2f25a084a78a2393316d04955efb7e3a.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/incidents-5fbc77d42db3e44b3d43dc43f86022f7.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/procedures-798fe5b55c5655b004f8a10d74a38331.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/responses-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/pages-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/sessions-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/sous_categories-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+
+
+Started GET "/assets/users-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+Started GET "/assets/teches-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/jquery.tablesorter.widgets.min-8f71eea74459953de1042a4bad3bd92c.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-build-table-e49cd765d80f74e0f0348cee45f5b2e6.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-chart-1bf3b485102fb00c9eb52f13a61102dc.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-alignChar-74c3e4a0314ff0a71cf13ed8c47a004c.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-columns-5a446b23c7fb6d867882eccb90e2a5a5.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-cssStickyHeaders-3024dbb41cd1f92aedf9ae7b8613d56b.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-editable-3975d19954757e3f4bde7d62fecd3c52.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-columnSelector-2fc9ca12aa0260a293dd9493129e4a70.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/scaffold-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-filter-formatter-select2-a6a27a5b14c69d7ba7b7c17fa9bb220e.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-filter-formatter-html5-393f71725b7cd544e766fe66eb315d46.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-filter-formatter-jui-5db0d8353ee0ac85b22264e77b4c8319.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-formatter-5b0cb006f5fdb24a38fea58b225e39f0.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-grouping-692e82080464fd41f08ac9a682c29d69.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-filter-type-insideRange-8b95f665db49d97fc236848b554f7b1a.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-math-d5c74a6c0603847f46a760bdd3ed5979.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-output-c821771a5334c4b5f15503430257921d.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-filter-557c99c2f8259007f3821d3a446a3d94.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-headerTitles-02697777850d2b644736ae8671383f87.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-print-899cde7817744e54f06dec26b2f98db6.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-lazyload-6c4ad328c4e9cdf1d2097af789e72a21.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-repeatheaders-a8b5e3be014210669ba6eebe6a94e680.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-resizable-39b0e1bcd828c20192ab540291a1d211.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+
+
+Started GET "/assets/widgets/widget-pager-defd1e7a0e143338c703bee48acce1eb.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+Started GET "/assets/widgets/widget-reflow-56f2c99a90d0dc8304387f9ebd7ad4a0.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-sort2Hash-e24201555027c9a43da39568d6fe6aec.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-sortTbodies-a321e96954a4819c14650089f8088d8b.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-scroller-7216e756c68162b85c0b7d7728626268.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-stickyHeaders-0263445881d7d29b19352e52f7c7359e.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-storage-68810e1cbd416c5e18e8aebe5631af12.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-saveSort-720b1299201c7281afd78d0c73cc813f.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-uitheme-aad17d537eb3baa3cc88234fea6216b6.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-staticRow-b80293fd047a7d3128b982d0bf0b72b1.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-toggle-fdeacb1e549e2739f263000653a6523c.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/dropzone-72163b9915c12ff00a48dcc0d8608b6c.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/theme.bootstrap.min.css" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/widgets/widget-view-c8fd6001b0c56d07fa17bf7b78aa581e.js?body=1" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/cle-c319308aead7c1c410e868f42fbc6158.png" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/test.png" for 127.0.0.1 at 2016-05-24 10:24:54 +0200
+
+
+Started GET "/assets/favicon-4cc1b862a3189189a00864097b80d09a.ico" for 127.0.0.1 at 2016-05-24 10:24:55 +0200
+
+
+Started POST "/sessions" for 127.0.0.1 at 2016-05-24 10:25:00 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Udzdeejl5GXdm1KynQxujuPS6dWEhYqBqtQWqt6Pqy7B8x/aJ4EJQF0Z1+LEGa0m0a9aVmu0Uk5Spzf8GZRmzA==", "session"=>{"pseudo"=>"jeremy", "password"=>"[FILTERED]"}, "commit"=>"Se connecter"}
+  [1m[35mUser Load (2.9ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`pseudo` = 'jeremy' LIMIT 1
+Redirected to http://localhost:3000/
+Completed 302 Found in 52ms (ActiveRecord: 3.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-05-24 10:25:00 +0200
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+Redirected to http://localhost:3000/users/1
+Completed 302 Found in 4ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2016-05-24 10:25:00 +0200
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.1ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mIncident Load (0.6ms)[0m  SELECT `incidents`.* FROM `incidents` WHERE `incidents`.`user_id` = 1  ORDER BY created_at asc
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IN (1)[0m
+  [1m[35mCategory Load (0.3ms)[0m  SELECT `categories`.* FROM `categories` WHERE `categories`.`id` IN (1, 5, 6, 10, 9)
+  [1m[36mSousCategory Load (0.2ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`id` IN (1, 5, 46, 51, 48, 40)[0m
+  [1m[35mIncidentsState Load (0.6ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 10 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mIncidentsState Load (0.2ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1[0m  [["id", 7]]
+  [1m[35mIncidentsState Load (0.2ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mIncidentsState Load (0.2ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1[0m  [["id", 7]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.2ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.2ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 10 LIMIT 1[0m  [["id", 10]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mIncidentsState Load (0.2ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 4 LIMIT 1[0m  [["id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  Rendered users/show.html.erb within layouts/application (365.7ms)
+  [1m[36mTech Load (0.2ms)[0m  [1mSELECT  `teches`.* FROM `teches` WHERE `teches`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.4ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_procedure'
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `incidents` WHERE `incidents`.`user_id` = 1 AND `incidents`.`incident_state_id_for_user_id` IN (4, 8)[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `incidents` WHERE `incidents`.`tech_id` = 1 AND `incidents`.`incident_state_id_for_tech_id` IN (2, 3)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `incidents` WHERE `incidents`.`tech_id` IS NULL[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_all_of_incidents'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_categories'[0m
+  [1m[35m (0.3ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_tech'
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_rights'[0m
+  [1m[35m (0.2ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_right'
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_agency'[0m
+  Rendered layouts/_header.html.erb (109.7ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+Completed 200 OK in 1101ms (Views: 1082.0ms | ActiveRecord: 11.3ms)
+
+
+Started GET "/assets/ICOMOON/32pxBlack/032-book-014a57b948346291a6744678894110dd.png" for 127.0.0.1 at 2016-05-24 10:25:02 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/267-plus-3fad5fdffb6c7169ebd54f15fb21c0d5.png" for 127.0.0.1 at 2016-05-24 10:25:02 +0200
+
+
+Started GET "/assets/accidents-875d745b817bce6dafabc28106232907.png" for 127.0.0.1 at 2016-05-24 10:25:02 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/189-tree-b0bb457fc6791d92735acd98e0cac34d.png" for 127.0.0.1 at 2016-05-24 10:25:02 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/004-office-0f2a869322ca3b713ad4e668578f527b.png" for 127.0.0.1 at 2016-05-24 10:25:02 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/115-users-66266d46587448a4a66835e845df2718.png" for 127.0.0.1 at 2016-05-24 10:25:02 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/264-warning-1cb0349277e8ebbf503e9b2d4b090af6.png" for 127.0.0.1 at 2016-05-24 10:25:02 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/147-equalizer-161fed54b6ce19566899474c758085c7.png" for 127.0.0.1 at 2016-05-24 10:25:02 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/066-lifebuoy-d4635219c4b9c425f4d0a7ab0b167067.png" for 127.0.0.1 at 2016-05-24 10:25:02 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/114-user-7b2b82480e9f9abeb0994c1c04d7e6ef.png" for 127.0.0.1 at 2016-05-24 10:25:02 +0200
+
+
+Started GET "/assets/debut_light.png" for 127.0.0.1 at 2016-05-24 10:25:02 +0200
+
+
+Started GET "/incidents/68/edit" for 127.0.0.1 at 2016-05-24 10:25:04 +0200
+Processing by IncidentsController#edit as HTML
+  Parameters: {"id"=>"68"}
+  [1m[35mIncident Load (0.3ms)[0m  SELECT  `incidents`.* FROM `incidents` WHERE `incidents`.`id` = 68 LIMIT 1
+  [1m[36mCategory Load (0.3ms)[0m  [1mSELECT  `categories`.* FROM `categories`  ORDER BY `categories`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mTech Load (0.1ms)[0m  SELECT  `teches`.* FROM `teches` WHERE `teches`.`id` = 4 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_detail_incident'[0m
+  [1m[35mIncidentsState Load (0.1ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 10 LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_incidents'[0m
+  [1m[35m (0.3ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'dispatch_incidents'
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false[0m
+  [1m[35m (0.2ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'
+  [1m[36mCategory Load (0.1ms)[0m  [1mSELECT `categories`.* FROM `categories`[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'  [["name", "edit_categories_incidents"]]
+  [1m[36mSousCategory Load (0.3ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 1[0m
+  [1m[35mSousCategory Load (0.2ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 5
+  [1m[36mSousCategory Load (0.2ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 6[0m
+  [1m[35mSousCategory Load (0.2ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 7
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 8[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 9
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 10[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 11
+  [1m[36mSousCategory Load (0.4ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 12[0m
+  [1m[35m (0.2ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_lvl_incident'
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_incidents'[0m  [["name", "edit_incidents"]]
+  [1m[35mFileIncident Load (1.1ms)[0m  SELECT `file_incidents`.* FROM `file_incidents` WHERE `file_incidents`.`incident_id` = 68
+  Rendered incidents/_form_edit.html.erb (143.9ms)
+  [1m[36mArchive Load (0.3ms)[0m  [1mSELECT * FROM `archives` WHERE `incident_id` = 68[0m
+  Rendered incidents/edit.html.erb within layouts/application (161.8ms)
+  [1m[35m (0.4ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_procedure'
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM `incidents` WHERE `incidents`.`user_id` = 1 AND `incidents`.`incident_state_id_for_user_id` IN (4, 8)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `incidents` WHERE `incidents`.`tech_id` = 1 AND `incidents`.`incident_state_id_for_tech_id` IN (2, 3)
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `incidents` WHERE `incidents`.`tech_id` IS NULL[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_all_of_incidents'
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_categories'[0m
+  [1m[35m (0.2ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_tech'
+  [1m[36m (0.3ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_rights'[0m
+  [1m[35m (0.2ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_right'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_agency'[0m
+  Rendered layouts/_header.html.erb (25.1ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 624ms (Views: 596.7ms | ActiveRecord: 9.8ms)
+
+
+Started GET "/incidents/68/edit" for 127.0.0.1 at 2016-05-24 10:25:09 +0200
+Processing by IncidentsController#edit as HTML
+  Parameters: {"id"=>"68"}
+  [1m[36mIncident Load (0.1ms)[0m  [1mSELECT  `incidents`.* FROM `incidents` WHERE `incidents`.`id` = 68 LIMIT 1[0m
+  [1m[35mCategory Load (0.1ms)[0m  SELECT  `categories`.* FROM `categories`  ORDER BY `categories`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mTech Load (0.1ms)[0m  [1mSELECT  `teches`.* FROM `teches` WHERE `teches`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_detail_incident'
+  [1m[36mIncidentsState Load (0.1ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 10 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_incidents'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'dispatch_incidents'[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'[0m
+  [1m[35mCategory Load (0.1ms)[0m  SELECT `categories`.* FROM `categories`
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'[0m  [["name", "edit_categories_incidents"]]
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 1
+  [1m[36mSousCategory Load (0.2ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 5[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 6
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 7[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 8
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 9[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 10
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 11[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 12
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_lvl_incident'[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_incidents'  [["name", "edit_incidents"]]
+  [1m[36mFileIncident Load (0.1ms)[0m  [1mSELECT `file_incidents`.* FROM `file_incidents` WHERE `file_incidents`.`incident_id` = 68[0m
+  Rendered incidents/_form_edit.html.erb (66.1ms)
+  [1m[35mArchive Load (0.1ms)[0m  SELECT * FROM `archives` WHERE `incident_id` = 68
+  Rendered incidents/edit.html.erb within layouts/application (89.7ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_procedure'[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `incidents` WHERE `incidents`.`user_id` = 1 AND `incidents`.`incident_state_id_for_user_id` IN (4, 8)
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM `incidents` WHERE `incidents`.`tech_id` = 1 AND `incidents`.`incident_state_id_for_tech_id` IN (2, 3)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `incidents` WHERE `incidents`.`tech_id` IS NULL
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_all_of_incidents'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_categories'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_tech'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_rights'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_right'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_agency'
+  Rendered layouts/_header.html.erb (26.6ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 513ms (Views: 472.6ms | ActiveRecord: 7.1ms)
+
+
+Started GET "/assets/ckeditor/config.js?t=F969" for 127.0.0.1 at 2016-05-24 10:25:10 +0200
+
+
+Started GET "/assets/ckeditor/skins/moono/editor_gecko.css?t=F969" for 127.0.0.1 at 2016-05-24 10:25:10 +0200
+
+
+Started GET "/assets/ckeditor/lang/fr.js?t=F969" for 127.0.0.1 at 2016-05-24 10:25:10 +0200
+
+
+Started GET "/assets/ckeditor/styles.js?t=F969" for 127.0.0.1 at 2016-05-24 10:25:10 +0200
+
+
+Started GET "/assets/ckeditor/skins/moono/icons.png" for 127.0.0.1 at 2016-05-24 10:25:10 +0200
+
+
+Started GET "/assets/ckeditor/contents.css?t=F969" for 127.0.0.1 at 2016-05-24 10:25:10 +0200
+
+
+Started GET "/users/1" for 127.0.0.1 at 2016-05-24 10:25:34 +0200
+Processing by UsersController#show as HTML
+  Parameters: {"authenticity_token"=>"+mbGZOTFiR2TVeNZ0wW7+McAyA+tTET2EV3wPS+oJqdqSQTHK6FkOBPXZgmKEHhQ9X17jEJ9nDnpLtFr6LPrRQ==", "id"=>"1"}
+  [1m[35mUser Load (0.1ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mIncident Load (0.1ms)[0m  SELECT `incidents`.* FROM `incidents` WHERE `incidents`.`user_id` = 1  ORDER BY created_at asc
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IN (1)[0m
+  [1m[35mCategory Load (0.1ms)[0m  SELECT `categories`.* FROM `categories` WHERE `categories`.`id` IN (1, 5, 6, 10, 9)
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`id` IN (1, 5, 46, 51, 48, 40)[0m
+  [1m[35mIncidentsState Load (0.1ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 10 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mIncidentsState Load (0.1ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1[0m  [["id", 7]]
+  [1m[35mIncidentsState Load (0.1ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mIncidentsState Load (0.1ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1[0m  [["id", 7]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 10 LIMIT 1[0m  [["id", 10]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1  [["id", 2]]
+  [1m[36mIncidentsState Load (0.1ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 4 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 4 LIMIT 1[0m  [["id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1  [["id", 1]]
+  Rendered users/show.html.erb within layouts/application (154.8ms)
+  [1m[36mTech Load (0.1ms)[0m  [1mSELECT  `teches`.* FROM `teches` WHERE `teches`.`id` = 4 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_procedure'
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `incidents` WHERE `incidents`.`user_id` = 1 AND `incidents`.`incident_state_id_for_user_id` IN (4, 8)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `incidents` WHERE `incidents`.`tech_id` = 1 AND `incidents`.`incident_state_id_for_tech_id` IN (2, 3)
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `incidents` WHERE `incidents`.`tech_id` IS NULL[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_all_of_incidents'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_categories'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_tech'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_rights'[0m
+  [1m[35m (0.2ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_right'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_agency'[0m
+  Rendered layouts/_header.html.erb (52.6ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 792ms (Views: 720.9ms | ActiveRecord: 8.0ms)
+
+
+Started GET "/incidents/76/edit" for 127.0.0.1 at 2016-05-24 10:25:37 +0200
+Processing by IncidentsController#edit as HTML
+  Parameters: {"id"=>"76"}
+  [1m[35mIncident Load (0.3ms)[0m  SELECT  `incidents`.* FROM `incidents` WHERE `incidents`.`id` = 76 LIMIT 1
+  [1m[36mCategory Load (0.2ms)[0m  [1mSELECT  `categories`.* FROM `categories`  ORDER BY `categories`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mTech Load (0.2ms)[0m  SELECT  `teches`.* FROM `teches` WHERE `teches`.`id` = 4 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_detail_incident'[0m
+  [1m[35mIncidentsState Load (0.1ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_incidents'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'dispatch_incidents'
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'
+  [1m[36mCategory Load (0.1ms)[0m  [1mSELECT `categories`.* FROM `categories`[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'  [["name", "edit_categories_incidents"]]
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 1[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 5
+  [1m[36mSousCategory Load (0.3ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 6[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 7
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 8[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 9
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 10[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 11
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 12[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_lvl_incident'
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'edit_incidents'[0m  [["name", "edit_incidents"]]
+  [1m[35mFileIncident Load (0.2ms)[0m  SELECT `file_incidents`.* FROM `file_incidents` WHERE `file_incidents`.`incident_id` = 76
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'save_changes_of_edit'[0m
+  Rendered incidents/_form_edit.html.erb (44.8ms)
+  [1m[35mResponse Load (0.2ms)[0m  SELECT `responses`.* FROM `responses` WHERE `incident_id` = 76
+  Rendered responses/_new.html.erb (21.9ms)
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'ask_for_reaffect'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'cloture_incidents'
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'reject_incidents'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_procedure'
+______________________
+
+______________________
+  Rendered incidents/edit.html.erb within layouts/application (90.2ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_procedure'[0m  [["name", "create_procedure"]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `incidents` WHERE `incidents`.`user_id` = 1 AND `incidents`.`incident_state_id_for_user_id` IN (4, 8)
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM `incidents` WHERE `incidents`.`tech_id` = 1 AND `incidents`.`incident_state_id_for_tech_id` IN (2, 3)[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `incidents` WHERE `incidents`.`tech_id` IS NULL
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_all_of_incidents'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_categories'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_tech'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'view_index_rights'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_right'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`admin` FROM `rights` WHERE `rights`.`name` = 'create_new_agency'
+  Rendered layouts/_header.html.erb (6.9ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 522ms (Views: 499.4ms | ActiveRecord: 6.4ms)
+
+
+Started GET "/assets/ICOMOON/16px/0273-checkmark.png" for 127.0.0.1 at 2016-05-24 10:25:38 +0200
+
+
+Started GET "/assets/ICOMOON/16px/0108-bubble.png" for 127.0.0.1 at 2016-05-24 10:25:38 +0200
+
+
+Started GET "/assets/ICOMOON/16px/0058-ticket.png" for 127.0.0.1 at 2016-05-24 10:25:38 +0200
+
+
+Started GET "/assets/ICOMOON/16px/0272-cross.png" for 127.0.0.1 at 2016-05-24 10:25:38 +0200
+
+
+Started GET "/signout" for 127.0.0.1 at 2016-05-24 10:27:26 +0200
+Processing by SessionsController#destroy as HTML
+  Parameters: {"authenticity_token"=>"zIjda/1m9lwRs74ynm5Mezn+DxUM+Wc5398IMDZygLpcpx/IMgIbeZExO2LHe4/TC4O8luPIv/YnrClm8WlNWA=="}
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-05-24 10:27:26 +0200
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+Redirected to http://localhost:3000/sessions/new
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+Completed 302 Found in 1ms (ActiveRecord: 0.1ms)
+
+
+Started GET "/sessions/new" for 127.0.0.1 at 2016-05-24 10:27:26 +0200
+Processing by SessionsController#new as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT users.pseudo FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false[0m
+  Rendered sessions/new.html.erb within layouts/application (3.9ms)
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+  Rendered layouts/_header.html.erb (2.5ms)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 375ms (Views: 374.4ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/sessions" for 127.0.0.1 at 2016-05-24 10:27:30 +0200
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"7Jbv1V1bzM0NoOWOMucMwH5NkjD6lAifPRH1bHWk9bt8uS12kj8h6I0iYN5r8s9oTDAhsxWl0FDFYtQ6sr84WQ==", "session"=>{"pseudo"=>"jean", "password"=>"[FILTERED]"}, "commit"=>"Se connecter"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`pseudo` = 'jean' LIMIT 1
+Redirected to http://localhost:3000/
+Completed 302 Found in 2ms (ActiveRecord: 0.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2016-05-24 10:27:30 +0200
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+Redirected to http://localhost:3000/users/3
+Completed 302 Found in 1ms (ActiveRecord: 0.2ms)
+
+
+Started GET "/users/3" for 127.0.0.1 at 2016-05-24 10:27:30 +0200
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[35mUser Load (0.1ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mIncident Load (0.3ms)[0m  SELECT `incidents`.* FROM `incidents` WHERE `incidents`.`user_id` = 3  ORDER BY created_at asc
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IN (3)[0m
+  [1m[35mCategory Load (0.2ms)[0m  SELECT `categories`.* FROM `categories` WHERE `categories`.`id` IN (1, 5, 7)
+  [1m[36mSousCategory Load (0.2ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`id` IN (1, 5, 47)[0m
+  [1m[35mIncidentsState Load (0.1ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1  [["id", 7]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mIncidentsState Load (0.3ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 9 LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 2 LIMIT 1[0m
+  [1m[35mIncidentsState Load (0.2ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 2 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mIncidentsState Load (0.1ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 1 LIMIT 1
+  Rendered users/show.html.erb within layouts/application (17.0ms)
+  [1m[36mTech Load (0.2ms)[0m  [1mSELECT  `teches`.* FROM `teches` WHERE `teches`.`id` = 6 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_procedure'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_procedures'[0m
+  [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM `incidents` WHERE `incidents`.`user_id` = 3 AND `incidents`.`incident_state_id_for_user_id` IN (4, 8)
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_categories'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_tech'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_users'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_rights'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_agency'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_agencies'
+  Rendered layouts/_header.html.erb (7.0ms)
+  Rendered layouts/_footer.html.erb (0.1ms)
+Completed 200 OK in 350ms (Views: 345.6ms | ActiveRecord: 3.6ms)
+
+
+Started GET "/incidents/128/edit" for 127.0.0.1 at 2016-05-24 10:27:33 +0200
+Processing by IncidentsController#edit as HTML
+  Parameters: {"id"=>"128"}
+  [1m[36mIncident Load (0.5ms)[0m  [1mSELECT  `incidents`.* FROM `incidents` WHERE `incidents`.`id` = 128 LIMIT 1[0m
+  [1m[35mCategory Load (0.1ms)[0m  SELECT  `categories`.* FROM `categories`  ORDER BY `categories`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1  [["id", 3]]
+  [1m[36mTech Load (0.2ms)[0m  [1mSELECT  `teches`.* FROM `teches` WHERE `teches`.`id` = 6 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_detail_incident'
+  [1m[36mIncidentsState Load (0.1ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_incidents'
+  [1m[36m (0.3ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'dispatch_incidents'[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false
+  [1m[36m (0.3ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'[0m
+  [1m[35mCategory Load (0.1ms)[0m  SELECT `categories`.* FROM `categories`
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'[0m  [["name", "edit_categories_incidents"]]
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 1
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 5[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 6
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 7[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 8
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 9[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 10
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 11[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 12
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_lvl_incident'[0m
+  Rendered incidents/_form_edit.html.erb (17.9ms)
+  [1m[35mArchive Load (0.2ms)[0m  SELECT * FROM `archives` WHERE `incident_id` = 128
+  Rendered incidents/edit.html.erb within layouts/application (25.9ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_procedure'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_procedures'
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `incidents` WHERE `incidents`.`user_id` = 3 AND `incidents`.`incident_state_id_for_user_id` IN (4, 8)[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_categories'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_tech'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_users'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_rights'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_agency'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_agencies'[0m
+  Rendered layouts/_header.html.erb (5.2ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 375ms (Views: 368.5ms | ActiveRecord: 4.5ms)
+
+
+Started GET "/incidents/128/edit" for 127.0.0.1 at 2016-05-24 10:28:29 +0200
+Processing by IncidentsController#edit as HTML
+  Parameters: {"id"=>"128"}
+  [1m[35mIncident Load (0.2ms)[0m  SELECT  `incidents`.* FROM `incidents` WHERE `incidents`.`id` = 128 LIMIT 1
+  [1m[36mCategory Load (0.1ms)[0m  [1mSELECT  `categories`.* FROM `categories`  ORDER BY `categories`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m  [["id", 3]]
+  [1m[35mTech Load (0.1ms)[0m  SELECT  `teches`.* FROM `teches` WHERE `teches`.`id` = 6 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_detail_incident'[0m
+  [1m[35mIncidentsState Load (0.1ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_incidents'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'dispatch_incidents'
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'
+  [1m[36mCategory Load (0.1ms)[0m  [1mSELECT `categories`.* FROM `categories`[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'  [["name", "edit_categories_incidents"]]
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 1[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 5
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 6[0m
+  [1m[35mSousCategory Load (0.2ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 7
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 8[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 9
+  [1m[36mSousCategory Load (0.7ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 10[0m
+  [1m[35mSousCategory Load (0.8ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 11
+  [1m[36mSousCategory Load (0.4ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 12[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_lvl_incident'
+  Rendered incidents/_form_edit.html.erb (29.7ms)
+  [1m[36mArchive Load (0.2ms)[0m  [1mSELECT * FROM `archives` WHERE `incident_id` = 128[0m
+  Rendered incidents/edit.html.erb within layouts/application (34.2ms)
+  [1m[35m (0.2ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_procedure'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_procedures'[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `incidents` WHERE `incidents`.`user_id` = 3 AND `incidents`.`incident_state_id_for_user_id` IN (4, 8)
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_categories'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_tech'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_users'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_rights'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_agency'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_agencies'
+  Rendered layouts/_header.html.erb (5.7ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 392ms (Views: 384.8ms | ActiveRecord: 4.5ms)
+
+
+Started GET "/assets/application-f16e9f90774d66b6c243f7942a31982c.css?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/jquery-4075e3b7b3964707c653f61b66f46dec.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap/affix-47fdb29aafe4a822de223cafa771308d.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap/button-a2a5158d99c02fae2b04bc27d371a4b6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap/collapse-2388931b28922c87b9d067e091918f79.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap/dropdown-a2d3f333085e0bc153c5d488f9c25beb.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap/tab-b0e0085ddbe601df70783e3b00a44a66.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap/transition-9486a84e28a255d97b73f24291099503.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy-3f18290693c0ab56cf81606aa54c14af.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap/modal-8d7b95e2d768d4ece3faa24139930b0b.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap/alert-b393e4a3c7100b53fff3a72ca2563886.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap/popover-05732afcfe8b7487e51d82ce3f8a0c14.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap-sprockets-8424ed52c356487c7b529345da7d256c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/ckeditor/init-8ef0e941b8cbe6163deaf34190cbefb8.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap/carousel-ab9494d16078563fa942fa36f51606ce.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/jquery_ujs-f9f4ae336c0d19804775e0e2c8749423.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap/tooltip-f84ca665f20377fe06f80929f5951ab6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/chartkick-2fb2ca4a6204233d47f34bbf2e65dd43.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/agencies-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/application-eb5dd600d1301047e16680b131a6a101.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+
+
+Started GET "/assets/ckeditor/ckeditor-bcd3a7251d8340ec678abd66f8fb06aa.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/fixedheadertable-cb1be93c8be9b97ead45a72c234fe895.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+Started GET "/assets/ckeditor/config-4f07e116ae9e8138b8889bd06c920c37.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/bootstrap-slider-d3cc2c020927c831ec390d7e3f792522.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/categories-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/jquery.tablesorter.min-f57356c4810970658fb35dbe323ca7e6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/incidents-5fbc77d42db3e44b3d43dc43f86022f7.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/pages-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/jquery.tablesorter.widgets.min-8f71eea74459953de1042a4bad3bd92c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/nprogress-2f25a084a78a2393316d04955efb7e3a.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/responses-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/sessions-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/procedures-798fe5b55c5655b004f8a10d74a38331.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/teches-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/scaffold-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-alignChar-74c3e4a0314ff0a71cf13ed8c47a004c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/sous_categories-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-chart-1bf3b485102fb00c9eb52f13a61102dc.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-columnSelector-2fc9ca12aa0260a293dd9493129e4a70.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/users-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-columns-5a446b23c7fb6d867882eccb90e2a5a5.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-editable-3975d19954757e3f4bde7d62fecd3c52.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-filter-formatter-html5-393f71725b7cd544e766fe66eb315d46.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-build-table-e49cd765d80f74e0f0348cee45f5b2e6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-filter-formatter-select2-a6a27a5b14c69d7ba7b7c17fa9bb220e.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+
+
+Started GET "/assets/widgets/widget-filter-557c99c2f8259007f3821d3a446a3d94.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+Started GET "/assets/widgets/widget-cssStickyHeaders-3024dbb41cd1f92aedf9ae7b8613d56b.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-formatter-5b0cb006f5fdb24a38fea58b225e39f0.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-grouping-692e82080464fd41f08ac9a682c29d69.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-filter-formatter-jui-5db0d8353ee0ac85b22264e77b4c8319.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-lazyload-6c4ad328c4e9cdf1d2097af789e72a21.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-math-d5c74a6c0603847f46a760bdd3ed5979.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+
+
+Started GET "/assets/widgets/widget-output-c821771a5334c4b5f15503430257921d.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+Started GET "/assets/widgets/widget-filter-type-insideRange-8b95f665db49d97fc236848b554f7b1a.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-print-899cde7817744e54f06dec26b2f98db6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-reflow-56f2c99a90d0dc8304387f9ebd7ad4a0.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-headerTitles-02697777850d2b644736ae8671383f87.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-resizable-39b0e1bcd828c20192ab540291a1d211.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-saveSort-720b1299201c7281afd78d0c73cc813f.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-pager-defd1e7a0e143338c703bee48acce1eb.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-scroller-7216e756c68162b85c0b7d7728626268.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-sortTbodies-a321e96954a4819c14650089f8088d8b.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-staticRow-b80293fd047a7d3128b982d0bf0b72b1.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-stickyHeaders-0263445881d7d29b19352e52f7c7359e.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-repeatheaders-a8b5e3be014210669ba6eebe6a94e680.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-sort2Hash-e24201555027c9a43da39568d6fe6aec.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-uitheme-aad17d537eb3baa3cc88234fea6216b6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/dropzone-72163b9915c12ff00a48dcc0d8608b6c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-toggle-fdeacb1e549e2739f263000653a6523c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/theme.bootstrap.min.css" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-storage-68810e1cbd416c5e18e8aebe5631af12.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/widgets/widget-view-c8fd6001b0c56d07fa17bf7b78aa581e.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/debut_light.png" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/267-plus-3fad5fdffb6c7169ebd54f15fb21c0d5.png" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/accidents-875d745b817bce6dafabc28106232907.png" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/115-users-66266d46587448a4a66835e845df2718.png" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/264-warning-1cb0349277e8ebbf503e9b2d4b090af6.png" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/032-book-014a57b948346291a6744678894110dd.png" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/cle-c319308aead7c1c410e868f42fbc6158.png" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/004-office-0f2a869322ca3b713ad4e668578f527b.png" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/066-lifebuoy-d4635219c4b9c425f4d0a7ab0b167067.png" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/114-user-7b2b82480e9f9abeb0994c1c04d7e6ef.png" for 127.0.0.1 at 2016-05-24 10:28:30 +0200
+
+
+Started GET "/incidents/128/edit" for 127.0.0.1 at 2016-05-24 10:28:39 +0200
+Processing by IncidentsController#edit as HTML
+  Parameters: {"id"=>"128"}
+  [1m[36mIncident Load (0.1ms)[0m  [1mSELECT  `incidents`.* FROM `incidents` WHERE `incidents`.`id` = 128 LIMIT 1[0m
+  [1m[35mCategory Load (0.1ms)[0m  SELECT  `categories`.* FROM `categories`  ORDER BY `categories`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1  [["id", 3]]
+  [1m[36mTech Load (0.1ms)[0m  [1mSELECT  `teches`.* FROM `teches` WHERE `teches`.`id` = 6 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_detail_incident'
+  [1m[36mIncidentsState Load (0.1ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_incidents'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'dispatch_incidents'[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'[0m
+  [1m[35mCategory Load (0.1ms)[0m  SELECT `categories`.* FROM `categories`
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'[0m  [["name", "edit_categories_incidents"]]
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 1
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 5[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 6
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 7[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 8
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 9[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 10
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 11[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 12
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_lvl_incident'[0m
+  Rendered incidents/_form_edit.html.erb (17.7ms)
+  [1m[35mArchive Load (0.1ms)[0m  SELECT * FROM `archives` WHERE `incident_id` = 128
+  Rendered incidents/edit.html.erb within layouts/application (22.0ms)
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_procedure'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_procedures'
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `incidents` WHERE `incidents`.`user_id` = 3 AND `incidents`.`incident_state_id_for_user_id` IN (4, 8)[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_categories'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_tech'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_users'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_rights'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_agency'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_agencies'[0m
+  Rendered layouts/_header.html.erb (5.6ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 367ms (Views: 363.2ms | ActiveRecord: 2.5ms)
+
+
+Started GET "/assets/application-f16e9f90774d66b6c243f7942a31982c.css?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/jquery-4075e3b7b3964707c653f61b66f46dec.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/bootstrap/affix-47fdb29aafe4a822de223cafa771308d.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/bootstrap/alert-b393e4a3c7100b53fff3a72ca2563886.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/bootstrap/button-a2a5158d99c02fae2b04bc27d371a4b6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/bootstrap/carousel-ab9494d16078563fa942fa36f51606ce.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/bootstrap/collapse-2388931b28922c87b9d067e091918f79.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+
+
+Started GET "/assets/bootstrap/tab-b0e0085ddbe601df70783e3b00a44a66.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+Started GET "/assets/bootstrap/transition-9486a84e28a255d97b73f24291099503.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy-3f18290693c0ab56cf81606aa54c14af.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/bootstrap/popover-05732afcfe8b7487e51d82ce3f8a0c14.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/bootstrap/dropdown-a2d3f333085e0bc153c5d488f9c25beb.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/bootstrap-sprockets-8424ed52c356487c7b529345da7d256c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/bootstrap/modal-8d7b95e2d768d4ece3faa24139930b0b.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/ckeditor/ckeditor-bcd3a7251d8340ec678abd66f8fb06aa.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/jquery_ujs-f9f4ae336c0d19804775e0e2c8749423.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/bootstrap/tooltip-f84ca665f20377fe06f80929f5951ab6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/agencies-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/application-eb5dd600d1301047e16680b131a6a101.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/ckeditor/init-8ef0e941b8cbe6163deaf34190cbefb8.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/categories-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/ckeditor/config-4f07e116ae9e8138b8889bd06c920c37.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/bootstrap-slider-d3cc2c020927c831ec390d7e3f792522.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/incidents-5fbc77d42db3e44b3d43dc43f86022f7.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+
+
+Started GET "/assets/jquery.tablesorter.min-f57356c4810970658fb35dbe323ca7e6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+Started GET "/assets/jquery.tablesorter.widgets.min-8f71eea74459953de1042a4bad3bd92c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/chartkick-2fb2ca4a6204233d47f34bbf2e65dd43.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/fixedheadertable-cb1be93c8be9b97ead45a72c234fe895.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/procedures-798fe5b55c5655b004f8a10d74a38331.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/nprogress-2f25a084a78a2393316d04955efb7e3a.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/sessions-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/responses-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+
+
+Started GET "/assets/teches-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+Started GET "/assets/users-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/pages-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+
+
+Started GET "/assets/widgets/widget-build-table-e49cd765d80f74e0f0348cee45f5b2e6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+Started GET "/assets/widgets/widget-alignChar-74c3e4a0314ff0a71cf13ed8c47a004c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/scaffold-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-columnSelector-2fc9ca12aa0260a293dd9493129e4a70.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/sous_categories-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-cssStickyHeaders-3024dbb41cd1f92aedf9ae7b8613d56b.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-editable-3975d19954757e3f4bde7d62fecd3c52.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-chart-1bf3b485102fb00c9eb52f13a61102dc.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-filter-formatter-jui-5db0d8353ee0ac85b22264e77b4c8319.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+
+
+Started GET "/assets/widgets/widget-filter-formatter-select2-a6a27a5b14c69d7ba7b7c17fa9bb220e.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+Started GET "/assets/widgets/widget-filter-type-insideRange-8b95f665db49d97fc236848b554f7b1a.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-filter-557c99c2f8259007f3821d3a446a3d94.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+
+
+Started GET "/assets/widgets/widget-columns-5a446b23c7fb6d867882eccb90e2a5a5.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+Started GET "/assets/widgets/widget-formatter-5b0cb006f5fdb24a38fea58b225e39f0.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+
+Started GET "/assets/widgets/widget-lazyload-6c4ad328c4e9cdf1d2097af789e72a21.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+Started GET "/assets/widgets/widget-filter-formatter-html5-393f71725b7cd544e766fe66eb315d46.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-math-d5c74a6c0603847f46a760bdd3ed5979.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-output-c821771a5334c4b5f15503430257921d.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-pager-defd1e7a0e143338c703bee48acce1eb.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-grouping-692e82080464fd41f08ac9a682c29d69.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+
+
+Started GET "/assets/widgets/widget-print-899cde7817744e54f06dec26b2f98db6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+Started GET "/assets/widgets/widget-reflow-56f2c99a90d0dc8304387f9ebd7ad4a0.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-headerTitles-02697777850d2b644736ae8671383f87.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-saveSort-720b1299201c7281afd78d0c73cc813f.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-scroller-7216e756c68162b85c0b7d7728626268.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+
+
+Started GET "/assets/widgets/widget-repeatheaders-a8b5e3be014210669ba6eebe6a94e680.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+Started GET "/assets/widgets/widget-sort2Hash-e24201555027c9a43da39568d6fe6aec.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+
+
+
+
+Started GET "/assets/widgets/widget-stickyHeaders-0263445881d7d29b19352e52f7c7359e.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+Started GET "/assets/widgets/widget-resizable-39b0e1bcd828c20192ab540291a1d211.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+Started GET "/assets/widgets/widget-staticRow-b80293fd047a7d3128b982d0bf0b72b1.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-toggle-fdeacb1e549e2739f263000653a6523c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-uitheme-aad17d537eb3baa3cc88234fea6216b6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-sortTbodies-a321e96954a4819c14650089f8088d8b.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/dropzone-72163b9915c12ff00a48dcc0d8608b6c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/theme.bootstrap.min.css" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-storage-68810e1cbd416c5e18e8aebe5631af12.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/widgets/widget-view-c8fd6001b0c56d07fa17bf7b78aa581e.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/debut_light.png" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/032-book-014a57b948346291a6744678894110dd.png" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+
+
+Started GET "/assets/ICOMOON/32pxBlack/267-plus-3fad5fdffb6c7169ebd54f15fb21c0d5.png" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+Started GET "/assets/accidents-875d745b817bce6dafabc28106232907.png" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/115-users-66266d46587448a4a66835e845df2718.png" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/264-warning-1cb0349277e8ebbf503e9b2d4b090af6.png" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/114-user-7b2b82480e9f9abeb0994c1c04d7e6ef.png" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/cle-c319308aead7c1c410e868f42fbc6158.png" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/004-office-0f2a869322ca3b713ad4e668578f527b.png" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/066-lifebuoy-d4635219c4b9c425f4d0a7ab0b167067.png" for 127.0.0.1 at 2016-05-24 10:28:40 +0200
+
+
+Started GET "/incidents/128/edit" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+Processing by IncidentsController#edit as HTML
+  Parameters: {"id"=>"128"}
+  [1m[35mIncident Load (0.1ms)[0m  SELECT  `incidents`.* FROM `incidents` WHERE `incidents`.`id` = 128 LIMIT 1
+  [1m[36mCategory Load (0.1ms)[0m  [1mSELECT  `categories`.* FROM `categories`  ORDER BY `categories`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m  [["id", 3]]
+  [1m[35mTech Load (0.1ms)[0m  SELECT  `teches`.* FROM `teches` WHERE `teches`.`id` = 6 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_detail_incident'[0m
+  [1m[35mIncidentsState Load (0.1ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_incidents'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'dispatch_incidents'
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false[0m
+  [1m[35m (0.2ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'
+  [1m[36mCategory Load (0.1ms)[0m  [1mSELECT `categories`.* FROM `categories`[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'  [["name", "edit_categories_incidents"]]
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 1[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 5
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 6[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 7
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 8[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 9
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 10[0m
+  [1m[35mSousCategory Load (0.2ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 11
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 12[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_lvl_incident'
+  Rendered incidents/_form_edit.html.erb (17.5ms)
+  [1m[36mArchive Load (0.1ms)[0m  [1mSELECT * FROM `archives` WHERE `incident_id` = 128[0m
+  Rendered incidents/edit.html.erb within layouts/application (20.9ms)
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_procedure'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_procedures'[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM `incidents` WHERE `incidents`.`user_id` = 3 AND `incidents`.`incident_state_id_for_user_id` IN (4, 8)
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_categories'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_tech'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_users'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_rights'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_agency'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_agencies'
+  Rendered layouts/_header.html.erb (6.3ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 422ms (Views: 417.1ms | ActiveRecord: 2.9ms)
+
+
+Started GET "/assets/application-f16e9f90774d66b6c243f7942a31982c.css?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/jquery-4075e3b7b3964707c653f61b66f46dec.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/bootstrap/affix-47fdb29aafe4a822de223cafa771308d.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/bootstrap/alert-b393e4a3c7100b53fff3a72ca2563886.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/bootstrap/collapse-2388931b28922c87b9d067e091918f79.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/bootstrap/dropdown-a2d3f333085e0bc153c5d488f9c25beb.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/bootstrap/tab-b0e0085ddbe601df70783e3b00a44a66.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/bootstrap/transition-9486a84e28a255d97b73f24291099503.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy-3f18290693c0ab56cf81606aa54c14af.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/bootstrap/modal-8d7b95e2d768d4ece3faa24139930b0b.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/bootstrap/tooltip-f84ca665f20377fe06f80929f5951ab6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/bootstrap/popover-05732afcfe8b7487e51d82ce3f8a0c14.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/bootstrap/button-a2a5158d99c02fae2b04bc27d371a4b6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+
+
+Started GET "/assets/ckeditor/ckeditor-bcd3a7251d8340ec678abd66f8fb06aa.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+Started GET "/assets/bootstrap-sprockets-8424ed52c356487c7b529345da7d256c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/jquery_ujs-f9f4ae336c0d19804775e0e2c8749423.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/bootstrap/carousel-ab9494d16078563fa942fa36f51606ce.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+
+
+Started GET "/assets/bootstrap-slider-d3cc2c020927c831ec390d7e3f792522.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+Started GET "/assets/agencies-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/application-eb5dd600d1301047e16680b131a6a101.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/ckeditor/init-8ef0e941b8cbe6163deaf34190cbefb8.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/ckeditor/config-4f07e116ae9e8138b8889bd06c920c37.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/fixedheadertable-cb1be93c8be9b97ead45a72c234fe895.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/incidents-5fbc77d42db3e44b3d43dc43f86022f7.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/jquery.tablesorter.min-f57356c4810970658fb35dbe323ca7e6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/jquery.tablesorter.widgets.min-8f71eea74459953de1042a4bad3bd92c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/nprogress-2f25a084a78a2393316d04955efb7e3a.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/categories-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/procedures-798fe5b55c5655b004f8a10d74a38331.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/responses-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/chartkick-2fb2ca4a6204233d47f34bbf2e65dd43.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/sessions-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/sous_categories-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/pages-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/teches-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/widgets/widget-alignChar-74c3e4a0314ff0a71cf13ed8c47a004c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/scaffold-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/widgets/widget-columnSelector-2fc9ca12aa0260a293dd9493129e4a70.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/widgets/widget-chart-1bf3b485102fb00c9eb52f13a61102dc.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/users-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/widgets/widget-columns-5a446b23c7fb6d867882eccb90e2a5a5.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/widgets/widget-editable-3975d19954757e3f4bde7d62fecd3c52.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/widgets/widget-build-table-e49cd765d80f74e0f0348cee45f5b2e6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+
+
+Started GET "/assets/widgets/widget-filter-formatter-jui-5db0d8353ee0ac85b22264e77b4c8319.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+Started GET "/assets/widgets/widget-filter-formatter-html5-393f71725b7cd544e766fe66eb315d46.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+
+
+
+Started GET "/assets/widgets/widget-filter-557c99c2f8259007f3821d3a446a3d94.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+Started GET "/assets/widgets/widget-formatter-5b0cb006f5fdb24a38fea58b225e39f0.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+Started GET "/assets/widgets/widget-grouping-692e82080464fd41f08ac9a682c29d69.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/widgets/widget-cssStickyHeaders-3024dbb41cd1f92aedf9ae7b8613d56b.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/widgets/widget-headerTitles-02697777850d2b644736ae8671383f87.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:49 +0200
+
+
+Started GET "/assets/widgets/widget-lazyload-6c4ad328c4e9cdf1d2097af789e72a21.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-math-d5c74a6c0603847f46a760bdd3ed5979.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-filter-formatter-select2-a6a27a5b14c69d7ba7b7c17fa9bb220e.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-pager-defd1e7a0e143338c703bee48acce1eb.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-print-899cde7817744e54f06dec26b2f98db6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-reflow-56f2c99a90d0dc8304387f9ebd7ad4a0.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-repeatheaders-a8b5e3be014210669ba6eebe6a94e680.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-filter-type-insideRange-8b95f665db49d97fc236848b554f7b1a.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-output-c821771a5334c4b5f15503430257921d.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-sort2Hash-e24201555027c9a43da39568d6fe6aec.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-sortTbodies-a321e96954a4819c14650089f8088d8b.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-scroller-7216e756c68162b85c0b7d7728626268.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-staticRow-b80293fd047a7d3128b982d0bf0b72b1.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-resizable-39b0e1bcd828c20192ab540291a1d211.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-stickyHeaders-0263445881d7d29b19352e52f7c7359e.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-toggle-fdeacb1e549e2739f263000653a6523c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-uitheme-aad17d537eb3baa3cc88234fea6216b6.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/dropzone-72163b9915c12ff00a48dcc0d8608b6c.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-saveSort-720b1299201c7281afd78d0c73cc813f.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-storage-68810e1cbd416c5e18e8aebe5631af12.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/widgets/widget-view-c8fd6001b0c56d07fa17bf7b78aa581e.js?body=1" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/theme.bootstrap.min.css" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/debut_light.png" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/032-book-014a57b948346291a6744678894110dd.png" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/267-plus-3fad5fdffb6c7169ebd54f15fb21c0d5.png" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/accidents-875d745b817bce6dafabc28106232907.png" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/115-users-66266d46587448a4a66835e845df2718.png" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/264-warning-1cb0349277e8ebbf503e9b2d4b090af6.png" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/cle-c319308aead7c1c410e868f42fbc6158.png" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/114-user-7b2b82480e9f9abeb0994c1c04d7e6ef.png" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/004-office-0f2a869322ca3b713ad4e668578f527b.png" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/066-lifebuoy-d4635219c4b9c425f4d0a7ab0b167067.png" for 127.0.0.1 at 2016-05-24 10:28:50 +0200
+
+
+Started GET "/incidents/128/edit" for 127.0.0.1 at 2016-05-24 10:29:00 +0200
+Processing by IncidentsController#edit as HTML
+  Parameters: {"id"=>"128"}
+  [1m[36mIncident Load (0.2ms)[0m  [1mSELECT  `incidents`.* FROM `incidents` WHERE `incidents`.`id` = 128 LIMIT 1[0m
+  [1m[35mCategory Load (0.2ms)[0m  SELECT  `categories`.* FROM `categories`  ORDER BY `categories`.`id` ASC LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1  [["id", 3]]
+  [1m[36mTech Load (0.1ms)[0m  [1mSELECT  `teches`.* FROM `teches` WHERE `teches`.`id` = 6 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_detail_incident'
+  [1m[36mIncidentsState Load (0.2ms)[0m  [1mSELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_incidents'
+  [1m[36m (0.7ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'dispatch_incidents'[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false
+  [1m[36m (0.4ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'[0m
+  [1m[35mCategory Load (0.2ms)[0m  SELECT `categories`.* FROM `categories`
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'[0m  [["name", "edit_categories_incidents"]]
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 1
+  [1m[36mSousCategory Load (0.2ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 5[0m
+  [1m[35mSousCategory Load (0.3ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 6
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 7[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 8
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 9[0m
+  [1m[35mSousCategory Load (0.2ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 10
+  [1m[36mSousCategory Load (0.5ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 11[0m
+  [1m[35mSousCategory Load (0.2ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 12
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_lvl_incident'[0m
+  Rendered incidents/_form_edit.html.erb (37.7ms)
+  [1m[35mArchive Load (0.2ms)[0m  SELECT * FROM `archives` WHERE `incident_id` = 128
+  Rendered incidents/edit.html.erb within layouts/application (43.0ms)
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_procedure'[0m
+  [1m[35m (0.2ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_procedures'
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM `incidents` WHERE `incidents`.`user_id` = 3 AND `incidents`.`incident_state_id_for_user_id` IN (4, 8)[0m
+  [1m[35m (0.3ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_categories'
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_tech'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_users'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_rights'[0m
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_agency'
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_agencies'[0m
+  Rendered layouts/_header.html.erb (12.1ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 703ms (Views: 693.1ms | ActiveRecord: 6.2ms)
+
+
+Started GET "/assets/application-f16e9f90774d66b6c243f7942a31982c.css?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/jquery-4075e3b7b3964707c653f61b66f46dec.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/bootstrap/affix-47fdb29aafe4a822de223cafa771308d.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/bootstrap/button-a2a5158d99c02fae2b04bc27d371a4b6.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/bootstrap/alert-b393e4a3c7100b53fff3a72ca2563886.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/bootstrap/carousel-ab9494d16078563fa942fa36f51606ce.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/bootstrap/dropdown-a2d3f333085e0bc153c5d488f9c25beb.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/bootstrap/transition-9486a84e28a255d97b73f24291099503.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/bootstrap/collapse-2388931b28922c87b9d067e091918f79.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/bootstrap/modal-8d7b95e2d768d4ece3faa24139930b0b.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/bootstrap/tooltip-f84ca665f20377fe06f80929f5951ab6.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/bootstrap/tab-b0e0085ddbe601df70783e3b00a44a66.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/bootstrap/popover-05732afcfe8b7487e51d82ce3f8a0c14.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/ckeditor/init-8ef0e941b8cbe6163deaf34190cbefb8.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/ckeditor/ckeditor-bcd3a7251d8340ec678abd66f8fb06aa.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy-3f18290693c0ab56cf81606aa54c14af.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+
+
+Started GET "/assets/bootstrap-sprockets-8424ed52c356487c7b529345da7d256c.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+Started GET "/assets/bootstrap-slider-d3cc2c020927c831ec390d7e3f792522.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/agencies-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/application-eb5dd600d1301047e16680b131a6a101.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/categories-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/ckeditor/config-4f07e116ae9e8138b8889bd06c920c37.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/fixedheadertable-cb1be93c8be9b97ead45a72c234fe895.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/incidents-5fbc77d42db3e44b3d43dc43f86022f7.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/jquery_ujs-f9f4ae336c0d19804775e0e2c8749423.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/jquery.tablesorter.min-f57356c4810970658fb35dbe323ca7e6.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/nprogress-2f25a084a78a2393316d04955efb7e3a.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/chartkick-2fb2ca4a6204233d47f34bbf2e65dd43.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/pages-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/jquery.tablesorter.widgets.min-8f71eea74459953de1042a4bad3bd92c.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/responses-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/sessions-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/procedures-798fe5b55c5655b004f8a10d74a38331.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/teches-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/users-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-alignChar-74c3e4a0314ff0a71cf13ed8c47a004c.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/scaffold-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-build-table-e49cd765d80f74e0f0348cee45f5b2e6.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-columnSelector-2fc9ca12aa0260a293dd9493129e4a70.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-columns-5a446b23c7fb6d867882eccb90e2a5a5.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-cssStickyHeaders-3024dbb41cd1f92aedf9ae7b8613d56b.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/sous_categories-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+
+
+
+
+Started GET "/assets/widgets/widget-filter-formatter-select2-a6a27a5b14c69d7ba7b7c17fa9bb220e.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+Started GET "/assets/widgets/widget-filter-type-insideRange-8b95f665db49d97fc236848b554f7b1a.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+Started GET "/assets/widgets/widget-filter-formatter-html5-393f71725b7cd544e766fe66eb315d46.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-chart-1bf3b485102fb00c9eb52f13a61102dc.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-formatter-5b0cb006f5fdb24a38fea58b225e39f0.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-filter-557c99c2f8259007f3821d3a446a3d94.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-grouping-692e82080464fd41f08ac9a682c29d69.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-headerTitles-02697777850d2b644736ae8671383f87.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-math-d5c74a6c0603847f46a760bdd3ed5979.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-lazyload-6c4ad328c4e9cdf1d2097af789e72a21.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-filter-formatter-jui-5db0d8353ee0ac85b22264e77b4c8319.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-pager-defd1e7a0e143338c703bee48acce1eb.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-output-c821771a5334c4b5f15503430257921d.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-reflow-56f2c99a90d0dc8304387f9ebd7ad4a0.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-editable-3975d19954757e3f4bde7d62fecd3c52.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-resizable-39b0e1bcd828c20192ab540291a1d211.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-print-899cde7817744e54f06dec26b2f98db6.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-saveSort-720b1299201c7281afd78d0c73cc813f.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-sort2Hash-e24201555027c9a43da39568d6fe6aec.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-sortTbodies-a321e96954a4819c14650089f8088d8b.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-repeatheaders-a8b5e3be014210669ba6eebe6a94e680.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-stickyHeaders-0263445881d7d29b19352e52f7c7359e.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-scroller-7216e756c68162b85c0b7d7728626268.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-storage-68810e1cbd416c5e18e8aebe5631af12.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-staticRow-b80293fd047a7d3128b982d0bf0b72b1.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-toggle-fdeacb1e549e2739f263000653a6523c.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-view-c8fd6001b0c56d07fa17bf7b78aa581e.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/widgets/widget-uitheme-aad17d537eb3baa3cc88234fea6216b6.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/dropzone-72163b9915c12ff00a48dcc0d8608b6c.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/theme.bootstrap.min.css" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/debut_light.png" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/032-book-014a57b948346291a6744678894110dd.png" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/267-plus-3fad5fdffb6c7169ebd54f15fb21c0d5.png" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/accidents-875d745b817bce6dafabc28106232907.png" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/115-users-66266d46587448a4a66835e845df2718.png" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/004-office-0f2a869322ca3b713ad4e668578f527b.png" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/066-lifebuoy-d4635219c4b9c425f4d0a7ab0b167067.png" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/114-user-7b2b82480e9f9abeb0994c1c04d7e6ef.png" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/264-warning-1cb0349277e8ebbf503e9b2d4b090af6.png" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/assets/cle-c319308aead7c1c410e868f42fbc6158.png" for 127.0.0.1 at 2016-05-24 10:29:01 +0200
+
+
+Started GET "/incidents/128/edit" for 127.0.0.1 at 2016-05-24 10:29:33 +0200
+Processing by IncidentsController#edit as HTML
+  Parameters: {"id"=>"128"}
+  [1m[35mIncident Load (0.1ms)[0m  SELECT  `incidents`.* FROM `incidents` WHERE `incidents`.`id` = 128 LIMIT 1
+  [1m[36mCategory Load (0.1ms)[0m  [1mSELECT  `categories`.* FROM `categories`  ORDER BY `categories`.`id` ASC LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  `users`.* FROM `users` WHERE `users`.`id` = 3 LIMIT 1[0m  [["id", 3]]
+  [1m[35mTech Load (0.1ms)[0m  SELECT  `teches`.* FROM `teches` WHERE `teches`.`id` = 6 LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_detail_incident'[0m
+  [1m[35mIncidentsState Load (0.1ms)[0m  SELECT  `incidents_states`.* FROM `incidents_states` WHERE `incidents_states`.`id` = 7 LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_incidents'[0m
+  [1m[35m (0.4ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'dispatch_incidents'
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false[0m
+  [1m[35m (0.3ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'
+  [1m[36mCategory Load (0.2ms)[0m  [1mSELECT `categories`.* FROM `categories`[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_categories_incidents'  [["name", "edit_categories_incidents"]]
+  [1m[36mSousCategory Load (0.2ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 1[0m
+  [1m[35mSousCategory Load (0.2ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 5
+  [1m[36mSousCategory Load (0.2ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 6[0m
+  [1m[35mSousCategory Load (0.2ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 7
+  [1m[36mSousCategory Load (0.2ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 8[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 9
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 10[0m
+  [1m[35mSousCategory Load (0.1ms)[0m  SELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 11
+  [1m[36mSousCategory Load (0.1ms)[0m  [1mSELECT `sous_categories`.* FROM `sous_categories` WHERE `sous_categories`.`category_id` = 12[0m
+  [1m[35m (0.2ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_lvl_incident'
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'edit_incidents'[0m  [["name", "edit_incidents"]]
+  [1m[35mFileIncident Load (0.4ms)[0m  SELECT `file_incidents`.* FROM `file_incidents` WHERE `file_incidents`.`incident_id` = 128
+  Rendered incidents/_form_edit.html.erb (152.6ms)
+  [1m[36mArchive Load (0.3ms)[0m  [1mSELECT * FROM `archives` WHERE `incident_id` = 128[0m
+  Rendered incidents/edit.html.erb within layouts/application (271.2ms)
+  [1m[35m (0.1ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_procedure'
+  [1m[36m (0.0ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_procedures'[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM `incidents` WHERE `incidents`.`user_id` = 3 AND `incidents`.`incident_state_id_for_user_id` IN (4, 8)
+  [1m[36m (0.0ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_categories'[0m
+  [1m[35m (0.0ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_tech'
+  [1m[36m (0.0ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_users'[0m
+  [1m[35m (0.0ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_rights'
+  [1m[36m (0.0ms)[0m  [1mSELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'create_new_agency'[0m
+  [1m[35m (0.0ms)[0m  SELECT `rights`.`assistant` FROM `rights` WHERE `rights`.`name` = 'view_index_agencies'
+  Rendered layouts/_header.html.erb (9.9ms)
+  Rendered layouts/_footer.html.erb (0.2ms)
+Completed 200 OK in 956ms (Views: 864.8ms | ActiveRecord: 17.5ms)
+
+
+Started GET "/assets/application-f16e9f90774d66b6c243f7942a31982c.css?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/jquery-4075e3b7b3964707c653f61b66f46dec.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/bootstrap/affix-47fdb29aafe4a822de223cafa771308d.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/bootstrap/alert-b393e4a3c7100b53fff3a72ca2563886.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/bootstrap/collapse-2388931b28922c87b9d067e091918f79.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/bootstrap/dropdown-a2d3f333085e0bc153c5d488f9c25beb.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/bootstrap/tab-b0e0085ddbe601df70783e3b00a44a66.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/bootstrap/button-a2a5158d99c02fae2b04bc27d371a4b6.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/bootstrap/modal-8d7b95e2d768d4ece3faa24139930b0b.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/bootstrap/scrollspy-3f18290693c0ab56cf81606aa54c14af.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/bootstrap/tooltip-f84ca665f20377fe06f80929f5951ab6.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/bootstrap/popover-05732afcfe8b7487e51d82ce3f8a0c14.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/bootstrap-sprockets-8424ed52c356487c7b529345da7d256c.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/ckeditor/init-8ef0e941b8cbe6163deaf34190cbefb8.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/ckeditor/ckeditor-bcd3a7251d8340ec678abd66f8fb06aa.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/bootstrap/carousel-ab9494d16078563fa942fa36f51606ce.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+
+
+Started GET "/assets/bootstrap-slider-d3cc2c020927c831ec390d7e3f792522.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+Started GET "/assets/agencies-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/chartkick-2fb2ca4a6204233d47f34bbf2e65dd43.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/bootstrap/transition-9486a84e28a255d97b73f24291099503.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/categories-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/ckeditor/config-4f07e116ae9e8138b8889bd06c920c37.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/fixedheadertable-cb1be93c8be9b97ead45a72c234fe895.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/incidents-5fbc77d42db3e44b3d43dc43f86022f7.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/jquery.tablesorter.min-f57356c4810970658fb35dbe323ca7e6.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/application-eb5dd600d1301047e16680b131a6a101.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/nprogress-2f25a084a78a2393316d04955efb7e3a.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/pages-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/jquery_ujs-f9f4ae336c0d19804775e0e2c8749423.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+
+
+Started GET "/assets/responses-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+Started GET "/assets/scaffold-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/sessions-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/sous_categories-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/users-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/teches-0bc27e2168727cafa1252f703137df60.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/jquery.tablesorter.widgets.min-8f71eea74459953de1042a4bad3bd92c.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-build-table-e49cd765d80f74e0f0348cee45f5b2e6.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-chart-1bf3b485102fb00c9eb52f13a61102dc.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-columnSelector-2fc9ca12aa0260a293dd9493129e4a70.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/procedures-798fe5b55c5655b004f8a10d74a38331.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-cssStickyHeaders-3024dbb41cd1f92aedf9ae7b8613d56b.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-alignChar-74c3e4a0314ff0a71cf13ed8c47a004c.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+
+
+Started GET "/assets/widgets/widget-filter-formatter-select2-a6a27a5b14c69d7ba7b7c17fa9bb220e.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+Started GET "/assets/widgets/widget-filter-formatter-html5-393f71725b7cd544e766fe66eb315d46.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-filter-formatter-jui-5db0d8353ee0ac85b22264e77b4c8319.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-columns-5a446b23c7fb6d867882eccb90e2a5a5.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-filter-557c99c2f8259007f3821d3a446a3d94.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-editable-3975d19954757e3f4bde7d62fecd3c52.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-grouping-692e82080464fd41f08ac9a682c29d69.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-headerTitles-02697777850d2b644736ae8671383f87.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-lazyload-6c4ad328c4e9cdf1d2097af789e72a21.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-filter-type-insideRange-8b95f665db49d97fc236848b554f7b1a.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-output-c821771a5334c4b5f15503430257921d.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-formatter-5b0cb006f5fdb24a38fea58b225e39f0.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-print-899cde7817744e54f06dec26b2f98db6.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-reflow-56f2c99a90d0dc8304387f9ebd7ad4a0.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-math-d5c74a6c0603847f46a760bdd3ed5979.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-resizable-39b0e1bcd828c20192ab540291a1d211.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-saveSort-720b1299201c7281afd78d0c73cc813f.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-scroller-7216e756c68162b85c0b7d7728626268.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-sort2Hash-e24201555027c9a43da39568d6fe6aec.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-sortTbodies-a321e96954a4819c14650089f8088d8b.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-repeatheaders-a8b5e3be014210669ba6eebe6a94e680.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-stickyHeaders-0263445881d7d29b19352e52f7c7359e.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-pager-defd1e7a0e143338c703bee48acce1eb.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-toggle-fdeacb1e549e2739f263000653a6523c.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-view-c8fd6001b0c56d07fa17bf7b78aa581e.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-uitheme-aad17d537eb3baa3cc88234fea6216b6.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-staticRow-b80293fd047a7d3128b982d0bf0b72b1.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/theme.bootstrap.min.css" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/widgets/widget-storage-68810e1cbd416c5e18e8aebe5631af12.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/dropzone-72163b9915c12ff00a48dcc0d8608b6c.js?body=1" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/debut_light.png" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/032-book-014a57b948346291a6744678894110dd.png" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/267-plus-3fad5fdffb6c7169ebd54f15fb21c0d5.png" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/accidents-875d745b817bce6dafabc28106232907.png" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/066-lifebuoy-d4635219c4b9c425f4d0a7ab0b167067.png" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/264-warning-1cb0349277e8ebbf503e9b2d4b090af6.png" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+
+
+Started GET "/assets/ICOMOON/32pxBlack/114-user-7b2b82480e9f9abeb0994c1c04d7e6ef.png" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+Started GET "/assets/ICOMOON/32pxBlack/115-users-66266d46587448a4a66835e845df2718.png" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/ICOMOON/32pxBlack/004-office-0f2a869322ca3b713ad4e668578f527b.png" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/cle-c319308aead7c1c410e868f42fbc6158.png" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+Started GET "/assets/ckeditor/config.js?t=F969" for 127.0.0.1 at 2016-05-24 10:29:34 +0200
+
+
+
+
+Started GET "/assets/ckeditor/lang/fr.js?t=F969" for 127.0.0.1 at 2016-05-24 10:29:35 +0200
+Started GET "/assets/ckeditor/skins/moono/editor_gecko.css?t=F969" for 127.0.0.1 at 2016-05-24 10:29:35 +0200
+
+
+Started GET "/assets/ckeditor/styles.js?t=F969" for 127.0.0.1 at 2016-05-24 10:29:35 +0200
+
+
+Started GET "/assets/ckeditor/skins/moono/icons.png" for 127.0.0.1 at 2016-05-24 10:29:35 +0200

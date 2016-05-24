@@ -110,6 +110,8 @@
     <p class="form-control ">
       <%= @incident.lvl_urgence_user %>
     </p>
+    <% end %>
+    
   </div>
 
 
@@ -120,7 +122,7 @@
       <% if Right.where(name: "edit_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
       <%=f.cktext_area :content, :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control "%>
       <% else %>
-      <%=f.cktext_area :content, :disabled => "disabled", :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control "%>
+      <%=f.cktext_area :content, :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control ", :disabled => "disabled"%>
       <% end %>
     </div>
 
@@ -151,5 +153,4 @@
     </div>
   </div>
 </div>
-<% end %>
 <% end %>
