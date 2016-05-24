@@ -84,11 +84,18 @@ else
         echo "can't do cd"
 fi
 
+if /bin/bash -l -c 'rake db:migrate RAILS_ENV=production'; then
+  echo "Raked !"
+else
+  echo "Can't do Rake ! Cruel World !!!!"
+fi
+
 if /bin/bash -l -c 'puma -e production -d'; then
         echo "puma started"
 else
         echo "can't start puma"
 fi
+
 EOF
 
 exit 0
