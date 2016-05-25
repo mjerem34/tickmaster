@@ -15,7 +15,7 @@
   left: 60px !important;
 }
 .header-copy{
-  // visibility: hidden;
+  visibility: hidden;
 }
 thead .header {
   margin-top: -30px !important;
@@ -49,8 +49,11 @@ tbody td {
   word-wrap: break-word;
   overflow: hidden;
 }
-thead {
-  background: $background-connected;
+.Nuit>thead {
+  background: $background-connected-black;
+}
+.Jour>thead {
+  background: $background-connected-white;
 }
 .tableau-de-bord {
   label {

@@ -1,4 +1,4 @@
-<div class="nav-side-menu">
+<div class="nav-side-menu <%= current_user != nil ? current_user.mode : 'Jour'%>">
   <a class="brand">
     TickMaster
   </a>
@@ -16,7 +16,13 @@
         <li><%= link_to "Créer procédure", new_procedure_path, class: "", :method => :get %></li>
         <% else %>
         <% if Right.where(name: "view_procedures").pluck(current_user.tech.name).join('')  == 'true' %>
+
+        <% if current_user.mode == "Jour" %>
         <li><%= image_tag("ICOMOON/32pxBlack/032-book.png", size: "16x16", alt: "", class: "fa-img")%>
+          <% elsif current_user.mode == "Nuit" %>
+        <li><%= image_tag("ICOMOON/16px/0032-book.png", size: "16x16", alt: "", class: "fa-img")%>
+          <% end %>
+
         <i class="fa fa-gift fa-lg"></i>
         <%= link_to "Procedures", procedures_path, class: "", method: :get, style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;"  %></li>
         <% end %>
@@ -121,7 +127,7 @@
 </div>
 
 <header>
-    <nav class="navbar navbar-default nav-collapse navbar-fixed-top navbar-right">
+    <nav class="navbar navbar-default nav-collapse navbar-fixed-top navbar-right <%= current_user != nil ? current_user.mode : 'Jour'%>">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="title-site navbar-brand openIt" href='/' data-no-turbolink="true">TickMaster</a>
@@ -135,6 +141,11 @@
           <ul class="dropdown-menu">
             <li><a href="#"><%= link_to"#{current_user.name} #{current_user.surname}", profil_user_path(current_user)%></a></li>
             <li><%= link_to "Se déconnecter", signout_path, method: :get %></li>
+            <% if current_user.mode == "Jour" %>
+            <li><%= link_to "Passer en mode nuit", mode_nuit_jour_user_path(current_user), method: :get %></li>
+            <% else %>
+            <li><%= link_to "Passer en mode jour",  mode_nuit_jour_user_path(current_user), method: :get %></li>
+            <% end %>
           </ul>
 
         </li>

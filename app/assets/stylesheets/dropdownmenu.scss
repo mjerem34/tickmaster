@@ -48,8 +48,12 @@
 }
 
 /*SUBMENUS DROPDOWN MULTIPLE ------------ fin*/
-.dropdown ul {
-  background: $background_dropdown;
+.dropdown ul.Jour {
+  background: $background-connected-white;
+  border-radius: 0;
+}
+.dropdown ul.Nuit {
+  background: $background-connected-black;
   border-radius: 0;
 }
 .dropdown ul li{

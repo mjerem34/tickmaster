@@ -111,7 +111,7 @@
       <%= @incident.lvl_urgence_user %>
     </p>
     <% end %>
-    
+
   </div>
 
 
@@ -147,7 +147,11 @@
     <div class="actions">
       <% if !clotured_or_rejected?(@incident) %>
       <% if Right.where(name: "save_changes_of_edit").pluck(current_user.tech.name).join('')  == 'true' %>
-      <%= f.submit "Valider", id: "sendButton", class: "btn btn-success btn-save btn-to-disable" %>
+      <ul class="buttons-edit-incident-right valider">
+        <li>
+          <%= f.submit "Enregistrer", id: "sendButton", class: "sendButton btn btn-save btn-to-disable" %>
+        </li>
+      </ul>
       <% end %>
       <% end %>
     </div>

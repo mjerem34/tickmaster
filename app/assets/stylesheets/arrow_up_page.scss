@@ -6,13 +6,28 @@
   float: right;
   right: 8px;
   bottom: 20px;
- background: rgba(0, 0, 0, 0.3);
- color: white;
  border-radius: 3px;
  text-decoration: none;
  visibility: hidden;
  font-size: 3em;
 }
-.updown-arrow:active{
- color: $background-navbar-connected;
+.updown-arrow:active.Jour{
+ color: $background-navbar-connected-jour;
+ background: rgba(0, 0, 0, 0.3);
+
+}
+.updown-arrow:active.Nuit{
+ color: $background-navbar-connected-nuit;
+ background: rgba(255, 255, 255, 0.3);
+
+}
+.updown-arrow.Jour{
+color: $background-navbar-connected-jour;
+background: rgba(0, 0, 0, 0.3);
+
+}
+.updown-arrow.Nuit{
+ color: $background-navbar-connected-nuit;
+ background: rgba(255, 255, 255, 0.3);
+
 }

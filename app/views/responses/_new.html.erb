@@ -69,4 +69,11 @@
   <% end %>
 <% end %>
 <br>
-<button type="button" class="btn btn-danger btn-align btn-annuler" name="button">Annuler</button>
+<button type="button" class="btn btn-danger btn-align btn-annuler" name="button">Annuler</button><br><br>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".btn-annuler").click(function(){
+      $("#form_response").slideToggle(500);
+    });
+  });
+</script>

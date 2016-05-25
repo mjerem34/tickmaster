@@ -14,18 +14,18 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
     <%= favicon_link_tag 'favicon.ico' %>
   </head>
-  <% if @title == "Se connecter" || @title == "S'inscrire" || @title == "Accueil" || @title == "Accueil "%>
-  <%= content_tag(:body, '', id: 'not-connected') %>
+  <% if @title == "Se connecter" || @title == "S'inscrire" || @title == "Accueil" || @title == "Identifiants oubliés"%>
+  <%= content_tag(:body, '', id: 'not-connected', class: "Jour") %>
   <% else %>
-  <%= content_tag(:body, '', id: 'connected') %>
+  <%= content_tag(:body, '', id: 'connected', class: current_user.mode) %>
   <% end %>
   <!--Header-->
   <%= render 'layouts/header' %>
   <!--Header-->
   <% if @title == "Se connecter" || @title == "S'inscrire" || @title == "Accueil" || @title == "Identifiants oubliés"%>
-  <div class="isOpen" id="content">
+  <div class="isOpen" id="content", class="Jour">
     <% else %>
-    <div id="content">
+    <div id="content", class="<%= current_user.mode %>">
       <% end %>
 
       <% @name_app = "Tick{Master}" %>
@@ -79,7 +79,7 @@
       </script>
 
       <% if @title != "Accueil" %>
-      <a class="updown-arrow" href="#">&#9650;</a>
+      <a class="updown-arrow <%= current_user != nil ? current_user.mode : 'Jour'%>" href="#">&#9650;</a>
       <% end %>
       <script type="text/javascript">
         $(window).scroll(function () {

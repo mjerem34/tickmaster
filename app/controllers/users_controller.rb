@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).order("created_at asc")
+    @incidents = Incident.where(user_id: current_user.id, incident_state_id_for_user_id: [1, 2, 3, 4, 5, 6, 8, 9, 11, 12]).includes(:user, :category, :sous_category).order("created_at asc")
     unless params[:order_by].nil?
       @incidents = @incidents.reorder(params[:order_by])
       respond_to do |format|
@@ -110,6 +110,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def mode_nuit_jour
+    current_user.update(mode: "Jour") if current_user.mode == ""
+    current_user.mode == "Jour" ? current_user.update(mode: "Nuit") : current_user.update(mode: "Jour")
+    redirect_to :back
+  end
 
   private
 

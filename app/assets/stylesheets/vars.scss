@@ -1,6 +1,7 @@
 /*FONTS*/
 /*color*/
-$text-color: #111;
+$text-color-jour: #111;
+$text-color-nuit: #EEE;
 $text-color-title: #47b8e0 ;
 $link-hover:#FFF !important;
 $text-color-navbar: #000 !important;
@@ -22,15 +23,20 @@ $font-size-extra-little: 1em;
 
 
 /*BACKGROUNDS*/
-$background-link-lateral-bar-open: #EEE;
-$special_color: #47b8e0;
+$background-link-lateral-bar-open-jour: #EEE;
+$background-link-lateral-bar-open-nuit: #222;
+$special_color: #ff7473;
 $background: url("test.png") no-repeat fixed 20px 70px;
-$background-connected: url("debut_light.png") repeat fixed;
-$background-navbar-connected: #FFF;
-$background-content: $background;
+$background-connected-white: url("debut_light.png") repeat fixed;
+$background-connected-black: url("debut_dark.png") repeat fixed;
+
+$background-navbar-connected-jour: #FFF;
+$background-navbar-connected-nuit: #222;
+$background-content-jour: $background-connected-white;
+$background-content-nuit: $background-connected-black;
+
 $background-td-hover: rgba(#000, 0.2);
 $background-new-user: rgba(#000,0.0);
-$background_dropdown: $background-connected;
 $background_dropdown-hover: rgba(#fff, 1);
 $background_form: #f5f5f5;
 $background-nav-side-menu-open-hover: #34314c ;

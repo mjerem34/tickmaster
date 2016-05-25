@@ -49,14 +49,18 @@
 body{
   font-family: $text-font;
   font-weight: $font-weight;
-  color: $text-color;
   background: $background;
   background-size: 100% 100%;
+}
+body.Jour{
+  color: $text-color-jour;
+}
+body.Nuit{
+  color: $text-color-nuit;
 }
 h1.home{
   text-align:center;
   padding-top: 10px;
-  color: $text-color;
   font-weight: 700;
 }
 /*navbar ---------- fin*/
@@ -72,9 +76,8 @@ div.field.select_yes_no{
   font-weight: $font-weight;
 }
 #not-connected{
-  background-color: $background-navbar-connected;
+  background-color: $background-navbar-connected-jour;
   background-size: 100% 100%;
-
 }
 #not-connected #user_tech_ {
   color: white;
@@ -85,12 +88,12 @@ div.field.select_yes_no{
 }
 /*CONTENU UNIQUEMENT QUAND DECONNECTÉ -------- FIN*/
 /*CONTENU UNIQUEMENT QUAND CONNECTÉ*/
-#connected, #connected > #content{
-  background: $background-connected;
-  color: $text-color;
+#connected.Jour{
+  background: $background-content-jour;
 }
-#connected .field {
-  color: black;
+#connected.Nuit{
+  background: $background-content-nuit;
+  color: $text-color-nuit;
 }
 #connected textarea {
   width: 50%;

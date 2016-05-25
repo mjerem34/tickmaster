@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       get :to_treat
       get :profil
       get :download
+      get :mode_nuit_jour
       get :forget_identifiers
       post :forget_identifiers
     end
@@ -75,6 +76,7 @@ Rails.application.routes.draw do
   get '/signout', to: 'sessions#destroy'
   get '/rights', to: 'rights#index'
   get '/agencies', to: 'agencies#index'
+  # get '/nuit_jour', to: 'users#mode_nuit_jour'
   # get '/test_exception', to: 'application#test_exception'
 
 

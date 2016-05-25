@@ -6,19 +6,20 @@
   cursor: pointer;
 }
 .navbar {
-  background: transparent;
 
   // box-shadow: 5px 5px 10px rgba(#222, 0.5);
   border-bottom-color: $border-bottom-color-navbar;
 }
-#connected .navbar {
-  background: $background-navbar-connected;
+#connected .navbar.Jour {
+  background: $background-navbar-connected-jour;
   background-size: 100% 100%;
 
   border-radius: 0;
 }
-.title-on-page{
-  color: $text-color;
+#connected .navbar.Nuit {
+  background: $background-navbar-connected-nuit;
+  background-size: 100% 100%;
+  border-radius: 0;
 }
 
 header .button {
@@ -42,7 +43,7 @@ header .button:focus {
 .whoisconnected{
   display: inline-block;
   list-style: none;
-  color: $text-color;
+  color: $text-color-jour;
   position: absolute;
   right:20px;
   top:10px;

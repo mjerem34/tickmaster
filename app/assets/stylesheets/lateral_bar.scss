@@ -8,8 +8,11 @@
   height: 100%;
   padding-top: 10px;
 }
-#connected > .nav-side-menu{
-  background: $background-connected;
+#connected > .nav-side-menu.Jour{
+  background: $background-connected-white;
+}
+#connected > .nav-side-menu.Nuit{
+  background: $background-connected-black;
 }
 .nav-side-menu .brand {
   visibility: hidden;
@@ -60,7 +63,7 @@
 .nav-side-menu ul .active,
 .nav-side-menu li .active {
   border-left: $border-left-nav-side-menu-buttons;
-  background-color: $background;
+  background-color: $background-connected-black;
 }
 .nav-side-menu ul .sub-menu li.active,
 .nav-side-menu li .sub-menu li.active {
@@ -70,9 +73,17 @@
 .nav-side-menu li .sub-menu li.active a {
   color: $link-hover;
 }
-.nav-side-menu ul .sub-menu li,
-.nav-side-menu li .sub-menu li {
-  background-color: $background-link-lateral-bar-open;
+.nav-side-menu.Jour ul .sub-menu li,
+.nav-side-menu.Jour li .sub-menu li {
+  background-color: $background-link-lateral-bar-open-jour;
+  border: none;
+  line-height: 28px;
+  border-bottom: $border-bottom-nav-side-menu-open;
+  padding-left: 0;
+}
+.nav-side-menu.Nuit ul .sub-menu li,
+.nav-side-menu.Nuit li .sub-menu li {
+  background-color: $background-link-lateral-bar-open-nuit;
   border: none;
   line-height: 28px;
   border-bottom: $border-bottom-nav-side-menu-open;
@@ -103,7 +114,6 @@
   padding-bottom: 2.5%;
   padding-top: 2.5%;
   text-decoration: none;
-  color: $text-color;
   // padding-right: 30px;
 }
 .sub-menu.collapse.in li a {

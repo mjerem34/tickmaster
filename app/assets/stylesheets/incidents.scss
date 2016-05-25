@@ -8,7 +8,6 @@ div.response-hover-cellule {
   width: 800px;
   height: 450px;
 
-  color: black;
   background: floralwhite;
   border-radius: 3px;
   box-shadow: 0px 0px 2px grey;
@@ -26,7 +25,12 @@ div.response-hover-cellule {
     margin-top: -25px;
   }
 }
-
+.aucun-incident-div{
+  padding-top: 40vh;
+  h1{
+    text-align: center;
+  }
+}
 
 
 .input-file-container {
@@ -39,7 +43,6 @@ div.response-hover-cellule {
   display: block;
   padding: 14px 45px;
   background: #39D2B4;
-  color: #fff;
   font-size: 1em;
   transition: all .4s;
   cursor: pointer;

@@ -138,10 +138,11 @@
 </div>
 <% end %>
 <% if !clotured_or_rejected?(@incident)%>
-<button class="btn btn-primary btn-response btn-response-icon btn-response-bottom" name="button" type="button">Message</button>
 <div id="form_response">
   <%= render 'responses/new' %>
 </div>
+<ul class="buttons-edit-incident-right buttons">
+<li><button class="btn btn-response" name="button" type="button"><%= image_tag "ICOMOON/32pxBlack/108-bubble.png", size: "16x16"%>Message</button></li>
 
 <script>
   $(document).ready(function () {
@@ -203,29 +204,42 @@
   });
 </script>
 <% if @incident.incident_state_id_for_tech != 12 && Right.where(name: "ask_for_reaffect").pluck(current_user.tech.name).join('')  == 'true' && @incident.tech_id == current_user.id && !clotured_or_rejected?(@incident)%>
-<button class="btn btn-warning btn-reaffect" name="button" type="button">Réaffecter</button>
+<li><button class="btn btn-reaffect" name="button" type="button"><%= image_tag "ICOMOON/32pxBlack/305-shuffle.png", size: "16x16"%>Réaffecter</button></li>
 <% end %>
 <% if Right.where(name: "cloture_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
-<button class="btn btn-success btn-cloture" name="button" type="button">Cloturer</button>
+<li><button class="btn btn-cloture" name="button" type="button"><%= image_tag "ICOMOON/32pxBlack/058-ticket.png", size: "16x16"%>Cloturer</button></li>
 <% end %>
 <% if Right.where(name: "reject_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
-<button class="btn btn-danger btn-reject" name="button" type="button">Rejeter</button>
+<li><button class="btn btn-reject" name="button" type="button"><%= image_tag "ICOMOON/32pxBlack/272-cross.png", size: "16x16"%>Rejeter</button></li>
 <% end %>
 <% if RightsController.verify_rights_for("create_procedure", current_user) %>
 <% @reps = "" %>
 <% @responses.each do |response| %>
-    <% @reps = @reps + response.content + ";;" %>
-  <% end %>
-  <% Rails.logger.debug { "______________________" }%>
-  <% Rails.logger.debug { @reps }%>
-  <% Rails.logger.debug { "______________________" }%>
-<%= link_to "Procedure", new_procedure_path(nom: @incident.title,
-  contenu: @incident.content, category_id: @incident.category_id,
-  sous_category_id: @incident.sous_category_id, messages: @reps),
-  class: "btn btn-warning" %>
+<% @reps = @reps + response.content + ";;" %>
+<% end %>
+<li><%= link_to "#{image_tag "ICOMOON/32pxBlack/006-pencil.png", size: "16x16"} Procedure".html_safe, new_procedure_path(nom: @incident.title,
+contenu: @incident.content, category_id: @incident.category_id,
+sous_category_id: @incident.sous_category_id, messages: @reps), class: "btn btn-procedure" %></li>
+<% end %>
+</ul>
+<% end %>
 
+
+<% if clotured_or_rejected?(@incident)%>
+  <% if RightsController.verify_rights_for("create_procedure", current_user) %>
+    <ul class="buttons-edit-incident-right">
+    <% @reps = "" %>
+    <% @responses.each do |response| %>
+      <% @reps = @reps + response.content + ";;" %>
+    <% end %>
+    <li><%= link_to "#{image_tag "ICOMOON/32pxBlack/006-pencil.png", size: "16x16"} Procedure".html_safe, new_procedure_path(nom: @incident.title,
+    contenu: @incident.content, category_id: @incident.category_id,
+    sous_category_id: @incident.sous_category_id, messages: @reps), class: "btn btn-procedure" %></li>
+      </ul>
+  <% end %>
 <% end %>
-<% end %>
+
+
 <%else%>
 <% @title = "Accès non autorisé"%>
 <%= flash.now[:notice] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>

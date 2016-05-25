@@ -17,7 +17,7 @@
 
 class User < ActiveRecord::Base
   module Usermod
-    attr_accessor :pseudo, :id, :email, :name, :surname, :tel, :mobile, :tech_id, :agency_id
+    attr_accessor :pseudo, :id, :email, :name, :surname, :tel, :mobile, :tech_id, :agency_id, :mode
   end
 
   has_many :user_incidents, class_name: 'Incident', foreign_key: 'user_id'
@@ -58,6 +58,7 @@ class User < ActiveRecord::Base
   before_save { |user| user.email.downcase! }
   before_save { |user| user.name.capitalize! }
   before_save { |user| user.surname.capitalize! }
+  before_create {|user| user.mode = "Jour"}
 
   def self.authenticate_with_salt(id, cookie_salt)
     user = find_by_id(id)

@@ -1,6 +1,6 @@
 <% if !current_user.nil? %>
   <% @title = "Mes incidents"%>
-
+ <% if @incidents.count > 0 %>
 <div class="tri-cards-list-incidents">
   <%= select_tag 'Tri', "
   <option data-tri='id desc'>Récents</option>
@@ -55,6 +55,7 @@
         </div>
   </div>
   <% end %>
+
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -70,6 +71,14 @@ $(document).ready(function(){
   });
 });
 </script>
+<% else %>
+<div class="row">
+  <div class="col-md-12 aucun-incident-div"><h1>
+    Vous n'avez aucun incident actif pour le moment.
+  </h1></div>
+</div>
+<% end %>
+
 <% else %>
 <% @title = "Accès non autorisé"%>
 <%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>

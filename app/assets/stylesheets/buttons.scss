@@ -1,83 +1,107 @@
-.btn-response, .btn-cloture, .btn-reject, .btn-reaffect, .btn-cancel, .submitforms, .btn-save{
+.btn-se-deco{
+  background: $btn-se-deco-color;
+  color: $link-hover;
+}
+.sendButton{
+  background: url("ICOMOON/32pxBlack/273-checkmark.png") no-repeat 60px;
+  background-size: 16px 16px;
+  border-width: 1px;
+}
+.Jour>.sendButton{
+  border-color: white;
+}
+.Nuit>.sendButton{
+  border-color: black;
+}
+.Jour>.sendButton:hover{
+  color:$text-color-jour;
+}
+.Nuit>.sendButton:hover{
+  color:$text-color-nuit;
+}
+.buttons-edit-incident-right.buttons{
+  bottom: 50px;
+}
+.buttons-edit-incident-right.valider{
+  bottom: 5px;
+}
+.buttons-edit-incident-right{
+  list-style: none;
   position:fixed;
   right:5px;
-  background-position: center left 70px;
-  background-repeat: no-repeat;
-  color: $text-color;
-
   @media screen and(min-width:1600px) {
     width: 18%;
   }
   @media screen and(min-width:1105px) and(max-width:1599px) {
     width:10%;
-    background-position: left;
   }
   @media screen and(min-width:768px) and(max-width:1104px) {
     width: 35px;
-    text-indent: -999999999px;
   }
   @media screen and(min-width:413px) and(max-width:767px) {
     width:80%;
-    background-position: center;
   }
   @media screen and(max-width:412px) {
     width:80%;
+  }
+}
+li{
+  margin-bottom: 5px;
+}
+.Jour>.link_procedurer{
+  color: $text-color-jour !important;
+}
+.Nuit>.link_procedurer{
+  color:$text-color-nuit !important;
+}
+.Jour>a{
+  text-decoration: none;
+  color: $text-color-jour;
+}
+.Nuit>a{
+  text-decoration: none;
+  color: $text-color-nuit;
+}
+.Jour>.buttons-edit-incident-right .btn{
+  border-color: black;
+  color: $text-color-jour;
+}
+.Nuit>.buttons-edit-incident-right .btn{
+  border-color: white;
+  color: $text-color-nuit;
+}
+.buttons-edit-incident-right .btn{
+  background-color: transparent;
+  border-width: 1px;
+  text-decoration: none;
+  img{
+    margin-right: 10px;
+  }
+  background-size: 16px 16px;
+  @media screen and(min-width:1600px) {
+    width: 100%;
+  }
+  @media screen and(min-width:1105px) and(max-width:1599px) {
+    width:100%;
+  }
+  @media screen and(min-width:768px) and(max-width:1104px) {
+    width: 100%;
+    text-indent: -999999999px;
+  }
+  @media screen and(min-width:413px) and(max-width:767px) {
+    width:100%;
     background-position: center;
   }
-
-}
-.btn-se-deco{
-  background: $btn-se-deco-color;
-  color: $link-hover;
-}
-.btn-response{
-  background:url("ICOMOON/16px/0108-bubble.png") 8px no-repeat;
-  bottom: 10px;
-}
-.btn-save{
-  background:url("ICOMOON/16px/0273-checkmark.png") 8px no-repeat;
-  bottom: 170px;
-}
-.btn-reaffect{
-  background:url("ICOMOON/16px/0006-pencil.png") 8px no-repeat;
-  bottom: 130px;
-}
-.btn-reject{
-  background:url("ICOMOON/16px/0272-cross.png") 8px no-repeat;
-  bottom: 90px;
+  @media screen and(max-width:412px) {
+    width:100%;
+    background-position: center;
+  }
 }
 .btn-cancel{
-  background:url("ICOMOON/16px/0272-cross.png") 8px no-repeat;
-  bottom: 50px;
-}
-.btn-cloture{
-  background:url("ICOMOON/16px/0058-ticket.png") 8px no-repeat;
-  bottom: 50px;
-}
-
-.btn-response.isOpen{
-  width: 48px;
-  height: 40px;
-}
-.btn-reject.isOpen, .btn-cloture.isOpen, .btn-response.isOpen, .submitforms.isOpen, .btn-reaffect.isOpen{
-  background-position: center;
-  left:5px;
-  width: 48px;
-  height: 40px;
-  text-indent: -9999px;
-}
-
-.btn-reject.isOpen{
-  bottom: 100px;
-}
-.btn-cloture.isOpen{
-  bottom: 55px;
-}
-.btn-reaffect.isOpen{
-  bottom: 145px;
+  background:url("ICOMOON/32pxBlack/272-cross.png") 8px no-repeat;
 }
 .submitforms{
-  background-image:image-url("ICOMOON/16px/0273-checkmark.png");
+  background-image:image-url("ICOMOON/32pxBlack/273-checkmark.png");
   bottom:10px;
 }
 .btn-align{
@@ -93,19 +117,17 @@
   width: 40px;
   height:40px;
 
-  background:image-url("ICOMOON/16px/0006-pencil.png") no-repeat center;
+  background:image-url("ICOMOON/32pxBlack/006-pencil.png") no-repeat center;
 }
 .btn-edit-category{
  width: 35px;
  height:35px;
 
- background:image-url("ICOMOON/16px/0006-pencil.png") no-repeat center;
+ background:image-url("ICOMOON/32pxBlack/006-pencil.png") no-repeat center;
 }
 .btn-create-category{
   width: 35px;
   height:35px;
-  background:image-url("ICOMOON/16px/0267-plus.png") no-repeat center;
-
 }
 .btn-loading{
   background:url("ICOMOON/loading.gif") no-repeat center;

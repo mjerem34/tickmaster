@@ -1,6 +1,5 @@
 // Formulaire d'inscription et formulaire d'inscription
 .row-top .field li {
-  color: $text-color;
   list-style: none;
 }
 
@@ -9,9 +8,6 @@ form#new_user,
 form.connect-user,
 form.edit_agency,
 form.edit_user {
-  label {
-    color: $text-color;
-  }
   @media screen and(min-width:1600px) {
     left: 35%;
     .email {
@@ -127,15 +123,9 @@ form#new_user, form.connect-user {
 }
 //Formulaire de création d'incident
 form#new_incident {
-  .lvl_urgence_slider{
-    color: $text-color;
-  }
   min-width: 200px;
   max-width: 1600px;
   position: absolute;
-  label {
-    color: $text-color;
-  }
   @media screen and(min-width:1600px) {
     left: 10%;
     width: 85%;
@@ -160,9 +150,6 @@ form#new_procedure, form.edit_procedure {
   min-width: 200px;
   max-width: 900px;
   position: absolute;
-  label {
-    color: $text-color;
-  }
   @media screen and(min-width:1600px) {
     left: 10%;
     width: 100%;
@@ -191,9 +178,6 @@ form.edit_incident {
   min-width: 200px;
   max-width: 900px;
   position: relative;
-  label {
-    color: $text-color;
-  }
   @media screen and(min-width:1600px) {
     left: 10%;
     width: 100%;
