@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20160525075243) do
     t.integer  "receiver_id",      limit: 2
     t.string   "ip_adress_sender", limit: 255
     t.integer  "pc_id",            limit: 4
-    t.string   "file",             limit: 255
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
   end
@@ -56,28 +55,19 @@ ActiveRecord::Schema.define(version: 20160525075243) do
   create_table "file_archives", force: :cascade do |t|
     t.integer  "archive_id",   limit: 4
     t.string   "file",         limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
     t.integer  "file_size",    limit: 4
     t.string   "content_type", limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "file_incidents", force: :cascade do |t|
     t.integer  "incident_id",  limit: 4
     t.string   "file",         limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
     t.integer  "file_size",    limit: 4
     t.string   "content_type", limit: 255
-  end
-
-  create_table "file_msg_procedures", force: :cascade do |t|
-    t.integer  "msg_procedure_id", limit: 4
-    t.string   "file",             limit: 255
-    t.integer  "file_size",        limit: 4
-    t.string   "content_type",     limit: 255
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "file_procedures", force: :cascade do |t|
@@ -92,19 +82,19 @@ ActiveRecord::Schema.define(version: 20160525075243) do
   create_table "file_responses", force: :cascade do |t|
     t.integer  "response_id",  limit: 4
     t.string   "file",         limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
     t.integer  "file_size",    limit: 4
     t.string   "content_type", limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "file_users", force: :cascade do |t|
     t.integer  "user_id",      limit: 4
     t.string   "file",         limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
     t.integer  "file_size",    limit: 4
     t.string   "content_type", limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "incidents", force: :cascade do |t|
@@ -117,7 +107,7 @@ ActiveRecord::Schema.define(version: 20160525075243) do
     t.integer  "agency_id",                     limit: 2
     t.integer  "lvl_urgence_user",              limit: 1
     t.integer  "lvl_urgence_tech",              limit: 1
-    t.string   "lvl_of_incident",               limit: 45
+    t.integer  "lvl_of_incident",               limit: 4
     t.boolean  "cloture_user"
     t.boolean  "cloture_tech"
     t.integer  "pc_id",                         limit: 4
@@ -151,13 +141,6 @@ ActiveRecord::Schema.define(version: 20160525075243) do
     t.datetime "updated_at",                       null: false
   end
 
-  create_table "msg_procedures", force: :cascade do |t|
-    t.integer  "id_procedures", limit: 4
-    t.text     "contenu",       limit: 65535
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-  end
-
   create_table "pcs", force: :cascade do |t|
     t.string   "ip_adress",     limit: 255
     t.string   "serial_number", limit: 255
@@ -184,7 +167,6 @@ ActiveRecord::Schema.define(version: 20160525075243) do
     t.integer  "receiver_id",      limit: 2
     t.string   "ip_adress_sender", limit: 255
     t.integer  "pc_id",            limit: 4
-    t.string   "file",             limit: 255
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
   end
@@ -233,11 +215,10 @@ ActiveRecord::Schema.define(version: 20160525075243) do
     t.string   "password",   limit: 255
     t.string   "salt",       limit: 255
     t.integer  "tech_id",    limit: 4
-    t.string   "file",       limit: 255
     t.integer  "agency_id",  limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.boolean  "mode"
+    t.string   "mode",       limit: 255
   end
 
   add_index "users", ["agency_id"], name: "index_users_on_agency_id", using: :btree
