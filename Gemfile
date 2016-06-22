@@ -17,6 +17,7 @@ gem 'simple_form', '~> 3.1.1'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem "dropzonejs-rails"
+gem 'net-ping'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
 # gem 'jquery-turbolinks'
@@ -51,10 +52,13 @@ gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 gem "chartkick"
 gem 'groupdate'
 gem 'puma', '~> 3.4.0'
+# gem 'progressive_render'
+gem 'gruff'
 group :production do
   gem "exception_notification"
 end
 group :development, :test do
+  gem 'rubocop'
   gem 'thin'
   gem 'factory_girl'
   gem 'rspec-rails', '~> 3.0'
