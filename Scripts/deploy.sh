@@ -35,7 +35,7 @@ cd $chmn
 su ticket <<'EOF'
 echo 'Changement de répertoire vers $chmn'
 echo 'Clonage git'
-if git clone https://mjerem34:akssm922@framagit.org/mjerem34/TickMasterV2.git; then
+if git clone https://framagit.org/EXPERTISES/tickmaster.git; then
         echo "ok"
 else
         echo "echec"
