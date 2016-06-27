@@ -1,4 +1,4 @@
-<% @title = "Incident n°#{@incident.id} de #{@incident.user.name} #{@incident.user.surname}" %>
+<% @title = "Incident n°#{@incident.id} de #{link_to "#{@incident.user.name} #{@incident.user.surname}", edit_user_path(@incident.user)}" %>
 <% if !current_user.nil? && Right.where(name: "view_detail_incident").pluck(current_user.tech.name).join('')  == 'true' %>
 <%= render 'form_edit' %>
 <!-- Contenu si l'incident n'est pas cloturé -->

@@ -4,7 +4,7 @@
 
   <head>
     <title>
-      <%= @title + " - Tick{Master}" %>
+      <%= strip_tags(@title + " - Tick{Master}") %>
     </title>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag "https://www.google.com/jsapi" %>

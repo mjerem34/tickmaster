@@ -133,7 +133,7 @@
           <a class="title-site navbar-brand openIt" href='/' data-no-turbolink="true">TickMaster</a>
           <a class="title-site navbar-brand by-cle openIt click">by<%= image_tag("cle.png", size: "60x20", alt: "Cle Expertises")%></a>
         </div>
-        <h3 class="title-on-page"><%= @title %></h3>
+        <h3 class="title-on-page"><%= @title.html_safe %></h3>
         <% if !current_user.nil? %>
         <li class="whoisconnected">
 

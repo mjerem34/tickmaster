@@ -8,7 +8,7 @@ $(".cards-list-incidents").empty().append("
       <% when 4 %>
         <div class='col-md-4 card-incident' style='background: #FFEB3B; color:#212121;'>
       <% else %>
-        <div class='col-md-4 card-incident' style='background: #2A3947;'>
+        <div class='col-md-4 card-incident' style='background: #335f87;'>
     <% end %>
 
       <div class='firstPart' onClick='document.location.href=`<%=edit_incident_path(incident)%>`'>
