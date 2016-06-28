@@ -1,5 +1,5 @@
 === puma startup: 2016-05-18 09:33:15 +0200 ===
-/home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/launcher.rb:130:in `initialize': No such file or directory @ rb_sysopen - /home/jeremymontesinos/Bureau/TickMasterV2/public/pids/puma.pid (Errno::ENOENT)
+/home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/launcher.rb:130:in `initialize': No such file or directory @ rb_sysopen - /home/jeremymontesinos/Bureau/tickmaster/public/pids/puma.pid (Errno::ENOENT)
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/launcher.rb:130:in `open'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/launcher.rb:130:in `write_pid'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/launcher.rb:105:in `write_state'
@@ -13,8 +13,8 @@
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:75:in `server'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:39:in `run_command!'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands.rb:17:in `<top (required)>'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `require'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `load'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `call'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/command.rb:7:in `call'
@@ -22,12 +22,12 @@
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/bin/spring:49:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `load'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `<top (required)>'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `require'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `<top (required)>'
 	from bin/rails:3:in `load'
 	from bin/rails:3:in `<main>'
 === puma startup: 2016-05-18 09:33:47 +0200 ===
-/home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/launcher.rb:130:in `initialize': No such file or directory @ rb_sysopen - /home/jeremymontesinos/Bureau/TickMasterV2/public/pids/puma.pid (Errno::ENOENT)
+/home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/launcher.rb:130:in `initialize': No such file or directory @ rb_sysopen - /home/jeremymontesinos/Bureau/tickmaster/public/pids/puma.pid (Errno::ENOENT)
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/launcher.rb:130:in `open'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/launcher.rb:130:in `write_pid'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/launcher.rb:105:in `write_state'
@@ -41,8 +41,8 @@
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:75:in `server'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:39:in `run_command!'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands.rb:17:in `<top (required)>'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `require'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `load'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `call'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/command.rb:7:in `call'
@@ -50,14 +50,14 @@
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/bin/spring:49:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `load'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `<top (required)>'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `require'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `<top (required)>'
 	from bin/rails:3:in `load'
 	from bin/rails:3:in `<main>'
 === puma startup: 2016-05-18 09:34:34 +0200 ===
-/home/jeremymontesinos/Bureau/TickMasterV2/app/views/layouts/_header.html.erb:32: warning: duplicated key at line 32 ignored: :size
-/home/jeremymontesinos/Bureau/TickMasterV2/app/views/layouts/_header.html.erb:110: warning: duplicated key at line 110 ignored: :size
-/home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:355:in `delete': No such file or directory @ unlink_internal - /home/jeremymontesinos/Bureau/TickMasterV2/tmp/pids/server.pid (Errno::ENOENT)
+/home/jeremymontesinos/Bureau/tickmaster/app/views/layouts/_header.html.erb:32: warning: duplicated key at line 32 ignored: :size
+/home/jeremymontesinos/Bureau/tickmaster/app/views/layouts/_header.html.erb:110: warning: duplicated key at line 110 ignored: :size
+/home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:355:in `delete': No such file or directory @ unlink_internal - /home/jeremymontesinos/Bureau/tickmaster/tmp/pids/server.pid (Errno::ENOENT)
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:355:in `block in write_pid'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/cluster.rb:120:in `fork'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/cluster.rb:120:in `block in spawn_workers'
@@ -73,8 +73,8 @@
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:75:in `server'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:39:in `run_command!'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands.rb:17:in `<top (required)>'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `require'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `load'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `call'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/command.rb:7:in `call'
@@ -82,8 +82,8 @@
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/bin/spring:49:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `load'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `<top (required)>'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `require'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `<top (required)>'
 	from bin/rails:3:in `load'
 	from bin/rails:3:in `<main>'
 === puma startup: 2016-05-18 10:28:56 +0200 ===
@@ -100,7 +100,7 @@
 === puma startup: 2016-05-24 17:07:47 +0200 ===
 === puma startup: 2016-05-24 17:07:47 +0200 ===
 === puma startup: 2016-05-24 17:07:47 +0200 ===
-/home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:355:in `delete'/home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:355:in `delete': No such file or directory @ unlink_internal - /home/jeremymontesinos/Bureau/TickMasterV2/tmp/pids/server.pid:  (No such file or directory @ unlink_internal - /home/jeremymontesinos/Bureau/TickMasterV2/tmp/pids/server.pidErrno::ENOENT ()
+/home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:355:in `delete'/home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:355:in `delete': No such file or directory @ unlink_internal - /home/jeremymontesinos/Bureau/tickmaster/tmp/pids/server.pid:  (No such file or directory @ unlink_internal - /home/jeremymontesinos/Bureau/tickmaster/tmp/pids/server.pidErrno::ENOENT ()
 Errno::ENOENT)
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:355:in `block in write_pid'
 /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:355:in `delete'	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:355:in `block in write_pid'
@@ -117,7 +117,7 @@ Errno::ENOENT)
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/rack/handler/puma.rb:51:in `run'
 : 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/cluster.rb:424:in `run'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:286:in `start'
-No such file or directory @ unlink_internal - /home/jeremymontesinos/Bureau/TickMasterV2/tmp/pids/server.pid	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/launcher.rb:172:in `run'
+No such file or directory @ unlink_internal - /home/jeremymontesinos/Bureau/tickmaster/tmp/pids/server.pid	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/launcher.rb:172:in `run'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/server.rb:80:in `start'
  (	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/rack/handler/puma.rb:51:in `run'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:80:in `block in server'
@@ -134,17 +134,17 @@ Errno::ENOENT	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/l
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands.rb:17:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:75:in `server'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/cluster.rb:120:in `block in spawn_workers'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `require'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:39:in `run_command!'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/cluster.rb:116:in `times'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands.rb:17:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/cluster.rb:116:in `spawn_workers'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `load'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `require'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/cluster.rb:424:in `run'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `call'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/launcher.rb:172:in `run'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/command.rb:7:in `call'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `load'
@@ -160,21 +160,21 @@ Errno::ENOENT	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/l
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:80:in `block in server'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/bin/spring:49:in `<top (required)>'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `require'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:75:in `tap'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `load'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:75:in `server'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `<top (required)>'
 	from bin/rails:3:in `load'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:39:in `run_command!'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `require'
 	from bin/rails:3:in `<main>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands.rb:17:in `<top (required)>'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `<top (required)>'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `require'
 	from bin/rails:3:in `load'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `<top (required)>'
 	from bin/rails:3:in `<main>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `load'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `call'
@@ -183,12 +183,12 @@ Errno::ENOENT	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/l
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/bin/spring:49:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `load'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `<top (required)>'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `require'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `<top (required)>'
 	from bin/rails:3:in `load'
 	from bin/rails:3:in `<main>'
 === puma startup: 2016-05-25 09:48:07 +0200 ===
-/home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:355:in `delete': No such file or directory @ unlink_internal - /home/jeremymontesinos/Bureau/TickMasterV2/tmp/pids/server.pid (Errno::ENOENT)
+/home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:355:in `delete': No such file or directory @ unlink_internal - /home/jeremymontesinos/Bureau/tickmaster/tmp/pids/server.pid (Errno::ENOENT)
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/lib/rack/server.rb:355:in `block in write_pid'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/cluster.rb:120:in `fork'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/puma-3.4.0/lib/puma/cluster.rb:120:in `block in spawn_workers'
@@ -204,8 +204,8 @@ Errno::ENOENT	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/l
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:75:in `server'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands/commands_tasks.rb:39:in `run_command!'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/railties-4.2.3/lib/rails/commands.rb:17:in `<top (required)>'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `require'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/rails:8:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/rails:8:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `load'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/rails.rb:28:in `call'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/client/command.rb:7:in `call'
@@ -213,8 +213,8 @@ Errno::ENOENT	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/l
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/bin/spring:49:in `<top (required)>'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `load'
 	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/spring-1.4.0/lib/spring/binstub.rb:11:in `<top (required)>'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `require'
-	from /home/jeremymontesinos/Bureau/TickMasterV2/bin/spring:13:in `<top (required)>'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `require'
+	from /home/jeremymontesinos/Bureau/tickmaster/bin/spring:13:in `<top (required)>'
 	from bin/rails:3:in `load'
 	from bin/rails:3:in `<main>'
 === puma startup: 2016-05-25 09:55:11 +0200 ===

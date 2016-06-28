@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if cd /home/ticket/Bureau/TickMasterV2/log/; then
+if cd /home/ticket/Bureau/tickmaster/log/; then
         echo "cd ok"
 else
-        echo "can't change directory to /home/ticket/Bureau/TickMasterV2/log/"
+        echo "can't change directory to /home/ticket/Bureau/tickmaster/log/"
 fi
 
 if tar jcf `date +"%Y-%m-%d"`.log.tar.bz2 *.log; then
@@ -36,7 +36,7 @@ if chmod 777 production.log; then
 else
         echo "can't do chmod in files"
 fi
-if bundle exec pumactl -F /home/ticket/Bureau/TickMasterV2/config/puma.rb restart; then
+if bundle exec pumactl -F /home/ticket/Bureau/tickmaster/config/puma.rb restart; then
         echo "restart of puma ok!"
 else
         echo "can't restart puma"

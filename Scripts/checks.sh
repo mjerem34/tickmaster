@@ -19,10 +19,10 @@ else
 fi
 
 # Test si le serveur puma rails est lancé
-if [ !  -e "/home/ticket/Bureau/TickMasterV2/public/sockets/puma.sock" ]; then
+if [ !  -e "/home/ticket/Bureau/tickmaster/public/sockets/puma.sock" ]; then
 	echo "Puma n'est pas lancé, tentative de démarrage"
 	su ticket <<'EOF'
-		if cd /home/ticket/Bureau/TickMasterV2/; then
+		if cd /home/ticket/Bureau/tickmaster/; then
 		        echo "cd ok"
 		else
 		        echo "cd nok"

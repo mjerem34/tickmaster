@@ -6,7 +6,7 @@ if [ $(id -u) != "0" ]; then
   exit 1
 fi
 chmn="/home/ticket/Bureau/";
-nm="TickMasterV2";
+nm="tickmaster";
 now="`date +%Y%m%d%H%M%S`";
 
 echo 'Exctinction nginx'
@@ -20,20 +20,20 @@ cd $chmn
 su ticket <<'EOF'
 echo 'Changement de répertoire vers $chmn'
 echo 'Clonage git'
-git clone https://mjerem34@framagit.org/mjerem34/TickMasterV2.git
+git clone https://mjerem34@framagit.org/mjerem34/tickmaster.git
 echo 'mkdir dossier uploads'
-mkdir TickMasterV2/public/uploads
+mkdir tickmaster/public/uploads
 echo 'mkdir dossier sockets'
-mkdir TickMasterV2/public/sockets
+mkdir tickmaster/public/sockets
 EOF
 echo 'remontage des partages'
 sudo mount -a
 echo 'redemarrage nginx'
 sudo service nginx start
 echo 'passage a su ticket'
-echo 'deplacement vers dossier TickMasterV2'
+echo 'deplacement vers dossier tickmaster'
 cd $chmn$nm
 echo 'Vous avez juste a lancer la commande suivante en tant qu`utilisateur ticket :'
-echo 'cd /home/ticket/Bureau/TickMasterV2/ && puma -e production -d'
+echo 'cd /home/ticket/Bureau/tickmaster/ && puma -e production -d'
 
 exit 0

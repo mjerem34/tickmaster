@@ -59,7 +59,7 @@
 26 error     <npm-@googlegroups.com>
 27 error System Linux 3.19.0-32-generic
 28 error command "/usr/bin/nodejs" "/usr/bin/npm" "install" "gvfs-trash"
-29 error cwd /home/jeremy/Bureau/TickMasterV2
+29 error cwd /home/jeremy/Bureau/tickmaster
 30 error node -v v0.10.25
 31 error npm -v 1.3.10
 32 error type non_object_property_load

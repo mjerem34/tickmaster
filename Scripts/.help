@@ -14,8 +14,8 @@ Vous devez mettre dans les cron jobs ces taches :
 00 03 * * * /home/ticket/Scripts/mysqldump.sh >> /home/ticket/Scripts/mysqldump.log 2>&1
 01 03 * * * /home/ticket/Scripts/compressLogsTickMaster.sh >> /home/ticket/Scripts/compressLogsTickMaster.log 2>&1
 02 03 * * * /home/ticket/Scripts/compressLogsMysql.sh >> /home/ticket/Scripts/compressLogsMysql.log 2>&1
-03 03 * * * rm -rf /home/ticket/Bureau/TickMasterV2-*/
+03 03 * * * rm -rf /home/ticket/Bureau/tickmaster-*/
 
 # Begin Whenever generated tasks for: /home/ticket/Bureau/Tick-Master-/config/schedule.rb
-59 11 * * * /bin/bash -l -c 'cd /home/ticket/Bureau/TickMasterV2 && bin/rails runner -e production '\''Incident.cloture_automaticaly'\'''
+59 11 * * * /bin/bash -l -c 'cd /home/ticket/Bureau/tickmaster && bin/rails runner -e production '\''Incident.cloture_automaticaly'\'''
 # End Whenever generated tasks for: /home/ticket/Bureau/Tick-Master-/config/schedule.rb

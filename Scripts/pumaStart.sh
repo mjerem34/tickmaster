@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if cd /home/ticket/Bureau/TickMasterV2/; then
+if cd /home/ticket/Bureau/tickmaster/; then
         echo "cd ok"
 else
         echo "can't do cd"
