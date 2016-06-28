@@ -36,7 +36,7 @@ Rails.application.configure do
     password: 'sonya88',
     authentication: :plain,
     enable_starttls_auto: true}
-    config.action_mailer.default_url_options = {:host => "10.0.171.250"}
+    config.action_mailer.default_url_options = {:host => "10.134.2.250"}
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.

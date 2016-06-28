@@ -19,17 +19,19 @@ class AgenciesController < ApplicationController
     end
     def createGraphics
       a = Array.new
+      unless params[:pings].nil? then
+
       params[:pings].each do |ping|
         a << ping.to_i
       end
+      end
       g = Gruff::Line.new
-      g.title = 'Wow!  Look at this!'
+      g.title = 'Ping'
       # g.labels = { 0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4',
       #              5 => '5', 6 => '6', 7 => '7' }
-      g.data :Colmar, a
+      g.data "Test", a
       g.write('graphicAgencies.png')
-      return true
-    end
+      render :nothing => true, :status => 200, :content_type => 'text/html'    end
     def doPing
         value = pingDef(params[:host])
         respond_to do |format|
@@ -44,8 +46,7 @@ class AgenciesController < ApplicationController
             if @icmp.ping
               # puts @icmp.duration
               value = @icmp.duration
-              value = value * 1000
-              value = value.round(1)
+              value = (value * 1000).round(1)
               # sleep(0.1)
                 return value
             else

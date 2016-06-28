@@ -7,12 +7,12 @@ class CreateAgencies < ActiveRecord::Migration
       t.string :adress3, limit: 100
       t.string :cp, limit: 20
       t.string :city, limit: 45
-      t.string :email, limit: 45
+      t.string :email, limit: 255
       t.string :tel, limit: 20
       t.string :fax, limit: 20
-      t.string :department, limit: 20
+      t.string :department, limit: 50
       t.string :ip_adress, limit: 50
-      
+
 
 
     end

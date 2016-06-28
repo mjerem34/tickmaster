@@ -26,7 +26,7 @@ class Agency < ActiveRecord::Base
   validates :fax, presence: true,
                     uniqueness: {:case_sensitive => false}, format: {with: phone_regexp}, length: { in: 0..19}
 
-  validates :department, presence: true, length: { in: 0..19}
+  validates :department, presence: true, length: { in: 0..50}
   validates :ip_adress, presence: true, format: {with: ip_regexp}, length: { in: 0..49}
 
 end

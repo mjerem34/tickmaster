@@ -1,0 +1,135 @@
+<script type="text/javascript">
+$(document).ready(function(){
+  $.pings = [];
+  $.agencyName = "";
+  $("").click(function(){
+    $.ajax({ // demarage ajax
+      url: '/agencies_createGraphics', // url du controller rails pour pinger (methode doPing)
+      type: 'GET',
+      dataType: 'script',
+      data: {
+        pings: $.pings, // transfert de l'adress ip dans params[:host] pour le récup dans le controller
+        agencyName: $.agencyName
+      },
+      success: function(result){
+        if (result == "false"){
+          return false;
+        }else{
+          return true;
+        }
+      }
+    });
+  });
+
+
+  // Script pour juste un seul ping (click sur bouton pinger)
+  var booted = false;
+  $.xhrPool = []; // array of uncompleted requests
+  $.xhrPool.abortAll = function() { // our abort function
+    $(this).each(function(idx, jqXHR) {
+      jqXHR.abort(); // abortage
+    });
+    $.xhrPool.length = 0
+  };
+  $.ajaxSetup({
+    beforeSend: function(jqXHR) { // before jQuery send the request we will push it to our array
+      $.xhrPool.push(jqXHR); //insertion de la requete dans le pool
+    },
+  complete: function(jqXHR) { // when some of the requests completed it will splice from the array
+    var index = $.xhrPool.indexOf(jqXHR); //recherche de lindex
+      if (index > -1) {
+        $.xhrPool.splice(index, 1);
+      }
+    }
+  });
+
+  $(".button_ping_agency").click(function(){
+    if($(this).html() == "Ping" && booted == false){
+      booted = true; // Vérouillage pour éviter les bugs
+      var ipOfAgency = $(this).data("ip"); // Va chercher ce qui a dans data-ip="127.0.0.1"
+      var idOfAgency = $(this).data("id"); // Va chercher ce qui a dans data-id="5"
+
+      for(var i = 0; i <= 1000; i++){
+        $.ajax({ // demarage ajax
+          url: '/agencies_doPing', // url du controller rails pour pinger (methode doPing)
+          type: 'GET',
+          dataType: 'script',
+          data: {
+            host: ipOfAgency // transfert de l'adress ip dans params[:host] pour le récup dans le controller
+          },
+          success: function(result){
+            if (result == "false"){ // peut retourner false si ip est null ou si TimeOut
+              $("#agencyTd"+idOfAgency).replaceWith("<td id='agencyTd"+idOfAgency+"'>TimeOut</td>"); //ecriture du resultat dans le tableau
+            }else{
+              $.pings.push(parseInt(result));
+              $("#agencyTd"+idOfAgency).replaceWith("<td id='agencyTd"+idOfAgency+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
+            }
+          }
+        });
+      }
+    }
+  });
+
+
+// <!-- Script JS pour le bouton pinger toutes les agences -->
+  $("#agencies_ping").click(function(){ // onclick
+    for (var i = 0; i <= 30 ; i++){ // Reping 30 fois toute la liste (semblant de non-stop)
+    $("#table_agencies > tbody > tr").each(function(){
+      var id = $(this).data("id"); // trouve l'id de l'agence
+      $.ajax({ // demarage ajax
+        url: '/agencies_doPing', // url du controller rails pour pinger (methode doPing)
+        type: 'GET',
+        dataType: 'script',
+        data: {
+          host: $(this).data('ip') // transfert de l'adress ip dans params[:host]
+        },
+        success: function(result){
+          if (result == "false"){ // peut retourner false si ip est null ou si TimeOut
+            $("#agencyTd"+id).replaceWith("<td style='color: blue;'id='agencyTd"+id+"'>TimeOut</td>"); //ecriture du resultat dans le tableau
+          }else if(result < 100){
+            $("#agencyTd"+id).replaceWith("<td style='color: green;' id='agencyTd"+id+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
+          }else if(result > 100 && result < 400){
+            $("#agencyTd"+id).replaceWith("<td style='color: orange;' id='agencyTd"+id+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
+          }else {
+            $("#agencyTd"+id).replaceWith("<td style='color: red;' id='agencyTd"+id+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
+          }
+        }
+      });
+  });
+}
+  });
+  $("#agencies_ping_cancel").click(function(){ // demande d'anulation de l'utilisateur
+    $.xhrPool.abortAll(); // Appel a la fonction abortage
+  });
+
+// _____________________________________________________________________________________________
+
+    $("#2nd").hide();
+    $("#btn-creer-graphique").hide();
+    $("#btn-suivant").click(function(){
+      if($(this).html() == "Suivant"){
+        $(this).html("Précédent");
+        $("#1st").hide("slide", {direction: "left" }, 500);
+        $("#2nd").show("slide", { direction: "right"}, 500);
+        $("#btn-creer-graphique").show(500);
+      }else if ($(this).html() == "Précédent") {
+        $(this).html("Suivant");
+        $("#2nd").hide("slide", {direction: "right" }, 500);
+        $("#1st").show("slide", { direction: "left"}, 500);
+        $("#btn-creer-graphique").hide(500);
+      }else {
+        return false;
+      }
+    });
+
+    $("#btn-creer-graphique").click(function(){
+      $.GraphicName = $("#graphicName").val();
+      $.checkedAgencies = [];
+
+      if($.checkedAgencies = []){return false;}
+      if($.GraphicName = ""){return false;}
+
+    });
+  });
+
+</script>
