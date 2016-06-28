@@ -28,7 +28,7 @@
   <div class="field"><br>
     <%= f.label "Niveau d'urgence", :class => ''  %><br>
     <div class="lvl_urgence_slider">
-      <b>Bas</b><%= text_field_tag "incident[lvl_urgence_user]", :class => ' slider-bootstrap' , type: 'range', data: {
+      <b>Bas</b><%= text_field_tag "incident[lvl_urgence_user]", class: 'slider-bootstrap' , type: 'range', data: {
         'slider-min' => 1,
         'slider-max' => 10,
         'slider-tooltip' => 'hide',
