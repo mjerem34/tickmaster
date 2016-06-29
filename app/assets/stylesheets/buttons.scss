@@ -157,8 +157,8 @@ li{
     text-decoration: none;
     color: $text-color-jour;
   }
-  .buttons-edit-incident-right .btn{
-    border-color: black;
+  .buttons-edit-incident-right .btn, .btn-procedure{
+    border-color: black !important;
   }
   .buttons{
     color: $text-color-jour !important;

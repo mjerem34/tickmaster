@@ -218,3 +218,5 @@ Errno::ENOENT	from /home/jeremymontesinos/.rvm/gems/ruby-2.2.1/gems/rack-1.6.4/l
 	from bin/rails:3:in `load'
 	from bin/rails:3:in `<main>'
 === puma startup: 2016-05-25 09:55:11 +0200 ===
+=== puma startup: 2016-06-29 15:43:09 +0200 ===
+=== puma startup: 2016-06-29 15:45:21 +0200 ===

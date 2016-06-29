@@ -75,7 +75,6 @@ else
 fi
 
 echo 'deplacement vers dossier TickMasterV2'
-cd $chmn$nm
 su ticket <<'EOF'
 
 if cd /home/ticket/Bureau/TickMasterV2/; then
