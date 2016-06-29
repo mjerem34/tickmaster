@@ -1,2 +1,7 @@
 <% @title = "Procedure N° " + @procedure.id.to_s %>
+<% if !current_user.nil? && Right.where(name: "edit_procedure").pluck(current_user.tech.name).join('')  == 'true' %>
 <%= render 'form_edit' %>
+<% else %>
+<% @title = "Accès non autorisé"%>
+<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
+<% end %>
