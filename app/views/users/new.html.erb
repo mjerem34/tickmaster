@@ -1,6 +1,7 @@
 <% if !current_user.nil? && Right.where(name: "create_new_tech").pluck(current_user.tech.name).join('')  == 'true' %>
 <%= render 'form_new'%>
-<%else%>
+<%else if current_user.nil?%>
+
 <% @title = "S'inscrire"%>
 
 <% content_for :form do %>
@@ -332,4 +333,9 @@
   <div class="col-md-4"></div>
 </div>
 <% end %>
+<% else %>
+<% @title = "Accès non autorisé"%>
+<%= flash.now[:not_authorized] = "Vous êtes déjà connecté" %>
+
+<%end%>
 <%end%>
