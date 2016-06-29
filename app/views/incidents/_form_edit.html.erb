@@ -149,7 +149,7 @@
       <% if Right.where(name: "save_changes_of_edit").pluck(current_user.tech.name).join('')  == 'true' %>
       <ul class="buttons-edit-incident-right valider">
         <li>
-          <%= f.submit "Enregistrer", id: "sendButton", class: "sendButton btn btn-save btn-to-disable" %>
+          <%= f.submit "Enregistrer", id: "sendButton", class: "sendButton btn btn-save " %>
         </li>
       </ul>
       <% end %>

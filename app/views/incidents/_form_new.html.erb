@@ -28,18 +28,19 @@
   <div class="field"><br>
     <%= f.label "Niveau d'urgence", :class => ''  %><br>
     <div class="lvl_urgence_slider">
-      <b>Bas</b><%= text_field_tag "incident[lvl_urgence_user]", class: 'slider-bootstrap' , type: 'range', data: {
+      <b>Bas</b><%= f.text_field :lvl_urgence_user, class: "slider-bootstrap", type: 'range', data: {
+        'provide' => "slider",
         'slider-min' => 1,
         'slider-max' => 10,
+        'slider-value'=> 1,
         'slider-tooltip' => 'hide',
         'slider-step' => 1}%><b>Haut</b><br><br>
       </div>
     </div>
   <script type="text/javascript">
   $("#incident_lvl_urgence_user").slider();
-
   </script>
-  <div class="fallback" id="filesinputs">
+<div class="fallback" id="filesinputs">
       <%= fields_for :file_incidents, @incident.file_incidents do |i| %>
         <%= i.file_field :file, name: "file_incidents[file][]", multiple: true, id: "attachfile" %>
       <% end %>
@@ -65,64 +66,12 @@
 </div>
 
 <div class="actions">
-  <%= f.submit "Valider", id: "sendButton", class: "btn btn-success btn-response btn-to-disable" %>
+  <ul class="buttons-edit-incident-right buttons">
+    <li><%= f.submit "Valider", id: "sendButton", class: "btn btn-default btn-save " %></li>
+    <li><%= link_to 'Annuler', current_user, class: "btn btn-default btn-cancel", data: { confirm: 'Êtes vous sûr de vouloir annuler (les modifications seront perdues) ?'}  %></li>
+  </ul>
+
+
+
 </div>
 <% end %>
-<!-- <script type="text/javascript">
-var selDiv = "";
-var storedFiles = []; //store the object of the all files
-
-document.addEventListener("DOMContentLoaded", init, false);
-
-function init() {
-   //To add the change listener on over file element
-   document.querySelector('#attachfile').addEventListener('change', handleFileSelect, false);
-   //allocate division where you want to print file name
-   selDiv = document.querySelector("#filelist");
-}
-
-//function to handle the file select listenere
-function handleFileSelect(e) {
-   //to check that even single file is selected or not
-   if(!e.target.files) return;
-
-   //for clear the value of the selDiv
-   selDiv.innerHTML = "";
-
-   //get the array of file object in files variable
-   var files = e.target.files;
-   var filesArr = Array.prototype.slice.call(files);
-
-   //print if any file is selected previosly
-   for(var i=0;i<storedFiles.length;i++)
-   {
-       selDiv.innerHTML += "<div class='filename'> <span> " + storedFiles[i].name + "</span></div>";
-   }
-   filesArr.forEach(function(f) {
-       //add new selected files into the array list
-       storedFiles.push(f);
-       //print new selected files into the given division
-       selDiv.innerHTML += "<div class='filename'> <span> " + f.name + "</span></div>";
-   });
-   $('html, body').animate({
-     scrollTop: 100000
-   }, 500);
-
-   //store the array of file in our element this is send to other page by form submit
-}
-</script>
-<script type="text/javascript">
-var divAppended = document.getElementById("filesinputs");
-var input = document.getElementById("attachfile");
-input.addEventListener('change', function(e) {
-  e = e || window.event;
-  e.preventDefault();
-  var nI = document.createElement('input');
-  nI.type = 'file';
-  nI.style.display = 'none';
-  nI.multiple = 'true';
-  nI.name = 'file_incidents[file]';
-  document.getElementById('attachfile').appendChild(nI);
-}, false);
-</script>
- -->

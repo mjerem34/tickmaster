@@ -2,30 +2,32 @@
   background: $btn-se-deco-color;
   color: $link-hover;
 }
-.sendButton{
-  background: url("ICOMOON/32pxBlack/273-checkmark.png") no-repeat 60px;
-  background-size: 16px 16px;
+.btn-save, .btn-save:hover, .btn-save:active, .btn-save:focus{
+  background: url("ICOMOON/32pxBlack/273-checkmark.png") no-repeat 10% !important;
+  background-size: 16px 16px !important;
   border-width: 1px;
-}
-.Jour>.sendButton{
-  border-color: white;
-}
-.Nuit>.sendButton{
-  border-color: black;
-}
-.Jour>.sendButton:hover{
-  color:$text-color-jour;
-}
-.Nuit>.sendButton:hover{
-  color:$text-color-nuit;
+  border-style: solid;
+  width: 100%;
+  @media screen and(min-width:768px) and(max-width:1104px) {
+    background-position: center;
+    text-indent: -999999999px;
+  }
+  @media screen and(min-width:413px) and(max-width:767px) {
+    text-indent: -999999999px;
+    background-position: center;
+  }
+  @media screen and(max-width:412px) {
+    text-indent: -999999999px;
+    background-position: center;
+  }
 }
 .buttons-edit-incident-right.buttons{
   bottom: 50px;
 }
-.buttons-edit-incident-right.valider{
+.buttons-edit-incident-right.valider, .buttons-edit-incident-right-clotured{
   bottom: 5px;
 }
-.buttons-edit-incident-right{
+.buttons-edit-incident-right, .buttons-edit-incident-right-clotured{
   list-style: none;
   position:fixed;
   right:5px;
@@ -33,72 +35,65 @@
     width: 18%;
   }
   @media screen and(min-width:1105px) and(max-width:1599px) {
-    width:10%;
+    width:6%;
   }
   @media screen and(min-width:768px) and(max-width:1104px) {
     width: 35px;
   }
   @media screen and(min-width:413px) and(max-width:767px) {
-    width:80%;
+    width:35px;
   }
   @media screen and(max-width:412px) {
-    width:80%;
+    width: 35px;
   }
 }
 li{
   margin-bottom: 5px;
 }
-.Jour>.link_procedurer{
-  color: $text-color-jour !important;
-}
-.Nuit>.link_procedurer{
-  color:$text-color-nuit !important;
-}
-.Jour>a{
-  text-decoration: none;
-  color: $text-color-jour;
-}
-.Nuit>a{
-  text-decoration: none;
-  color: $text-color-nuit;
-}
-.Jour>.buttons-edit-incident-right .btn{
-  border-color: black;
-  color: $text-color-jour;
-}
-.Nuit>.buttons-edit-incident-right .btn{
-  border-color: white;
-  color: $text-color-nuit;
-}
-.buttons-edit-incident-right .btn{
-  background-color: transparent;
+.buttons-edit-incident-right-clotured .btn, .buttons-edit-incident-right .btn, .btn-save, .buttons-edit-incident-right .btn:active, .buttons-edit-incident-right .btn:focus, .buttons-edit-incident-right .btn:hover, .link_procedurer:focus{
   border-width: 1px;
   text-decoration: none;
-  img{
-    margin-right: 10px;
-  }
   background-size: 16px 16px;
   @media screen and(min-width:1600px) {
     width: 100%;
   }
   @media screen and(min-width:1105px) and(max-width:1599px) {
     width:100%;
+    text-indent: -999999999px;
+    background-position: center !important;
   }
   @media screen and(min-width:768px) and(max-width:1104px) {
-    width: 100%;
     text-indent: -999999999px;
+    width: 100%;
+    background-position: center !important;
   }
   @media screen and(min-width:413px) and(max-width:767px) {
     width:100%;
-    background-position: center;
+    background-position: center !important;
   }
   @media screen and(max-width:412px) {
     width:100%;
-    background-position: center;
+    background-position: center !important;
   }
 }
-.btn-cancel{
-  background:url("ICOMOON/32pxBlack/272-cross.png") 8px no-repeat;
+.btn-reaffect{
+  background: url("ICOMOON/32pxBlack/305-shuffle.png") 10% no-repeat;
+}
+.btn-cloture{
+  background: url("ICOMOON/32pxBlack/058-ticket.png") 10% no-repeat;
+}
+.btn-reject{
+  background: url("ICOMOON/32pxBlack/272-cross.png") 10% no-repeat;
+}
+.btn-procedure{
+  background: url("ICOMOON/32pxBlack/006-pencil.png") 10% no-repeat;
+}
+.btn-response{
+  background: url("ICOMOON/32pxBlack/108-bubble.png") 10% no-repeat;
+}
+.btn-cancel, .btn-cancel:active, .btn-cancel:focus{
+  background:url("ICOMOON/32pxBlack/272-cross.png") 10% no-repeat !important;
+  background-size: 16px 16px !important;
 }
 .submitforms{
   background-image:image-url("ICOMOON/32pxBlack/273-checkmark.png");
@@ -133,4 +128,39 @@ li{
   background:url("ICOMOON/loading.gif") no-repeat center;
   background-size: 30px 30px;
   text-indent: -99999999px;
+}
+
+.Nuit{
+  .btn:hover, .link_procedurer, a, .btn, .btn:focus, .btn:active,{
+    text-decoration: none;
+    color:$text-color-nuit;
+    border-color: white;
+  }
+  div.nav-side-menu a{
+    color: $text-color-title;
+  }
+  li.new_incident_button a{
+    color: $text-color-nuit !important;
+  }
+}
+.Jour{
+  .btn-save{
+    border-color: black;
+  }
+  .btn:hover{
+    color:$text-color-jour !important;
+  }
+  .link_procedurer{
+    color: $text-color-jour !important;
+  }
+  a{
+    text-decoration: none;
+    color: $text-color-jour;
+  }
+  .buttons-edit-incident-right .btn{
+    border-color: black;
+  }
+  .buttons{
+    color: $text-color-jour !important;
+  }
 }
