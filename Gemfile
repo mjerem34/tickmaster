@@ -49,8 +49,8 @@ gem 'web-console', '~> 2.0'
 gem 'ckeditor', github: 'galetahub/ckeditor'
 gem 'mini_magick'
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
-gem "chartkick"
-gem 'groupdate'
+# gem "chartkick"
+# gem 'groupdate'
 gem 'puma', '~> 3.4.0'
 # gem 'progressive_render'
 gem 'gruff'

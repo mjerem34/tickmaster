@@ -12,6 +12,7 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( bootstrap-slider.js )
 Rails.application.config.assets.precompile += %w( fixedheadertable.js )
 Rails.application.config.assets.precompile += %w( jquery.tablesorter.min.js )
+Rails.application.config.assets.precompile += %w( jquery-ui.min.js )
 Rails.application.config.assets.precompile += %w( jquery.tablesorter.widgets.min.js )
 Rails.application.config.assets.precompile += %w( email.css )
 Rails.application.config.assets.precompile += %w( nprogress.css )
