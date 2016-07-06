@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :profil, :download]
   before_action :set_expiration
-  before_action :restrict_access
+  before_action :restrict_access, only: [:show, :index, :profil, :to_treat, :edit, :allincidents]
+
   def home
     @title = 'Utilisateurs'
   end
