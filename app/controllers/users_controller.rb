@@ -119,6 +119,7 @@ class UsersController < ApplicationController
   private
   def restrict_access
     if current_user.nil?
+      flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
       redirect_to '/'
     end
   end
