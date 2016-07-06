@@ -1,5 +1,6 @@
 <% @title = "Profil d'utilisateur #{@user.surname} #{@user.name}"%>
-<% if !current_user.nil? && (current_user == @user && Right.where(name: "edit_user").pluck(current_user.tech.name).join('')  == 'true') || Right.where(name: "edit_other_user").pluck(current_user.tech.name).join('') == 'true'  %>
+<% if !current_user.nil? %>
+<% if (current_user == @user && Right.where(name: "edit_user").pluck(current_user.tech.name).join('')  == 'true') || Right.where(name: "edit_other_user").pluck(current_user.tech.name).join('') == 'true'  %>
 
 <br><br>
 <div class="row">
@@ -21,7 +22,6 @@
       </div><!-- DIV ERROR -->
         <% end %>
       </div>
-      <% if Right.where(name: "edit_all_user").pluck(current_user.tech.name).join('') == 'true' %>
       <div class="field form-group">
         <%= f.label "Adresse email", class: ""%>
         <%= f.email_field :email, class: "form-control  next", placeholder: "Adresse email" %>
@@ -34,7 +34,6 @@
       </div> <!-- DIV ERROR -->
         <% end %>
       </div>
-    <% end %>
 
       <div class="field form-group">
         <%= f.label "Nom", class: ""%>
@@ -127,4 +126,5 @@
 <% else %>
 <% @title = "Accès non autorisé"%>
   <%= flash.now[:notice] = "Accès non autorisé !" %>
+  <% end %>
 <% end %>
