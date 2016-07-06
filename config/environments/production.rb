@@ -19,7 +19,7 @@ Rails.application.configure do
   # For large-scale production use, consider using a caching reverse proxy like
   # NGINX, varnish or squid.
   # config.action_dispatch.rack_cache = true
-  config.web_console.whitelisted_ips = '127.0.0.1'
+  # config.web_console.whitelisted_ips = '127.0.0.1'
   config.middleware.use ExceptionNotification::Rack,
   email: {
     email_prefix: '[Website Error] ',
