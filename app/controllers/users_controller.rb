@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :profil, :download]
   before_action :set_expiration
-  before_action :restrict_access, only: [:show, :index, :profil, :to_treat, :edit, :allincidents]
+  # before_action :restrict_access, only: [:show, :index, :profil, :to_treat, :edit, :allincidents]
 
   def home
     @title = 'Utilisateurs'
@@ -118,12 +118,12 @@ class UsersController < ApplicationController
   end
 
   private
-  def restrict_access
-    if current_user.nil?
-      flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
-      redirect_to '/'
-    end
-  end
+  # def restrict_access
+  #   if current_user.nil?
+  #     flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
+  #     redirect_to '/'
+  #   end
+  # end
 
   def set_expiration
     expires_in(10.seconds, public: true)
