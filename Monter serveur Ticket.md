@@ -88,7 +88,8 @@ LEXIQUE :
         tcp_nopush on;
         tcp_nodelay on;
         keepalive_timeout 65;
-        types_hash_max_size 2048;
+        types_hash_max_size 2048;      
+        client_max_body_size 100M;
         # server_tokens off;
 
         # server_names_hash_bucket_size 64;
