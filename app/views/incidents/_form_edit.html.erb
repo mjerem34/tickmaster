@@ -136,7 +136,7 @@
     <% if file.content_type.include?("image") %>
     <%= link_to "#{image_tag(file.file_url, size: '800x400')}".html_safe, file.file_url%>
     <% else %>
-    <%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: "form-control ") %>
+    <%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: "form-control btn-link-pj btn btn-default") %>
     <% end %>
     <br><br>
     <% end %>

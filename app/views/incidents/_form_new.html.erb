@@ -31,11 +31,43 @@
       <b>Bas</b><%= f.text_field :lvl_urgence_user, class: "slider-bootstrap", type: 'range', min: 0,max: 10, step: 1, value: 1 %><b>Haut</b><br><br>
       </div>
     </div>
-<div class="fallback" id="filesinputs">
-      <%= fields_for :file_incidents, @incident.file_incidents do |i| %>
-        <%= i.file_field :file, name: "file_incidents[file][]", multiple: true, id: "attachfile" %>
-      <% end %>
+    <div class="fallback" id="filesinputs">
+    <div class="input-file-container js">
+      <ul class=" js">
+        <%= fields_for :file_incidents, @incident.file_incidents do |i| %>
+        <li style="display:inline-block;"><%= i.file_field :file, name: "file_incidents[file][]",class: "js input-file", multiple: true %></li>
+        <%= i.label "Selectionnez un fichier...", class: "js  label-file input-file-trigger", for: 'my-file', tabindex: '0' %><br>
+        <li style="display:inline-block;"><button id="cancel_file_send" name="button" type="button" class='js btn  input-file-trigger'>Supprimer fichier</button></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#cancel_file_send").click(function(){
+        $(".input-file").show();
+        $(".label-file").text('Selectionnez des fichiers ...');
+        reset($('.input-file'));
+      });
+    });
+
+    window.reset = function (e) {
+        e.wrap('<form>').closest('form').get(0).reset();
+        e.unwrap();
+    }
+    $(document).ready(function(){
+      $(".input-file").change(function(){
+        var i = 0;
+        var a = '';
+        while( $('input[type=file]')[0].files[i].name !== '' ) {
+          a += " " + $('input[type=file]')[0].files[i].name;
+          i += 1;
+          $(".label-file").text(a);
+        }
+      });
+    });
+
+  </script>
 
 </div>
 

@@ -1,4 +1,4 @@
-<% @title = "Incident n°#{@incident.id} de #{link_to "#{@incident.user.name} #{@incident.user.surname}", edit_user_path(@incident.user)}" %>
+<% @title = "Incident n°#{@incident.id} de #{link_to "#{@incident.user.name} #{@incident.user.surname}", profil_user_path(@incident.user)}" %>
 <% if !current_user.nil? && Right.where(name: "view_detail_incident").pluck(current_user.tech.name).join('')  == 'true' %>
 <%= render 'form_edit' %>
 <!-- Contenu si l'incident n'est pas cloturé -->
@@ -26,7 +26,7 @@
         <td>
           <ol>
             <% response.file_responses.each do |file| %>
-            <li><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-default')%></li>
+            <li><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-default btn-link-pj')%></li>
             <% end %>
           </ol>
         </td>
@@ -95,7 +95,7 @@
         <td>
           <ol>
             <% file_responses.each do |file| %>
-            <li><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-default')%></li>
+            <li><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-default btn-link-pj')%></li>
             <% end %>
           </ol>
         </td>
