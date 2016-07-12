@@ -140,8 +140,3 @@
 <% @title = "Accès non autorisé"%>
 <%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
 <% end %>
-<script type="text/javascript">
-  $(".submit").on("click", (function () {
-    $('.new_right').submit();
-  }));
-</script>

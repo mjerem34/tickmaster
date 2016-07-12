@@ -23,9 +23,11 @@ class UsersController < ApplicationController
 
   def check
     @idOfIncident = Array.new
-    if current_user.tech.simple_user == true
+    if current_user.tech.name == "disp"
+      @incidents = Incident.where(notify_for_tech: 1, incident_state_id_for_tech_id: 1)
+    elsif current_user.tech.simple_user == true
       @incidents = Incident.where(user_id: current_user.id, notify_for_user: 1)
-    else
+    elsif current_user.tech.simple_user == false
       @incidents = Incident.where(tech_id: current_user.id, notify_for_tech: 1)
     end
     @incidents.each do |incident|
