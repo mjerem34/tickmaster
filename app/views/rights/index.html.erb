@@ -9,59 +9,58 @@
         <th>Nom</th>
         <th>Description</th>
         <th>Demandeur</th>
-        <th>Technicien</th>
-        <th>SuperTech</th>
-        <th>Administrateur</th>
-        <th>Dispatcheur</th>
-        <th>Assistant</th>
-        <th>Expert</th>
-        <th>Comptable</th>
+        <%= current_user.tech.name == "tech" ? "<th style='color:#47b8e0 !important;'>Technicien</th>".html_safe : "<th>Technicien</th>".html_safe%>
+        <%= current_user.tech.name == "super_tech" ? "<th style='color:#47b8e0 !important;'>SuperTech</th>".html_safe : "<th>SuperTech</th>".html_safe%>
+        <%= current_user.tech.name == "admin" ? "<th style='color:#47b8e0 !important;'>Administrateur</th>".html_safe : "<th>Administrateur</th>".html_safe%>
+        <%= current_user.tech.name == "assistant" ? "<th style='color:#47b8e0 !important;'>Assistant</th>".html_safe : "<th>Assistant</th>".html_safe%>
+        <%= current_user.tech.name == "expert" ? "<th style='color:#47b8e0 !important;'>Expert</th>".html_safe : "<th>Expert</th>".html_safe%>
+        <%= current_user.tech.name == "comptable" ? "<th style='color:#47b8e0 !important;'>Comptable</th>".html_safe : "<th>Comptable</th>".html_safe%>
       </tr>
     </thead>
     <tbody>
       <% @rights.each do |right| %>
       <tr>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'"><%= right.name %></td>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'"><%= right.content %></td>
+        <td><%= right.name %></td>
+        <td><%= right.content %></td>
         <%if right.user == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.user %></td>
+        <td style="background: darkgreen;"><%= right.user %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.user %></td>
+        <td style="background: darkred;"><%= right.user %></td>
         <%end%>
         <%if right.tech == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.tech %></td>
+        <td style="background: darkgreen;"><%= right.tech %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.tech %></td>
+        <td style="background: darkred;"><%= right.tech %></td>
         <%end%>
         <%if right.super_tech == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.super_tech %></td>
+        <td style="background: darkgreen;"><%= right.super_tech %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.super_tech %></td>
+        <td style="background: darkred;"><%= right.super_tech %></td>
         <%end%>
         <%if right.admin == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.admin %></td>
+        <td style="background: darkgreen;"><%= right.admin %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.admin %></td>
+        <td style="background: darkred;"><%= right.admin %></td>
         <%end%>
         <%if right.disp == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.disp %></td>
+        <td style="background: darkgreen;"><%= right.disp %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.disp %></td>
+        <td style="background: darkred;"><%= right.disp %></td>
         <%end%>
         <%if right.assistant == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.assistant %></td>
+        <td style="background: darkgreen;"><%= right.assistant %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.assistant %></td>
+        <td style="background: darkred;"><%= right.assistant %></td>
         <%end%>
         <%if right.expert == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style=" background: darkgreen;"><%= right.expert %></td>
+        <td style=" background: darkgreen;"><%= right.expert %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.expert %></td>
+        <td style="background: darkred;"><%= right.expert %></td>
         <%end%>
         <%if right.comptable == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.comptable %></td>
+        <td style="background: darkgreen;"><%= right.comptable %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.comptable %></td>
+        <td style="background: darkred;"><%= right.comptable %></td>
         <%end%>
       </tr>
       <% end %>
@@ -88,47 +87,47 @@
     <tbody>
       <% @rights.each do |right| %>
       <tr>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'"><%= right.name %></td>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'"><%= right.content %></td>
+        <td><%= right.name %></td>
+        <td><%= right.content %></td>
         <%if right.user == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.user %></td>
+        <td style="background: darkgreen;"><%= right.user %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.user %></td>
+        <td style="background: darkred;"><%= right.user %></td>
         <%end%>
         <%if right.tech == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.tech %></td>
+        <td style="background: darkgreen;"><%= right.tech %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.tech %></td>
+        <td style="background: darkred;"><%= right.tech %></td>
         <%end%>
         <%if right.super_tech == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.super_tech %></td>
+        <td style="background: darkgreen;"><%= right.super_tech %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.super_tech %></td>
+        <td style="background: darkred;"><%= right.super_tech %></td>
         <%end%>
         <%if right.admin == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.admin %></td>
+        <td style="background: darkgreen;"><%= right.admin %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.admin %></td>
+        <td style="background: darkred;"><%= right.admin %></td>
         <%end%>
         <%if right.disp == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.disp %></td>
+        <td style="background: darkgreen;"><%= right.disp %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.disp %></td>
+        <td style="background: darkred;"><%= right.disp %></td>
         <%end%>
         <%if right.assistant == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.assistant %></td>
+        <td style="background: darkgreen;"><%= right.assistant %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.assistant %></td>
+        <td style="background: darkred;"><%= right.assistant %></td>
         <%end%>
         <%if right.expert == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.expert %></td>
+        <td style="background: darkgreen;"><%= right.expert %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.expert %></td>
+        <td style="background: darkred;"><%= right.expert %></td>
         <%end%>
         <%if right.comptable == true%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkgreen;"><%= right.comptable %></td>
+        <td style="background: darkgreen;"><%= right.comptable %></td>
         <%else%>
-        <td onClick="document.location.href='<%=edit_right_path(right)%>'" style="background: darkred;"><%= right.comptable %></td>
+        <td style="background: darkred;"><%= right.comptable %></td>
         <%end%>
       </tr>
       <% end %>
