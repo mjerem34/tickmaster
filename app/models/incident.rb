@@ -72,7 +72,7 @@ class Incident < ActiveRecord::Base
     self.lvl_of_incident = 1
     self.notify_for_user = false
     self.notify_for_tech = true
-    self.lvl_urgence_user = '1' if lvl_urgence_user == '50'
+    # self.lvl_urgence_user = '1' if lvl_urgence_user == '50'
     self.lvl_urgence_user = sous_category.lvl_urgence_max if lvl_urgence_user > sous_category.lvl_urgence_max
   end
 end

@@ -28,18 +28,9 @@
   <div class="field"><br>
     <%= f.label "Niveau d'urgence", :class => ''  %><br>
     <div class="lvl_urgence_slider">
-      <b>Bas</b><%= f.text_field :lvl_urgence_user, class: "slider-bootstrap", type: 'range', data: {
-        'provide' => "slider",
-        'slider-min' => 1,
-        'slider-max' => 10,
-        'slider-value'=> 1,
-        'slider-tooltip' => 'hide',
-        'slider-step' => 1}%><b>Haut</b><br><br>
+      <b>Bas</b><%= f.text_field :lvl_urgence_user, class: "slider-bootstrap", type: 'range', min: 0,max: 10, step: 1, value: 1 %><b>Haut</b><br><br>
       </div>
     </div>
-  <script type="text/javascript">
-  $("#incident_lvl_urgence_user").slider();
-  </script>
 <div class="fallback" id="filesinputs">
       <%= fields_for :file_incidents, @incident.file_incidents do |i| %>
         <%= i.file_field :file, name: "file_incidents[file][]", multiple: true, id: "attachfile" %>

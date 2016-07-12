@@ -14,5 +14,4 @@
 //= require bootstrap-sprockets
 //= require ckeditor/init
 //= require jquery_ujs
-//= require bootstrap-slider
 //= require_tree
