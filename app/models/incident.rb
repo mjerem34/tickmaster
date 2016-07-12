@@ -18,8 +18,8 @@ class Incident < ActiveRecord::Base
   validates :category_id, presence: true
   validates :sous_category_id, presence: true
 
-  before_create :set_lvl_urgence_user_if_it_is_too_larger_than_lvl_urgence_max
   before_update :verify_if_incident_is_reaffected
+  before_create :set_multiples_fields_defaults_values
 
   def verify_if_incident_is_reaffected
     if self.tech_id_changed?
@@ -35,11 +35,6 @@ class Incident < ActiveRecord::Base
     end
   end
 
-  def set_lvl_urgence_user_if_it_is_too_larger_than_lvl_urgence_max
-    self.lvl_urgence_user = '1' if lvl_urgence_user == '50'
-
-    self.lvl_urgence_user = sous_category.lvl_urgence_max if lvl_urgence_user > sous_category.lvl_urgence_max
-  end
 
   def downloadable?(user)
     user != :guest
@@ -68,5 +63,16 @@ class Incident < ActiveRecord::Base
         AppMailer.incident_clotured_for_disp_if_is_creator_clotured(incident, @users).deliver_now
       end
     end
+  end
+
+  def set_multiples_fields_defaults_values
+    self.incident_state_id_for_user_id ||= 1
+    self.incident_state_id_for_tech_id ||= 1
+    self.lvl_urgence_tech = 1
+    self.lvl_of_incident = 1
+    self.notify_for_user = false
+    self.notify_for_tech = true
+    self.lvl_urgence_user = '1' if lvl_urgence_user == '50'
+    self.lvl_urgence_user = sous_category.lvl_urgence_max if lvl_urgence_user > sous_category.lvl_urgence_max
   end
 end

@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       get :mode_nuit_jour
       get :forget_identifiers
       post :forget_identifiers
+      get :check
     end
   end
   get '/', to: 'pages#home'
@@ -78,6 +79,8 @@ Rails.application.routes.draw do
   get '/agencies', to: 'agencies#index'
   get '/agencies_doPing', to: 'agencies#doPing'
   get '/agencies_createGraphics', to: 'agencies#createGraphics'
+  get '/check_notify', to: 'users#check'
+
   # get '/nuit_jour', to: 'users#mode_nuit_jour'
   # get '/test_exception', to: 'application#test_exception'
 

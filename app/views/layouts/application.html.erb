@@ -226,5 +226,9 @@ $(document).ready(function(){
   // });
 });
 </script>
+<% if !current_user.nil? %>
+<%= render 'layouts/notifications'%>
+<% end %>
 </body>
+
 </html>

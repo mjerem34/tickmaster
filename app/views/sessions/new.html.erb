@@ -1,54 +1,53 @@
 <% @title = "Se connecter"%>
 <% if current_user == nil %>
 <% content_for :form do %>
-<button type="button" name="button">Test</button>
-<script type="text/javascript">
-window.addEventListener('load', function () {
-// Premièrement, vérifions que nous avons la permission de publier des notifications. Si ce n'est pas le cas, demandons la
-if (window.Notification && Notification.permission !== "granted") {
-  Notification.requestPermission(function (status) {
-    if (Notification.permission !== status) {
-      Notification.permission = status;
-    }
-  });
-}
-
-var button = document.getElementsByTagName('button')[0];
-
-button.addEventListener('click', function () {
-  // Si l'utilisateur accepte d'être notifié
-  if (window.Notification && Notification.permission === "granted") {
-    var n = new Notification("TickMaster requiert votre attention !");
-  }
-
-  // Si l'utilisateur n'a pas choisi s'il accepte d'être notifié
-  // Note: à cause de Chrome, nous ne sommes pas certains que la propriété permission soit définie, par conséquent il n'est pas sûr de vérifier la valeur par défaut.
-  else if (window.Notification && Notification.permission !== "denied") {
-    Notification.requestPermission(function (status) {
-      if (Notification.permission !== status) {
-        Notification.permission = status;
-      }
-
-      // Si l'utilisateur est OK
-      if (status === "granted") {
-        var n = new Notification("TickMaster requiert votre attention !");
-      }
-
-      // Sinon, revenons en à un mode d'alerte classique
-      else {
-        alert("TickMaster requiert votre attention !");
-      }
-    });
-  }
-
-  // Si l'utilisateur refuse d'être notifié
-  else {
-    // We can fallback to a regular modal alert
-    alert("TickMaster requiert votre attention !");
-  }
-});
-});
-</script>
+<!-- <script type="text/javascript">
+// window.addEventListener('load', function () {
+// // Premièrement, vérifions que nous avons la permission de publier des notifications. Si ce n'est pas le cas, demandons la
+// if (window.Notification && Notification.permission !== "granted") {
+//   Notification.requestPermission(function (status) {
+//     if (Notification.permission !== status) {
+//       Notification.permission = status;
+//     }
+//   });
+// }
+//
+// var button = document.getElementsByTagName('button')[0];
+//
+// button.addEventListener('click', function () {
+//   // Si l'utilisateur accepte d'être notifié
+//   if (window.Notification && Notification.permission === "granted") {
+//     var n = new Notification("TickMaster requiert votre attention !");
+//   }
+//
+//   // Si l'utilisateur n'a pas choisi s'il accepte d'être notifié
+//   // Note: à cause de Chrome, nous ne sommes pas certains que la propriété permission soit définie, par conséquent il n'est pas sûr de vérifier la valeur par défaut.
+//   else if (window.Notification && Notification.permission !== "denied") {
+//     Notification.requestPermission(function (status) {
+//       if (Notification.permission !== status) {
+//         Notification.permission = status;
+//       }
+//
+//       // Si l'utilisateur est OK
+//       if (status === "granted") {
+//         var n = new Notification("TickMaster requiert votre attention !");
+//       }
+//
+//       // Sinon, revenons en à un mode d'alerte classique
+//       else {
+//         alert("TickMaster requiert votre attention !");
+//       }
+//     });
+//   }
+//
+//   // Si l'utilisateur refuse d'être notifié
+//   else {
+//     // We can fallback to a regular modal alert
+//     alert("TickMaster requiert votre attention !");
+//   }
+// });
+// });
+</script> -->
 <div class="row">
   <div class="col-md-4"></div>
   <div class="col-md-4">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160621092116) do
+ActiveRecord::Schema.define(version: 20160712084750) do
 
   create_table "agencies", force: :cascade do |t|
     t.string "name",       limit: 45
@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 20160621092116) do
     t.string "adress3",    limit: 100
     t.string "cp",         limit: 20
     t.string "city",       limit: 45
-    t.string "email",      limit: 255
+    t.string "email",      limit: 45
     t.string "tel",        limit: 20
     t.string "fax",        limit: 20
-    t.string "department", limit: 20
+    t.string "department", limit: 50
     t.string "ip_adress",  limit: 50
   end
 
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 20160621092116) do
     t.datetime "attach_updated_at"
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
-    t.string   "incidentscol",                  limit: 45
+    t.boolean  "notify_for_tech"
   end
 
   add_index "incidents", ["pc_id"], name: "index_incidents_on_pc_id", using: :btree

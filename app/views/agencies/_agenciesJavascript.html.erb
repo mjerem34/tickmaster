@@ -2,14 +2,16 @@
 $(document).ready(function(){
   $.pings = [];
   $.agencyName = "";
-  $("").click(function(){
+  $.graphicName = "";
+  $("#btn-creer-graphique").click(function(){
     $.ajax({ // demarage ajax
       url: '/agencies_createGraphics', // url du controller rails pour pinger (methode doPing)
       type: 'GET',
       dataType: 'script',
       data: {
         pings: $.pings, // transfert de l'adress ip dans params[:host] pour le récup dans le controller
-        agencyName: $.agencyName
+        agencyName: $.agencyName,
+        graphicName: $.graphicName
       },
       success: function(result){
         if (result == "false"){
@@ -129,6 +131,15 @@ $(document).ready(function(){
       if($.checkedAgencies = []){return false;}
       if($.GraphicName = ""){return false;}
 
+    });
+    $("#btn-deselectionner").click(function(){
+      if($("#btn-deselectionner").html() == "Désélectionner tout"){
+        $(".checkbox-select").attr("checked", false);
+        $("#btn-deselectionner").html("Sélectionner tout");
+      }else {
+        $(".checkbox-select").prop("checked", true);
+        $("#btn-deselectionner").html("Désélectionner tout");
+      }
     });
   });
 

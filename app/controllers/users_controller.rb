@@ -21,6 +21,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def check
+    @idOfIncident = Array.new
+    if current_user.tech.simple_user == true
+      @incidents = Incident.where(user_id: current_user.id, notify_for_user: 1)
+    else
+      @incidents = Incident.where(tech_id: current_user.id, notify_for_tech: 1)
+    end
+    @incidents.each do |incident|
+      @idOfIncident << incident.id
+    end
+    render json: @idOfIncident
+  end
+
   def show
     @incidents = Incident.where(user_id: current_user.id, incident_state_id_for_user_id: [1, 2, 3, 4, 5, 6, 8, 9, 11, 12]).includes(:user, :category, :sous_category).order("created_at asc")
     unless params[:order_by].nil?

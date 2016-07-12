@@ -12,7 +12,11 @@
         <div class="modal-body">
           <div id="1st">
             <p>Sélectionnez la/les agences sont vous souhaitez créer le graphique puis cliquez sur suivant : </p>
-            <%= @agencies.each do |agency| %>
+            <button type="button" name="button" class="btn btn-default btn-modal" id="btn-deselectionner">Désélectionner tout</button><br>
+            <% @agencies.each do |agency| %>
+            <% if agency.ip_adress != "NULL" %>
+              <label><input type="checkbox" name="<%= agency.name %>" value="<%= agency.id %>" checked="true" class="checkbox-select"><%= agency.name %></label><br>
+              <% end %>
             <% end %>
             <!-- Liste des agences (uniq les pingées) -->
             <!-- si une seule agence alors choisir par défaut mais laisser cette page pour vérification-->
@@ -23,9 +27,9 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" name="button" class="btn btn-default" id="btn-creer-graphique">Créer</button>
-          <button type="button" name="button" class="btn btn-default" id="btn-suivant">Suivant</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+          <button type="button" name="button" class="btn btn-default btn-modal" id="btn-creer-graphique">Créer</button>
+          <button type="button" name="button" class="btn btn-default btn-modal" id="btn-suivant">Suivant</button>
+          <button type="button" class="btn btn-danger btn-modal" data-dismiss="modal">Fermer</button>
         </div>
       </div>
 
@@ -33,5 +37,3 @@
   </div>
 
 </div>
-<script type="text/javascript">
-</script>

@@ -41,17 +41,23 @@ class ResponsesController < ApplicationController
     @response.sender_id = current_user.id
     @response.ip_adress_sender ||= request.remote_ip
     if @response.sender_id == @incident.tech_id
+        @incident.update(notify_for_tech: false, notify_for_user: true)
       @response.receiver_id = @incident.user_id
     else
+      if params[:commit] != 'Rejeter' && params[:commit] != 'Cloturer'
+        @incident.update(notify_for_tech: true, notify_for_user: false)
+      else
+        @incident.update(notify_for_tech: false, notify_for_user: false)
+      end
       @response.receiver_id = @incident.tech_id
     end
 
     if @response.save!
       unless params[:file_responses].nil?
         params[:file_responses]['file'].each do |a|
-          if a.size > 31_457_280
-            flash[:notice] = 'Doit être inférieur à 30 Mo'
-          elsif a.size > 5_242_880
+          # if a.size > 31_457_280
+            # flash[:notice] = 'Doit être inférieur à 30 Mo'
+          if a.size > 5_242_880
             flash[:notice] = 'Doit être inférieur à 5 Mo'
           end
           @file_responses = @response.file_responses.create(
@@ -64,13 +70,11 @@ class ResponsesController < ApplicationController
       when 'Valider' then
         if @response.sender_id == @incident.user_id
           unless @incident.incident_state_id_for_user_id == 1
-            @incident.update(incident_state_id_for_user_id: 6)
-            @incident.update(incident_state_id_for_tech_id: 4)
+            @incident.update(incident_state_id_for_user_id: 6, incident_state_id_for_tech_id: 4)
           end
         elsif @response.sender_id == @incident.tech_id
           unless @incident.incident_state_id_for_user_id == 1
-            @incident.update(incident_state_id_for_user_id: 4)
-            @incident.update(incident_state_id_for_tech_id: 5)
+            @incident.update(incident_state_id_for_user_id: 4, incident_state_id_for_tech_id: 5)
           end
         end
         if @users.where(id: @response.sender_id).pluck(:tech_id).join == '5'

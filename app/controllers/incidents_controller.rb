@@ -76,10 +76,10 @@ class IncidentsController < ApplicationController
     @incident = Incident.new(incident_params)
     @incident.user_id ||= current_user.id
     @incident.ip_adress ||= request.remote_ip
-    @incident.incident_state_id_for_user_id ||= 1
-    @incident.incident_state_id_for_tech_id ||= 1
-    @incident.lvl_urgence_tech = 1
-    @incident.lvl_of_incident = 1
+    # @incident.incident_state_id_for_user_id ||= 1
+    # @incident.incident_state_id_for_tech_id ||= 1
+    # @incident.lvl_urgence_tech = 1
+    # @incident.lvl_of_incident = 1
     @incident.agency_id ||= current_user.agency_id
     respond_to do |format|
       if @incident.save
