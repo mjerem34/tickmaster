@@ -16,6 +16,8 @@ class Response < ActiveRecord::Base
   has_many :users
   belongs_to :user
   belongs_to :incident
+  belongs_to :sender, class_name: 'User', foreign_key: 'sender_id'
+  belongs_to :receiver, class_name: 'User', foreign_key: 'receiver_id'
   has_many :file_responses, dependent: :destroy
   accepts_nested_attributes_for :file_responses, allow_destroy: true
   has_many :file_archives

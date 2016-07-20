@@ -6,7 +6,13 @@ class ApplicationController < ActionController::Base
   def test_exception
     raise "Testing, 1 2 3."
   end
-
+  def sendNotif(host, msg)
+    # host = @incident.user.ip_addr
+    port = "3333"
+    s = TCPSocket.open(host, port)
+    s.puts(msg)
+    s.close
+  end
   private
 
   def reject_it(incident)
@@ -70,6 +76,7 @@ class ApplicationController < ActionController::Base
     @users = User.all # Recuperation de tous les users pour email
     @responses = Response.all.where(incident_id: incident.id) # Recuperation toutes les reponses de lincident
     if incident.user_id == current_user.id # Si celui qui cloture est celui qui a cree lincident
+          sendNotif(incident.tech.ip_addr, "L'incident n°" + incident.id.to_s + " a été cloturé !")
       incident.update(
         resolved_at: Time.now, archived_at: Time.now,
         incident_state_id_for_tech_id: 7,
@@ -101,10 +108,13 @@ class ApplicationController < ActionController::Base
         else redirect_to incidents_path
         end
       end
+
       # AppMailer.incident_clotured_for_creator_if_is_creator_clotured(incident, @users, @responses).deliver_now
       # AppMailer.incident_clotured_for_tech_if_is_creator_clotured(incident, @users).deliver_now unless incident.tech_id.nil?
       # AppMailer.incident_clotured_for_disp_if_is_creator_clotured(incident, @users).deliver_now unless User.where(tech_id: 5).nil?
     elsif incident.tech_id == current_user.id # Sinon si celui qui cloture est le technicien en charge
+          sendNotif(incident.user.ip_addr, "Votre incident n°" + incident.id.to_s + " demande à être cloturé !")
+
       incident.update( # Met a jour l'incident : en attente de cloture
         resolved_at: Time.now, incident_state_id_for_tech_id: 9,
         incident_state_id_for_user_id: 8)

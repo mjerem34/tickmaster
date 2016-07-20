@@ -68,6 +68,15 @@ class ResponsesController < ApplicationController
       end
       case params[:commit]
       when 'Valider' then
+        unless @response.receiver.nil?
+          sendNotif(@response.receiver.ip_addr, @response.sender.name + " " + @response.sender.surname + " a envoyé un message !")
+        else
+          User.where(tech_id: 5).each do |disp|
+            unless disp.ip_addr.nil?
+              sendNotif(disp.ip_addr, @response.sender.name + " " + @response.sender.surname + " a envoyé un message !")
+            end
+          end
+        end
         if @response.sender_id == @incident.user_id
           unless @incident.incident_state_id_for_user_id == 1
             @incident.update(incident_state_id_for_user_id: 6, incident_state_id_for_tech_id: 4)
@@ -92,12 +101,25 @@ class ResponsesController < ApplicationController
         reject_it(@incident)
         AppMailer.incident_rejected_for_creator(@incident, @users).deliver_now
         AppMailer.incident_rejected_for_disp(@incident, @users).deliver_now
+        User.where(tech_id: 5).each do |disp|
+          unless disp.ip_addr.nil?
+            sendNotif(disp.ip_addr, "L'incident n°" + @incident.id.to_s + " a été rejeté !")
+          end
+        end
+        sendNotif(@incident.user.ip_addr, "Votre incident n°" + @incident.id.to_s + " a été rejeté !")
+
         flash[:notice] = "Votre demande de rejet a bien été prise en compte."
         redirect_to edit_incident_path(@incident)
       when 'Réaffecter' then
         reaffect_it(@incident)
         AppMailer.incident_reaffected_for_tech(@incident, @users).deliver_now
         AppMailer.incident_reaffected_for_disp(@incident, @users).deliver_now
+        User.where(tech_id: 5).each do |disp|
+          unless disp.ip_addr.nil?
+            sendNotif(disp.ip_addr, "L'incident n°" + @incident.id.to_s + " demande a être réaffecté !")
+          end
+          end
+
         flash[:notice] = "Votre demande de réaffectation a bien été prise en compte."
         redirect_to edit_incident_path(@incident)
       when 'Cloturer' then

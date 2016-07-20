@@ -11,6 +11,30 @@ class UsersController < ApplicationController
     @users = User.order("name asc")
   end
 
+  def change_ip
+    unless params[:pseudo].nil?
+      @user = User.where(pseudo: params[:pseudo]).first
+      unless @user.nil?
+        unless params[:ip_addr].nil?
+          @user.update(ip_addr: params[:ip_addr])
+          render json: @user, status: 200
+          # tout est ok
+          return true
+        end
+      else
+        render nothing: true, status: 404, content_type: 'text/html'
+        # le pseudo na pas été trouvé
+        return false
+      end
+      render json: @user, status: 206
+      # l'ip na pas été rentrée
+      return false
+    end
+    render :nothing => true, :status => 400, :content_type => 'text/html'
+    # il ny a ni le pseudo ni l'ip
+    return false
+  end
+
   def forget_identifiers # Fonction pour oubli de pseudonyme
     @title = "Identifiants oubliés"
     @user = User.find_by_email(params[:email])
@@ -37,7 +61,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @incidents = Incident.where(user_id: current_user.id, incident_state_id_for_user_id: [1, 2, 3, 4, 5, 6, 8, 9, 11, 12]).includes(:user, :category, :sous_category).order("created_at asc")
+    @incidents = Incident.where(user_id: current_user.id, incident_state_id_for_user_id: [1, 2, 3, 4, 5, 6, 8, 9, 11, 12]).includes(:user, :category, :sous_category).order("created_at desc")
     unless params[:order_by].nil?
       @incidents = @incidents.reorder(params[:order_by])
       respond_to do |format|
@@ -51,7 +75,7 @@ class UsersController < ApplicationController
 
   def to_treat
     if params[:order_by].nil?
-      @incidents = current_user.tech_incidents.where(incident_state_id_for_tech: [2, 3]).order("created_at asc")
+      @incidents = current_user.tech_incidents.where(incident_state_id_for_tech: [2, 3, 4, 5, 6]).order("created_at desc")
     else
       @incidents = Incident.where(tech_id: current_user.id).includes(:user, :category, :sous_category).order(params[:order_by])
       respond_to do |format|
@@ -69,7 +93,7 @@ class UsersController < ApplicationController
 
   def allincidents
     if params[:order_by].nil?
-      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user_id: [7, 10]).order("created_at asc")
+      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user_id: [7, 10]).order("created_at desc")
     else
       @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user_id: [7, 10]).order(params[:order_by])
       respond_to do |format|
@@ -94,6 +118,12 @@ class UsersController < ApplicationController
           format.html do
             redirect_to pages_help_path,
                         notice: 'Bienvenue, votre inscription a bien été prise en compte.'
+                        User.where(tech_id: 5).each do |disp|
+                          unless disp.ip_addr.nil?
+                            sendNotif(disp.ip_addr, @user.name + " " + @user.surname + " vient de s'inscrire !")
+                          end
+                        end
+
           end
         else
           format.html { render :new }
@@ -149,7 +179,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:pseudo, :password, :email, :name, :surname,
+    params.require(:user).permit(:pseudo, :password, :email, :name, :surname, :ip_addr,
                                  :tel, :mobile, :tech_id, :agency_id, file_users_attributes: [:id, :user_id, :file, :content_type, :file_size])
   end
 end

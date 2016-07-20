@@ -36,6 +36,7 @@ class IncidentsController < ApplicationController
   def new
     @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
     @incident = Incident.new
+
   end
 
   def edit
@@ -53,6 +54,8 @@ class IncidentsController < ApplicationController
   def send_tech_form
     @incident = Incident.find(params[:incident_id])
     @incident.update(tech_id: params[:tech_id])
+    sendNotif(@incident.tech.ip_addr, "L'incident n°" + @incident.id.to_s + " vient de vous être affecté !")
+
     respond_to do |format|
       format.js
     end
@@ -100,6 +103,11 @@ class IncidentsController < ApplicationController
         format.json { render :show, status: :created, location: @incident }
         AppMailer.incident_created_for_creator(@incident, @users).deliver_now
         AppMailer.incident_created_for_disp(@incident, @users).deliver_now
+        User.where(tech_id: 5).each do |disp|
+          unless disp.ip_addr.nil?
+            sendNotif(disp.ip_addr, @incident.user.name + " " + @incident.user.surname + " a créé un incident !")
+          end
+        end
       else
         format.html { render :new, notice: "Veuillez réessayer" }
       end

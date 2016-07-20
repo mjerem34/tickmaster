@@ -66,6 +66,7 @@ Rails.application.routes.draw do
       get :forget_identifiers
       post :forget_identifiers
       get :check
+      get :change_ip
     end
   end
   get '/', to: 'pages#home'
