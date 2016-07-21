@@ -160,7 +160,7 @@ end
       # AppMailer.incident_clotured_for_tech_if_is_creator_clotured(incident, @users).deliver_now unless incident.tech_id.nil?
       # AppMailer.incident_clotured_for_disp_if_is_creator_clotured(incident, @users).deliver_now unless User.where(tech_id: 5).nil?
     elsif incident.tech_id == current_user.id # Sinon si celui qui cloture est le technicien en charge
-          unless incident.user.ip_addr == "" then
+          unless incident.user.ip_addr.nil? then
             sendNotif(incident.user.ip_addr, "Votre incident n°" + incident.id.to_s + " demande à être cloturé !")
           end
 

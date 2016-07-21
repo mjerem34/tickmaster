@@ -54,8 +54,9 @@ class IncidentsController < ApplicationController
   def send_tech_form
     @incident = Incident.find(params[:incident_id])
     @incident.update(tech_id: params[:tech_id])
-    sendNotif(@incident.tech.ip_addr, "L'incident n°" + @incident.id.to_s + " vient de vous être affecté !")
-
+    unless @incident.tech.ip_addr.nil?
+      sendNotif(@incident.tech.ip_addr, "L'incident n°" + @incident.id.to_s + " vient de vous être affecté !")
+    end
     respond_to do |format|
       format.js
     end

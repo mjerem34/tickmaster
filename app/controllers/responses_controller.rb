@@ -68,11 +68,11 @@ class ResponsesController < ApplicationController
       end
       case params[:commit]
       when 'Valider' then
-        unless @response.receiver.nil? && @response.receiver.ip_addr == "" then
+        unless @response.receiver.nil? && @response.receiver.ip_addr.nil? then
           sendNotif(@response.receiver.ip_addr, @response.sender.name + " " + @response.sender.surname + " a envoyé un message !")
         else
           User.where(tech_id: 5).each do |disp|
-            unless disp.ip_addr == ""
+            unless disp.ip_addr.nil?
               sendNotif(disp.ip_addr, @response.sender.name + " " + @response.sender.surname + " a envoyé un message !")
             end
           end
@@ -102,11 +102,11 @@ class ResponsesController < ApplicationController
         AppMailer.incident_rejected_for_creator(@incident, @users).deliver_now
         AppMailer.incident_rejected_for_disp(@incident, @users).deliver_now
         User.where(tech_id: 5).each do |disp|
-          unless disp.ip_addr == ""
+          unless disp.ip_addr.nil?
             sendNotif(disp.ip_addr, "L'incident n°" + @incident.id.to_s + " a été rejeté !")
           end
         end
-        unless @incident.user.ip_addr == ""
+        unless @incident.user.ip_addr.nil?
           sendNotif(@incident.user.ip_addr, "Votre incident n°" + @incident.id.to_s + " a été rejeté !")
         end
 
@@ -117,7 +117,7 @@ class ResponsesController < ApplicationController
         AppMailer.incident_reaffected_for_tech(@incident, @users).deliver_now
         AppMailer.incident_reaffected_for_disp(@incident, @users).deliver_now
         User.where(tech_id: 5).each do |disp|
-          unless disp.ip_addr == ""
+          unless disp.ip_addr.nil?
             sendNotif(disp.ip_addr, "L'incident n°" + @incident.id.to_s + " demande a être réaffecté !")
           end
           end
