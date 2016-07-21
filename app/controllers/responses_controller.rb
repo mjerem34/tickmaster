@@ -68,8 +68,10 @@ class ResponsesController < ApplicationController
       end
       case params[:commit]
       when 'Valider' then
-        unless @response.receiver.nil? && @response.receiver.ip_addr.nil? then
-          sendNotif(@response.receiver.ip_addr, @response.sender.name + " " + @response.sender.surname + " a envoyé un message !")
+        unless @response.receiver.nil?
+          unless @response.receiver.ip_addr.nil? then
+            sendNotif(@response.receiver.ip_addr, @response.sender.name + " " + @response.sender.surname + " a envoyé un message !")
+          end
         else
           User.where(tech_id: 5).each do |disp|
             unless disp.ip_addr.nil?
