@@ -6,13 +6,58 @@ class ApplicationController < ActionController::Base
   def test_exception
     raise "Testing, 1 2 3."
   end
-  def sendNotif(host, msg)
-    # host = @incident.user.ip_addr
+
+  def sendNotif(host, msg, timeout = 3)
     port = "3333"
-    s = TCPSocket.open(host, port)
-    s.puts(msg)
-    s.close
+  # Convert the passed host into structures the non-blocking calls
+  # can deal with
+  addr = Socket.getaddrinfo(host, nil)
+  sockaddr = Socket.pack_sockaddr_in(port, addr[0][3])
+
+  Socket.new(Socket.const_get(addr[0][0]), Socket::SOCK_STREAM, 0).tap do |socket|
+    socket.setsockopt(Socket::IPPROTO_TCP, Socket::TCP_NODELAY, 1)
+
+    begin
+      # Initiate the socket connection in the background. If it doesn't fail
+      # immediatelyit will raise an IO::WaitWritable (Errno::EINPROGRESS)
+      # indicating the connection is in progress.
+      socket.connect_nonblock(sockaddr)
+
+    rescue IO::WaitWritable
+      # IO.select will block until the socket is writable or the timeout
+      # is exceeded - whichever comes first.
+      if IO.select(nil, [socket], nil, timeout)
+        begin
+          # Verify there is now a good connection
+          socket.connect_nonblock(sockaddr)
+        rescue Errno::EISCONN
+          # Good news everybody, the socket is connected!
+          socket.puts(msg)
+        rescue
+          # An unexpected exception was raised - the connection is no good.
+          socket.close
+          raise
+        end
+      else
+        # IO.select returns nil when the socket is not ready before timeout
+        # seconds have elapsed
+        socket.close
+        # raise "Connection timeout"
+      end
+    end
   end
+end
+
+  # def sendNotif(host, msg)
+    # host = @incident.user.ip_addr
+    # connect(host, port, msg)
+  #   begin
+  #   s = TCPSocket.open(host, port)
+  #   s.puts(msg)
+  #   s.close
+  # rescue ExceptionName
+  # end
+  # end
   private
 
   def reject_it(incident)
@@ -76,7 +121,9 @@ class ApplicationController < ActionController::Base
     @users = User.all # Recuperation de tous les users pour email
     @responses = Response.all.where(incident_id: incident.id) # Recuperation toutes les reponses de lincident
     if incident.user_id == current_user.id # Si celui qui cloture est celui qui a cree lincident
-          sendNotif(incident.tech.ip_addr, "L'incident n°" + incident.id.to_s + " a été cloturé !")
+          unless incident.tech.ip_addr == "" then
+            sendNotif(incident.tech.ip_addr, "L'incident n°" + incident.id.to_s + " a été cloturé !")
+          end
       incident.update(
         resolved_at: Time.now, archived_at: Time.now,
         incident_state_id_for_tech_id: 7,
@@ -113,7 +160,9 @@ class ApplicationController < ActionController::Base
       # AppMailer.incident_clotured_for_tech_if_is_creator_clotured(incident, @users).deliver_now unless incident.tech_id.nil?
       # AppMailer.incident_clotured_for_disp_if_is_creator_clotured(incident, @users).deliver_now unless User.where(tech_id: 5).nil?
     elsif incident.tech_id == current_user.id # Sinon si celui qui cloture est le technicien en charge
-          sendNotif(incident.user.ip_addr, "Votre incident n°" + incident.id.to_s + " demande à être cloturé !")
+          unless incident.user.ip_addr == "" then
+            sendNotif(incident.user.ip_addr, "Votre incident n°" + incident.id.to_s + " demande à être cloturé !")
+          end
 
       incident.update( # Met a jour l'incident : en attente de cloture
         resolved_at: Time.now, incident_state_id_for_tech_id: 9,
