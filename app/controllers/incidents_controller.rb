@@ -104,7 +104,7 @@ class IncidentsController < ApplicationController
         AppMailer.incident_created_for_creator(@incident, @users).deliver_now
         AppMailer.incident_created_for_disp(@incident, @users).deliver_now
         User.where(tech_id: 5).each do |disp|
-          unless disp.ip_addr == ""
+          unless disp.ip_addr.nil?
             sendNotif(disp.ip_addr, @incident.user.name + " " + @incident.user.surname + " a créé un incident !")
           end
         end
