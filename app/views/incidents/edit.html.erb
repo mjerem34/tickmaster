@@ -241,5 +241,5 @@ sous_category_id: @incident.sous_category_id, messages: @reps), class: "btn btn-
 
 <%else%>
 <% @title = "Accès non autorisé"%>
-<%= flash.now[:notice] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
+<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
 <% end %>

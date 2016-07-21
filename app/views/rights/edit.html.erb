@@ -8,6 +8,6 @@
 <%= link_to 'Annuler', rights_path, class: "btn btn-danger btn-align " %>
 <% else %>
 <% @title = "Accès non autorisé"%>
-    <%= flash.now[:notice] = "Accès non autorisé !" %>
+<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
 </p>
 <% end %>

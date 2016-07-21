@@ -1,6 +1,7 @@
 class ProceduresController < ApplicationController
   before_action :set_procedure, only: [:show, :edit, :update, :destroy]
   before_action :set_categories_all, only: [:index, :show, :edit, :new, :create]
+  before_action :restrict_access, only: [:show, :index, :edit, :new]
 
   # GET /procedures
   # GET /procedures.json
@@ -102,6 +103,13 @@ class ProceduresController < ApplicationController
   end
 
   private
+
+  def restrict_access
+    if current_user.nil?
+      flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
+      redirect_to '/'
+    end
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_procedure
