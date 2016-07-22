@@ -4,7 +4,7 @@ if cd /media/Systemback/mysql; then
 	echo "$(date) - Tout est ok !"
 else
 	echo "$(date) - Les partitions ne sont pas montées, tentative de montage"
-	if sudo mount -a; then
+	if mount -a; then
 		echo "$(date) - Remontage des partitions ok"
 	else
 		echo "$(date) - Erreur lors du montage des partitions"
