@@ -110,16 +110,11 @@ li{
   }
 }
 .btn-edit-agency, .btn-edit-category{
-  width: 40px;
-  height:40px;
-
+  width: 35px;
+  height:35px;
   background:image-url("ICOMOON/32pxBlack/006-pencil.png") no-repeat center;
-}
-.btn-edit-category{
- width: 35px;
- height:35px;
+  background-size: 25px 25px;
 
- background:image-url("ICOMOON/32pxBlack/006-pencil.png") no-repeat center;
 }
 .btn-create-category{
   width: 35px;
