@@ -44,7 +44,7 @@
       <% if !current_user.tech.simple_user %>
       <% to_treat = current_user.tech_incidents.where(incident_state_id_for_tech: [2, 3]).count %>
       <li><%= link_to "A traiter", to_treat_user_path(current_user), class: "", :method => :get %><%= to_treat > 0 ? "(#{to_treat})" : nil %></li>
-      <% without_tech = Incident.where(tech_id: nil).count %>
+      <% without_tech = Incident.where(tech_id: nil).where.not(incident_state_id_for_tech: [7, 10]).count %>
       <li><%= link_to "Non attribués", incidents_without_tech_incident_path(current_user), class: "", :method => :get%><%= without_tech > 0 ? "(#{without_tech})" : nil %></li>
       <% if Right.where(name: "view_index_all_of_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
       <li><%= link_to "Tous les incidents", incidents_url, class: "", :method => :get%></li>
