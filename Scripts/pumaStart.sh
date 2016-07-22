@@ -1,13 +1,13 @@
 #!/bin/bash
 
-if cd /home/ticket/Bureau/tickmaster/; then
-        echo "cd ok"
+if cd /home/ticket/Bureau/TickMasterV2/; then
+	echo "$(date) - cd ok"
 else
-        echo "can't do cd"
+	echo "$(date) - can't do cd"
 fi
 
 if puma -e production -d; then
-        echo "puma started"
+	echo "$(date) - puma started"
 else
-        echo "can't start puma"
+	echo "$(date) - can't start puma"
 fi

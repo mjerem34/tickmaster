@@ -7,16 +7,16 @@ VNCUSER1='vnc'
 case "$1" in
   start)
     su $VNCUSER -c '/usr/bin/tightvncserver :1'
-    echo "Starting TightVNC server for $VNCUSER"
+    echo "$(date) - Starting TightVNC server for $VNCUSER"
     su $VNCUSER1 -c '/usr/bin/tightvncserver :2'
-    echo "Starting TightVNC server for $VNCUSER1"
+    echo "$(date) - Starting TightVNC server for $VNCUSER1"
     ;;
   stop)
     pkill Xtightvnc
-    echo "Tightvncserver stopped"
+    echo "$(date) - Tightvncserver stopped"
     ;;
   *)
-    echo "Usage: /etc/init.d/tightvncserver {start|stop}"
+    echo "$(date) - Usage: /etc/init.d/tightvncserver {start|stop}"
     exit 1
     ;;
 esac
