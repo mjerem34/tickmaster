@@ -19,9 +19,9 @@ class IncidentsController < ApplicationController
   def incidents_without_tech
     @techs = User.joins(:tech).where('teches.simple_user = false').collect{ |p| [[p.surname, p.name].join(' '), p.id] }
     if params[:order_by].nil?
-      @incidents = Incident.where(tech_id: nil).includes(:user, :category, :sous_category).order("created_at desc")
+      @incidents = Incident.where(tech_id: nil).where.not(incident_state_id_for_tech: [7, 10]).includes(:user, :category, :sous_category).order("created_at desc")
     else
-      @incidents = Incident.where(tech_id: nil).includes(:user, :category, :sous_category).order(params[:order_by])
+      @incidents = Incident.where(tech_id: nil).where.not(incident_state_id_for_tech: [7, 10]).includes(:user, :category, :sous_category).order(params[:order_by])
       respond_to do |format|
         format.js {render action: :order_by}
       end
