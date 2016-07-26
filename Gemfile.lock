@@ -77,6 +77,7 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    chartkick (1.5.2)
     chosen-rails (1.4.3)
       coffee-rails (>= 3.2)
       compass-rails (>= 2.0.4)
@@ -113,8 +114,6 @@ GEM
     daemons (1.2.3)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
-    dropzonejs-rails (0.7.2)
-      rails (> 3.1)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
@@ -133,6 +132,8 @@ GEM
     formatador (0.2.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    groupdate (2.5.3)
+      activesupport (>= 3)
     gruff (0.7.0)
       rmagick (~> 2.13, >= 2.13.4)
     guard (2.13.0)
@@ -148,6 +149,8 @@ GEM
       em-websocket (~> 0.5)
       guard (~> 2.8)
       multi_json (~> 1.8)
+    highcharts-rails (4.2.5)
+      railties (>= 3.1)
     hike (1.2.3)
     htmlentities (4.3.4)
     http_parser.rb (0.6.0)
@@ -327,16 +330,18 @@ DEPENDENCIES
   bootstrap-slider-rails
   byebug
   carrierwave
+  chartkick
   chosen-rails
   ckeditor!
   coffee-rails (~> 4.1.0)
   compass-rails!
-  dropzonejs-rails
   exception_notification
   factory_girl
   file_validators
+  groupdate
   gruff
   guard-livereload (~> 2.4)
+  highcharts-rails
   jbuilder (~> 2.0)
   jquery-rails
   mini_magick

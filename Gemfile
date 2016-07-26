@@ -16,7 +16,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'simple_form', '~> 3.1.1'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem "dropzonejs-rails"
+# gem 'dropzonejs-rails'
 gem 'net-ping'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
@@ -30,6 +30,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'annotate', '~> 2.6.10'
 gem 'passenger'
 gem 'bootstrap-slider-rails'
+gem "highcharts-rails"
 # Use ActiveModel has_secure_passwo
 gem 'nokogiri'
 gem 'nprogress-rails'
@@ -37,7 +38,6 @@ gem 'whenever', require: true
 # gem 'bcrypt', '~> 3.1.7'
 # Use Unicorn as the app server
 # gem 'unicorn'
-gem 'guard-livereload', '~> 2.4', require: false
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'bootstrap-sass', '~> 3.3.5'
@@ -48,16 +48,17 @@ gem 'chosen-rails'
 gem 'web-console', '~> 2.0'
 gem 'ckeditor', github: 'galetahub/ckeditor'
 gem 'mini_magick'
-gem "compass-rails", github: "Compass/compass-rails", branch: "master"
-# gem "chartkick"
-# gem 'groupdate'
+gem 'compass-rails', github: 'Compass/compass-rails', branch: 'master'
+gem 'chartkick'
+gem 'groupdate'
 gem 'puma', '~> 3.4.0'
 # gem 'progressive_render'
 gem 'gruff'
 group :production do
-  gem "exception_notification"
+  gem 'exception_notification'
 end
 group :development, :test do
+  gem 'guard-livereload', '~> 2.4', require: false
   gem 'rubocop'
   gem 'thin'
   gem 'factory_girl'

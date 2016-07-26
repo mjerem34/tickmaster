@@ -27,16 +27,12 @@ class AgenciesController < ApplicationController
       end
       g = Gruff::Line.new
       g.title = 'Ping'
-      # g.labels = { 0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4',
-      #              5 => '5', 6 => '6', 7 => '7' }
       g.data "Test", a
       g.write('graphicAgencies.png')
       render :nothing => true, :status => 200, :content_type => 'text/html'    end
     def doPing
         value = pingDef(params[:host])
-        respond_to do |format|
-            format.json { render json: value }
-        end
+        render json: value
     end
 
     def pingDef(host)

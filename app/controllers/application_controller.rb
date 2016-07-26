@@ -36,7 +36,6 @@ class ApplicationController < ActionController::Base
         rescue
           # An unexpected exception was raised - the connection is no good.
           socket.close
-          raise
         end
       else
         # IO.select returns nil when the socket is not ready before timeout
@@ -131,7 +130,6 @@ end
 
       @responses.each do |response| # Pour chaque reponse
         @archive = Archive.new( # Creer une archive avec contenu identique
-          id: response.id,
           content: response.content,
           incident_id: response.incident_id,
           sender_id: response.sender_id,

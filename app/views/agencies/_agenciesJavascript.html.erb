@@ -46,62 +46,106 @@ $(document).ready(function(){
   });
 
   $(".button_ping_agency").click(function(){
-    if($(this).html() == "Ping" && booted == false){
-      booted = true; // Vérouillage pour éviter les bugs
-      var ipOfAgency = $(this).data("ip"); // Va chercher ce qui a dans data-ip="127.0.0.1"
-      var idOfAgency = $(this).data("id"); // Va chercher ce qui a dans data-id="5"
+    data = [
+  {"name":"Workout", "data": {"2013-02-10 00:00:00 -0800": 3, "2013-02-17 00:00:00 -0800": 4}},
+  {"name":"Call parents", "data": {"2013-02-10 00:00:00 -0800": 5, "2013-02-17 00:00:00 -0800": 3}}
+];
+new Chartkick.LineChart("chart-1", data);
 
-      for(var i = 0; i <= 1000; i++){
-        $.ajax({ // demarage ajax
-          url: '/agencies_doPing', // url du controller rails pour pinger (methode doPing)
-          type: 'GET',
-          dataType: 'script',
-          data: {
-            host: ipOfAgency // transfert de l'adress ip dans params[:host] pour le récup dans le controller
-          },
-          success: function(result){
-            if (result == "false"){ // peut retourner false si ip est null ou si TimeOut
-              $("#agencyTd"+idOfAgency).replaceWith("<td id='agencyTd"+idOfAgency+"'>TimeOut</td>"); //ecriture du resultat dans le tableau
-            }else{
-              $.pings.push(parseInt(result));
-              $("#agencyTd"+idOfAgency).replaceWith("<td id='agencyTd"+idOfAgency+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
-            }
-          }
-        });
-      }
-    }
-  });
+      var idOfAgency = $(this).data("id"); // Va chercher ce qui a dans data-id="5"
+      var ipOfAgency = $(this).data("ip"); // Va chercher ce qui a dans data-id="5"
+      var blob = new Blob(['function sleep(milliseconds) {var start = new Date().getTime();for (var i = 0; i < 1e7; i++) {if ((new Date().getTime() - start) > milliseconds){break;}}}onmessage = function(e) { for(var i = 0; i < 1e7; i++){var xhr = new XMLHttpRequest();xhr.open("GET", "http://localhost:3000/agencies_doPing?host=" + e.data + "&t=" + Math.random(), false);xhr.send();var result = xhr.responseText;postMessage(result);sleep(1000);}}']);
+
+      // Obtain a blob URL reference to our worker 'file'.
+      var blobURL = window.URL.createObjectURL(blob);
+
+      var worker = new Worker(blobURL);
+      worker.onmessage = function(e) {
+        console.log(e.data);
+                if (e.data == "false"){ // peut retourner false si ip est null ou si TimeOut
+                  $("#agencyTd"+idOfAgency).replaceWith("<td id='agencyTd"+idOfAgency+"'>TimeOut</td>"); //ecriture du resultat dans le tableau
+                }else{
+                  $.pings.push(parseInt(e.data));
+                  $("#agencyTd"+idOfAgency).replaceWith("<td id='agencyTd"+idOfAgency+"'>"+e.data+" ms</td>");//ecriture du resultat dans le tableau
+                }
+
+        // e.data == 'msg from worker'
+      };
+        worker.postMessage(ipOfAgency);
+    });
+
+
+
+    // if($(this).html() == "Ping" && booted == false){
+    //   booted = true; // Vérouillage pour éviter les bugs
+    //   var idOfAgency = $(this).data("id"); // Va chercher ce qui a dans data-id="5"
+    //
+    //   for(var i = 0; i <= 1000; i++){
+    //     $.ajax({ // demarage ajax
+    //       url: '/agencies_doPing', // url du controller rails pour pinger (methode doPing)
+    //       type: 'GET',
+    //       dataType: 'script',
+    //       data: {
+    //         host: ipOfAgency // transfert de l'adress ip dans params[:host] pour le récup dans le controller
+    //       },
+    //       success: function(result){
+    //         if (result == "false"){ // peut retourner false si ip est null ou si TimeOut
+    //           $("#agencyTd"+idOfAgency).replaceWith("<td id='agencyTd"+idOfAgency+"'>TimeOut</td>"); //ecriture du resultat dans le tableau
+    //         }else{
+    //           $.pings.push(parseInt(result));
+    //           $("#agencyTd"+idOfAgency).replaceWith("<td id='agencyTd"+idOfAgency+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
+    //         }
+    //   }
+    // }
 
 
 // <!-- Script JS pour le bouton pinger toutes les agences -->
-  $("#agencies_ping").click(function(){ // onclick
-    for (var i = 0; i <= 30 ; i++){ // Reping 30 fois toute la liste (semblant de non-stop)
-    $("#table_agencies > tbody > tr").each(function(){
-      var id = $(this).data("id"); // trouve l'id de l'agence
-      $.ajax({ // demarage ajax
-        url: '/agencies_doPing', // url du controller rails pour pinger (methode doPing)
-        type: 'GET',
-        dataType: 'script',
-        data: {
-          host: $(this).data('ip') // transfert de l'adress ip dans params[:host]
-        },
-        success: function(result){
-          if (result == "false"){ // peut retourner false si ip est null ou si TimeOut
-            $("#agencyTd"+id).replaceWith("<td style='color: blue;'id='agencyTd"+id+"'>TimeOut</td>"); //ecriture du resultat dans le tableau
-          }else if(result < 100){
-            $("#agencyTd"+id).replaceWith("<td style='color: green;' id='agencyTd"+id+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
-          }else if(result > 100 && result < 400){
-            $("#agencyTd"+id).replaceWith("<td style='color: orange;' id='agencyTd"+id+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
-          }else {
-            $("#agencyTd"+id).replaceWith("<td style='color: red;' id='agencyTd"+id+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
-          }
-        }
-      });
-  });
-}
-  });
+  // $("#agencies_ping").click(function(){ // onclick
+  //   var worker = new Worker("pingAgenciesWorker.js"); // Déclaration du worker
+  //     worker.postMessage(['param','keep']); // Envoie un message au worker
+  //     worker.onmessage = function(e) {
+  //       console.log('Message reçu du worker: ' + e.data); // Affiche le résultat renvoyé par le worker
+  //     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//     for (var i = 0; i <= 30 ; i++){ // Reping 30 fois toute la liste (semblant de non-stop)
+//     $("#table_agencies > tbody > tr").each(function(){
+//       var id = $(this).data("id"); // trouve l'id de l'agence
+//       $.ajax({ // demarage ajax
+//         url: '/agencies_doPing', // url du controller rails pour pinger (methode doPing)
+//         type: 'GET',
+//         dataType: 'script',
+//         data: {
+//           host: $(this).data('ip') // transfert de l'adress ip dans params[:host]
+//         },
+//         success: function(result){
+//           if (result == "false"){ // peut retourner false si ip est null ou si TimeOut
+//             $("#agencyTd"+id).replaceWith("<td style='color: blue;'id='agencyTd"+id+"'>TimeOut</td>"); //ecriture du resultat dans le tableau
+//           }else if(result < 100){
+//             $("#agencyTd"+id).replaceWith("<td style='color: green;' id='agencyTd"+id+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
+//           }else if(result > 100 && result < 400){
+//             $("#agencyTd"+id).replaceWith("<td style='color: orange;' id='agencyTd"+id+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
+//           }else {
+//             $("#agencyTd"+id).replaceWith("<td style='color: red;' id='agencyTd"+id+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
+//           }
+//         }
+//       });
+//   });
+// }
   $("#agencies_ping_cancel").click(function(){ // demande d'anulation de l'utilisateur
-    $.xhrPool.abortAll(); // Appel a la fonction abortage
+     worker.terminate(); // Arrête le worker immédiatement
+    // $.xhrPool.abortAll(); // Appel a la fonction abortage
   });
 
 // _____________________________________________________________________________________________
