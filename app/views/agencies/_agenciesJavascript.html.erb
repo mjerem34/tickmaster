@@ -1,190 +1,97 @@
 <script type="text/javascript">
-$(document).ready(function(){
-  $.pings = [];
-  $.agencyName = "";
-  $.graphicName = "";
-  $("#btn-creer-graphique").click(function(){
-    $.ajax({ // demarage ajax
-      url: '/agencies_createGraphics', // url du controller rails pour pinger (methode doPing)
-      type: 'GET',
-      dataType: 'script',
-      data: {
-        pings: $.pings, // transfert de l'adress ip dans params[:host] pour le récup dans le controller
-        agencyName: $.agencyName,
-        graphicName: $.graphicName
-      },
-      success: function(result){
-        if (result == "false"){
-          return false;
-        }else{
-          return true;
-        }
-      }
-    });
-  });
+    $(document).ready(function () {
+        $.workers = {};
+        $.results = [];
+        $.donnees = [];
+        $.booted = false;
+        $.namesAgencies = [];
 
+        $("#btn-do-graphic").click(function () {
+            $.each($.namesAgencies, function (keyAgency, valueAgency) {
+                $.tampon = {};
+                $.each($.results, function (key, value) {
+                    $.each(value.data, function (keyData, valueData) {
+                        if (valueAgency == value.name) {
+                            $.tampon[keyData] = valueData;
+                        }
+                    })
+                });
+                $.donnees.push({"name": valueAgency, "data": $.tampon});
+            });
+            new Chartkick.LineChart("chart-1", $.donnees);
 
-  // Script pour juste un seul ping (click sur bouton pinger)
-  var booted = false;
-  $.xhrPool = []; // array of uncompleted requests
-  $.xhrPool.abortAll = function() { // our abort function
-    $(this).each(function(idx, jqXHR) {
-      jqXHR.abort(); // abortage
-    });
-    $.xhrPool.length = 0
-  };
-  $.ajaxSetup({
-    beforeSend: function(jqXHR) { // before jQuery send the request we will push it to our array
-      $.xhrPool.push(jqXHR); //insertion de la requete dans le pool
-    },
-  complete: function(jqXHR) { // when some of the requests completed it will splice from the array
-    var index = $.xhrPool.indexOf(jqXHR); //recherche de lindex
-      if (index > -1) {
-        $.xhrPool.splice(index, 1);
-      }
-    }
-  });
+        });
+        $(".button_ping_stop_agency").click(function(){
+          var nameOfAgency = $(this).data("name"); // Va chercher ce qui a dans data-name="CLE LATTES"
+          $.each($.workers, function (index, worker) {
+              if(index == nameOfAgency){
+                worker.terminate(); // Arrête e worker immédiatement
+              }
+          });
 
-  $(".button_ping_agency").click(function(){
-    data = [
-  {"name":"Workout", "data": {"2013-02-10 00:00:00 -0800": 3, "2013-02-17 00:00:00 -0800": 4}},
-  {"name":"Call parents", "data": {"2013-02-10 00:00:00 -0800": 5, "2013-02-17 00:00:00 -0800": 3}}
-];
-new Chartkick.LineChart("chart-1", data);
+        });
+        $(".button_ping_agency").click(function () {
+            var idOfAgency = $(this).data("id"); // Va chercher ce qui a dans data-id="5"
+            var ipOfAgency = $(this).data("ip"); // Va chercher ce qui a dans data-ip="127.0.0.1"
+            var nameOfAgency = $(this).data("name"); // Va chercher ce qui a dans data-name="CLE LATTES"
+            $.namesAgencies.push(nameOfAgency);
+            $.worker = new Worker(window.URL.createObjectURL(new Blob(['function sleep(milliseconds) {var start = new Date().getTime();for (var i = 0; i < 1e7; i++) {if ((new Date().getTime() - start) > milliseconds){break;}}}onmessage = function(e) { for(var i = 0; i < 1e7; i++){var xhr = new XMLHttpRequest();xhr.open("' +
+                    'GET", "http://localhost:3000/agencies_doPing?host=" + e.data + "&t=" + Math.random(), false);xhr.send();var result = xhr.responseText;postMessage(result);sleep(1000);}}'])));
+            $.workers[nameOfAgency] = $.worker;
+            $.worker.onmessage = function (e) {
+                var now = new Date(Date.now());
+                var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+                // $.pings.push(parseInt(e.data));
+                $("#agencyTd" + idOfAgency).replaceWith("<td id='agencyTd" + idOfAgency + "'>" + e.data + " ms</td>"); //ecriture du resultat dans le tableau
+                $.results.push({
+                    "name": nameOfAgency,
+                    "data": {
+                        [formatted]: e.data
+                    }
+                });
+                // console.log($.results); result appear here Do something here e.data == 'msg from worker'
+            };
+            $.worker.postMessage(ipOfAgency);
+        });
 
-      var idOfAgency = $(this).data("id"); // Va chercher ce qui a dans data-id="5"
-      var ipOfAgency = $(this).data("ip"); // Va chercher ce qui a dans data-id="5"
-      var blob = new Blob(['function sleep(milliseconds) {var start = new Date().getTime();for (var i = 0; i < 1e7; i++) {if ((new Date().getTime() - start) > milliseconds){break;}}}onmessage = function(e) { for(var i = 0; i < 1e7; i++){var xhr = new XMLHttpRequest();xhr.open("GET", "http://localhost:3000/agencies_doPing?host=" + e.data + "&t=" + Math.random(), false);xhr.send();var result = xhr.responseText;postMessage(result);sleep(1000);}}']);
+        $("#agencies_ping").click(function () { // onclick
+            $("#table_agencies > tbody > tr").each(function () {
+                // $.results.push({"name": nameOfAgency, "data": {}}); for(var key of $.results.values()){     console.log(key); }
+                var idOfAgency = $(this).data("id"); // Va chercher ce qui a dans data-id="5"
+                var ipOfAgency = $(this).data("ip"); // Va chercher ce qui a dans data-id="5"
+                var nameOfAgency = $(this).data("name"); // Va chercher ce qui a dans data-name="CLE LATTES"
 
-      // Obtain a blob URL reference to our worker 'file'.
-      var blobURL = window.URL.createObjectURL(blob);
+                if (ipOfAgency != "NULL") {
+                    $.namesAgencies.push(nameOfAgency);
+                    $.worker = new Worker(window.URL.createObjectURL(new Blob(['function sleep(milliseconds) {var start = new Date().getTime();for (var i = 0; i < 1e7; i++) {if ((new Date().getTime() - start) > milliseconds){break;}}}onmessage = function(e) { for(var i = 0; i < 1e7; i++){var xhr = new XMLHttpRequest();xhr.open("' +
+                            'GET", "http://localhost:3000/agencies_doPing?host=" + e.data + "&t=" + Math.random(), false);xhr.send();var result = xhr.responseText;postMessage(result);sleep(1000);}}'])));
+                    $.workers[nameOfAgency] = $.worker;
+                    $.worker.onmessage = function (e) {
 
-      var worker = new Worker(blobURL);
-      worker.onmessage = function(e) {
-        console.log(e.data);
-                if (e.data == "false"){ // peut retourner false si ip est null ou si TimeOut
-                  $("#agencyTd"+idOfAgency).replaceWith("<td id='agencyTd"+idOfAgency+"'>TimeOut</td>"); //ecriture du resultat dans le tableau
-                }else{
-                  $.pings.push(parseInt(e.data));
-                  $("#agencyTd"+idOfAgency).replaceWith("<td id='agencyTd"+idOfAgency+"'>"+e.data+" ms</td>");//ecriture du resultat dans le tableau
+                        var now = new Date(Date.now());
+                        var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+                        // $.pings.push(parseInt(e.data));
+                        $("#agencyTd" + idOfAgency).replaceWith("<td id='agencyTd" + idOfAgency + "'>" + e.data + " ms</td>"); //ecriture du resultat dans le tableau
+                        $.results.push({
+                            "name": nameOfAgency,
+                            "data": {
+                                [formatted]: e.data
+                            }
+                        });
+                        // console.log($.results); result appear here Do something here e.data == 'msg from worker'
+
+                    };
+                    $.worker.postMessage(ipOfAgency);
                 }
+            });
+        });
 
-        // e.data == 'msg from worker'
-      };
-        worker.postMessage(ipOfAgency);
-    });
-
-
-
-    // if($(this).html() == "Ping" && booted == false){
-    //   booted = true; // Vérouillage pour éviter les bugs
-    //   var idOfAgency = $(this).data("id"); // Va chercher ce qui a dans data-id="5"
-    //
-    //   for(var i = 0; i <= 1000; i++){
-    //     $.ajax({ // demarage ajax
-    //       url: '/agencies_doPing', // url du controller rails pour pinger (methode doPing)
-    //       type: 'GET',
-    //       dataType: 'script',
-    //       data: {
-    //         host: ipOfAgency // transfert de l'adress ip dans params[:host] pour le récup dans le controller
-    //       },
-    //       success: function(result){
-    //         if (result == "false"){ // peut retourner false si ip est null ou si TimeOut
-    //           $("#agencyTd"+idOfAgency).replaceWith("<td id='agencyTd"+idOfAgency+"'>TimeOut</td>"); //ecriture du resultat dans le tableau
-    //         }else{
-    //           $.pings.push(parseInt(result));
-    //           $("#agencyTd"+idOfAgency).replaceWith("<td id='agencyTd"+idOfAgency+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
-    //         }
-    //   }
-    // }
-
-
-// <!-- Script JS pour le bouton pinger toutes les agences -->
-  // $("#agencies_ping").click(function(){ // onclick
-  //   var worker = new Worker("pingAgenciesWorker.js"); // Déclaration du worker
-  //     worker.postMessage(['param','keep']); // Envoie un message au worker
-  //     worker.onmessage = function(e) {
-  //       console.log('Message reçu du worker: ' + e.data); // Affiche le résultat renvoyé par le worker
-  //     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//     for (var i = 0; i <= 30 ; i++){ // Reping 30 fois toute la liste (semblant de non-stop)
-//     $("#table_agencies > tbody > tr").each(function(){
-//       var id = $(this).data("id"); // trouve l'id de l'agence
-//       $.ajax({ // demarage ajax
-//         url: '/agencies_doPing', // url du controller rails pour pinger (methode doPing)
-//         type: 'GET',
-//         dataType: 'script',
-//         data: {
-//           host: $(this).data('ip') // transfert de l'adress ip dans params[:host]
-//         },
-//         success: function(result){
-//           if (result == "false"){ // peut retourner false si ip est null ou si TimeOut
-//             $("#agencyTd"+id).replaceWith("<td style='color: blue;'id='agencyTd"+id+"'>TimeOut</td>"); //ecriture du resultat dans le tableau
-//           }else if(result < 100){
-//             $("#agencyTd"+id).replaceWith("<td style='color: green;' id='agencyTd"+id+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
-//           }else if(result > 100 && result < 400){
-//             $("#agencyTd"+id).replaceWith("<td style='color: orange;' id='agencyTd"+id+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
-//           }else {
-//             $("#agencyTd"+id).replaceWith("<td style='color: red;' id='agencyTd"+id+"'>"+result+" ms</td>");//ecriture du resultat dans le tableau
-//           }
-//         }
-//       });
-//   });
-// }
-  $("#agencies_ping_cancel").click(function(){ // demande d'anulation de l'utilisateur
-     worker.terminate(); // Arrête le worker immédiatement
-    // $.xhrPool.abortAll(); // Appel a la fonction abortage
-  });
-
-// _____________________________________________________________________________________________
-
-    $("#2nd").hide();
-    $("#btn-creer-graphique").hide();
-    $("#btn-suivant").click(function(){
-      if($(this).html() == "Suivant"){
-        $(this).html("Précédent");
-        $("#1st").hide("slide", {direction: "left" }, 500);
-        $("#2nd").show("slide", { direction: "right"}, 500);
-        $("#btn-creer-graphique").show(500);
-      }else if ($(this).html() == "Précédent") {
-        $(this).html("Suivant");
-        $("#2nd").hide("slide", {direction: "right" }, 500);
-        $("#1st").show("slide", { direction: "left"}, 500);
-        $("#btn-creer-graphique").hide(500);
-      }else {
-        return false;
-      }
-    });
-
-    $("#btn-creer-graphique").click(function(){
-      $.GraphicName = $("#graphicName").val();
-      $.checkedAgencies = [];
-
-      if($.checkedAgencies = []){return false;}
-      if($.GraphicName = ""){return false;}
+        $("#agencies_ping_cancel").click(function () { // demande d'anulation de l'utilisateur
+            $.each($.workers, function (index, worker) {
+                // alert(worker);
+                worker.terminate(); // Arrête e worker immédiatement
+            });
+        });
 
     });
-    $("#btn-deselectionner").click(function(){
-      if($("#btn-deselectionner").html() == "Désélectionner tout"){
-        $(".checkbox-select").attr("checked", false);
-        $("#btn-deselectionner").html("Sélectionner tout");
-      }else {
-        $(".checkbox-select").prop("checked", true);
-        $("#btn-deselectionner").html("Désélectionner tout");
-      }
-    });
-  });
-
 </script>

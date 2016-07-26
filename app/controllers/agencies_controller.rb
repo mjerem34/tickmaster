@@ -17,19 +17,21 @@ class AgenciesController < ApplicationController
     def ping
         @agencies = Agency.all
     end
-    def createGraphics
-      a = Array.new
-      unless params[:pings].nil? then
 
-      params[:pings].each do |ping|
-        a << ping.to_i
-      end
-      end
-      g = Gruff::Line.new
-      g.title = 'Ping'
-      g.data "Test", a
-      g.write('graphicAgencies.png')
-      render :nothing => true, :status => 200, :content_type => 'text/html'    end
+    def createGraphics
+        a = []
+        unless params[:pings].nil?
+
+            params[:pings].each do |ping|
+                a << ping.to_i
+            end
+        end
+        g = Gruff::Line.new
+        g.title = 'Ping'
+        g.data 'Test', a
+        g.write('graphicAgencies.png')
+        render nothing: true, status: 200, content_type: 'text/html' end
+
     def doPing
         value = pingDef(params[:host])
         render json: value
@@ -40,17 +42,17 @@ class AgenciesController < ApplicationController
             @icmp = Net::Ping::ICMP.new(host)
             # puts "STARTING TO PING ==========> #{host}"
             if @icmp.ping
-              # puts @icmp.duration
-              value = @icmp.duration
-              value = (value * 1000).round(1)
-              # sleep(0.1)
+                # puts @icmp.duration
+                value = @icmp.duration
+                value = (value * 1000).round(1)
+                # sleep(0.1)
                 return value
             else
-              # puts 'timeout'
-                return false
+                # puts 'timeout'
+                return 0
             end
-      end
-        return false
+        end
+        return 0
     end
 
     # GET /agencies/1
