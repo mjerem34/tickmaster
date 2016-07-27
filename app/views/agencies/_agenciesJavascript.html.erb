@@ -36,7 +36,7 @@
             var nameOfAgency = $(this).data("name"); // Va chercher ce qui a dans data-name="CLE LATTES"
             $.namesAgencies.push(nameOfAgency);
             $.worker = new Worker(window.URL.createObjectURL(new Blob(['function sleep(milliseconds) {var start = new Date().getTime();for (var i = 0; i < 1e7; i++) {if ((new Date().getTime() - start) > milliseconds){break;}}}onmessage = function(e) { for(var i = 0; i < 1e7; i++){var xhr = new XMLHttpRequest();xhr.open("' +
-                    'GET", "http://localhost:3000/agencies_doPing?host=" + e.data + "&t=" + Math.random(), false);xhr.send();var result = xhr.responseText;postMessage(result);sleep(1000);}}'])));
+                    'GET", "http://10.134.2.250/agencies_doPing?host=" + e.data + "&t=" + Math.random(), false);xhr.send();var result = xhr.responseText;postMessage(result);sleep(1000);}}'])));
             $.workers[nameOfAgency] = $.worker;
             $.worker.onmessage = function (e) {
                 var now = new Date(Date.now());
@@ -64,7 +64,7 @@
                 if (ipOfAgency != "NULL") {
                     $.namesAgencies.push(nameOfAgency);
                     $.worker = new Worker(window.URL.createObjectURL(new Blob(['function sleep(milliseconds) {var start = new Date().getTime();for (var i = 0; i < 1e7; i++) {if ((new Date().getTime() - start) > milliseconds){break;}}}onmessage = function(e) { for(var i = 0; i < 1e7; i++){var xhr = new XMLHttpRequest();xhr.open("' +
-                            'GET", "http://localhost:3000/agencies_doPing?host=" + e.data + "&t=" + Math.random(), false);xhr.send();var result = xhr.responseText;postMessage(result);sleep(1000);}}'])));
+                            'GET", "http://10.134.2.250/agencies_doPing?host=" + e.data + "&t=" + Math.random(), false);xhr.send();var result = xhr.responseText;postMessage(result);sleep(1000);}}'])));
                     $.workers[nameOfAgency] = $.worker;
                     $.worker.onmessage = function (e) {
 
