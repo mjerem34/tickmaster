@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:edit, :update, :destroy]
   before_action :set_expiration
+  before_action :restrict_access, only: [:show, :index, :edit, :new, :destroy]
 
   # GET /categories
   # GET /categories.json
@@ -30,7 +31,7 @@ class CategoriesController < ApplicationController
     respond_to do |format|
       if @category.save
         format.js
-        @sous_category = SousCategory.new(name: "Autre", category_id: @category.id, lvl_urgence_max: '10')
+        @sous_category = SousCategory.new(name: 'Autre', category_id: @category.id, lvl_urgence_max: '10')
         @sous_category.save
       end
     end
@@ -44,7 +45,7 @@ class CategoriesController < ApplicationController
       if @category.save
         format.html { redirect_to :back, notice: 'Catégorie crée avec success.' }
         format.json { render json: :show, status: :created, location: @category }
-        @sous_category = SousCategory.new(name: "Autre", category_id: @category.id, lvl_urgence_max: '10')
+        @sous_category = SousCategory.new(name: 'Autre', category_id: @category.id, lvl_urgence_max: '10')
         @sous_category.save
       else
         format.html { redirect_to :back }
@@ -85,6 +86,13 @@ class CategoriesController < ApplicationController
   end
 
   private
+
+  def restrict_access
+    if current_user.nil?
+      flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
+      redirect_to '/'
+    end
+  end
 
   def set_expiration
     expires_in(10.seconds, public: true)

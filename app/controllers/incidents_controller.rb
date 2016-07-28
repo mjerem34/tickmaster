@@ -3,30 +3,30 @@ class IncidentsController < ApplicationController
   before_action :set_categories_all, only: [:index, :show, :edit, :new, :create]
   before_action :set_users_all, only: [:create, :cloture_it]
   before_action :set_expiration
+  before_action :restrict_access, only: [:show, :index, :edit, :new, :destroy]
 
   def index
-    @techs = User.joins(:tech).where('teches.simple_user = false').collect{ |p| [[p.surname, p.name].join(' '), p.id] }
+    @techs = User.joins(:tech).where('teches.simple_user = false').collect { |p| [[p.surname, p.name].join(' '), p.id] }
     if params[:order_by].nil?
-      @incidents = Incident.includes(:user, :category, :sous_category).order("created_at desc")
+      @incidents = Incident.includes(:user, :category, :sous_category).order('created_at desc')
     else
       @incidents = Incident.includes(:user, :category, :sous_category).order(params[:order_by])
       respond_to do |format|
-        format.js {render action: :order_by}
+        format.js { render action: :order_by }
       end
     end
   end
 
   def incidents_without_tech
-    @techs = User.joins(:tech).where('teches.simple_user = false').collect{ |p| [[p.surname, p.name].join(' '), p.id] }
+    @techs = User.joins(:tech).where('teches.simple_user = false').collect { |p| [[p.surname, p.name].join(' '), p.id] }
     if params[:order_by].nil?
-      @incidents = Incident.where(tech_id: nil).where.not(incident_state_id_for_tech: [7, 10]).includes(:user, :category, :sous_category).order("created_at desc")
+      @incidents = Incident.where(tech_id: nil).where.not(incident_state_id_for_tech: [7, 10]).includes(:user, :category, :sous_category).order('created_at desc')
     else
       @incidents = Incident.where(tech_id: nil).where.not(incident_state_id_for_tech: [7, 10]).includes(:user, :category, :sous_category).order(params[:order_by])
       respond_to do |format|
-        format.js {render action: :order_by}
+        format.js { render action: :order_by }
       end
     end
-
   end
 
   def show
@@ -36,7 +36,6 @@ class IncidentsController < ApplicationController
   def new
     @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
     @incident = Incident.new
-
   end
 
   def edit
@@ -51,6 +50,7 @@ class IncidentsController < ApplicationController
       format.js
     end
   end
+
   def send_tech_form
     @incident = Incident.find(params[:incident_id])
     @incident.update(tech_id: params[:tech_id])
@@ -98,7 +98,8 @@ class IncidentsController < ApplicationController
         @response = Response.new(
           content: "Incident créé par #{current_user.name}
           #{current_user.surname}", incident_id: @incident.id,
-          sender_id: @incident.user_id)
+          sender_id: @incident.user_id
+        )
         @response.save
         format.html { redirect_to edit_incident_path(@incident), notice: "Votre incident a bien été créé." }
         format.json { render :show, status: :created, location: @incident }
@@ -106,7 +107,7 @@ class IncidentsController < ApplicationController
         AppMailer.incident_created_for_disp(@incident, @users).deliver_now
         User.where(tech_id: 5).each do |disp|
           unless disp.ip_addr.nil?
-            sendNotif(disp.ip_addr, @incident.user.name + " " + @incident.user.surname + " a créé un incident !")
+            sendNotif(disp.ip_addr, @incident.user.name + ' ' + @incident.user.surname + " a créé un incident !")
           end
         end
       else
@@ -131,7 +132,7 @@ class IncidentsController < ApplicationController
   def destroy
     @incident.destroy
     respond_to do |format|
-      format.html { redirect_to incidents_url, notice: "Vous venez de supprimer un incidents." }
+      format.html { redirect_to incidents_url, notice: 'Vous venez de supprimer un incidents.' }
       format.json { head :no_content }
     end
   end
@@ -141,6 +142,13 @@ class IncidentsController < ApplicationController
   end
 
   private
+
+  def restrict_access
+    if current_user.nil?
+      flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
+      redirect_to '/'
+    end
+  end
 
   def set_expiration
     expires_in(10.seconds, public: true)
@@ -162,6 +170,7 @@ class IncidentsController < ApplicationController
     params.require(:incident).permit(
       :content, :title, :user_id, :tech_id,
       :category_id, :sous_category_id, :lvl_urgence_user,
-      :lvl_urgence_tech, file_incidents_attributes: [:id, :incident_id, :file, :content_type, :file_size])
+      :lvl_urgence_tech, file_incidents_attributes: [:id, :incident_id, :file, :content_type, :file_size]
+    )
   end
 end

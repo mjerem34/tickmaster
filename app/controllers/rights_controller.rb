@@ -1,7 +1,7 @@
 class RightsController < ApplicationController
   before_action :set_right, only: [:show, :edit, :update, :destroy]
   before_action :set_expiration
-
+  before_action :restrict_access, only: [:show, :index, :edit, :new, :destroy]
 
   def index
     @rights = Right.all
@@ -56,6 +56,13 @@ class RightsController < ApplicationController
   end
 
   private
+
+  def restrict_access
+    if current_user.nil?
+      flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
+      redirect_to '/'
+    end
+  end
 
   def set_expiration
     expires_in(10.seconds, public: true)

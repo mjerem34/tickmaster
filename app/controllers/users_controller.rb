@@ -1,38 +1,38 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :profil, :download]
   before_action :set_expiration
-  before_action :restrict_access, only: [:show, :index, :profil, :to_treat, :edit, :allincidents]
+  before_action :restrict_access, only: [:show, :index, :profil, :to_treat, :edit, :allincidents, :destroy]
 
   def home
     @title = 'Utilisateurs'
   end
 
   def index # Page liste des utilisateurs
-    @users = User.order("name asc")
+    @users = User.order('name asc')
   end
 
   def change_ip
     unless params[:pseudo].nil?
       @user = User.where(pseudo: params[:pseudo]).first
-      unless @user.nil?
+      if @user.nil?
+        render nothing: true, status: 404, content_type: 'text/html'
+        # le pseudo na pas été trouvé
+        return false
+      else
         unless params[:ip_addr].nil?
           @user.update(ip_addr: params[:ip_addr])
           render json: @user, status: 200
           # tout est ok
           return true
         end
-      else
-        render nothing: true, status: 404, content_type: 'text/html'
-        # le pseudo na pas été trouvé
-        return false
       end
       render json: @user, status: 206
       # l'ip na pas été rentrée
       return false
     end
-    render :nothing => true, :status => 400, :content_type => 'text/html'
+    render nothing: true, status: 400, content_type: 'text/html'
     # il ny a ni le pseudo ni l'ip
-    return false
+    false
   end
 
   def forget_identifiers # Fonction pour oubli de pseudonyme
@@ -46,8 +46,8 @@ class UsersController < ApplicationController
   end
 
   def check
-    @idOfIncident = Array.new
-    if current_user.tech.name == "disp"
+    @idOfIncident = []
+    if current_user.tech.name == 'disp'
       @incidents = Incident.where(notify_for_tech: 1, incident_state_id_for_tech_id: 1)
     elsif current_user.tech.simple_user == true
       @incidents = Incident.where(user_id: current_user.id, notify_for_user: 1)
@@ -61,11 +61,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @incidents = Incident.where(user_id: current_user.id, incident_state_id_for_user_id: [1, 2, 3, 4, 5, 6, 8, 9, 11, 12]).includes(:user, :category, :sous_category).order("created_at desc")
+    @incidents = Incident.where(user_id: current_user.id, incident_state_id_for_user_id: [1, 2, 3, 4, 5, 6, 8, 9, 11, 12]).includes(:user, :category, :sous_category).order('created_at desc')
     unless params[:order_by].nil?
       @incidents = @incidents.reorder(params[:order_by])
       respond_to do |format|
-        format.js {render action: :order_by}
+        format.js { render action: :order_by }
       end
     end
   end
@@ -75,11 +75,11 @@ class UsersController < ApplicationController
 
   def to_treat
     if params[:order_by].nil?
-      @incidents = current_user.tech_incidents.where(incident_state_id_for_tech: [2, 3, 4, 5, 6]).order("created_at desc")
+      @incidents = current_user.tech_incidents.where(incident_state_id_for_tech: [2, 3, 4, 5, 6]).order('created_at desc')
     else
       @incidents = Incident.where(tech_id: current_user.id).includes(:user, :category, :sous_category).order(params[:order_by])
       respond_to do |format|
-        format.js {render action: :order_by}
+        format.js { render action: :order_by }
       end
     end
   end
@@ -93,11 +93,11 @@ class UsersController < ApplicationController
 
   def allincidents
     if params[:order_by].nil?
-      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user_id: [7, 10]).order("created_at desc")
+      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user_id: [7, 10]).order('created_at desc')
     else
       @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user_id: [7, 10]).order(params[:order_by])
       respond_to do |format|
-        format.js {render action: :order_by}
+        format.js { render action: :order_by }
       end
     end
   end
@@ -118,12 +118,11 @@ class UsersController < ApplicationController
           format.html do
             redirect_to pages_help_path,
                         notice: 'Bienvenue, votre inscription a bien été prise en compte.'
-                        User.where(tech_id: 5).each do |disp|
-                          unless disp.ip_addr.nil?
-                            sendNotif(disp.ip_addr, @user.name + " " + @user.surname + " vient de s'inscrire !")
-                          end
-                        end
-
+            User.where(tech_id: 5).each do |disp|
+              unless disp.ip_addr.nil?
+                sendNotif(disp.ip_addr, @user.name + ' ' + @user.surname + " vient de s'inscrire !")
+              end
+            end
           end
         else
           format.html { render :new }
@@ -157,12 +156,13 @@ class UsersController < ApplicationController
   end
 
   def mode_nuit_jour
-    current_user.update(mode: "Jour") if current_user.mode == ""
-    current_user.mode == "Jour" ? current_user.update(mode: "Nuit") : current_user.update(mode: "Jour")
+    current_user.update(mode: 'Jour') if current_user.mode == ''
+    current_user.mode == 'Jour' ? current_user.update(mode: 'Nuit') : current_user.update(mode: 'Jour')
     redirect_to :back
   end
 
   private
+
   def restrict_access
     if current_user.nil?
       flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"

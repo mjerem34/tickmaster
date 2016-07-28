@@ -27,7 +27,6 @@ gem 'premailer-rails', '~> 1.8', '>= 1.8.2'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'file_validators'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'annotate', '~> 2.6.10'
 gem 'passenger'
 gem 'bootstrap-slider-rails'
 gem "highcharts-rails"
@@ -52,20 +51,21 @@ gem 'compass-rails', github: 'Compass/compass-rails', branch: 'master'
 gem 'chartkick'
 gem 'groupdate'
 gem 'puma', '~> 3.4.0'
-# gem 'progressive_render'
-gem 'gruff'
 group :production do
   gem 'exception_notification'
 end
 group :development, :test do
+  gem 'annotate', '~> 2.6.10'
   gem 'guard-livereload', '~> 2.4', require: false
   gem 'rubocop'
+  gem 'capybara'
   gem 'thin'
-  gem 'factory_girl'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails'
+  gem 'spork-rails'
+  gem 'rspec-rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
+  gem 'faker'
   # Access an IRB console on exception pages or by using <%= console %> in views
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

@@ -2,7 +2,7 @@ class SousCategoriesController < ApplicationController
   before_action :set_sous_category, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
   before_action :set_expiration
-
+  before_action :restrict_access, only: [:show, :index, :edit, :new, :destroy]
 
   # GET /sous_categories
   # GET /sous_categories.json
@@ -32,6 +32,7 @@ class SousCategoriesController < ApplicationController
       format.js
     end
   end
+
   # POST /sous_categories
   # POST /sous_categories.json
   def create
@@ -72,7 +73,7 @@ class SousCategoriesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to categories_url, notice: "Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents."}
+        format.html { redirect_to categories_url, notice: "Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents." }
         format.json { render json: @sous_category.errors, status: :unprocessable_entity }
       end
     end
@@ -80,9 +81,17 @@ class SousCategoriesController < ApplicationController
 
   private
 
+  def restrict_access
+    if current_user.nil?
+      flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
+      redirect_to '/'
+    end
+  end
+
   def set_expiration
     expires_in(10.seconds, public: true)
   end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_sous_category
     @sous_category = SousCategory.find(params[:id])

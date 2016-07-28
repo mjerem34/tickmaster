@@ -1,7 +1,7 @@
 class ProceduresController < ApplicationController
   before_action :set_procedure, only: [:show, :edit, :update, :destroy]
   before_action :set_categories_all, only: [:index, :show, :edit, :new, :create]
-  before_action :restrict_access, only: [:show, :index, :edit, :new]
+  before_action :restrict_access, only: [:show, :index, :edit, :new, :destroy]
 
   # GET /procedures
   # GET /procedures.json
@@ -19,7 +19,7 @@ class ProceduresController < ApplicationController
     @procedure = Procedure.new
     @nom = params[:nom]
     @contenu = params[:contenu]
-    if !params[:messages].nil?
+    unless params[:messages].nil?
       @messages = params[:messages]
       @a = ''
       i = 0
@@ -125,6 +125,7 @@ class ProceduresController < ApplicationController
     params.require(:procedure).permit(
       :nom, :contenu, :resolution, :category_id,
       :sous_category_id,
-      file_procedures_attributes: [:file])
+      file_procedures_attributes: [:file]
+    )
   end
 end
