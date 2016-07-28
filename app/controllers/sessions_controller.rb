@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :set_expiration
+
   def new
     @title = "S'identifier"
   end
@@ -20,5 +22,11 @@ class SessionsController < ApplicationController
   def destroy
     sign_out
     redirect_to '/'
+  end
+
+  private
+
+  def set_expiration
+    expires_in(10.seconds, public: true)
   end
 end
