@@ -1,5 +1,6 @@
 <% @title = "Incidents non attribués" %>
 <% if RightsController.verify_rights_for("dispatch_incidents", current_user) then %>
+<% if @incidents.count > 0 %>
 <div class="table-responsive">
 
   <table class="table table-hover">
@@ -15,7 +16,6 @@
       </tr>
     </thead>
     <tbody>
-      <% if @incidents.count > 0 %>
       <% @incidents.order(["created_at desc"]).each do |incident| %>
       <% case incident.incident_state_id_for_tech.id %>
       <% when 1, 2, 3, 4 %>
@@ -104,19 +104,19 @@
             </div>
 
             <% end %>
+          <% else %>
+            <div class="row">
+              <div class="col-md-12 aucun-incident-div">
+                <h1>
+                  Il n'y a aucun incident actif pour le moment.
+                </h1>
+              </div>
+            </div>
+            <% end %>
           </tbody>
         </table>
 
       </div>
-    <% else %>
-      <div class="row">
-        <div class="col-md-12 aucun-incident-div">
-          <h1>
-            Il n'y a aucun incident actif pour le moment.
-          </h1>
-        </div>
-      </div>
-      <% end %>
 
     <% else %>
       <% @title = "Accès non autorisé"%>
