@@ -1,72 +1,46 @@
 <script type="text/javascript">
-window.addEventListener('load', function () {
-  // Premièrement, vérifions que nous avons la permission de publier des notifications. Si ce n'est pas le cas, demandons la
-  if (window.Notification && Notification.permission !== "granted") {
-    Notification.requestPermission(function (status) {
-      if (Notification.permission !== status) {
-        Notification.permission = status;
-      }
-    });
-  }
+  window.addEventListener('load', function () {
+    // Premièrement, vérifions que nous avons la permission de publier des notifications. Si ce n'est pas le cas, demandons la
+    if (window.Notification && Notification.permission !== "granted") {
+      Notification.requestPermission(function (status) {
+        if (Notification.permission !== status) {
+          Notification.permission = status;
+        }
+      });
+    }
 
-  // var button = document.getElementsByTagName('button')[0];
-  //
-  // button.addEventListener('click', function () {
-  //   // Si l'utilisateur accepte d'être notifié
-  //   if (window.Notification && Notification.permission === "granted") {
-  //     var n = new Notification("TickMaster requiert votre attention !");
-  //   }
-  //
-  //   // Si l'utilisateur n'a pas choisi s'il accepte d'être notifié
-  //   // Note: à cause de Chrome, nous ne sommes pas certains que la propriété permission soit définie, par conséquent il n'est pas sûr de vérifier la valeur par défaut.
-  //   else if (window.Notification && Notification.permission !== "denied") {
-  //     Notification.requestPermission(function (status) {
-  //       if (Notification.permission !== status) {
-  //         Notification.permission = status;
-  //       }
-  //
-  //       // Si l'utilisateur est OK
-  //       if (status === "granted") {
-  //         var n = new Notification("TickMaster requiert votre attention !");
-  //       }
-  //
-  //       // Sinon, revenons en à un mode d'alerte classique
-  //       else {
-  //         alert("TickMaster requiert votre attention !");
-  //       }
-  //     });
-  //   }
-  //
-  //   // Si l'utilisateur refuse d'être notifié
-  //   else {
-  //     // We can fallback to a regular modal alert
-  //     alert("TickMaster requiert votre attention !");
-  //   }
-  // });
-});
+    // var button = document.getElementsByTagName('button')[0];
+    //
+    // button.addEventListener('click', function () {   // Si l'utilisateur accepte d'être notifié   if (window.Notification && Notification.permission === "granted") {     var n = new Notification("TickMaster requiert votre attention !");   }
+    //
+    //   // Si l'utilisateur n'a pas choisi s'il accepte d'être notifié   // Note: à cause de Chrome, nous ne sommes pas certains que la propriété permission soit définie, par conséquent il n'est pas sûr de vérifier la valeur par défaut.   else if
+    // (window.Notification && Notification.permission !== "denied") {     Notification.requestPermission(function (status) {       if (Notification.permission !== status) {         Notification.permission = status;       }
+    //
+    //       // Si l'utilisateur est OK       if (status === "granted") {         var n = new Notification("TickMaster requiert votre attention !");       }
+    //
+    //       // Sinon, revenons en à un mode d'alerte classique       else {         alert("TickMaster requiert votre attention !");       }     });   }
+    //
+    //   // Si l'utilisateur refuse d'être notifié   else {     // We can fallback to a regular modal alert     alert("TickMaster requiert votre attention !");   } });
+  });
 
-$(document).ready(function(){
-  window.setInterval(function(){
-        $.ajax({ // demarage ajax
-          url: '/check_notify', // url du controller rails pour pinger (methode doPing)
-          type: 'GET',
-          dataType: 'script',
-          data: {},
-          success:function(result){
-            if (result !== '[]'){ // peut retourner false si ip est null ou si TimeOut
-              var isIE11 = !!navigator.userAgent.match(/Trident.*rv\:11\./);
-              if(!isIE11){
-                if (status === "granted") {
-                  var n = new Notification("TickMaster requiert votre attention !");
-                }else {
-                  alert("TickMaster requiert votre attention !");
-                }
-              }else {
-                alert("TickMaster requiert votre attention !");
+  $(document).ready(function () {
+    window.setInterval(function () {
+      $.ajax({ // demarage ajax
+        url: '/check_notify', // url du controller rails pour pinger (methode doPing)
+        type: 'GET',
+        dataType: 'script',
+        data: {},
+        success: function (result) {
+          if (result !== '[]') { // peut retourner false si ip est null ou si TimeOut
+            var isIE11 = !!navigator.userAgent.match(/Trident.*rv\:11\./);
+            if (!isIE11) {
+              if (status === "granted") {
+                var n = new Notification("TickMaster requiert votre attention !");
               }
             }
           }
-        });
-  }, 60000);
-});
+        }
+      });
+    }, 60000);
+  });
 </script>

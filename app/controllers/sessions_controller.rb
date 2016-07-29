@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :set_expiration
+  # before_action :set_expiration
 
   def new
     @title = "S'identifier"
@@ -24,9 +24,9 @@ class SessionsController < ApplicationController
     redirect_to '/'
   end
 
-  private
-
-  def set_expiration
-    expires_in(10.seconds, public: true)
-  end
+  # private
+  #
+  # def set_expiration
+  #   expires_in(10.seconds, public: true)
+  # end
 end

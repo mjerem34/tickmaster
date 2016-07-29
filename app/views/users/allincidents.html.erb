@@ -1,77 +1,102 @@
-<% if !current_user.nil? %>
 <% @title = "Liste des incidents cloturés de #{current_user.surname} #{current_user.name}"%>
+<div class="table-responsive">
 
-<div class="tri-cards-list-incidents">
-  <%= select_tag 'Tri', "
-  <option data-tri='id desc'>Récents</option>
-  <option data-tri='id asc'>Anciens</option>
-  <option data-tri='title asc'>Objet: A à Z</option>
-  <option data-tri='title desc'>Objet Z à A</option>
-  <option data-tri='content asc'>Contenu: A à Z</option>
-  <option data-tri='content desc'>Contenu: Z à A</option>
-  <option data-tri='users.name asc'>Demandeur: A à Z</option>
-  <option data-tri='users.name desc'>Demandeur: Z à A</option>
-  <option data-tri='categories.name asc'>Catégorie: A à Z</option>
-  <option data-tri='categories.name desc'>Catégorie: Z à A</option>
-  <option data-tri='sous_categories.name asc'>Sous-catégorie: A à Z</option>
-  <option data-tri='sous_categories.name desc'>Sous-catégorie: Z à A</option>
-  <option data-tri='incident_state_id_for_tech_id asc'>Etat &#9650;</option>
-  <option data-tri='incident_state_id_for_tech_id desc'>Etat &#9660;</option>
-  <option data-tri='lvl_urgence_user asc'>Priorité &#9650;</option>
-  <option data-tri='lvl_urgence_user desc'>Priorité &#9660;</option>
-  ", include_blank: "Trier par :", class: "form-control select-tri-cards-list-incidents"%>
-</div>
+  <table class="table table-hover">
+    <thead class="header">
+      <tr>
+        <th>Objet</th>
+        <th>Technicien</th>
+        <th>Catégorie</th>
+        <th>Date</th>
+        <th>Etat</th>
 
-<div class="cards-list-incidents">
-<% @incidents.each do |incident| %>
-<% case incident.incident_state_id_for_user_id%>
-<% when 1 %>
-  <div class="col-md-4 card-incident" style=" background: #f44336;">
-<% when 2 %>
-  <div class="col-md-4 card-incident" style="background: #4CAF50;">
-<% when 4 %>
-  <div class="col-md-4 card-incident" style="background: #FFEB3B; color:#212121;">
-  <% else %>
-  <div class="col-md-4 card-incident" style="background: #335f87; ">
-<% end %>
-  <div class="firstPart" onClick="document.location.href='<%=edit_incident_path(incident)%>'">
+      </tr>
+    </thead>
+    <% if @incidents.count > 0 %>
+    <tbody>
+      <% @incidents.order(["created_at desc"]).each do |incident| %>
+      <tr style="background: #2c3e50; " data-toggle="modal" data-target="#<%= incident.id %>">
+        <td><%= incident.title %></td>
 
-        <p> N°<%= incident.id %></p><br>
-        <p class="hover-cellule" style="word-break: break-all;">Objet : <b><%= truncate(incident.title, length: 70) %></b></p>
-        <p class="hover-cellule" style="word-break: break-all;">Contenu : <b><%= truncate(strip_tags(incident.content), length: 100)%></b></p>
-        <p>Demandeur : <b><%= incident.user.name%> <%= incident.user.surname%></b></p>
-        <% if !incident.tech.nil? %>
-        <p>Technicien : <b><%= incident.tech.name %> <%= incident.tech.surname %></b></p>
-        <% else %>
-        <p>Technicien : <b>Technicien non attribué</b></p>
+        <% if incident.tech_id != nil %>
+        <td><%= incident.tech.surname %>
+          <%=incident.tech.name %></td>
+      <% else %>
+        <td>Technicien non défini ...</td>
         <% end %>
+
+        <td><%= incident.category.name %></td>
+        <td><%= incident.created_at.strftime("%d %b %Y") %></td>
+        <% if current_user.tech.simple_user == true %>
+        <td><%= incident.incident_state_id_for_user.shotcut %></td>
+      <% else %>
+        <td><%= incident.incident_state_id_for_tech.shortcut %></td>
+        <% end %>
+      </tr>
+      <div class="container-modal">
+        <!-- Modal -->
+        <div class="modal fade" id="<%= incident.id %>" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Détails de l'incident #
+                  <%= incident.id %></h4>
+              </div>
+              <div class="modal-body">
+                <p>Numéro : #
+                  <%= incident.id %></p>
+                <p>Objet :
+                  <%= incident.title %></p>
+                <p>Contenu :
+                  <%= strip_tags(incident.content) %></p>
+                <p>Demandeur :
+                  <%= incident.user.name %>
+                  <%=incident.user.surname%></p>
+                <p>Technicien :
+                  <% if incident.tech_id != nil %>
+                  <% incident.tech.surname %>
+                  <%=incident.tech.name %>
+                <% else %>
+                  Non défini
+                  <% end %></p>
+                <p>Catégorie :
+                  <%= incident.category.name %></p>
+                <p>Sous catégorie :
+                  <%= incident.sous_category.name %></p>
+                <p>Créé à :
+                  <%= incident.created_at.strftime("%d %b %Y %H:%M") %></p>
+                <p>Etat :
+                  <% if current_user.tech.simple_user == true %>
+                  <%= incident.incident_state_id_for_user.shotcut %>
+                <% else %>
+                  <%= incident.incident_state_id_for_tech.shortcut %>
+                  <% end %></p>
+              </div>
+              <div class="modal-footer">
+                <%= link_to "Détails", edit_incident_path(incident), class: "btn btn-primary"%>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
-      <div class="secondPart" onClick="document.location.href='<%=edit_incident_path(incident)%>'">
-        <p>Catégorie : <b><%= incident.category.name %></b></p>
-        <p>Sous-Categorie : <b><%= incident.sous_category.name%></p>
-        <p>Date : <b><%= incident.created_at.strftime("%d %b %Y %H:%M")%></b></p>
-        <p>Etat : <b><%= incident.incident_state_id_for_tech.shortcut %></b></p>
-        <p>Urgence : <b><%= incident.lvl_urgence_user %></b></p>
-      </div>
+
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+<% else %>
+<div class="row">
+  <div class="col-md-12 aucun-incident-div">
+    <h1>
+      Vous n'avez aucun incident actif pour le moment.
+    </h1>
+  </div>
 </div>
 <% end %>
-</div>
-
-<script type="text/javascript">
-$(document).ready(function(){
-  $(".select-tri-cards-list-incidents").change(function(){
-    $.ajax({
-      url: '/users/<%= current_user.id %>/allincidents',
-      type: 'GET',
-      dataType: 'script',
-      data: {
-        order_by: $(".select-tri-cards-list-incidents option:selected").attr("data-tri")
-      }
-    });
-  });
-});
-</script>
 <% else %>
-<% @title = "Accès non autorisé"%>
-<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
-<%end%>

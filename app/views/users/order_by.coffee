@@ -19,7 +19,7 @@ $(".cards-list-incidents").empty().append("
         <% if incident.tech_id != nil %>
           <p>Technicien : <b><%= incident.tech.name %> <%= incident.tech.surname %></b></p>
         <% else %>
-          <p>Technicien : <b>Technicien non attribué</b></p>
+          <p>Technicien : <b>Technicien non défini ...</b></p>
           <% end %>
           </div>
           <div class='secondPart' onClick='document.location.href=`<%=edit_incident_path(incident)%>`'>
