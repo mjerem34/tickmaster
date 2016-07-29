@@ -12,8 +12,8 @@
 
       </tr>
     </thead>
-    <% if @incidents.count > 0 %>
     <tbody>
+      <% if @incidents.count > 0 %>
       <% @incidents.order(["created_at desc"]).each do |incident| %>
       <% case incident.incident_state_id_for_user.id %>
       <% when  4, 8 %>

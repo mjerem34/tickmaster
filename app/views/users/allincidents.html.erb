@@ -12,8 +12,8 @@
 
       </tr>
     </thead>
-    <% if @incidents.count > 0 %>
     <tbody>
+      <% if @incidents.count > 0 %>
       <% @incidents.order(["created_at desc"]).each do |incident| %>
       <tr style="background: #2c3e50; " data-toggle="modal" data-target="#<%= incident.id %>">
         <td><%= incident.title %></td>
