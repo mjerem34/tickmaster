@@ -3,6 +3,7 @@
 #
 
 Rails.application.routes.draw do
+  resources :materials
   resources :procedures
   resources :agencies
   resources :categories do

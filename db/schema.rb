@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720071521) do
+ActiveRecord::Schema.define(version: 20160729134243) do
 
   create_table "agencies", force: :cascade do |t|
     t.string "name",       limit: 45
@@ -62,6 +62,18 @@ ActiveRecord::Schema.define(version: 20160720071521) do
     t.string   "name",       limit: 30
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+  end
+
+  create_table "detentor_types", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "fields_sellers", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "file_archives", force: :cascade do |t|
@@ -159,6 +171,16 @@ ActiveRecord::Schema.define(version: 20160720071521) do
     t.datetime "updated_at",                       null: false
   end
 
+  create_table "materials", force: :cascade do |t|
+    t.integer  "type_material_id", limit: 4
+    t.integer  "detentor_type_id", limit: 4
+    t.integer  "detentor_id",      limit: 4
+    t.integer  "seller_id",        limit: 4
+    t.datetime "date"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "pcs", force: :cascade do |t|
     t.string   "ip_adress",     limit: 255
     t.string   "serial_number", limit: 255
@@ -209,6 +231,11 @@ ActiveRecord::Schema.define(version: 20160720071521) do
     t.boolean "comptable"
   end
 
+  create_table "sellers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sous_categories", force: :cascade do |t|
     t.string   "name",            limit: 30
     t.integer  "category_id",     limit: 4
@@ -219,10 +246,27 @@ ActiveRecord::Schema.define(version: 20160720071521) do
 
   add_index "sous_categories", ["category_id"], name: "index_sous_categories_on_category_id", using: :btree
 
+  create_table "specs_materials", force: :cascade do |t|
+    t.integer  "spec_type_material_id", limit: 4
+    t.string   "spec_value",            limit: 255
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  create_table "specs_types_materials", force: :cascade do |t|
+    t.string "name", limit: 255
+  end
+
   create_table "teches", force: :cascade do |t|
     t.string   "name",        limit: 40
     t.boolean  "afficher"
     t.boolean  "simple_user"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "type_materials", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
