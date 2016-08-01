@@ -1,4 +1,4 @@
-<% if !current_user.nil? && !RightsController.verify_rights_for("view_procedures", current_user) %>
+<% if !current_user.nil? && !verify_rights_for("view_procedures") %>
 <%= render 'pages/under_construction'%>
 <% else %>
 <% @title = 'Liste des procedures'%>
@@ -37,7 +37,7 @@
                 <p style="width:600px;"><%= strip_tags(procedure.contenu) %></p>
               </div>
               <div class="modal-footer">
-                <% if RightsController.verify_rights_for("edit_procedure", current_user) %>
+                <% if verify_rights_for("edit_procedure") %>
                 <%= link_to "Editer", edit_procedure_path(procedure), class: "btn btn-primary"%>
                 <% end %>
                 <%= link_to "Détails", procedure, class: "btn btn-success"%>

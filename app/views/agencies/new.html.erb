@@ -1,8 +1,1 @@
-<% @title = "Nouvelle agence"%>
-<% !current_user.nil? && if Right.where(name: "create_new_agency").pluck(current_user.tech.name).join('')  == 'true' %>
 <%= render 'form' %>
-
-<%else%>
-<% @title = "Accès non autorisé"%>
-<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
-<% end %>

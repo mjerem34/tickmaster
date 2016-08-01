@@ -212,7 +212,7 @@
 <% if Right.where(name: "reject_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
 <li><button class="btn btn-reject " name="button" type="button">Rejeter</button></li>
 <% end %>
-<% if RightsController.verify_rights_for("create_procedure", current_user) %>
+<% if verify_rights_for("create_procedure") %>
 <% @reps = "" %>
 <% @responses.each do |response| %>
 <% @reps = @reps + response.content + ";;" %>
@@ -225,7 +225,7 @@ sous_category_id: @incident.sous_category_id, messages: @reps), class: "btn btn-
 <% end %>
 
 <% if clotured_or_rejected?(@incident)%>
-  <% if RightsController.verify_rights_for("create_procedure", current_user) %>
+  <% if verify_rights_for("create_procedure") %>
     <ul class="buttons-edit-incident-right-clotured">
     <% @reps = "" %>
     <% @responses.each do |response| %>

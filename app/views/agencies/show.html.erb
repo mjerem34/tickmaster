@@ -1,9 +1,4 @@
-<% @title = "Liste des incidents de l'agence : #{@agency.name}" %>
-<% if !current_user.nil? && Right.where(name: "view_agency_details").pluck(current_user.tech.name).join('')  == 'true' %>
-
-
 <div class="table-responsive">
-
   <table class="table table-hover">
     <thead class="header">
       <tr>
@@ -15,7 +10,6 @@
         <th>Sous-Categorie</th>
         <th>Date</th>
         <th>Etat</th>
-
       </tr>
     </thead>
     <tbody>
@@ -26,27 +20,21 @@
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.user.name %>
           <%=incident.user.surname%></td>
         <% if incident.tech_id != nil %>
-        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><% incident.tech.surname %> <%=incident.tech.name %></td>
-        <% else %>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><% incident.tech.surname %>
+          <%=incident.tech.name %></td>
+      <% else %>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'">Technicien non défini</td>
         <% end %>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.category.name %></td>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.sous_category.name %></td>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
-          <% if current_user.tech.simple_user == true %>
-          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.incident_state_id_for_user.shotcut %></td>
-          <% else %>
-          <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.incident_state_id_for_tech.shortcut %></td>
-          <% end %>
+        <% if current_user.tech.simple_user == true %>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.incident_state_id_for_user.shortcut %></td>
+      <% else %>
+        <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.incident_state_id_for_tech.shortcut %></td>
+        <% end %>
       </tr>
       <% end %>
     </tbody>
   </table>
-
 </div>
-
-
-<% else %>
-<% @title = "Accès non autorisé"%>
-<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
-<% end %>

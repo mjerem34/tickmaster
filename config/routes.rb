@@ -3,6 +3,12 @@
 #
 
 Rails.application.routes.draw do
+  resources :type_materials
+  resources :specs_types_materials
+  resources :sellers
+  resources :fields_sellers
+  resources :detentor_types
+  resources :specs_materials
   resources :materials
   resources :procedures
   resources :agencies
@@ -80,13 +86,10 @@ Rails.application.routes.draw do
   get '/rights', to: 'rights#index'
   get '/agencies', to: 'agencies#index'
   get '/agencies_doPing', to: 'agencies#doPing'
-  get '/agencies_createGraphics', to: 'agencies#createGraphics'
   get '/check_notify', to: 'users#check'
 
   # get '/nuit_jour', to: 'users#mode_nuit_jour'
   # get '/test_exception', to: 'application#test_exception'
-
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

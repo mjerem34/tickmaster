@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Specs Types Materials</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @specs_types_materials.each do |specs_types_material| %>
+      <tr>
+        <td><%= specs_types_material.name %></td>
+        <td><%= link_to 'Show', specs_types_material %></td>
+        <td><%= link_to 'Edit', edit_specs_types_material_path(specs_types_material) %></td>
+        <td><%= link_to 'Destroy', specs_types_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Specs types material', new_specs_types_material_path %>

@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Detentor Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @detentor_types.each do |detentor_type| %>
+      <tr>
+        <td><%= detentor_type.name %></td>
+        <td><%= link_to 'Show', detentor_type %></td>
+        <td><%= link_to 'Edit', edit_detentor_type_path(detentor_type) %></td>
+        <td><%= link_to 'Destroy', detentor_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Detentor type', new_detentor_type_path %>

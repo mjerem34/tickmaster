@@ -1,19 +1,36 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:edit, :update, :destroy]
+  before_action :set_category, only: [:show, :edit, :update, :destroy]
   before_action :set_expiration
   before_action :restrict_access, only: [:show, :index, :edit, :new, :destroy]
 
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
-    @category = Category.new
+    if verifRight('edit_agency')
+      @categories = Category.all
+      @category = Category.new
+
+    else
+      @title = "Accès non autorisé"
+      respond_to do |format|
+        format.json { render json: "Vous n'avez pas l'autorisation d'accéder à cette page", status: 403 }
+        format.html { redirect_to '/', not_authorized: "Vous n'avez pas l'autorisation d'accéder à cette page" }
+      end
+  end
   end
 
   # GET /categories/1
   # GET /categories/1.json
   def show
-    redirect_to_back
+    if verifRight('edit_agency')
+
+    else
+      @title = "Accès non autorisé"
+      respond_to do |format|
+        format.json { render json: "Vous n'avez pas l'autorisation d'accéder à cette page", status: 403 }
+        format.html { redirect_to '/', not_authorized: "Vous n'avez pas l'autorisation d'accéder à cette page" }
+      end
+  end
   end
 
   # GET /categories/new

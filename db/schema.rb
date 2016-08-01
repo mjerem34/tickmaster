@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729134243) do
+ActiveRecord::Schema.define(version: 20160729141019) do
 
   create_table "agencies", force: :cascade do |t|
     t.string "name",       limit: 45
@@ -68,6 +68,12 @@ ActiveRecord::Schema.define(version: 20160729134243) do
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "fields_seller_sellers", force: :cascade do |t|
+    t.integer "field_seller_id", limit: 4
+    t.integer "seller_id",       limit: 4
+    t.string  "content",         limit: 255
   end
 
   create_table "fields_sellers", force: :cascade do |t|
@@ -246,6 +252,11 @@ ActiveRecord::Schema.define(version: 20160729134243) do
 
   add_index "sous_categories", ["category_id"], name: "index_sous_categories_on_category_id", using: :btree
 
+  create_table "spec_material_materials", force: :cascade do |t|
+    t.integer "spec_material_id", limit: 4
+    t.integer "material_id",      limit: 4
+  end
+
   create_table "specs_materials", force: :cascade do |t|
     t.integer  "spec_type_material_id", limit: 4
     t.string   "spec_value",            limit: 255
@@ -269,6 +280,16 @@ ActiveRecord::Schema.define(version: 20160729134243) do
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "types_materials_sellers", force: :cascade do |t|
+    t.integer "type_material_id", limit: 4
+    t.integer "seller_id",        limit: 4
+  end
+
+  create_table "types_materials_spec_materials", force: :cascade do |t|
+    t.integer "type_material_id", limit: 4
+    t.integer "spec_material_id", limit: 4
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Spec type material:</strong>
+  <%= @specs_material.spec_type_material_id %>
+</p>
+
+<p>
+  <strong>Spec value:</strong>
+  <%= @specs_material.spec_value %>
+</p>
+
+<%= link_to 'Edit', edit_specs_material_path(@specs_material) %> |
+<%= link_to 'Back', specs_materials_path %>

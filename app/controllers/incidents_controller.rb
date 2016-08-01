@@ -1,7 +1,7 @@
 class IncidentsController < ApplicationController
   before_action :set_incident, only: [:show, :edit, :update, :destroy, :reply, :download]
   before_action :set_categories_all, only: [:index, :show, :edit, :new, :create]
-  before_action :set_users_all, only: [:create, :cloture_it]
+  before_action :set_users_all, only: [:create]
   before_action :set_expiration
   before_action :restrict_access, only: [:show, :index, :edit, :new, :destroy]
 

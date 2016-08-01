@@ -1,41 +1,31 @@
-# require 'net/ping'
-
 class AgenciesController < ApplicationController
   before_action :set_agency, only: [:show, :edit, :update, :destroy]
   before_action :set_expiration
-  before_action :restrict_access, only: [:show, :index, :edit, :new, :destroy]
+  before_action :restrict_access, only: [:create, :show, :index, :edit, :new, :destroy, :doPing]
 
   # GET /agencies
   # GET /agencies.json
-  def home
-    @title = 'Agences'
-  end
 
   def index
-    @agencies = Agency.order('name asc')
-  end
-
-  def ping
-    @agencies = Agency.all
-  end
-
-  def createGraphics
-    a = []
-    unless params[:pings].nil?
-
-      params[:pings].each do |ping|
-        a << ping.to_i
+    if verifRight('view_index_agencies')
+      @title = 'Agences'
+      @agencies = Agency.order('name asc')
+      respond_to do |format|
+        format.json { render json: @agencies }
+        format.html { render :index }
       end
+    else
+      renderUnauthorized
     end
-    g = Gruff::Line.new
-    g.title = 'Ping'
-    g.data 'Test', a
-    g.write('graphicAgencies.png')
-    render nothing: true, status: 200, content_type: 'text/html' end
+  end
 
   def doPing
-    value = pingDef(params[:host])
-    render json: value
+    if verifRight('doPing')
+      value = pingDef(params[:host])
+      render json: value
+    else
+      renderUnauthorized
+    end
   end
 
   def pingDef(host)
@@ -59,31 +49,54 @@ class AgenciesController < ApplicationController
   # GET /agencies/1
   # GET /agencies/1.json
   def show
+    if verifRight('view_agency_details')
+      @title = 'Agence : ' + @agency.name
+      respond_to do |format|
+        format.json { render json: @agency }
+        format.html { render :show }
+      end
+
+    else
+      renderUnauthorized
+  end
   end
 
   # GET /agencies/new
   def new
-    @agency = Agency.new
+    if verifRight('create_new_agency')
+      @agency = Agency.new
+      @title = 'Nouvelle agence'
+    else
+      renderUnauthorized
+  end
   end
 
   # GET /agencies/1/edit
   def edit
+    if verifRight('edit_agency')
+      @title = 'Editer agence'
+    else
+      renderUnauthorized
+  end
   end
 
   # POST /agencies
   # POST /agencies.json
   def create
-    @agency = Agency.new(agency_params)
-
-    respond_to do |format|
-      if @agency.save
-        format.html { redirect_to @agency, notice: "Vous venez de créer une agence. Merci d'avoir contribué à la baisse du chômage." }
-        format.json { render :show, status: :created, location: @agency }
-      else
-        format.html { render :new }
-        format.json { render json: @agency.errors, status: :unprocessable_entity }
+    if verifRight('create_new_agency')
+      @agency = Agency.new(agency_params)
+      respond_to do |format|
+        if @agency.save
+          format.html { redirect_to @agency, notice: "Vous venez de créer une agence. Merci d'avoir contribué à la baisse du chômage." }
+          format.json { render :show, status: :created, location: @agency }
+        else
+          format.html { render :new }
+          format.json { render json: @agency.errors, status: :unprocessable_entity }
+        end
       end
-    end
+    else
+      renderUnauthorized
+end
   end
 
   # PATCH/PUT /agencies/1
@@ -111,13 +124,6 @@ class AgenciesController < ApplicationController
   end
 
   private
-
-  def restrict_access
-    if current_user.nil?
-      flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
-      redirect_to '/'
-    end
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_expiration
