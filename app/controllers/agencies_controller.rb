@@ -84,14 +84,15 @@ class AgenciesController < ApplicationController
   # POST /agencies.json
   def create
     if verifRight('create_new_agency')
+      @title = 'Nouvelle agence'
       @agency = Agency.new(agency_params)
       respond_to do |format|
         if @agency.save
-          format.html { redirect_to @agency, notice: "Vous venez de créer une agence. Merci d'avoir contribué à la baisse du chômage." }
           format.json { render :show, status: :created, location: @agency }
+          format.html { redirect_to @agency, notice: "Vous venez de créer une agence. Merci d'avoir contribué à la baisse du chômage." }
         else
-          format.html { render :new }
           format.json { render json: @agency.errors, status: :unprocessable_entity }
+          format.html { render :new }
         end
       end
     else
@@ -102,24 +103,39 @@ end
   # PATCH/PUT /agencies/1
   # PATCH/PUT /agencies/1.json
   def update
-    respond_to do |format|
-      if @agency.update(agency_params)
-        format.html { redirect_to @agency, notice: "Les paramètres de cette agence ont bien été actualisés." }
-        format.json { render :show, status: :ok, location: @agency }
-      else
-        format.html { render :edit }
-        format.json { render json: @agency.errors, status: :unprocessable_entity }
+    if verifRight('edit_agency')
+      respond_to do |format|
+        if @agency.update(agency_params)
+          format.json { render :show, status: :ok, location: @agency }
+          format.html { redirect_to @agency, notice: "Les paramètres de cette agence ont bien été actualisés." }
+        else
+          format.json { render json: @agency.errors, status: :unprocessable_entity }
+          format.html { render :edit, notice: 'Impossible de modifier cette agence ...' }
         end
+      end
+
+    else
+      renderUnauthorized
     end
   end
 
   # DELETE /agencies/1
   # DELETE /agencies/1.json
   def destroy
-    @agency.destroy
-    respond_to do |format|
-      format.html { redirect_to agencies_url, notice: "Vous venez d'arracher plusieurs vies innocentes en supprimant cette agence ..." }
-      format.json { head :no_content }
+    if verifRight('delete_agency')
+      if @agency.destroy
+        respond_to do |format|
+          format.json { head :no_content }
+          format.html { redirect_to agencies_url, notice: "Vous venez d'arracher plusieurs vies innocentes en supprimant cette agence ..." }
+        end
+      else
+        respond_to do |format|
+          format.json { render json: @agency.errors, status: :unprocessable_entity }
+          format.html { render :edit, notice: 'Impossible de supprimer cette agence, allez savoir pourquoi ...' }
+        end
+    end
+    else
+      renderUnauthorized
     end
   end
 
