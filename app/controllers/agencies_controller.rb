@@ -1,13 +1,16 @@
 class AgenciesController < ApplicationController
   before_action :set_agency, only: [:show, :edit, :update, :destroy]
   before_action :set_expiration
-  before_action :restrict_access, only: [:create, :show, :index, :edit, :new, :destroy, :doPing]
+  before_action :restrict_access
 
   # GET /agencies
   # GET /agencies.json
 
   def index
-    if verifRight('view_index_agencies')
+    @view_index_agencies = verifRight('view_index_agencies')
+    if @view_index_agencies
+      @ping_agencies = verifRight('ping_agencies')
+      @edit_agency = verifRight('edit_agency')
       @title = 'Agences'
       @agencies = Agency.order('name asc')
       respond_to do |format|
@@ -16,7 +19,7 @@ class AgenciesController < ApplicationController
       end
     else
       renderUnauthorized
-    end
+  end
   end
 
   def doPing
@@ -50,7 +53,7 @@ class AgenciesController < ApplicationController
   # GET /agencies/1.json
   def show
     if verifRight('view_agency_details')
-      @title = 'Agence : ' + @agency.name
+      @title = "Incidents de l'agence : " + @agency.name
       respond_to do |format|
         format.json { render json: @agency }
         format.html { render :show }
@@ -142,9 +145,6 @@ end
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_expiration
-    expires_in(10.seconds, public: true)
-  end
 
   def set_agency
     @agency = Agency.find(params[:id])

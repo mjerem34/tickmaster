@@ -22,11 +22,6 @@ Rails.application.routes.draw do
       get :create_subcats
     end
   end
-  resources :files_archives
-  resources :files_incidents
-  resources :files_procedures
-  resources :files_responses
-  resources :files_users
   get 'pages/home'
   get 'pages/help'
   get 'pages/404'
@@ -37,28 +32,13 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :incidents do
     member do
-      put :cloture_it
-      put :reopen_it
-      put :read_it
-      put :reject_it
-      get :cloture_it
-      get :reopen_it
-      get :read_it
-      get :reject_it
       get :update_subcats
       get :update_maxvalue_lvl_urgence
       get :incidents_without_tech
       get :send_tech_form
-      get :download
-      post :show
       get :order_by
-      get :procedurer
     end
-    resources :responses do
-      member do
-        get :download
-      end
-    end
+    resources :responses
   end
   resources :procedures do
     get :update_subcats
@@ -72,7 +52,6 @@ Rails.application.routes.draw do
       get :mode_nuit_jour
       get :forget_identifiers
       post :forget_identifiers
-      get :check
       get :change_ip
     end
   end

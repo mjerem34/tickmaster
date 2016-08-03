@@ -1,5 +1,3 @@
-<% @title = "Incident n°#{@incident.id} de #{link_to "#{@incident.user.name} #{@incident.user.surname}", profil_user_path(@incident.user)}" %>
-<% if !current_user.nil? && Right.where(name: "view_detail_incident").pluck(current_user.tech.name).join('')  == 'true' %>
 <%= render 'form_edit' %>
 <!-- Contenu si l'incident n'est pas cloturé -->
 <% if !clotured_or_rejected?(@incident)%>
@@ -142,104 +140,106 @@
   <%= render 'responses/new' %>
 </div>
 <ul class="buttons-edit-incident-right buttons">
-<li><button class="btn btn-response" name="button" type="button">Message</button></li>
+  <li>
+    <button class="btn btn-response" name="button" type="button">Message</button>
+  </li>
 
-<script>
-  $(document).ready(function () {
-    $("#form_response").hide();
-    $(".btn-response").click(function () {
-      $(".actionsreject").hide()
-      $(".actionsresponses").show()
-      $(".actionsreaffect").hide()
-      $(".actionscloture").hide()
-      $("#form_response").slideDown(500);
-      $('html, body').animate({
-        scrollTop: 100000
-      }, 500);
+  <script>
+    $(document).ready(function () {
+      $("#form_response").hide();
+      $(".btn-response").click(function () {
+        $(".actionsreject").hide()
+        $(".actionsresponses").show()
+        $(".actionsreaffect").hide()
+        $(".actionscloture").hide()
+        $("#form_response").slideDown(500);
+        $('html, body').animate({
+          scrollTop: 100000
+        }, 500);
+      });
     });
-  });
-  $(document).ready(function () {
-    $(".btn-reject").click(function () {
-      $(".actionsreject").show()
-      $(".actionsreaffect").hide()
-      $(".actionscloture").hide()
-      $(".actionsresponses").hide()
-      $("#form_response").slideDown(500);
-      $('html, body').animate({
-        scrollTop: 100000
-      }, 500);
+    $(document).ready(function () {
+      $(".btn-reject").click(function () {
+        $(".actionsreject").show()
+        $(".actionsreaffect").hide()
+        $(".actionscloture").hide()
+        $(".actionsresponses").hide()
+        $("#form_response").slideDown(500);
+        $('html, body').animate({
+          scrollTop: 100000
+        }, 500);
+      });
     });
-  });
-  $(document).ready(function () {
-    $(".btn-reaffect").click(function () {
-      $(".actionsreject").hide()
-      $(".actionsresponses").hide()
-      $(".actionscloture").hide()
-      $(".actionsreaffect").show()
-      $("#form_response").slideDown(500);
-      $('html, body').animate({
-        scrollTop: 100000
-      }, 500);
+    $(document).ready(function () {
+      $(".btn-reaffect").click(function () {
+        $(".actionsreject").hide()
+        $(".actionsresponses").hide()
+        $(".actionscloture").hide()
+        $(".actionsreaffect").show()
+        $("#form_response").slideDown(500);
+        $('html, body').animate({
+          scrollTop: 100000
+        }, 500);
+      });
     });
-  });
-  $(document).ready(function () {
-    $(".btn-cloture").click(function () {
-      $(".actionsreject").hide()
-      $(".actionsresponses").hide()
-      $(".actionscloture").show()
-      $(".actionsreaffect").hide()
-      $("#form_response").slideDown(500);
-      $('html, body').animate({
-        scrollTop: 100000
-      }, 500);
+    $(document).ready(function () {
+      $(".btn-cloture").click(function () {
+        $(".actionsreject").hide()
+        $(".actionsresponses").hide()
+        $(".actionscloture").show()
+        $(".actionsreaffect").hide()
+        $("#form_response").slideDown(500);
+        $('html, body').animate({
+          scrollTop: 100000
+        }, 500);
+      });
     });
-  });
-  $(document).ready(function () {
-    $(".btn-cancell").click(function () {
-      $("#form_response").slideToggle(500);
-      $('html, body').animate({
-        scrollTop: 100000
-      }, 500);
+    $(document).ready(function () {
+      $(".btn-cancell").click(function () {
+        $("#form_response").slideToggle(500);
+        $('html, body').animate({
+          scrollTop: 100000
+        }, 500);
+      });
     });
-  });
-</script>
-<% if @incident.incident_state_id_for_tech != 12 && Right.where(name: "ask_for_reaffect").pluck(current_user.tech.name).join('')  == 'true' && @incident.tech_id == current_user.id && !clotured_or_rejected?(@incident)%>
-<li><button class="btn btn-reaffect " name="button" type="button">Réaffecter</button></li>
-<% end %>
-<% if Right.where(name: "cloture_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
-<li><button class="btn btn-cloture " name="button" type="button">Cloturer</button></li>
-<% end %>
-<% if Right.where(name: "reject_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
-<li><button class="btn btn-reject " name="button" type="button">Rejeter</button></li>
-<% end %>
-<% if verify_rights_for("create_procedure") %>
-<% @reps = "" %>
-<% @responses.each do |response| %>
-<% @reps = @reps + response.content + ";;" %>
-<% end %>
-<li><%= link_to "Procedure", new_procedure_path(nom: @incident.title,
+  </script>
+  <% if @incident.incident_state_id_for_tech != 12 && @ask_for_reaffect && @incident.tech_id == current_user.id && !clotured_or_rejected?(@incident)%>
+  <li>
+    <button class="btn btn-reaffect " name="button" type="button">Réaffecter</button>
+  </li>
+  <% end %>
+  <% if @cloture_incidents %>
+  <li>
+    <button class="btn btn-cloture " name="button" type="button">Cloturer</button>
+  </li>
+  <% end %>
+  <% if @reject_incidents %>
+  <li>
+    <button class="btn btn-reject " name="button" type="button">Rejeter</button>
+  </li>
+  <% end %>
+  <% if @create_procedure %>
+  <% @reps = "" %>
+  <% @responses.each do |response| %>
+  <% @reps = @reps + response.content + ";;" %>
+  <% end %>
+  <li><%= link_to "Procedure", new_procedure_path(nom: @incident.title,
 contenu: @incident.content, category_id: @incident.category_id,
 sous_category_id: @incident.sous_category_id, messages: @reps), class: "btn btn-default btn-procedure " %></li>
-<% end %>
+  <% end %>
 </ul>
 <% end %>
 
 <% if clotured_or_rejected?(@incident)%>
-  <% if verify_rights_for("create_procedure") %>
-    <ul class="buttons-edit-incident-right-clotured">
-    <% @reps = "" %>
-    <% @responses.each do |response| %>
-      <% @reps = @reps + response.content + ";;" %>
-    <% end %>
-    <li><%= link_to "Procedure", new_procedure_path(nom: @incident.title,
+<% if @create_procedure %>
+<ul class="buttons-edit-incident-right-clotured">
+  <% @reps = "" %>
+  <% @responses.each do |response| %>
+  <% @reps = @reps + response.content + ";;" %>
+  <% end %>
+  <li><%= link_to "Procedure", new_procedure_path(nom: @incident.title,
     contenu: @incident.content, category_id: @incident.category_id,
     sous_category_id: @incident.sous_category_id, messages: @reps), class: "btn btn-procedure " %></li>
-      </ul>
-  <% end %>
+</ul>
 <% end %>
-
-
-<%else%>
-<% @title = "Accès non autorisé"%>
-<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
 <% end %>

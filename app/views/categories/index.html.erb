@@ -1,8 +1,3 @@
-<% @title = "Liste des catégories" %>
-<% if !current_user.nil? && Right.where(name: "view_index_categories").pluck(current_user.tech.name).join('')  == 'true' %>
-
-
-
 <div class="table-responsive">
   <table class="table table-hover">
     <thead class="header">
@@ -19,46 +14,47 @@
       <tr>
         <td onClick="document.location.href='<%=edit_category_path(category)%>'"><%= category.id %></td>
 
-        <% if !current_user.nil? && Right.where(name: "view_details_category").pluck(current_user.tech.name).join('')  == 'true' %>
+        <% if @view_details_category then %>
         <td onClick="document.location.href='<%=edit_category_path(category)%>'"><%= category.name %></td>
-        <% else %>
+      <% else %>
         <td><%= category.name %></td>
         <% end %>
-        <% if Right.where(name: "delete_category").pluck(current_user.tech.name).join('')  == 'true' %>
+        <% if @delete_category then %>
         <td><%= link_to 'Supprimer', category, method: :delete, data: { confirm: 'Êtes vous VRAIMENT sûr de vouloir supprimer cette catégorie ? Non, je dis ça parce que si vous la supprimez le monde entier va exploser ! Je vous aurais prévenu !' }%></td>
         <% end %>
-        <td><p>&laquo;</p></td>
+        <td>
+          <p>&laquo;</p>
+        </td>
 
       </tr>
 
       <% end %>
       <tr class="formsnewsubcats">
         <%= simple_form_for(@category) do |f| %>
-        <td><p style="font-size:2em;">&raquo;</p></td>
+        <td>
+          <p style="font-size:2em;">&raquo;</p>
+        </td>
         <td class='newsubcat'><%= f.text_field :name, class: "form-control ", placeholder: "Nom(Requis)", style: "margin-left:0px;"%></td>
         <td colspan="1"></td>
-        <td class='newsubcat'><p type="submit" name="commit" class="btn btn-success btn-create-category submit " id="sendButton">+</p></td>
+        <td class='newsubcat'>
+          <p type="submit" name="commit" class="btn btn-success btn-create-category submit " id="sendButton">+</p>
+        </td>
         <% end %>
       </tr>
     </tbody>
   </table>
 </div>
-<div class="actions">
-</div>
+<div class="actions"></div>
 
 <br>
-<% else %>
-<% @title = "Accès non autorisé"%>
-<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
-<% end %>
 <script type="text/javascript">
-  $("#sendButton").click(function(){
+  $("#sendButton").click(function () {
     $.ajax({
       url: '/categories/:id/create_cats',
       type: 'GET',
       dataType: 'script',
       data: {
-        category_name: $("#category_name").val(),
+        category_name: $("#category_name").val()
       }
     });
   });

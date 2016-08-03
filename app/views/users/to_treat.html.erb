@@ -1,5 +1,6 @@
 <% @title = "Incidents à traiter" %>
-<% if verify_rights_for("treat_incidents") then %>
+<% if Right.where(name: "treat_incidents").pluck(current_user.tech.name).join('')  == 'true' then %>
+
 <% if @incidents.count > 0 %>
 <div class="table-responsive">
 

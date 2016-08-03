@@ -39,7 +39,11 @@ class UsersController < ApplicationController
     @title = "Identifiants oubliés"
     @user = User.find_by_email(params[:email])
     unless @user.nil?
-      AppMailer.pseudonyme_forgeted(@user).deliver_now
+      begin
+        AppMailer.pseudonyme_forgeted(@user).deliver_now
+      rescue
+        nil
+      end
       flash[:notice] = "Un email contenant votre pseudonyme vient de vous être envoyé."
       redirect_to signin_path
     end
@@ -168,10 +172,6 @@ class UsersController < ApplicationController
       flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
       redirect_to '/'
     end
-  end
-
-  def set_expiration
-    expires_in(10.seconds, public: true)
   end
 
   def set_user

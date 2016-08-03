@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
-before_action :set_expiration
+  before_action :set_expiration
   def home
     redirect_to new_session_path if current_user.nil?
-    redirect_to current_user if !current_user.nil?
+    redirect_to current_user unless current_user.nil?
   end
 
   def teches
@@ -11,8 +11,5 @@ before_action :set_expiration
 
   def incidents
     @title = "Tickets d'incidents"
-  end
-  def set_expiration
-    expires_in(10.seconds, public: true)
   end
 end

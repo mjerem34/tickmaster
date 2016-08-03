@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 # Use mysql as the database for Active Record
@@ -29,7 +28,7 @@ gem 'file_validators'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'passenger'
 gem 'bootstrap-slider-rails'
-gem "highcharts-rails"
+gem 'highcharts-rails'
 # Use ActiveModel has_secure_passwo
 gem 'nokogiri'
 gem 'nprogress-rails'
@@ -55,9 +54,10 @@ group :production do
   gem 'exception_notification'
 end
 group :development, :test do
+  gem 'rubocop', require: false
+
   gem 'annotate', '~> 2.6.10'
   gem 'guard-livereload', '~> 2.4', require: false
-  gem 'rubocop'
   gem 'capybara'
   gem 'thin'
   gem 'factory_girl_rails'

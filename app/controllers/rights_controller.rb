@@ -60,10 +60,6 @@ class RightsController < ApplicationController
     end
   end
 
-  def set_expiration
-    expires_in(10.seconds, public: true)
-  end
-
   def set_right
     @right = Right.find(params[:id])
   end

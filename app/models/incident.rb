@@ -22,19 +22,24 @@ class Incident < ActiveRecord::Base
   before_create :set_multiples_fields_defaults_values
 
   def verify_if_incident_is_reaffected
-    if self.tech_id_changed?
+    if tech_id_changed?
       self.incident_state_id_for_user_id = '2'
       self.incident_state_id_for_tech_id = '2'
       @users = User.all
       @response = Response.new(content: 'Incident affecté', incident_id: id, sender_id: user_id)
       @response.save!
-      AppMailer.incident_affected_for_tech(self, @users).deliver_now
-      AppMailer.incident_affected_for_disp(self, @users).deliver_now
-      AppMailer.incident_affected_for_creator(self, @users).deliver_now
-
+      begin
+        AppMailer.incident_affected_for_tech(self, @users).deliver_now
+      rescue
+        nil
+      end
+      begin
+        AppMailer.incident_affected_for_creator(self, @users).deliver_now
+      rescue
+        nil
+      end
     end
   end
-
 
   def downloadable?(user)
     user != :guest
@@ -51,16 +56,28 @@ class Incident < ActiveRecord::Base
       @responses = Response.all.where(incident_id: incident.id)
       @responses.each do |response|
         # if !response.attach_updated_at.nil?
-          # @archive = Archive.new(content: response.content, incident_id: response.incident_id, sender_id: response.sender_id, receiver_id: response.receiver_id, ip_adress_sender: response.ip_adress_sender, pc_id: response.pc_id, attach_updated_at: response.attach_updated_at, attach_content_type: response.attach_content_type, attach_file_name: response.attach_file_name, attach_file_size: response.attach_file_size)
+        # @archive = Archive.new(content: response.content, incident_id: response.incident_id, sender_id: response.sender_id, receiver_id: response.receiver_id, ip_adress_sender: response.ip_adress_sender, pc_id: response.pc_id, attach_updated_at: response.attach_updated_at, attach_content_type: response.attach_content_type, attach_file_name: response.attach_file_name, attach_file_size: response.attach_file_size)
         # else
-          @archive = Archive.new(content: response.content, incident_id: response.incident_id, sender_id: response.sender_id, receiver_id: response.receiver_id, ip_adress_sender: response.ip_adress_sender, pc_id: response.pc_id)
+        @archive = Archive.new(content: response.content, incident_id: response.incident_id, sender_id: response.sender_id, receiver_id: response.receiver_id, ip_adress_sender: response.ip_adress_sender, pc_id: response.pc_id)
         # end
         response.destroy if @archive.save!
-        AppMailer.incident_clotured_for_creator_if_is_creator_clotured(incident, @users, @responses).deliver_now
-        unless incident.tech_id.nil?
-          AppMailer.incident_clotured_for_tech_if_is_creator_clotured(incident, @users).deliver_now
+        begin
+          AppMailer.incident_clotured_for_creator_if_is_creator_clotured(incident, @users, @responses).deliver_now
+        rescue
+          nil
         end
-        AppMailer.incident_clotured_for_disp_if_is_creator_clotured(incident, @users).deliver_now
+        unless incident.tech_id.nil?
+          begin
+            AppMailer.incident_clotured_for_tech_if_is_creator_clotured(incident, @users).deliver_now
+          rescue
+            nil
+          end
+        end
+        begin
+          AppMailer.incident_clotured_for_disp_if_is_creator_clotured(incident, @users).deliver_now
+        rescue
+          nil
+        end
       end
     end
   end

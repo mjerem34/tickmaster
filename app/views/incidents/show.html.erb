@@ -1,4 +1,4 @@
-<% @title = "Incident n° #{@incident.id} de #{@incident.user.surname} #{@incident.user.name}" %>
+<!-- <% @title = "Incident n° #{@incident.id} de #{@incident.user.surname} #{@incident.user.name}" %>
 <% if !current_user.nil? %>
 <% case %>
 <% when Right.where(name: "view_details_incident_of_other_member").pluck(current_user.tech.name).join('')  == 'true', @incident.tech_id == current_user.id, @incident.user_id == current_user.id %>
@@ -109,4 +109,4 @@
 <% else %>
 <% @title = "Accès non autorisé"%>
 <%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
-<% end %>
+<% end %> -->

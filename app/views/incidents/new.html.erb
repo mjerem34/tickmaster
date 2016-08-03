@@ -1,12 +1,1 @@
-<% @title = "Créer un incident" %>
-<% if !current_user.nil? && Right.where(name: "create_new_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
-
-
 <%= render 'form_new' %>
-
-
-
-<% else %>
-<% @title = "Accès non autorisé"%>
-<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
-<% end %>
