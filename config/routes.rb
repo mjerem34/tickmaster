@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new'
   get '/signin', to: 'sessions#new'
   get '/signout', to: 'sessions#destroy'
+  delete '/sessions', to: 'sessions#destroy'
   get '/rights', to: 'rights#index'
   get '/agencies', to: 'agencies#index'
   get '/agencies_doPing', to: 'agencies#doPing'
