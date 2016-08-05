@@ -1,7 +1,4 @@
-<% @title = "Liste des droits" %>
-<% if !current_user.nil? && Right.where(name: "view_index_rights").pluck(current_user.tech.name).join('')  == 'true' %>
-
-<% if Right.where(name: "edit_rights").pluck(current_user.tech.name).join('') == 'true' %>
+<% if @edit_rights %>
 <div class="table-responsive">
   <table class="table table-hover">
     <thead class="header">
@@ -136,7 +133,3 @@
   </table>
 </div>
 <br>
-<% else %>
-<% @title = "Accès non autorisé"%>
-<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
-<% end %>

@@ -42,3 +42,10 @@ Créer procedure :
 Créer sous cat :
 
 {name":"Messagerie","category_id":3,"lvl_urgence_max":10}
+
+
+---
+
+Créer droit :
+
+{"name":"view_index_users","content":"Autorisé à voir la liste des utilisateurs","user":false,"tech":true,"super_tech":true,"admin":true,"disp":true,"assistant":true,"expert":true,"comptable":true}

@@ -1,64 +1,112 @@
 class RightsController < ApplicationController
   before_action :set_right, only: [:show, :edit, :update, :destroy]
   before_action :set_expiration
-  before_action :restrict_access, only: [:show, :index, :edit, :new, :destroy]
+  before_action :restrict_access
 
   def index
-    @rights = Right.all
-    @right = Right.new
+    @view_index_rights = verifRight('view_index_rights')
+    if @view_index_rights
+      @edit_rights = verifRight('edit_rights')
+      @title = 'Liste des droits'
+      @rights = Right.all
+      @right = Right.new
+      respond_to do |format|
+        format.json { render json: @rights }
+        format.html { render :index }
+      end
+    else
+      renderUnauthorized
+    end
   end
 
   def show
+    @edit_rights = verifRight('edit_rights')
+    if @edit_rights
+      @title = "Droit : #{@right.name}"
+      respond_to do |format|
+        format.json { render json: @right }
+        format.html { redirect_to :edit }
+      end
+    else
+      renderUnauthorized
+    end
   end
 
   def new
-    @right = Right.new
+    @create_new_right = verifRight('create_new_right')
+    if @create_new_right
+      @title = 'Nouveau droit'
+      @right = Right.new
+    else
+      renderUnauthorized
+    end
   end
 
   def edit
+    @edit_rights = verifRight('edit_rights')
+    if @edit_rights
+      @title = "Editer droit : #{@right.name}"
+      respond_to do |format|
+        format.html { render :edit }
+      end
+    else
+      renderUnauthorized
+    end
   end
 
   def create
-    @right = Right.new(right_params)
-    respond_to do |format|
-      if @right.save && !@right.name.nil? && !@right.content.nil?
-        format.html { redirect_to rights_url, notice: 'Droit créé.' }
-        format.json { render json: :index, status: :created, location: @right }
-      else
-        format.html { redirect_to new_right_path, notice: 'Veuillez entrer un nom et/ou une description du droit.' }
-        format.json { render json: @right.errors, status: :unprocessable_entity }
+    @create_new_right = verifRight('create_new_right')
+    if @create_new_right
+      @right = Right.new(right_params)
+      respond_to do |format|
+        if @right.save && !@right.name.nil? && !@right.content.nil?
+          format.json { render json: @right.id, status: :created }
+          format.html { redirect_to rights_url, notice: 'Droit créé.' }
+        else
+          format.json { render json: @right.errors, status: :unprocessable_entity }
+          format.html { redirect_to new_right_path, notice: 'Veuillez entrer un nom et/ou une description du droit.' }
+        end
       end
+    else
+      renderUnauthorized
     end
   end
 
   def update
-    respond_to do |format|
-      if @right.update(right_params)
-        format.html { redirect_to rights_path, notice: 'Droit mis à jour.' }
-        format.json { render :show, status: :ok, location: @right }
-      else
-        format.html { render :edit }
-        format.json { render json: @right.errors, status: :unprocessable_entity }
+    @edit_rights = verifRight('edit_rights')
+    if @edit_rights
+      respond_to do |format|
+        if @right.update(right_params)
+          format.json { render json: nil, status: :ok }
+          format.html { redirect_to rights_path, notice: 'Droit mis à jour.' }
+        else
+          format.json { render json: @right.errors, status: :unprocessable_entity }
+          format.html { render :edit, notice: "Impossible de modifier le droit : #{@right.errors}" }
+        end
       end
+    else
+      renderUnauthorized
     end
   end
 
   def destroy
-    @right.destroy
-    respond_to do |format|
-      format.html { redirect_to rights_url, notice: 'Droit supprimé.' }
-      format.json { head :no_content }
+    @delete_rights = verifRight('delete_rights')
+    if @delete_rights
+      respond_to do |format|
+        if @right.destroy
+          format.json { head :no_content }
+          format.html { redirect_to rights_url, notice: 'Droit supprimé.' }
+        else
+          format.json { head json: 'Impossible de supprimer le droit', status: 409 }
+          format.html { redirect_to rights_url, notice: 'Impossible de supprimer le droit' }
+        end
+      end
+    else
+      renderUnauthorized
     end
   end
 
   private
-
-  def restrict_access
-    if current_user.nil?
-      flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
-      redirect_to '/'
-    end
-  end
 
   def set_right
     @right = Right.find(params[:id])

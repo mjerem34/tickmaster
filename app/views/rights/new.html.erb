@@ -1,9 +1,3 @@
-<% @title = "Nouveau droit" %>
-<% if !current_user.nil? && Right.where(name: "create_new_right").pluck(current_user.tech.name).join('')  == 'true' %>
 <h2 class="">Nouveau droit</h2>
 <%= render 'form' %>
 <%= link_to 'Annuler', rights_path, class: "btn btn-danger btn-align " %>
-<% else %>
-<% @title = "Accès non autorisé"%>
-<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
-<% end %>
