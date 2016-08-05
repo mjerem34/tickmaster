@@ -42,10 +42,4 @@ class SessionsController < ApplicationController
       end
     end
   end
-
-  # private
-  #
-  # def set_expiration
-  #   expires_in(10.seconds, public: true)
-  # end
 end
