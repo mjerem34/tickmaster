@@ -19,7 +19,7 @@ class AgenciesController < ApplicationController
       end
     else
       renderUnauthorized
-  end
+    end
   end
 
   def doPing
@@ -61,7 +61,7 @@ class AgenciesController < ApplicationController
 
     else
       renderUnauthorized
-  end
+    end
   end
 
   # GET /agencies/new
@@ -71,7 +71,7 @@ class AgenciesController < ApplicationController
       @title = 'Nouvelle agence'
     else
       renderUnauthorized
-  end
+    end
   end
 
   # GET /agencies/1/edit
@@ -80,7 +80,7 @@ class AgenciesController < ApplicationController
       @title = 'Editer agence'
     else
       renderUnauthorized
-  end
+    end
   end
 
   # POST /agencies
@@ -100,7 +100,7 @@ class AgenciesController < ApplicationController
       end
     else
       renderUnauthorized
-end
+    end
   end
 
   # PATCH/PUT /agencies/1

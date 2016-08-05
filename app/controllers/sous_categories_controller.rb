@@ -2,27 +2,59 @@ class SousCategoriesController < ApplicationController
   before_action :set_sous_category, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
   before_action :set_expiration
-  before_action :restrict_access, only: [:show, :index, :edit, :new, :destroy]
+  before_action :restrict_access
 
   # GET /sous_categories
   # GET /sous_categories.json
   def index
-    @sous_categories = SousCategory.all
+    @view_index_subcategories = verifRight('view_index_subcategories')
+    if @view_index_subcategories
+      @title = "Liste des sous catégories"
+      @sous_categories = SousCategory.all
+      respond_to do |format|
+        format.json { render json: @sous_categories }
+        format.html { render :index }
+      end
+    else
+      renderUnauthorized
+    end
   end
 
   # GET /sous_categories/1
   # GET /sous_categories/1.json
   def show
+    @view_details_subcategories = verifRight('view_details_subcategories')
+    if @view_details_subcategories
+      @title = "Liste des incidents de sous catégorie : #{@sous_category.name}"
+      respond_to do |format|
+        format.json { render json: @sous_category }
+        format.html { render :show }
+      end
+    else
+      renderUnauthorized
+    end
   end
 
   # GET /sous_categories/new
   def new
-    @sous_category = SousCategory.new
+    @create_new_subcategory = verifRight('create_new_subcategory')
+    if @create_new_subcategory
+      @title = "Nouvelle sous catégorie"
+      @sous_category = SousCategory.new
+    else
+      renderUnauthorized
+    end
   end
 
   # GET /sous_categories/1/edit
   def edit
-    @category = Category.find(@sous_category.category_id)
+    @edit_subcategories = verifRight('edit_subcategories')
+    if @edit_subcategories
+      @title = "Editer sous catégorie : #{@sous_category.name}"
+      @category = Category.find(@sous_category.category_id)
+    else
+      renderUnauthorized
+    end
   end
 
   def create_subcats
@@ -36,57 +68,64 @@ class SousCategoriesController < ApplicationController
   # POST /sous_categories
   # POST /sous_categories.json
   def create
-    @sous_category = SousCategory.new(sous_category_params)
-    @sous_category.lvl_urgence_max.nil? ? @sous_category.lvl_urgence_max = 10 : false
-    respond_to do |format|
-      if @sous_category.save
-        format.html { redirect_to :back, notice: "Vous venez de créer une sous catégorie." }
-        format.json { render :show, status: :ok, location: @sous_category }
-      else
-        format.html { redirect_to :back }
+    @create_new_subcategory = verifRight('create_new_subcategory')
+    if @create_new_subcategory
+      @sous_category = SousCategory.new(sous_category_params)
+      @sous_category.lvl_urgence_max.nil? ? @sous_category.lvl_urgence_max = 10 : false
+      respond_to do |format|
+        if @sous_category.save
+          format.json { render json: @sous_category.id, status: :ok }
+          format.html { redirect_to :back, notice: "Vous venez de créer une sous catégorie." }
+        else
+          format.json { render json: nil, status: :unprocessable_entity }
+          format.html { redirect_to :back, notice: "Impossible de créer la sous catégorie." }
+        end
       end
+    else
+      renderUnauthorized
     end
   end
 
   # PATCH/PUT /sous_categories/1
   # PATCH/PUT /sous_categories/1.json
   def update
-    respond_to do |format|
-      if @sous_category.update(sous_category_params)
-        format.html { redirect_to :back, notice: "Les paramètres de la sous catégorie ont été actualisés." }
-        format.json { render :show, status: :ok, location: @sous_category }
-      else
-        format.html { render :edit }
-        format.json { render json: @sous_category.errors, status: :unprocessable_entity }
+    @edit_subcategories = verifRight('edit_subcategories')
+    if @edit_subcategories
+      respond_to do |format|
+        if @sous_category.update(sous_category_params)
+          format.json { render json: nil, status: :ok }
+          format.html { redirect_to :back, notice: "Les paramètres de la sous catégorie ont été actualisés." }
+        else
+          format.json { render json: @sous_category.errors, status: :unprocessable_entity }
+          format.html { render :back, notice: "Impossible de modifier la sous catégorie : #{@sous_category.errors}" }
+        end
       end
+    else
+      renderUnauthorized
     end
   end
 
   # DELETE /sous_categories/1
   # DELETE /sous_categories/1.json
   def destroy
-    if Incident.where(sous_category_id: @sous_category.id).pluck(:title).join('') == ''
-      @sous_category.destroy
+    @delete_subcategories = verifRight('delete_subcategories')
+    if @delete_subcategories
       respond_to do |format|
-        format.html { redirect_to :back, notice: "La sous catégorie vient d'être supprimée." }
-        format.json { render json: @sous_category.errors, status: :unprocessable_entity }
+        if Incident.where(sous_category_id: @sous_category.id).pluck(:title).join('') == ''
+          @sous_category.destroy
+          format.json { head :no_content }
+          format.html { redirect_to :back, notice: "La sous catégorie vient d'être supprimée." }
+        else
+          format.json { render json: "Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents.", status: :unprocessable_entity }
+          format.html { redirect_to categories_url, notice: "Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents." }
+        end
       end
     else
-      respond_to do |format|
-        format.html { redirect_to categories_url, notice: "Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents." }
-        format.json { render json: @sous_category.errors, status: :unprocessable_entity }
-      end
+      renderUnauthorized
     end
   end
 
   private
-
-  def restrict_access
-    if current_user.nil?
-      flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
-      redirect_to '/'
-    end
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_sous_category

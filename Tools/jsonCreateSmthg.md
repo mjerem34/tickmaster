@@ -34,5 +34,11 @@ Créer un utilisateur :
 
 Créer procedure :
 
-{"nom": "Fusion","contenu": "<p>Bonjour,</p> <p>La fusion avec lintervenant ne se fait pas.(1 intervenant sur les).</p> <p>Message :</p> <p>Le filtre graphique ne parvient pas  convertir le fichier (<a href=" - Erreur non s</p> <p>Merci</p> ","resolution": "<p>Bonjour,</p> <p>est le fichier signature qust pas bon, pour le refaire, changer le signataire dans longletral et remettez ensuite le bon expert, le fichier sera reconstruit et vos documents fusionneront.</p> ","category_id": 1
-"sous_category_id": 38}
+{"nom": "Fusion","contenu": "<p>Bonjour,</p> <p>La fusion avec lintervenant ne se fait pas.(1 intervenant sur les).</p> <p>Message :</p> <p>Le filtre graphique ne parvient pas  convertir le fichier (<a href= - Erreur non s</p> <p>Merci</p> ","resolution": "<p>Bonjour,</p> <p>est le fichier signature qust pas bon, pour le refaire, changer le signataire dans longletral et remettez ensuite le bon expert, le fichier sera reconstruit et vos documents fusionneront.</p> ","category_id": 1,"sous_category_id": 38}
+
+
+---
+
+Créer sous cat :
+
+{name":"Messagerie","category_id":3,"lvl_urgence_max":10}
