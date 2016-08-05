@@ -28,3 +28,11 @@ Répondre à un msg d'un incident :
 Créer un utilisateur :
 
 {"pseudo": "jeromedd.guillot", "email": "bujghuikhgidshilfhizsefh@yopmail.com", "tel": "0683039620", "mobile": "", "name": "Guillot", "surname": "Jérôme", "password": "sonya88", "salt": "", "tech_id": 5, "attach_file_name": "", "attach_content_type": "", "attach_file_size": 0, "attach_updated_at": null, "agency_id": 2, "created_at": "2015-12-09T10:47:39.000+01:00", "updated_at": "2016-07-20T14:58:53.000+02:00", "mode": "Nuit", "ip_addr": "192.168.10.48"}
+
+
+---
+
+Créer procedure :
+
+{"nom": "Fusion","contenu": "<p>Bonjour,</p> <p>La fusion avec lintervenant ne se fait pas.(1 intervenant sur les).</p> <p>Message :</p> <p>Le filtre graphique ne parvient pas  convertir le fichier (<a href=" - Erreur non s</p> <p>Merci</p> ","resolution": "<p>Bonjour,</p> <p>est le fichier signature qust pas bon, pour le refaire, changer le signataire dans longletral et remettez ensuite le bon expert, le fichier sera reconstruit et vos documents fusionneront.</p> ","category_id": 1
+"sous_category_id": 38}

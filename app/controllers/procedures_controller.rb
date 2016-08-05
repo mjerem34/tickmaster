@@ -1,40 +1,65 @@
 class ProceduresController < ApplicationController
   before_action :set_procedure, only: [:show, :edit, :update, :destroy]
   before_action :set_categories_all, only: [:index, :show, :edit, :new, :create]
-  before_action :restrict_access, only: [:show, :index, :edit, :new, :destroy]
-
+  before_action :restrict_access
   # GET /procedures
   # GET /procedures.json
   def index
-    @procedures = Procedure.all
+    @view_procedures = verifRight('view_procedures')
+    if @view_procedures
+      @title = 'Liste des procedures'
+      @procedures = Procedure.all.reorder('created_at asc')
+      respond_to do |format|
+        format.json { render json: @procedures }
+        format.html { render :index }
+      end
+    else
+      renderUnauthorized
+    end
   end
 
   # GET /procedures/1
   # GET /procedures/1.json
   def show
+    @view_procedures = verifRight('view_procedures')
+    if @view_procedures
+      @title = "Procedure N° " + @procedure.id.to_s
+      respond_to do |format|
+        format.json { render json: @procedure }
+        format.html { render :show }
+      end
+    else
+      renderUnauthorized
+    end
   end
 
   # GET /procedures/new
   def new
-    @procedure = Procedure.new
-    @nom = params[:nom]
-    @contenu = params[:contenu]
-    unless params[:messages].nil?
-      @messages = params[:messages]
-      @a = ''
-      i = 0
-      msg = @messages.split(';;')
-      msg = msg.each do |m|
-        i += 1
-        @a = @a + '<h4><b><u>Message N° ' + i.to_s + ' : </u></b><h4>' + m + '<br>'
+    @create_procedure = verifRight('create_procedure')
+    if @create_procedure
+      @title = 'Nouvelle procedure'
+      @procedure = Procedure.new
+      @nom = params[:nom]
+      @contenu = params[:contenu]
+      unless params[:messages].nil?
+        @messages = params[:messages]
+        @a = ''
+        i = 0
+        msg = @messages.split(';;')
+        msg = msg.each do |m|
+          i += 1
+          @a = @a + '<h4><b><u>Message N° ' + i.to_s + ' : </u></b><h4>' + m + '<br>'
+        end
       end
-  end
-    @category_id = params[:category_id]
-    @sous_category_id = params[:sous_category_id]
-    if @category_id.nil?
-      @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
+      @category_id = params[:category_id]
+      @sous_category_id = params[:sous_category_id]
+      if @category_id.nil?
+        @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
+      else
+        @sous_categories = SousCategory.where('category_id = ?', @category_id)
+      end
     else
-      @sous_categories = SousCategory.where('category_id = ?', @category_id)
+      renderUnauthorized
     end
   end
 
@@ -48,53 +73,78 @@ class ProceduresController < ApplicationController
 
   # GET /procedures/1/edit
   def edit
-    @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
+    @edit_procedure = verifRight('edit_procedure')
+    if @edit_procedure
+      @title = "Procedure N° " + @procedure.id.to_s
+      @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
+    else
+      renderUnauthorized
+    end
   end
 
   # POST /procedures
   # POST /procedures.json
   def create
-    @procedure = Procedure.new(procedure_params)
-    respond_to do |format|
-      if @procedure.save
-        unless params[:file_procedures].nil?
-          params[:file_procedures]['file'].each do |a|
-            @file_procedure = @procedure.file_procedures.create!(
-              procedure_id: @procedure.id,
-              file: a
-            )
+    @create_procedure = verifRight('create_procedure')
+    if @create_procedure
+      @procedure = Procedure.new(procedure_params)
+      respond_to do |format|
+        if @procedure.save
+          unless params[:file_procedures].nil?
+            params[:file_procedures]['file'].each do |a|
+              @file_procedure = @procedure.file_procedures.create!(
+                procedure_id: @procedure.id,
+                file: a
+              )
+            end
           end
+          format.json { render json: @procedure.id, status: :created }
+          format.html { redirect_to @procedure, notice: 'La procedure a été créée.' }
+        else
+          format.json { render json: @procedure.errors, status: :unprocessable_entity }
+          format.html { redirect_to :back, notice: 'Impossible de créer la procedure.' + @procedure.errors }
         end
-        format.html { redirect_to @procedure, notice: 'La procedure a été créée.' }
-        format.json { render :show, status: :created, location: @procedure }
-      else
-        format.html { render :new }
-        format.json { render json: @procedure.errors, status: :unprocessable_entity }
       end
+    else
+      renderUnauthorized
     end
   end
 
   # PATCH/PUT /procedures/1
   # PATCH/PUT /procedures/1.json
   def update
-    respond_to do |format|
-      if @procedure.update(procedure_params)
-        format.html { redirect_to @procedure, notice: 'La procedure a été mise a jour.' }
-        format.json { render :show, status: :ok, location: @procedure }
-      else
-        format.html { render :edit }
-        format.json { render json: @procedure.errors, status: :unprocessable_entity }
+    @edit_procedure = verifRight('edit_procedure')
+    if @edit_procedure
+      respond_to do |format|
+        if @procedure.update(procedure_params)
+          format.json { render json: nil, status: :ok }
+          format.html { redirect_to @procedure, notice: 'La procedure a été mise a jour.' }
+        else
+          format.json { render json: @procedure.errors, status: :unprocessable_entity }
+          format.html { redirect_to :back, notice: 'Impossible de modifier la procedure' }
+        end
       end
+    else
+      renderUnauthorized
     end
   end
 
   # DELETE /procedures/1
   # DELETE /procedures/1.json
   def destroy
-    @procedure.destroy
-    respond_to do |format|
-      format.html { redirect_to procedures_url, notice: 'La procedure a été supprimée.' }
-      format.json { head :no_content }
+    @delete_procedure = verifRight('delete_procedure')
+    if @delete_procedure
+      respond_to do |format|
+        if @procedure.destroy
+          format.json { head :no_content }
+          format.html { redirect_to procedures_url, notice: 'La procedure a été supprimée.' }
+        else
+          format.json { render json: @procedure.errors, status: :unprocessable_entity }
+          format.html { redirect_to :back, notice: "Impossible de supprimer la procedure. #{@procedure.errors}" }
+        end
+      end
+    else
+      renderUnauthorized
     end
   end
 
@@ -103,13 +153,6 @@ class ProceduresController < ApplicationController
   end
 
   private
-
-  def restrict_access
-    if current_user.nil?
-      flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
-      redirect_to '/'
-    end
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_procedure
