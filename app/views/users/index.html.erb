@@ -1,9 +1,7 @@
-<% @title = "Liste des utilisateurs"%>
-<% if !current_user.nil? && Right.where(name: "view_index_users").pluck(current_user.tech.name).join('')  == 'true' %>
 <div class="table-responsive">
   <table class="table table-hover">
     <thead class="header">
-      <% if Right.where(name: "edit_other_user").pluck(current_user.tech.name).join('')  == 'true' then %>
+      <% if @edit_other_user then %>
       <tr>
         <th>#</th>
         <th>Pseudo</th>
@@ -29,7 +27,7 @@
     </thead>
     <tbody>
       <% @users.each do |user| %>
-      <% if Right.where(name: "edit_other_user").pluck(current_user.tech.name).join('')  == 'true' then %>
+      <% if @edit_other_user then %>
       <!-- Vue pour les administrateurs -->
       <tr>
         <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.id%></td>
@@ -60,8 +58,3 @@
     </tbody>
   </table>
 </div>
-
-<%else%>
-<% @title = "Accès non autorisé"%>
-<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
-<% end %>

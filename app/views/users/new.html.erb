@@ -1,6 +1,6 @@
 <% if !current_user.nil? && Right.where(name: "create_new_tech").pluck(current_user.tech.name).join('')  == 'true' %>
 <%= render 'form_new'%>
-<%else if current_user.nil?%>
+<%elsif current_user.nil?%>
 
 <% @title = "S'inscrire"%>
 

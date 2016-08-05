@@ -126,17 +126,15 @@ end
   # DELETE /agencies/1.json
   def destroy
     if verifRight('delete_agency')
-      if @agency.destroy
-        respond_to do |format|
+      respond_to do |format|
+        if @agency.destroy
           format.json { head :no_content }
           format.html { redirect_to agencies_url, notice: "Vous venez d'arracher plusieurs vies innocentes en supprimant cette agence ..." }
-        end
-      else
-        respond_to do |format|
+        else
           format.json { render json: @agency.errors, status: :unprocessable_entity }
           format.html { render :edit, notice: 'Impossible de supprimer cette agence, allez savoir pourquoi ...' }
         end
-    end
+      end
     else
       renderUnauthorized
     end

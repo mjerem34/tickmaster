@@ -1,14 +1,23 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :profil, :download]
+  before_action :set_user, only: [:show, :update, :destroy, :profil, :download]
   before_action :set_expiration
-  before_action :restrict_access, only: [:show, :index, :profil, :to_treat, :edit, :allincidents, :destroy]
+  before_action :restrict_access, except: [:new, :create, :forget_identifiers, :change_ip]
 
-  def home
-    @title = 'Utilisateurs'
-  end
-
+  # GET /users
   def index # Page liste des utilisateurs
-    @users = User.order('name asc')
+    @view_index_users = verifRight('view_index_users')
+
+    if @view_index_users
+      @title = 'Liste des utilisateurs'
+      @edit_other_user = verifRight('edit_other_user')
+      @users = User.order('name asc')
+      respond_to do |format|
+        format.json { render json: @users }
+        format.html { render :index }
+      end
+    else
+      renderUnauthorized
+    end
   end
 
   def change_ip
@@ -38,18 +47,23 @@ class UsersController < ApplicationController
   def forget_identifiers # Fonction pour oubli de pseudonyme
     @title = "Identifiants oubliés"
     @user = User.find_by_email(params[:email])
-    unless @user.nil?
-      begin
-        AppMailer.pseudonyme_forgeted(@user).deliver_now
-      rescue
-        nil
+    unless params[:email].nil?
+      unless @user.nil?
+        begin
+          AppMailer.pseudonyme_forgeted(@user).deliver_now
+        rescue
+          nil
+        end
+        flash[:notice] = "Un email contenant votre pseudonyme vient de vous être envoyé."
+        redirect_to signin_path
       end
-      flash[:notice] = "Un email contenant votre pseudonyme vient de vous être envoyé."
-      redirect_to signin_path
+      flash[:notice] = "L'adresse email est incorrecte, peut être n'êtes vous pas encore inscrit ?"
+      redirect_to signup_path
     end
   end
 
   def check
+    return false if current_user.nil?
     @idOfIncident = []
     if current_user.tech.name == 'disp'
       @incidents = Incident.where(notify_for_tech: 1, incident_state_id_for_tech_id: 1)
@@ -66,25 +80,43 @@ class UsersController < ApplicationController
 
   def show
     @incidents = Incident.where(user_id: current_user.id, incident_state_id_for_user_id: [1, 2, 3, 4, 5, 6, 8, 9, 11, 12]).includes(:user, :category, :sous_category).order('created_at desc')
-    unless params[:order_by].nil?
-      @incidents = @incidents.reorder(params[:order_by])
-      respond_to do |format|
-        format.js { render action: :order_by }
-      end
+    @title = 'Mes incidents'
+    respond_to do |format|
+      format.json { render json: @incidents }
+      format.html { render :show }
     end
   end
 
   def profil
+    if @user.nil?
+      respond_to do |format|
+        format.json { render json: "Cet utilisateur n'existe pas !", status: 404 }
+        format.html { redirect_to '/', notice: "Cet utilisateur n'existe pas !" }
+      end
+      return false
+    end
+    if current_user == @user || verifRight('edit_other_user')
+      @title = "Profil d'utilisateur #{@user.surname} #{@user.name}"
+      respond_to do |format|
+        format.json { render json: @user }
+        format.html { render :profil }
+      end
+    else
+      renderUnauthorized
+    end
   end
 
   def to_treat
-    if params[:order_by].nil?
-      @incidents = current_user.tech_incidents.where(incident_state_id_for_tech: [2, 3, 4, 5, 6]).order('created_at desc')
-    else
-      @incidents = Incident.where(tech_id: current_user.id).includes(:user, :category, :sous_category).order(params[:order_by])
+    @treat_incidents = verifRight('treat_incidents')
+    if @treat_incidents
+      @title = "Incidents à traiter"
+      @incidents = current_user.tech_incidents.where(incident_state_id_for_tech_id: [2, 3, 4, 5, 6]).order('created_at desc')
       respond_to do |format|
-        format.js { render action: :order_by }
+        format.json { render json: @incidents }
+        format.html { render :to_treat }
       end
+    else
+      renderUnauthorized
     end
   end
 
@@ -92,33 +124,30 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def edit
-  end
-
   def allincidents
-    if params[:order_by].nil?
-      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user_id: [7, 10]).order('created_at desc')
-    else
-      @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user_id: [7, 10]).order(params[:order_by])
-      respond_to do |format|
-        format.js { render action: :order_by }
-      end
+    @title = "Liste des incidents cloturés de #{current_user.surname} #{current_user.name}"
+    @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user_id: [7, 10]).order('created_at desc')
+    respond_to do |format|
+      format.json { render json: @incidents }
+      format.html { render :allincidents }
     end
   end
 
   def create
     @user = User.new(user_params)
-    if User.exists?(pseudo: @user.pseudo)
-      flash[:notice] = 'Utilisateur déjà enregistré.'
-      redirect_to_back
-    else
-      respond_to do |format|
+    respond_to do |format|
+      if User.exists?(pseudo: @user.pseudo)
+        format.json { render json: "Nom d'utilisateur déjà enregistré", status: 409 }
+        format.html { redirect_to :back, notice: "Nom d'utilisateur déjà enregistré" }
+      else
         if @user.save
           if current_user.nil?
             sign_in @user
           else
+            format.json { render json: @user.id }
             format.html { redirect_to current_user }
           end
+          format.json { render json: @user.id }
           format.html do
             redirect_to pages_help_path,
                         notice: 'Bienvenue, votre inscription a bien été prise en compte.'
@@ -129,33 +158,44 @@ class UsersController < ApplicationController
             end
           end
         else
-          format.html { render :new }
           format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.html { render :new }
         end
       end
     end
   end
 
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: "Vos informations ont bien été actualisées." }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    @edit_other_user = verifRight('edit_other_user')
+    if @edit_other_user || current_user == @user
+      respond_to do |format|
+        if @user.update(user_params)
+          format.json { render json: nil, status: 200 }
+          format.html { redirect_to @user, notice: "Vos informations ont bien été actualisées." }
+        else
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.html { render :edit, notice: "Impossible d'éditer vos paramètres ... Pourquoi voulez vous changer ? Vous n'êtes pas assez bien comme ça ?" }
+        end
       end
+    else
+      renderUnauthorized
     end
   end
 
   def destroy
-    respond_to do |format|
-      if @user.destroy
-        format.html { redirect_to users_url, notice: "Vous venez de supprimer un utilisateur, ce n'est pas bien de prendre une vie ..." }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to :back }
-    end
+    @delete_user = verifRight('delete_user')
+    if @delete_user
+      respond_to do |format|
+        if @user.destroy
+          format.json { head :no_content }
+          format.html { redirect_to users_url, notice: "Vous venez de supprimer un utilisateur, ce n'est pas bien de prendre une vie ..." }
+        else
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.html { render :edit, notice: 'Impossible de supprimer cet utilisateur, il est définitivement plus fort que vous !' }
+        end
+      end
+    else
+      renderUnauthorized
     end
   end
 
@@ -167,15 +207,10 @@ class UsersController < ApplicationController
 
   private
 
-  def restrict_access
-    if current_user.nil?
-      flash[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page"
-      redirect_to '/'
-    end
-  end
-
   def set_user
     @user = User.find(params[:id])
+  rescue
+    @user = nil
   end
 
   def user_params

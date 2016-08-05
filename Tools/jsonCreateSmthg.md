@@ -19,5 +19,12 @@ Reaffecter, Cloture, Rejeter un incident :
 
 ---
 
-Répondre à un msg d'un incident : 
+Répondre à un msg d'un incident :
 {"commit":"Valider", "response":{"content":"dsefzsefsfefseefesf"}}
+
+
+---
+
+Créer un utilisateur :
+
+{"pseudo": "jeromedd.guillot", "email": "bujghuikhgidshilfhizsefh@yopmail.com", "tel": "0683039620", "mobile": "", "name": "Guillot", "surname": "Jérôme", "password": "sonya88", "salt": "", "tech_id": 5, "attach_file_name": "", "attach_content_type": "", "attach_file_size": 0, "attach_updated_at": null, "agency_id": 2, "created_at": "2015-12-09T10:47:39.000+01:00", "updated_at": "2016-07-20T14:58:53.000+02:00", "mode": "Nuit", "ip_addr": "192.168.10.48"}

@@ -1,6 +1,3 @@
-<% @title = "Incidents à traiter" %>
-<% if Right.where(name: "treat_incidents").pluck(current_user.tech.name).join('')  == 'true' then %>
-
 <% if @incidents.count > 0 %>
 <div class="table-responsive">
 
@@ -16,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @incidents.order(["created_at desc"]).each do |incident| %>
+      <% @incidents.each do |incident| %>
       <% case incident.incident_state_id_for_tech.id %>
       <% when 1, 2, 3, 4 %>
       <tr style=" background: #e74c3c;" data-toggle="modal" data-target="#<%= incident.id %>">
@@ -105,8 +102,4 @@
           </h1>
         </div>
       </div>
-      <% end %>
-    <% else %>
-      <% @title = "Accès non autorisé"%>
-      <%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
       <% end %>
