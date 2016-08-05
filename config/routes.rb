@@ -3,6 +3,7 @@
 #
 
 Rails.application.routes.draw do
+  resources :updates
   resources :type_materials
   resources :specs_types_materials
   resources :sellers
@@ -67,6 +68,7 @@ Rails.application.routes.draw do
   get '/agencies', to: 'agencies#index'
   get '/agencies_doPing', to: 'agencies#doPing'
   get '/check_notify', to: 'users#check'
+  get '/sessions', to: redirect('/sessions/new')
 
   # get '/nuit_jour', to: 'users#mode_nuit_jour'
   # get '/test_exception', to: 'application#test_exception'
