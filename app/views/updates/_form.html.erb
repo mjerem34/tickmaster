@@ -1,11 +1,11 @@
+<br>
 <%= simple_form_for(@update) do |f| %>
-  <%= f.error_notification %>
-
   <div class="form-inputs">
-    <%= f.input :changes %>
+    <%= f.cktext_area :changesMade %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, 'Valider', class: "btn btn-success" %>
+    <%= link_to 'Annuler', updates_path, class: "btn btn-danger" %>
   </div>
 <% end %>

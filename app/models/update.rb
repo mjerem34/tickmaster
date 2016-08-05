@@ -1,3 +1,3 @@
 class Update < ActiveRecord::Base
-  validates :changes, presence: true
+  validates :changesMade, presence: true
 end

@@ -47,6 +47,7 @@ class UpdatesController < ApplicationController
   def edit
     @modify_update = verifRight('modify_update')
     if @modify_update
+      @title = "Mise à jour numéro : #{@update.id}"
       respond_to :html
     else
       renderUnauthorized
@@ -61,6 +62,10 @@ class UpdatesController < ApplicationController
       @update = Update.new(update_params)
       respond_to do |format|
         if @update.save
+          @users = User.all
+          @users.each do |user|
+            user.update(maj: true)
+          end
           format.json { render json: @update.id, status: :created }
           format.html { redirect_to @update, notice: 'La mise à jour a été crée, et grâce à toi BG !' }
         else
@@ -120,6 +125,6 @@ class UpdatesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def update_params
-    params.require(:update).permit(:changes)
+    params.require(:update).permit(:changesMade)
   end
 end

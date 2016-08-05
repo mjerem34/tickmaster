@@ -156,7 +156,7 @@ FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
             <h4 class="modal-title" style="color:#333;">Message : </h4>
           </div>
           <div class="modal-body" style="color:#333;">
-            <%= flash.now[:notice] %>
+            <%= raw flash.now[:notice] %>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
@@ -208,6 +208,42 @@ FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
       });
     });
   </script>
+  <% elsif flash.now[:maj]%>
+  <!-- <div class="container-modal">
+    <!-- Modal -->
+    <div class="modal fade in" id="notice-modal" role="dialog" style="display:block !important;">
+      <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" style="color:#333;">&times;</button>
+            <h4 class="modal-title" style="color:#333;">Mise à jour : </h4>
+          </div>
+          <div class="modal-body" style="color:#333;">
+            <%= flash.now[:maj] %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+
+      </div>
+    <!-- </div>
+
+  </div> -->
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#notice-modal").modal('show');
+      $(document).keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13'){
+          $("#notice-modal").modal('hide');
+        }
+      });
+    });
+  </script>
+
 <% end %>
 <div id="page-cover">
   <p>

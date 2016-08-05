@@ -21,8 +21,15 @@ class SessionsController < ApplicationController
           format.html { render :new, notice: 'Pseudonyme et/ou mot de passe invalide' }
         else
           sign_in user
-          format.json { render json: "Connexion réussie", status: :ok }
-          format.html { redirect_to '/', notice: 'Connexion réussie' }
+          if current_user.maj == true || current_user.maj.nil?
+            @changesMade = Update.last
+            format.json { render json: @changesMade.changesMade, status: 202 }
+            format.html { redirect_to '/', notice: @changesMade.changesMade }
+            current_user.update(maj: false)
+          else
+            format.json { render json: "Connexion réussie", status: :ok }
+            format.html { redirect_to '/', notice: 'Connexion réussie' }
+          end
         end
       end
     end

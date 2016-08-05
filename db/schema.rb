@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805140517) do
+ActiveRecord::Schema.define(version: 20160805143904) do
 
   create_table "agencies", force: :cascade do |t|
     t.string "name",       limit: 45
@@ -277,9 +277,9 @@ ActiveRecord::Schema.define(version: 20160805140517) do
   end
 
   create_table "updates", force: :cascade do |t|
-    t.string   "changes",    limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "changesMade", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -301,6 +301,7 @@ ActiveRecord::Schema.define(version: 20160805140517) do
     t.datetime "updated_at",                      null: false
     t.string   "mode",                limit: 255
     t.string   "ip_addr",             limit: 20
+    t.boolean  "maj"
   end
 
   add_index "users", ["agency_id"], name: "index_users_on_agency_id", using: :btree
