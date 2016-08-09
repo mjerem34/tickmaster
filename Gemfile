@@ -41,7 +41,7 @@ gem 'whenever', require: true
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'autoprefixer-rails'
 gem 'paperclip', '~> 4.3'
-gem 'carrierwave'
+gem 'carrierwave' # => IN USE
 gem 'chosen-rails'
 gem 'web-console', '~> 2.0'
 gem 'ckeditor', github: 'galetahub/ckeditor'

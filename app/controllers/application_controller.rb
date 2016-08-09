@@ -3,10 +3,19 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
   skip_before_filter :verify_authenticity_token
+  before_filter :maj_flash_from_params
 
   include SessionsHelper
 
   private
+
+  def default_url_options
+    { maj_flash: @maj_flash }
+  end
+
+  def maj_flash_from_params
+    @maj_flash = params[:maj]
+  end
 
   def set_expiration
     expires_in(10.seconds, public: true)

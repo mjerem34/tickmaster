@@ -18,6 +18,38 @@
           <p>
           Date :
           <%= @incident.created_at.strftime("%d %b %Y %H:%M") %></p>
+          <p style="cursor:pointer;" data-toggle="modal" data-target="#<%= @incident.user.id %>">Demandeur : <%= @incident.user.surname + ' ' + @incident.user.name %></p>
+          <div class="container-modal">
+            <!-- Modal details demandeur -->
+            <div class="modal fade" id="<%= @incident.user.id %>" role="dialog">
+              <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Details de l'utilisateur :
+                      <%= @incident.user.surname + ' ' + @incident.user.name %></h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Prenom : <%= @incident.user.surname %></p>
+                    <p>Nom : <%= @incident.user.name %></p>
+                    <p>Pseudo : <%= @incident.user.pseudo %></p>
+                    <p>Mail : <a style="color:dimgrey !important;" href="mailto:<%= @incident.user.email %>"><%= @incident.user.email%></a></p>
+                    <p>Tel : <%= @incident.user.tel %></p>
+                    <p>Mobile : <%= unless @incident.user.mobile.nil? then @incident.user.mobile else "Non renseigné" end %></p>
+                    <p>Agence : <%= @incident.user.agency.name %></p>
+                  </div>
+                  <div class="modal-footer">
+                    <%= link_to "Détails", profil_user_path(@incident.user), class: "btn btn-primary"%>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
           <p>Etat de l'incident :
           <% if current_user.tech.simple_user == true %>
         <%= @incident.incident_state_id_for_user.name %></p>

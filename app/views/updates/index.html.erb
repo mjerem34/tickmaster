@@ -2,19 +2,44 @@
   <table class="table table-hover" id="table_updates">
     <thead class="header">
     <tr>
+      <th>N°</th>
       <th>Modifications</th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @updates.each do |update| %>
-      <tr>
-        <td><%= update.changesMade %></td>
-        <td><%= link_to 'Editer', edit_update_path(update) %></td>
-        <td><%= link_to 'Supprimer', update, method: :delete, data: { confirm: 'Êtes vous sûr ?' } %></td>
+      <tr data-toggle="modal" data-target="#<%= update.id %>">
+        <td><%= update.id %></td>
+        <td><%= truncate(strip_tags(update.changesMade), length: 150) %></td>
       </tr>
+      <div class="container-modal">
+        <!-- Modal -->
+        <div class="modal fade" id="<%= update.id %>" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Mise à jour n° :
+                  <%= update.id %></h4>
+              </div>
+              <div class="modal-body">
+                <p><%= raw update.changesMade %></p>
+              </div>
+              <div class="modal-footer">
+                <%= link_to "Détails", edit_update_path(update), class: "btn btn-primary"%>
+                <%= link_to 'Supprimer', @update, method: :delete, data: { confirm: 'Êtes vous sûr ?' }, class: 'btn btn-warning' %>
+
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
     <% end %>
   </tbody>
 </table>

@@ -3,6 +3,7 @@
 #
 
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   resources :updates
   resources :type_materials
   resources :specs_types_materials

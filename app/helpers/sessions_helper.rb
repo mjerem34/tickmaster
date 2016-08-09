@@ -12,8 +12,8 @@ module SessionsHelper
     if signed_in?
       if current_user.tech_id == true
         return true
-      else current_user.tech_id == false
-           return false
+      else
+        return false
       end
     end
   end

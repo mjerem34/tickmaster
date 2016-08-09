@@ -24,8 +24,7 @@ class SessionsController < ApplicationController
           if current_user.maj == true || current_user.maj.nil?
             @changesMade = Update.last
             format.json { render json: @changesMade.changesMade, status: 202 }
-            format.html { redirect_to '/', notice: @changesMade.changesMade }
-            current_user.update(maj: false)
+            format.html { redirect_to '/' }
           else
             format.json { render json: "Connexion réussie", status: :ok }
             format.html { redirect_to '/', notice: 'Connexion réussie' }

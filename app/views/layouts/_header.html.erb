@@ -153,6 +153,12 @@
 <a href="#"><%= link_to"#{current_user.name} #{current_user.surname}", profil_user_path(current_user)%></a>
 </li>
 <li><%= link_to "Se déconnecter", signout_path, method: :get %></li>
+<% if Right.where(name: "create_update").pluck(current_user.tech.name).join('') == 'true' %>
+<li><%= link_to "Créer une mise à jour", new_update_url %></li>
+<% end %>
+<% if Right.where(name: "view_update").pluck(current_user.tech.name).join('') == 'true' %>
+  <li><%= link_to "Liste des mise à jour", updates_url %></li>
+  <% end %>
 <% if current_user.mode == "Jour" %>
 <li><%= link_to "Passer en mode nuit", mode_nuit_jour_user_path(current_user), method: :get %></li>
 <% else %>
