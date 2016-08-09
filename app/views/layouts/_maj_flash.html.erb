@@ -1,6 +1,6 @@
 <% unless current_user.nil? %>
   <% if current_user.maj == true || current_user.maj.nil? %>
-    <% @maj_flash = Update.last.changesMade %>
+    <% @maj_flash = Update.last %>
     <% current_user.update(maj: false) %>
     <div class="modal fade in" id="notice-modal" role="dialog" style="display:block !important;">
       <div class="modal-dialog modal-lg">
@@ -10,7 +10,7 @@
             <h4 class="modal-title" style="color:#333;">Mise à jour : </h4>
           </div>
           <div class="modal-body" style="color:#333;">
-            <%= raw @maj_flash %>
+            <%= raw @maj_flash.changesMade unless @maj_flash.nil?%>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
