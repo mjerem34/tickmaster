@@ -1,7 +1,7 @@
 Rails.application.configure do
   config.cache_classes = true
   config.eager_load = true
-  config.serve_static_files = true
+  config.serve_static_files = false
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
   config.logger = Logger.new(STDOUT)
@@ -23,7 +23,7 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
   config.action_mailer.default_url_options = { host: '10.134.2.250' }
-  config.assets.compile = false
+  config.assets.compile = true
   config.assets.digest = true
   config.serve_static_files = true
   config.log_level = :debug
