@@ -8,7 +8,7 @@ Rails.application.configure do
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
-  config.eager_load = true
+  config.eager_load = false
   config.serve_static_files = true
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
@@ -20,11 +20,11 @@ Rails.application.configure do
   # NGINX, varnish or squid.
   # config.action_dispatch.rack_cache = true
   config.middleware.use ExceptionNotification::Rack,
-  email: {
-    email_prefix: '[Website Error] ',
-    sender_address: 'ticket@cle-expertises.fr',
-    exception_recipients: ['jeremy.montesinos@cle-expertises.fr']
-  }
+                        email: {
+                          email_prefix: '[Website Error] ',
+                          sender_address: 'ticket@cle-expertises.fr',
+                          exception_recipients: ['jeremy.montesinos@cle-expertises.fr']
+                        }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
@@ -35,8 +35,9 @@ Rails.application.configure do
     user_name: 'ticket@cle-expertises.fr',
     password: 'sonya88',
     authentication: :plain,
-    enable_starttls_auto: true}
-    config.action_mailer.default_url_options = {:host => "10.134.2.250"}
+    enable_starttls_auto: true
+  }
+  config.action_mailer.default_url_options = { host: '10.134.2.250' }
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
@@ -46,16 +47,17 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = true
+  config.assets.compile = false
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
+  config.assets.debug = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Specifies the header that your server uses for sending files.
-  #config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
+  # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   #  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
   config.serve_static_files = true
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
