@@ -8,7 +8,7 @@ Rails.application.configure do
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
-  config.eager_load = false
+  config.eager_load = true
   config.serve_static_files = true
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
@@ -47,12 +47,11 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
   config.assets.digest = true
-  config.assets.debug = true
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
