@@ -51,14 +51,16 @@ class UsersController < ApplicationController
       unless @user.nil?
         begin
           AppMailer.pseudonyme_forgeted(@user).deliver_now
+          flash[:notice] = "Un email contenant votre pseudonyme vient de vous être envoyé."
+          redirect_to signin_path
+          return true
         rescue
           nil
         end
-        flash[:notice] = "Un email contenant votre pseudonyme vient de vous être envoyé."
-        redirect_to signin_path
       end
       flash[:notice] = "L'adresse email est incorrecte, peut être n'êtes vous pas encore inscrit ?"
       redirect_to signup_path
+      return false
     end
   end
 

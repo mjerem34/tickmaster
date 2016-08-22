@@ -88,12 +88,12 @@
       <script type="text/javascript">
         $(window).scroll(function () {
           posScroll = $(document).scrollTop();
-          if (posScroll >= 100)
+          if (posScroll >= 100){
             $('.updown-arrow').css({"visibility": "visible"});
-          else
+          }else{
             $('.updown-arrow').css({"visibility": "hidden"});
           }
-        );
+          });
       </script>
 
       <!--
@@ -234,9 +234,6 @@ FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
   // });
 });
 </script>
-<% if !current_user.nil? %>
-<%= render 'layouts/notifications'%>
-<% end %>
 </body>
 
 </html>

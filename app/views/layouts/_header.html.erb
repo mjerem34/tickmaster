@@ -6,55 +6,47 @@
   <div class="menu-list">
     <ul id="menu-content" class="menu-content collapse out">
       <% if !current_user.nil? %>
-      <% if Right.where(name: "create_procedure").pluck(current_user.tech.name).join('')  == 'true' %>
-      <li data-toggle="collapse" data-target="#procedures" class="collapsed active"><%= image_tag("ICOMOON/32pxBlack/032-book.png", size: "16x16", alt: "", class: "fa-img") %>
-        <a href="#">
-          <i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Procédures</a>
-      </li>
-      <ul class="sub-menu collapse" id="procedures">
-        <li><%= link_to 'Liste procedures', procedures_path, method: :get %></li>
-        <li><%= link_to "Créer procédure", new_procedure_path, method: :get %></li>
-      <% else %>
-        <% if Right.where(name: "view_procedures").pluck(current_user.tech.name).join('')  == 'true' %>
-
-        <% if current_user.mode == "Jour" %>
-        <li><%= image_tag("ICOMOON/32pxBlack/032-book.png", size: "16x16", alt: "", class: "fa-img")%>
-          <% elsif current_user.mode == "Nuit" %>
-        <li><%= image_tag("ICOMOON/16px/0032-book.png", size: "16x16", alt: "", class: "fa-img")%>
+        <% if Right.where(name: "create_procedure").pluck(current_user.tech.name).join('')  == 'true' %>
+          <li data-toggle="collapse" data-target="#procedures" class="collapsed active"><%= image_tag("ICOMOON/32pxBlack/032-book.png", size: "16x16", alt: "", class: "fa-img") %>
+            <a href="#"><i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Procédures</a>
+          </li>
+          <ul class="sub-menu collapse" id="procedures">
+            <li><%= link_to 'Liste procedures', procedures_path, method: :get %></li>
+            <li><%= link_to "Créer procédure", new_procedure_path, method: :get %></li>
+        <% else %>
+          <% if Right.where(name: "view_procedures").pluck(current_user.tech.name).join('')  == 'true' %>
+            <% if current_user.mode == "Jour" %>
+              <li><%= image_tag("ICOMOON/32pxBlack/032-book.png", size: "16x16", alt: "", class: "fa-img")%>
+            <% elsif current_user.mode == "Nuit" %>
+              <li><%= image_tag("ICOMOON/16px/0032-book.png", size: "16x16", alt: "", class: "fa-img")%>
+            <% end %>
+            <i class="fa fa-gift fa-lg"></i>
+            <%= link_to "Procedures", procedures_path, method: :get, style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;"  %></li>
           <% end %>
-
-          <i class="fa fa-gift fa-lg"></i>
-          <%= link_to "Procedures", procedures_path, method: :get, style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;"  %></li>
-        <% end %>
         <% end %>
       </ul>
-    <li class="new_incident_button">
-      <a href="<%= new_incident_path %>"><%= image_tag("ICOMOON/32pxBlack/267-plus.png", size: "16x16", alt: "", class: "fa-img") %></a>
-      <a href="/incidents/new">
-        <i class="fa fa-dashboard fa-lg" style="padding-top:20px; padding-bottom:20px;">Nouvel incident</i>
-      </a>
-    </li>
-
-    <li data-toggle="collapse" data-target="#incidents" class="collapsed active"><%= image_tag("accidents.png", size: "16x16", alt: "", class: "fa-img") %>
-      <a href="#">
-        <i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Incidents</a>
-    </li>
-    <ul class="sub-menu collapse" id="incidents">
-      <% my_incidents = current_user.user_incidents.where(incident_state_id_for_user: [4, 8]).count %>
-      <li><%= link_to 'Mes incidents', current_user, method: :get %><%= my_incidents > 0 ? "(#{my_incidents})" : nil %></li>
-      <% if !current_user.tech.simple_user %>
-      <% to_treat = current_user.tech_incidents.where(incident_state_id_for_tech: [2, 3, 5, 6]).count %>
-      <li><%= link_to "A traiter", to_treat_user_path(current_user), method: :get %><%= to_treat > 0 ? "(#{to_treat})" : nil %></li>
-      <% without_tech = Incident.where(tech_id: nil).where.not(incident_state_id_for_tech: [7, 10]).count %>
-      <li><%= link_to "Non attribués", incidents_without_tech_incident_path(current_user), method: :get%><%= without_tech > 0 ? "(#{without_tech})" : nil %></li>
-      <% if Right.where(name: "view_index_all_of_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
-      <li><%= link_to "Tous les incidents", incidents_url, method: :get%></li>
-      <% end %>
-      <% end %>
-      <li><%= link_to 'Cloturés/Rejetés', allincidents_user_path(current_user), method: :get %></li>
-    </ul>
+      <li class="new_incident_button">
+        <a href="<%= new_incident_path %>"><%= image_tag("ICOMOON/32pxBlack/267-plus.png", size: "16x16", alt: "", class: "fa-img") %></a>
+        <a href="/incidents/new"><i class="fa fa-dashboard fa-lg" style="padding-top:20px; padding-bottom:20px;">Nouvel incident</i></a>
+      </li>
+      <li data-toggle="collapse" data-target="#incidents" class="collapsed active"><%= image_tag("accidents.png", size: "16x16", alt: "", class: "fa-img") %>
+        <a href="#"><i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Incidents</a>
+      </li>
+      <ul class="sub-menu collapse" id="incidents">
+        <% my_incidents = current_user.user_incidents.where(incident_state_id_for_user: [4, 8]).count %>
+        <li><%= link_to 'Mes incidents', current_user, method: :get %><%= my_incidents > 0 ? "(#{my_incidents})" : nil %></li>
+        <% if !current_user.tech.simple_user %>
+        <% to_treat = current_user.tech_incidents.where(incident_state_id_for_tech: [2, 3, 5, 6]).count %>
+        <li><%= link_to "A traiter", to_treat_user_path(current_user), method: :get %><%= to_treat > 0 ? "(#{to_treat})" : nil %></li>
+        <% without_tech = Incident.where(tech_id: nil).where.not(incident_state_id_for_tech: [7, 10]).count %>
+        <li><%= link_to "Non attribués", incidents_without_tech_incident_path(current_user), method: :get%><%= without_tech > 0 ? "(#{without_tech})" : nil %></li>
+        <% if Right.where(name: "view_index_all_of_incidents").pluck(current_user.tech.name).join('')  == 'true'%>
+        <li><%= link_to "Tous les incidents", incidents_url, method: :get%></li>
+        <% end %>
+        <% end %>
+        <li><%= link_to 'Cloturés/Rejetés', allincidents_user_path(current_user), method: :get %></li>
+      </ul>
     <% end %>
-
     <% if !current_user.nil? && Right.where(name: "view_index_categories").pluck(current_user.tech.name).join('')  == 'true' %>
   <li><%= image_tag("ICOMOON/32pxBlack/189-tree.png", size: "16x16", alt: "", class: "fa-img")%>
     <i class="fa fa-gift fa-lg"></i>
