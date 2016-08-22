@@ -14,7 +14,7 @@
 @import "popup.scss";
 @import "tables.scss";
 @import "buttons.scss";
-@import "arrow_up_page";
+@import "arrow_up_page.scss";
 @import "media_screen_and_max_width_412.scss";
 @import "media_screen_and_min_width_412_and_max_width_766.scss";
 @import "media_screen_and_min_width_768_and_max_width_1104.scss";
@@ -24,10 +24,6 @@
 @import "forms.scss";
 @import "procedures.scss";
 @import "modals.scss";
-/*
-*= require_self
-*= require_tree .
-*/
 
 /*----- IMPORTATION FIN ----- */
 /*CONTENU IDENTIQUE*/

@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery
-//= require bootstrap-sprockets
 //= require highcharts
 //= require chartkick
 //= require ckeditor/init
