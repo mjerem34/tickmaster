@@ -104,7 +104,7 @@
 <li><%= link_to "Nouvelle agence", new_material_url, class: " ", tabindex: -1, method: :get  %></li>
 </ul>
 <% else %>
-<% if !current_user.nil? &&  Right.where(name: "view_index_agencies").pluck(current_user.tech.name).join('')  == 'true' %>
+<% if !current_user.nil? &&  Right.where(name: "create_material").pluck(current_user.tech.name).join('')  == 'true' %>
 <li><%= image_tag("ICOMOON/32pxBlack/004-office.png", size: "16x16", alt: "", class: "fa-img")%>
 <i class="fa fa-gift fa-lg"></i>
 <%= link_to "Agences", agencies_url, method: :get, style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;"  %></li>

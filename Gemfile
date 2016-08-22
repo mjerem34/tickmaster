@@ -5,9 +5,9 @@ gem 'rails', '4.2.3'
 # Use mysql as the database for Active Record
 gem 'mysql2', '0.3.19'
 # Use SCSS for stylesheets
-gem 'sass-rails'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'sass-rails' # Use Uglifier as compressor for JavaScript assets
+gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -38,7 +38,6 @@ gem 'whenever', require: true
 # gem 'unicorn'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'paperclip', '~> 4.3'
 gem 'carrierwave' # => IN USE

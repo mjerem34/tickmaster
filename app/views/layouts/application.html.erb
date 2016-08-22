@@ -26,9 +26,9 @@
   <%= render 'layouts/header' %>
   <!--Header-->
   <% if @title == "Se connecter" || @title == "S'inscrire" || @title == "Accueil" || @title == "Identifiants oubliés"%>
-  <div class="isOpen" id="content", class="Jour">
+  <div class="isOpen" id="content" class="Jour">
     <% else %>
-    <div id="content", class="<%= current_user.mode %>">
+    <div id="content" class="<%= current_user.mode %>">
       <% end %>
       <% end %>
 

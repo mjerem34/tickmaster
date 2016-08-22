@@ -8,7 +8,7 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-# Rails.application.config.assets.precompile += %w( search.js )
+Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile += %w( bootstrap-slider.js )
 Rails.application.config.assets.precompile += %w( fixedheadertable.js )
 Rails.application.config.assets.precompile += %w( jquery.tablesorter.min.js )
@@ -22,3 +22,4 @@ Rails.application.config.assets.precompile += %w( pingAgenciesWorker.js )
 Rails.application.config.assets.precompile += %w( table-fixed-header.css )
 Rails.application.config.assets.precompile += %w( pace-theme-fill-left.css )
 Rails.application.config.assets.precompile += %w( chartkick.js )
+# Rails.application.config.assets.precompile += %w( *.js *.png *.jpg *.jpeg *.gif *.woff *.ttf *.svg *.eot *.css *.scss *.coffee )

@@ -4,7 +4,8 @@ n = 0;
 $(document).keydown(function (e) {
   if (e.keyCode === k[n++]) {
       if (n === k.length) {
-          alert('Konami !!!'); // à remplacer par votre code
+          // alert('Konami !!!'); // à remplacer par votre code
+          window.location.replace("https://archive.org/details/arcade_outrun");
           n = 0;
           return false;
       }
