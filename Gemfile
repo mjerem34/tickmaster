@@ -5,9 +5,9 @@ gem 'rails', '4.2.3'
 # Use mysql as the database for Active Record
 gem 'mysql2', '0.3.19'
 # Use SCSS for stylesheets
-gem 'bootstrap-sass', '~> 3.3.6'
-gem 'sass-rails' # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
+gem 'bootstrap-sass', '~> 3.3.5'
+gem 'sass-rails', '>= 3.2' # Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -42,14 +42,14 @@ gem 'autoprefixer-rails'
 gem 'paperclip', '~> 4.3'
 gem 'carrierwave' # => IN USE
 gem 'chosen-rails'
-gem 'web-console', '~> 2.0'
-gem 'ckeditor'
+gem 'ckeditor', '4.1.4'
 gem 'mini_magick'
 # gem 'compass-rails', git: 'https://github.com/Compass/compass-rails.git', '~> 2.0.5'
 gem 'compass-rails'
 gem 'chartkick'
 gem 'groupdate'
 gem 'puma', '~> 3.4.0'
+gem 'web-console', '~> 2.0'
 group :production do
   gem 'exception_notification'
 end

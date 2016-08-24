@@ -8,18 +8,21 @@
       <% if !current_user.nil? %>
         <% if Right.where(name: "create_procedure").pluck(current_user.tech.name).join('')  == 'true' %>
           <li data-toggle="collapse" data-target="#procedures" class="collapsed active"><%= image_tag("ICOMOON/32pxBlack/032-book.png", size: "16x16", alt: "", class: "fa-img") %>
-            <a href="#"><i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Procédures</a>
+            <a href="#">
+              <i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Procédures</a>
           </li>
           <ul class="sub-menu collapse" id="procedures">
             <li><%= link_to 'Liste procedures', procedures_path, method: :get %></li>
             <li><%= link_to "Créer procédure", new_procedure_path, method: :get %></li>
         <% else %>
           <% if Right.where(name: "view_procedures").pluck(current_user.tech.name).join('')  == 'true' %>
+
             <% if current_user.mode == "Jour" %>
               <li><%= image_tag("ICOMOON/32pxBlack/032-book.png", size: "16x16", alt: "", class: "fa-img")%>
             <% elsif current_user.mode == "Nuit" %>
               <li><%= image_tag("ICOMOON/16px/0032-book.png", size: "16x16", alt: "", class: "fa-img")%>
             <% end %>
+
             <i class="fa fa-gift fa-lg"></i>
             <%= link_to "Procedures", procedures_path, method: :get, style:"padding-left: 30px !important; padding:20px; padding-right: 40px !important;"  %></li>
           <% end %>
@@ -27,10 +30,14 @@
       </ul>
       <li class="new_incident_button">
         <a href="<%= new_incident_path %>"><%= image_tag("ICOMOON/32pxBlack/267-plus.png", size: "16x16", alt: "", class: "fa-img") %></a>
-        <a href="/incidents/new"><i class="fa fa-dashboard fa-lg" style="padding-top:20px; padding-bottom:20px;">Nouvel incident</i></a>
+        <a href="/incidents/new">
+          <i class="fa fa-dashboard fa-lg" style="padding-top:20px; padding-bottom:20px;">Nouvel incident</i>
+        </a>
       </li>
+
       <li data-toggle="collapse" data-target="#incidents" class="collapsed active"><%= image_tag("accidents.png", size: "16x16", alt: "", class: "fa-img") %>
-        <a href="#"><i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Incidents</a>
+        <a href="#">
+          <i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Incidents</a>
       </li>
       <ul class="sub-menu collapse" id="incidents">
         <% my_incidents = current_user.user_incidents.where(incident_state_id_for_user: [4, 8]).count %>
