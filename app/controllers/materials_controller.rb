@@ -1,6 +1,7 @@
 class MaterialsController < ApplicationController
-  before_action :set_material, only: [:show, :edit, :update, :destroy]
   before_action :restrict_access
+  before_action :set_material, only: [:show, :edit, :update, :destroy]
+  before_action :set_expiration
 
   # GET /materials
   # GET /materials.json
@@ -106,6 +107,7 @@ class MaterialsController < ApplicationController
           format.html { render :edit, notice: 'Impossible de supprimer ce matériel.' }
         end
       end
+    else
       renderUnauthorized
     end
   end
