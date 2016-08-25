@@ -66,7 +66,8 @@ class AgenciesController < ApplicationController
 
   # GET /agencies/new
   def new
-    if verifRight('create_new_agency')
+    @create_new_agency = verifRight('create_new_agency')
+    if @create_new_agency
       @agency = Agency.new
       @title = 'Nouvelle agence'
     else
@@ -110,13 +111,12 @@ class AgenciesController < ApplicationController
       respond_to do |format|
         if @agency.update(agency_params)
           format.json { render :show, status: :ok, location: @agency }
-          format.html { redirect_to @agency, notice: "Les paramètres de cette agence ont bien été actualisés." }
+          format.html { redirect_to @agency, notice: 'Les paramètres de cette agence ont bien été actualisés.' }
         else
           format.json { render json: @agency.errors, status: :unprocessable_entity }
           format.html { render :edit, notice: 'Impossible de modifier cette agence ...' }
         end
       end
-
     else
       renderUnauthorized
     end

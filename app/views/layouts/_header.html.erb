@@ -107,8 +107,8 @@
   <i class="fa fa-gift fa-lg" style="padding-top:20px; padding-bottom:20px;"></i>Matériel</a>
 </li>
 <ul class="sub-menu collapse" id="material">
-<li><%= link_to "Liste des agences", materials_url, class: " ", tabindex: -1, method: :get  %></li>
-<li><%= link_to "Nouvelle agence", new_material_url, class: " ", tabindex: -1, method: :get  %></li>
+<li><%= link_to "Liste des matériels", materials_url, class: " ", tabindex: -1, method: :get  %></li>
+<li><%= link_to "Nouveau matériel", new_material_url, class: " ", tabindex: -1, method: :get  %></li>
 </ul>
 <% else %>
 <% if !current_user.nil? &&  Right.where(name: "create_material").pluck(current_user.tech.name).join('')  == 'true' %>
@@ -240,6 +240,12 @@ $(document).ready(function () {
     $("#rights").removeClass('in').attr('aria-expanded', false);
     $(".active[data-target='#agencies']").addClass('collapsed').attr('aria-expanded', false);
     $("#agencies").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#material']").addClass('collapsed').attr('aria-expanded', false);
+    $("#material").removeClass('in').attr('aria-expanded', false);
+
+    $(".active[data-target='#procedures']").addClass('collapsed').attr('aria-expanded', false);
+    $("#procedures").removeClass('in').attr('aria-expanded', false);
+
   });
   $(".active[data-target='#categories']").click(function () {
     $(".active[data-target='#incidents']").addClass('collapsed').attr('aria-expanded', false);
@@ -250,6 +256,11 @@ $(document).ready(function () {
     $("#rights").removeClass('in').attr('aria-expanded', false);
     $(".active[data-target='#agencies']").addClass('collapsed').attr('aria-expanded', false);
     $("#agencies").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#material']").addClass('collapsed').attr('aria-expanded', false);
+    $("#material").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#procedures']").addClass('collapsed').attr('aria-expanded', false);
+    $("#procedures").removeClass('in').attr('aria-expanded', false);
+
   });
   $(".active[data-target='#users']").click(function () {
     $(".active[data-target='#categories']").addClass('collapsed').attr('aria-expanded', false);
@@ -260,6 +271,12 @@ $(document).ready(function () {
     $("#rights").removeClass('in').attr('aria-expanded', false);
     $(".active[data-target='#agencies']").addClass('collapsed').attr('aria-expanded', false);
     $("#agencies").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#material']").addClass('collapsed').attr('aria-expanded', false);
+    $("#material").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#procedures']").addClass('collapsed').attr('aria-expanded', false);
+    $("#procedures").removeClass('in').attr('aria-expanded', false);
+    
+
   });
   $(".active[data-target='#rights']").click(function () {
     $(".active[data-target='#categories']").addClass('collapsed').attr('aria-expanded', false);
@@ -270,6 +287,14 @@ $(document).ready(function () {
     $("#incidents").removeClass('in').attr('aria-expanded', false);
     $(".active[data-target='#agencies']").addClass('collapsed').attr('aria-expanded', false);
     $("#agencies").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#material']").addClass('collapsed').attr('aria-expanded', false);
+    $("#material").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#procedures']").addClass('collapsed').attr('aria-expanded', false);
+    $("#procedures").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#agencies']").addClass('collapsed').attr('aria-expanded', false);
+    $("#agencies").removeClass('in').attr('aria-expanded', false);
+
+
   });
   $(".active[data-target='#agencies']").click(function () {
     $(".active[data-target='#categories']").addClass('collapsed').attr('aria-expanded', false);
@@ -280,6 +305,43 @@ $(document).ready(function () {
     $("#rights").removeClass('in').attr('aria-expanded', false);
     $(".active[data-target='#incidents']").addClass('collapsed').attr('aria-expanded', false);
     $("#incidents").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#material']").addClass('collapsed').attr('aria-expanded', false);
+    $("#material").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#procedures']").addClass('collapsed').attr('aria-expanded', false);
+    $("#procedures").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#agencies']").addClass('collapsed').attr('aria-expanded', false);
+    $("#agencies").removeClass('in').attr('aria-expanded', false);
+
+
+  });
+  $(".active[data-target='#procedures']").click(function () {
+    $(".active[data-target='#categories']").addClass('collapsed').attr('aria-expanded', false);
+    $("#categories").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#users']").addClass('collapsed').attr('aria-expanded', false);
+    $("#users").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#rights']").addClass('collapsed').attr('aria-expanded', false);
+    $("#rights").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#incidents']").addClass('collapsed').attr('aria-expanded', false);
+    $("#incidents").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#material']").addClass('collapsed').attr('aria-expanded', false);
+    $("#material").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#agencies']").addClass('collapsed').attr('aria-expanded', false);
+    $("#agencies").removeClass('in').attr('aria-expanded', false);
+  });
+  $(".active[data-target='#material']").click(function () {
+    $(".active[data-target='#categories']").addClass('collapsed').attr('aria-expanded', false);
+    $("#categories").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#users']").addClass('collapsed').attr('aria-expanded', false);
+    $("#users").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#rights']").addClass('collapsed').attr('aria-expanded', false);
+    $("#rights").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#incidents']").addClass('collapsed').attr('aria-expanded', false);
+    $("#incidents").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#procedures']").addClass('collapsed').attr('aria-expanded', false);
+    $("#procedures").removeClass('in').attr('aria-expanded', false);
+    $(".active[data-target='#agencies']").addClass('collapsed').attr('aria-expanded', false);
+    $("#agencies").removeClass('in').attr('aria-expanded', false);
+
   });
 });
 </script>
