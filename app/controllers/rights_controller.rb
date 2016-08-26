@@ -3,6 +3,9 @@ class RightsController < ApplicationController
   before_action :set_expiration
   before_action :restrict_access
 
+  # GET /rights
+  # GET /rights.json
+  # Should render all the rights on a list.
   def index
     @view_index_rights = verifRight('view_index_rights')
     if @view_index_rights
@@ -19,6 +22,9 @@ class RightsController < ApplicationController
     end
   end
 
+  # GET /rights/1
+  # GET /rights/1.json
+  # Should render one right (by id passed in params)
   def show
     @edit_rights = verifRight('edit_rights')
     if @edit_rights
@@ -32,6 +38,8 @@ class RightsController < ApplicationController
     end
   end
 
+  # GET /rights/new
+  # Should render the new form, this is only for web.
   def new
     @create_new_right = verifRight('create_new_right')
     if @create_new_right
@@ -42,6 +50,9 @@ class RightsController < ApplicationController
     end
   end
 
+  # GET /rights/1/edit
+  # Should render the edit form, this is only for web.
+  # Need to pass the id of the right in params(id).
   def edit
     @edit_rights = verifRight('edit_rights')
     if @edit_rights
@@ -54,6 +65,11 @@ class RightsController < ApplicationController
     end
   end
 
+  # POST /rights
+  # POST /rights.json
+  # Should create a right but it is useless
+  # Because a right need to be implemented in the code. Thanks to the genius that
+  # Coded that fucking app. Thanks !!
   def create
     @create_new_right = verifRight('create_new_right')
     if @create_new_right
@@ -72,6 +88,9 @@ class RightsController < ApplicationController
     end
   end
 
+  # PATCH/PUT /rights/1
+  # PATCH/PUT /rights/1.json
+  # Should update the params of the right passed in params.
   def update
     @edit_rights = verifRight('edit_rights')
     if @edit_rights
@@ -89,6 +108,10 @@ class RightsController < ApplicationController
     end
   end
 
+  # DELETE /rights/1
+  # DELETE /rights/1.json
+  # Should delete the right passed in params, but no right could be deleted.
+  # Why ? Because it is implemented in the code ... Thanks to the dev ...
   def destroy
     @delete_rights = verifRight('delete_rights')
     if @delete_rights
