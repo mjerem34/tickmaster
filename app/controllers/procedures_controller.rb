@@ -4,6 +4,7 @@ class ProceduresController < ApplicationController
   before_action :restrict_access
   # GET /procedures
   # GET /procedures.json
+  # Should get and return all the procedures.
   def index
     @view_procedures = verifRight('view_procedures')
     if @view_procedures
@@ -20,10 +21,11 @@ class ProceduresController < ApplicationController
 
   # GET /procedures/1
   # GET /procedures/1.json
+  # Get and returns one procedure by params passed.
   def show
     @view_procedures = verifRight('view_procedures')
     if @view_procedures
-      @title = "Procedure N° " + @procedure.id.to_s
+      @title = 'Procedure N° ' + @procedure.id.to_s
       respond_to do |format|
         format.json { render json: @procedure }
         format.html { render :show }
@@ -34,6 +36,10 @@ class ProceduresController < ApplicationController
   end
 
   # GET /procedures/new
+  # Only used for web.
+  # Should render new form.
+  # It get the param 'nom', 'contenu', 'messages' passed by an incident.
+  # You understand ? Incident => Procedure = DRY.
   def new
     @create_procedure = verifRight('create_procedure')
     if @create_procedure
@@ -63,6 +69,9 @@ class ProceduresController < ApplicationController
     end
   end
 
+  # This is the method for update the list of the subcatecories when
+  # We want to create an procedure.
+  # It do the job in ajax, when the user change the category selected.
   def update_subcats
     @sous_categories = SousCategory.where('category_id = ?',
                                           params[:category_id])
@@ -72,10 +81,11 @@ class ProceduresController < ApplicationController
   end
 
   # GET /procedures/1/edit
+  # Should render the edit form, for... edit an procedure !!
   def edit
     @edit_procedure = verifRight('edit_procedure')
     if @edit_procedure
-      @title = "Procedure N° " + @procedure.id.to_s
+      @title = 'Procedure N° ' + @procedure.id.to_s
       @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
     else
       renderUnauthorized
@@ -84,12 +94,14 @@ class ProceduresController < ApplicationController
 
   # POST /procedures
   # POST /procedures.json
+  # Should create an procedure, with files et cetera...
   def create
     @create_procedure = verifRight('create_procedure')
     if @create_procedure
       @procedure = Procedure.new(procedure_params)
       respond_to do |format|
         if @procedure.save
+          # If there are files, it saves it here.
           unless params[:file_procedures].nil?
             params[:file_procedures]['file'].each do |a|
               @file_procedure = @procedure.file_procedures.create!(
@@ -112,6 +124,7 @@ class ProceduresController < ApplicationController
 
   # PATCH/PUT /procedures/1
   # PATCH/PUT /procedures/1.json
+  # Update the params of the procedure passed in params.
   def update
     @edit_procedure = verifRight('edit_procedure')
     if @edit_procedure
@@ -131,6 +144,7 @@ class ProceduresController < ApplicationController
 
   # DELETE /procedures/1
   # DELETE /procedures/1.json
+  # Should destroy the procedure selected.
   def destroy
     @delete_procedure = verifRight('delete_procedure')
     if @delete_procedure
