@@ -1,3 +1,4 @@
+# Defines the agencies, ping, delete, create, show and delete them.
 class AgenciesController < ApplicationController
   before_action :set_agency, only: [:show, :edit, :update, :destroy]
   before_action :set_expiration
@@ -5,7 +6,7 @@ class AgenciesController < ApplicationController
 
   # GET /agencies
   # GET /agencies.json
-
+  # Must render all the agencies if they have the authorization.
   def index
     @view_index_agencies = verifRight('view_index_agencies')
     if @view_index_agencies
@@ -22,8 +23,10 @@ class AgenciesController < ApplicationController
     end
   end
 
+  # Must exec the method to do the ping and get the result to return it.
   def doPing
     if verifRight('doPing')
+      # Execution of the method for ping with the ip passed
       value = pingDef(params[:host])
       render json: value
     else
@@ -31,18 +34,15 @@ class AgenciesController < ApplicationController
     end
   end
 
+  # Must exec the ping with the gem net-ping.
   def pingDef(host)
     if host != 'NULL'
       @icmp = Net::Ping::ICMP.new(host)
-      # puts "STARTING TO PING ==========> #{host}"
       if @icmp.ping
-        # puts @icmp.duration
         value = @icmp.duration
         value = (value * 1000).round(1)
-        # sleep(0.1)
         return value
       else
-        # puts 'timeout'
         return 0
       end
     end
@@ -51,6 +51,7 @@ class AgenciesController < ApplicationController
 
   # GET /agencies/1
   # GET /agencies/1.json
+  # Must render one agency.
   def show
     if verifRight('view_agency_details')
       @title = "Incidents de l'agence : " + @agency.name

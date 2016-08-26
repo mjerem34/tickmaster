@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Must allow the flash of a lot of text.
   def default_url_options
     { maj_flash: @maj_flash }
   end
@@ -17,10 +18,12 @@ class ApplicationController < ActionController::Base
     @maj_flash = params[:maj]
   end
 
+  # Must signout the user when he close the navigator.
   def set_expiration
     expires_in(10.seconds, public: true)
   end
 
+  # Must treat the response to the incident.
   def traitResponse(_commit, incident_id)
     @users = User.all
     @incident = Incident.find(incident_id)
@@ -63,12 +66,12 @@ class ApplicationController < ActionController::Base
         if @response.receiver.nil?
           User.where(tech_id: 5).each do |disp|
             unless disp.ip_addr.nil?
-              sendNotif(disp.ip_addr, @response.sender.name + ' ' + @response.sender.surname + " a envoyé un message !")
+              sendNotif(disp.ip_addr, @response.sender.name + ' ' + @response.sender.surname + ' a envoyé un message !')
             end
           end
         else
           unless @response.receiver.ip_addr.nil?
-            sendNotif(@response.receiver.ip_addr, @response.sender.name + ' ' + @response.sender.surname + " a envoyé un message !")
+            sendNotif(@response.receiver.ip_addr, @response.sender.name + ' ' + @response.sender.surname + ' a envoyé un message !')
           end
         end
         if @response.sender_id == @incident.user_id
@@ -113,7 +116,7 @@ class ApplicationController < ActionController::Base
             nil
           end
         end
-        flash[:notice] = "Votre message a bien été envoyé."
+        flash[:notice] = 'Votre message a bien été envoyé.'
         redirect_to edit_incident_path(@incident)
       when 'Rejeter' then
         reject_it(@incident)
@@ -127,13 +130,15 @@ class ApplicationController < ActionController::Base
         format.json { render json: 'Response.save! ne marche pas', status: 409 }
         format.html { redirect_to :edit_incident, notice: "Impossible de cloturer l'incident ..." }
       end
-      end
+    end
   end
 
+  # Must send a notification to the anyone.
+  # For example when someone create a ticket, the dispatchor receive a notif.
   def sendNotif(host, msg, timeout = 3)
     port = '3333'
     # Convert the passed host into structures the non-blocking calls
-    # can deal with
+    # Can deal with
     addr = Socket.getaddrinfo(host, nil)
     sockaddr = Socket.pack_sockaddr_in(port, addr[0][3])
 
@@ -171,6 +176,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Verify if the current_user have the right passed in params.
   def verifRight(right)
     if Right.where(name: right).pluck(current_user.tech.name).join('') == 'true'
       return true
@@ -179,10 +185,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Must reject the incident and send emails.
   def reject_it(incident)
-    # Met a jour les params de l'incident pour indiquer qu'il est cloture
+    # Update the params of the incident.
     incident.update(incident_state_id_for_techœ_id: 10, incident_state_id_for_user_id: 10)
-    @responses = Response.all.where(incident_id: incident.id) # Recupere toutes les reponses de l'incident
+    # Get all the answers of the incident (for archive them).
+    @responses = Response.all.where(incident_id: incident.id)
     archivage
     begin
       AppMailer.incident_rejected_for_creator(incident, @users).deliver_now
@@ -191,71 +199,86 @@ class ApplicationController < ActionController::Base
     end
     User.where(tech_id: 5).each do |disp|
       unless disp.ip_addr.nil?
-        sendNotif(disp.ip_addr, "L'incident n°" + incident.id.to_s + " a été rejeté !")
+        sendNotif(disp.ip_addr, "L'incident n°" + incident.id.to_s + ' a été rejeté !')
       end
     end
     unless incident.user.ip_addr.nil?
-      sendNotif(incident.user.ip_addr, "Votre incident n°" + incident.id.to_s + " a été rejeté !")
+      sendNotif(incident.user.ip_addr, 'Votre incident n°' + incident.id.to_s + ' a été rejeté !')
     end
     respond_to do |format|
       format.json { head :no_content, status: 200 }
-      format.html { redirect_to :edit_incident, notice: "Votre demande de rejet a bien été prise en compte." }
+      format.html { redirect_to edit_incident_path(incident), notice: 'Votre demande de rejet a bien été prise en compte.' }
     end
   end
 
+  # Must cloture the incident, and send emails to the dispatchor and the user.
   def cloture_it(incident)
-    @users = User.all # Recuperation de tous les users pour email
-    @responses = Response.all.where(incident_id: incident.id) # Recuperation toutes les reponses de lincident
+    # Get all the users for send the email.
+    @users = User.all
+    # Get all the answers of the incident (for archive them).
+    @responses = Response.all.where(incident_id: incident.id)
     if incident.tech_id.nil?
       respond_to do |format|
         format.json { render json: 'Veuillez affecter un technicien avant de cloturer cet incident.', status: 409 }
-        format.html { redirect_to :edit_incident, notice: 'Veuillez affecter un technicien avant de cloturer cet incident.' }
+        format.html { redirect_to edit_incident_path(incident), notice: 'Veuillez affecter un technicien avant de cloturer cet incident.' }
       end
       return false
     end
-    if incident.user_id == current_user.id # Si celui qui cloture est celui qui a cree lincident
+    # If is current_user that cloture his incident.
+    if incident.user_id == current_user.id
       unless incident.tech.ip_addr == ''
-        sendNotif(incident.tech.ip_addr, "L'incident n°" + incident.id.to_s + " a été cloturé !")
+        # Send the notification to the tech if the tech have the app installed.
+        sendNotif(incident.tech.ip_addr, "L'incident n°" + incident.id.to_s + ' a été cloturé !')
       end
       incident.update(resolved_at: Time.now, archived_at: Time.now, incident_state_id_for_tech_id: 7, incident_state_id_for_user_id: 7)
       archivage
+      # Begin rescue is for if send fail.
       begin
+        # Send email to the creator if is creator who have clotured.
         AppMailer.incident_clotured_for_creator_if_is_creator_clotured(incident, @users, @responses).deliver_now
       rescue
         nil
       end
+      # Begin rescue is for if send fail.
       begin
+        # Send email to the tech if is creator who have clotured.
         AppMailer.incident_clotured_for_tech_if_is_creator_clotured(incident, @users).deliver_now
       rescue
         nil
       end
-    else # Sinon si celui qui cloture est le technicien en charge
+    else # Or if is tech that have ask for a cloturation.
       unless incident.user.ip_addr.nil?
-        sendNotif(incident.user.ip_addr, "Votre incident n°" + incident.id.to_s + " demande à être cloturé !")
+        # Send the notification to the user if the user have the app installed.
+        sendNotif(incident.user.ip_addr, 'Votre incident n°' + incident.id.to_s + ' demande à être cloturé !')
       end
       incident.update(resolved_at: Time.now, incident_state_id_for_tech_id: 9, incident_state_id_for_user_id: 8)
       @response.save!
+      # Begin rescue is for if send fail.
       begin
+        # Send the email to the user that have created the incident.
         AppMailer.incident_clotured_for_creator_if_is_tech_clotured(incident, @users, @responses).deliver_now
       rescue
         nil
       end
+      # Begin rescue is for if send fail.
       begin
+        # Send the email to the tech that have clotured the incident.
         AppMailer.incident_clotured_for_tech_if_is_tech_clotured(incident, @users).deliver_now
       rescue
         nil
       end
-      # AppMailer.incident_clotured_for_disp_if_is_tech_clotured(incident, @users).deliver_now rescue nil
     end
     respond_to do |format|
-      format.json { render json: "Votre demande de cloture a bien été prise en compte.", status: 200 }
-      format.html { redirect_to :edit_incident, notice: "Votre demande de cloture a bien été prise en compte." }
+      format.json { render json: 'Votre demande de cloture a bien été prise en compte.', status: 200 }
+      format.html { redirect_to :edit_incident, notice: 'Votre demande de cloture a bien été prise en compte.' }
     end
   end
 
+  # Do the archivation of the answers and for her files.
   def archivage
-    @responses.each do |response| # Pour chaque reponse
-      @archive = Archive.new( # Creer une archive avec contenu identique
+    @responses.each do |response|
+      # Create a new archive with the sames values.
+      @archive = Archive.new(
         content: response.content,
         incident_id: response.incident_id,
         sender_id: response.sender_id,
@@ -263,14 +286,20 @@ class ApplicationController < ActionController::Base
         ip_adress_sender: response.ip_adress_sender,
         pc_id: response.pc_id
       )
+      # Check if the answer does not have files.
+      # And if not, it goes after the .each.
       next if response.file_responses.nil?
-      response.file_responses.each do |a| # Alors pour chaque fichier
-        @file_archives = FileArchive.new( # Creer un fichier archive identique a l'ancien dans la table file_archives
+      response.file_responses.each do |a|
+        # Create an identic file respon to the file_archive.
+        @file_archives = FileArchive.new(
           archive_id: response.id,
           file: a.file
         )
-        if @file_archives.save! # Si fichier sauvegarde
-          a.destroy # Detruit l'ancien
+        # If the file is saved.
+        if @file_archives.save!
+          # It destroy the own file.
+          a.destroy
+          # Or ...
         else
           respond_to do |format|
             format.json { render json: "Une erreur est apparue lors de l'archivage des fichiers de l'incident. Merci de contacter votre administrateur en lui fournissant ces informations : #{@file_archives.inspect} ------ #{response.inspect} ------ #{incident.inspect}", status: 409 }
@@ -278,8 +307,11 @@ class ApplicationController < ActionController::Base
           end
         end
       end
-      if @archive.save! # Si reponse archivee sauvegardee
-        response.destroy! # Destruction de l'ancienne
+      # If the archive of the answer is saved.
+      if @archive.save!
+        # It destroy the own answer.
+        response.destroy!
+        # Or ...
       else
         respond_to do |format|
           format.json { render json: "Une erreur est apparue lors de l'archivage de l'incident. Merci de contacter votre administrateur en lui fournissant ces informations : #{@file_archives.inspect} ------ #{response.inspect} ------ #{incident.inspect}", status: 409 }
@@ -289,42 +321,50 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def reaffect_it(incident) # fait repasser lincident a l'etat en attente daffectation
+  # Must update the incident with null technician.
+  def reaffect_it(incident)
     incident.update(incident_state_id_for_tech_id: 1)
     incident.update(incident_state_id_for_user_id: 1)
     begin
+      # Send the email to the dispatchor.
       AppMailer.incident_reaffected_for_disp(incident, @users).deliver_now
     rescue
       nil
     end
+    # Must find the dispatchors.
     User.where(tech_id: 5).each do |disp|
       unless disp.ip_addr.nil?
-        sendNotif(disp.ip_addr, "L'incident n°" + incident.id.to_s + " demande a être réaffecté !")
+        # Try to send the notification to his app.
+        sendNotif(disp.ip_addr, "L'incident n°" + incident.id.to_s + ' demande a être réaffecté !')
       end
     end
     respond_to do |format|
-      format.json { render json: "Votre demande de réaffectation a bien été prise en compte.", status: 200 }
-      format.html { redirect_to :edit_incident, notice: "Votre demande de réaffectation a bien été prise en compte." }
+      format.json { render json: 'Votre demande de réaffectation a bien été prise en compte.', status: 200 }
+      format.html { redirect_to :edit_incident, notice: 'Votre demande de réaffectation a bien été prise en compte.' }
     end
   end
 
+  # Must render an error page or json if the current_user does not have the right.
+  # To visit the current page.
   def renderUnauthorized
-    @title = "Accès non autorisé"
+    @title = 'Accès non autorisé'
     respond_to do |format|
       format.json { render json: "Vous n'avez pas l'autorisation d'accéder à cette page", status: 403 }
       format.html { redirect_to '/', not_authorized: "Vous n'avez pas l'autorisation d'accéder à cette page" }
     end
   end
 
+  # Must check if current_user exists, if it is signed in.
   def restrict_access
     if current_user.nil?
       respond_to do |format|
-        format.json { render json: "Vous devez être connecté pour accéder à cette page", status: 401 }
-        format.html { redirect_to '/', not_authorized: "Vous devez être connecté pour accéder à cette page" }
+        format.json { render json: 'Vous devez être connecté pour accéder à cette page', status: 401 }
+        format.html { redirect_to '/', not_authorized: 'Vous devez être connecté pour accéder à cette page' }
       end
     end
   end
 
+  # Must redirect to back, with verifications of the HTTP_REFERER
   def redirect_to_back(default = '/')
     if !request.env['HTTP_REFERER'].blank? && request.env['HTTP_REFERER'] != request.env['REQUEST_URI']
       redirect_to :back
@@ -333,6 +373,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # TODO: # => Know how to use this obscure method.
   def send_mails_delayed
     @mails = Mail.all
   end
