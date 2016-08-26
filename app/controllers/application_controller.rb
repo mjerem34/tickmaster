@@ -373,7 +373,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # TODO: # => Know how to use this obscure method.
+  # TODO: Know how to use this obscure method.
   def send_mails_delayed
     @mails = Mail.all
   end
