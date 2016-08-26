@@ -66,6 +66,7 @@ class AgenciesController < ApplicationController
   end
 
   # GET /agencies/new
+  # This should render the page for create an agency.
   def new
     @create_new_agency = verifRight('create_new_agency')
     if @create_new_agency
@@ -77,6 +78,7 @@ class AgenciesController < ApplicationController
   end
 
   # GET /agencies/1/edit
+  # Should get the agency and render the edit form.
   def edit
     if verifRight('edit_agency')
       @title = 'Editer agence'
@@ -87,6 +89,7 @@ class AgenciesController < ApplicationController
 
   # POST /agencies
   # POST /agencies.json
+  # Should create a new agency, it used for the rest service.
   def create
     if verifRight('create_new_agency')
       @title = 'Nouvelle agence'
@@ -107,6 +110,8 @@ class AgenciesController < ApplicationController
 
   # PATCH/PUT /agencies/1
   # PATCH/PUT /agencies/1.json
+  # Should used for the rest service for update an agency.
+  # It get an agency by his id.
   def update
     if verifRight('edit_agency')
       respond_to do |format|
@@ -125,6 +130,8 @@ class AgenciesController < ApplicationController
 
   # DELETE /agencies/1
   # DELETE /agencies/1.json
+  # Should destroy an agency by the id passed in params.
+  # Maybe do a test if there are nobody in her.
   def destroy
     if verifRight('delete_agency')
       respond_to do |format|
