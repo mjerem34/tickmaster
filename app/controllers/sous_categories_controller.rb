@@ -1,15 +1,20 @@
 class SousCategoriesController < ApplicationController
+  # Globally, this controller is used only for the future Windows app
+  # Because for web, all it is managed by the CategoriesController.
   before_action :set_sous_category, only: [:show, :edit, :update, :destroy]
   skip_before_filter :verify_authenticity_token
   before_action :set_expiration
   before_action :restrict_access
 
+  # TODO: Need to add a mthd for return only subcategories of categ passed in params.
+
   # GET /sous_categories
   # GET /sous_categories.json
+  # Should get and return all the subcategories
   def index
     @view_index_subcategories = verifRight('view_index_subcategories')
     if @view_index_subcategories
-      @title = "Liste des sous catégories"
+      @title = 'Liste des sous catégories'
       @sous_categories = SousCategory.all
       respond_to do |format|
         format.json { render json: @sous_categories }
@@ -22,6 +27,7 @@ class SousCategoriesController < ApplicationController
 
   # GET /sous_categories/1
   # GET /sous_categories/1.json
+  # Should return one subcategory, by id passed in params.
   def show
     @view_details_subcategories = verifRight('view_details_subcategories')
     if @view_details_subcategories
@@ -36,10 +42,11 @@ class SousCategoriesController < ApplicationController
   end
 
   # GET /sous_categories/new
+  # This should never be used.
   def new
     @create_new_subcategory = verifRight('create_new_subcategory')
     if @create_new_subcategory
-      @title = "Nouvelle sous catégorie"
+      @title = 'Nouvelle sous catégorie'
       @sous_category = SousCategory.new
     else
       renderUnauthorized
@@ -47,6 +54,7 @@ class SousCategoriesController < ApplicationController
   end
 
   # GET /sous_categories/1/edit
+  # This one too.
   def edit
     @edit_subcategories = verifRight('edit_subcategories')
     if @edit_subcategories
@@ -57,6 +65,7 @@ class SousCategoriesController < ApplicationController
     end
   end
 
+  # TODO: Understand what is its use.
   def create_subcats
     @sous_category = SousCategory.new(name: params[:sous_category_name], category_id: params[:sous_category_category_id], lvl_urgence_max: params[:sous_category_lvl_urgence_max])
     @sous_category.save
@@ -67,18 +76,21 @@ class SousCategoriesController < ApplicationController
 
   # POST /sous_categories
   # POST /sous_categories.json
+  # I think this method should create an subcategory... But I am not sure..
   def create
     @create_new_subcategory = verifRight('create_new_subcategory')
     if @create_new_subcategory
       @sous_category = SousCategory.new(sous_category_params)
+      # Any category have a 'lvl_urgence_max', for those who create an incident.
+      # With that, we can determine how many an incident is important.
       @sous_category.lvl_urgence_max.nil? ? @sous_category.lvl_urgence_max = 10 : false
       respond_to do |format|
         if @sous_category.save
           format.json { render json: @sous_category.id, status: :ok }
-          format.html { redirect_to :back, notice: "Vous venez de créer une sous catégorie." }
+          format.html { redirect_to :back, notice: 'Vous venez de créer une sous catégorie.' }
         else
           format.json { render json: nil, status: :unprocessable_entity }
-          format.html { redirect_to :back, notice: "Impossible de créer la sous catégorie." }
+          format.html { redirect_to :back, notice: 'Impossible de créer la sous catégorie.' }
         end
       end
     else
@@ -88,13 +100,14 @@ class SousCategoriesController < ApplicationController
 
   # PATCH/PUT /sous_categories/1
   # PATCH/PUT /sous_categories/1.json
+  # Should update the params of the subcategory passed in params.
   def update
     @edit_subcategories = verifRight('edit_subcategories')
     if @edit_subcategories
       respond_to do |format|
         if @sous_category.update(sous_category_params)
           format.json { render json: nil, status: :ok }
-          format.html { redirect_to :back, notice: "Les paramètres de la sous catégorie ont été actualisés." }
+          format.html { redirect_to :back, notice: 'Les paramètres de la sous catégorie ont été actualisés.' }
         else
           format.json { render json: @sous_category.errors, status: :unprocessable_entity }
           format.html { render :back, notice: "Impossible de modifier la sous catégorie : #{@sous_category.errors}" }
@@ -107,6 +120,7 @@ class SousCategoriesController < ApplicationController
 
   # DELETE /sous_categories/1
   # DELETE /sous_categories/1.json
+  # Should delete the subcategory passed in params only if contains no incidents.
   def destroy
     @delete_subcategories = verifRight('delete_subcategories')
     if @delete_subcategories
@@ -116,8 +130,8 @@ class SousCategoriesController < ApplicationController
           format.json { head :no_content }
           format.html { redirect_to :back, notice: "La sous catégorie vient d'être supprimée." }
         else
-          format.json { render json: "Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents.", status: :unprocessable_entity }
-          format.html { redirect_to categories_url, notice: "Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents." }
+          format.json { render json: 'Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents.', status: :unprocessable_entity }
+          format.html { redirect_to categories_url, notice: 'Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents.' }
         end
       end
     else
