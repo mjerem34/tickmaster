@@ -133,8 +133,9 @@ class CategoriesController < ApplicationController
   # But only if it does not contains incidents.
   # Because if not, an thermo-nuclear war begin...
   def destroy
+    # TODO: Test if correct .empty?.
     if verifRight('delete_category')
-      if Incident.where(category_id: @category.id).pluck(:title).join('') == ''
+      if Incident.where(category_id: @category.id).empty?
         @category.destroy!
         respond_to do |format|
           format.json { head :no_content }

@@ -6,39 +6,54 @@ class DetentorTypesController < ApplicationController
   # GET /detentor_types
   # GET /detentor_types.json
   def index
+    # TODO: verifRight.
     @title = "Types de détenteurs"
     @detentor_types = DetentorType.all
+    respond_to do |format|
+      format.json { render json: @detentor_types }
+      format.html { render :index}
+    end
   end
 
   # GET /detentor_types/1
   # GET /detentor_types/1.json
   def show
     @title = "Type de détenteur"
+    # TODO: verifRight.
+    respond_to do |format|
+      format.json { render json: @detentor_type }
+      format.html { render :show }
+    end
   end
 
   # GET /detentor_types/new
   def new
+    # TODO: verifRight.
     @detentor_type = DetentorType.new
     @title = "Nouveau type de détenteur"
   end
 
   # GET /detentor_types/1/edit
   def edit
+    # TODO: verifRight.
+
     @title = "Editer type de détenteur"
   end
 
   # POST /detentor_types
   # POST /detentor_types.json
   def create
-    @detentor_type = DetentorType.new(detentor_type_params)
+    # TODO: verifRight.
 
+    @title = "Nouveau type de détenteur"
+    @detentor_type = DetentorType.new(detentor_type_params)
     respond_to do |format|
       if @detentor_type.save
-        format.json { render :show, status: :created, location: @detentor_type }
-        format.html { redirect_to @detentor_type, notice: 'Detentor type was successfully created.' }
+        format.json { render @detentor_type.id, status: :created }
+        format.html { redirect_to @detentor_type, notice: 'Le type de détenteur a bien été créé.' }
       else
         format.json { render json: @detentor_type.errors, status: :unprocessable_entity }
-        format.html { render :new }
+        format.html { render :new, notice: 'Impossible de créer ce type de détenteur.' }
       end
     end
   end
@@ -46,13 +61,15 @@ class DetentorTypesController < ApplicationController
   # PATCH/PUT /detentor_types/1
   # PATCH/PUT /detentor_types/1.json
   def update
+    # TODO: verifRight.
+
     respond_to do |format|
       if @detentor_type.update(detentor_type_params)
-        format.html { redirect_to @detentor_type, notice: 'Detentor type was successfully updated.' }
         format.json { render :show, status: :ok, location: @detentor_type }
+        format.html { redirect_to @detentor_type, notice: 'Le type de détenteur à bien été mis à jour.' }
       else
-        format.html { render :edit }
         format.json { render json: @detentor_type.errors, status: :unprocessable_entity }
+        format.html { render :edit, notice: 'Impossible de modifier ce type de détenteur.' }
       end
     end
   end
@@ -60,10 +77,16 @@ class DetentorTypesController < ApplicationController
   # DELETE /detentor_types/1
   # DELETE /detentor_types/1.json
   def destroy
-    @detentor_type.destroy
+    # TODO: verifRight.
+
     respond_to do |format|
-      format.html { redirect_to detentor_types_url, notice: 'Detentor type was successfully destroyed.' }
-      format.json { head :no_content }
+      if @detentor_type.destroy
+        format.json { head :no_content }
+        format.html { redirect_to detentor_types_url, notice: 'Le type de détenteur à bien été supprimé.' }
+      else
+        format.json { render json: @detentor_type.errors, status: :unprocessable_entity }
+        format.html { redirect_to @detentor_type, notice: 'Impossible de supprimer le type de détenteur.' }
+      end
     end
   end
 

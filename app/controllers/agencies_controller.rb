@@ -96,7 +96,7 @@ class AgenciesController < ApplicationController
       @agency = Agency.new(agency_params)
       respond_to do |format|
         if @agency.save
-          format.json { render :show, status: :created, location: @agency }
+          format.json { render @agency.id, status: :created }
           format.html { redirect_to @agency, notice: "Vous venez de créer une agence. Merci d'avoir contribué à la baisse du chômage." }
         else
           format.json { render json: @agency.errors, status: :unprocessable_entity }
@@ -116,7 +116,7 @@ class AgenciesController < ApplicationController
     if verifRight('edit_agency')
       respond_to do |format|
         if @agency.update(agency_params)
-          format.json { render :show, status: :ok, location: @agency }
+          format.json { head :no_content }
           format.html { redirect_to @agency, notice: 'Les paramètres de cette agence ont bien été actualisés.' }
         else
           format.json { render json: @agency.errors, status: :unprocessable_entity }
@@ -135,12 +135,17 @@ class AgenciesController < ApplicationController
   def destroy
     if verifRight('delete_agency')
       respond_to do |format|
-        if @agency.destroy
-          format.json { head :no_content }
-          format.html { redirect_to agencies_url, notice: "Vous venez d'arracher plusieurs vies innocentes en supprimant cette agence ..." }
+        if User.where(agency_id: @agency.id).empty?
+          if @agency.destroy
+            format.json { head :no_content }
+            format.html { redirect_to agencies_url, notice: "Vous venez d'arracher plusieurs vies innocentes en supprimant cette agence ..." }
+          else
+            format.json { render json: @agency.errors, status: :unprocessable_entity }
+            format.html { render :edit, notice: 'Impossible de supprimer cette agence, allez savoir pourquoi ...' }
+          end
         else
-          format.json { render json: @agency.errors, status: :unprocessable_entity }
-          format.html { render :edit, notice: 'Impossible de supprimer cette agence, allez savoir pourquoi ...' }
+          format.json { render json: 'Vous ne pouvez pas supprimer cette agence car elle contient des utilisateurs.', status: :unprocessable_entity }
+          format.html { render :edit, notice: 'Vous ne pouvez pas supprimer cette agence car elle contient des utilisateurs.' }
         end
       end
     else

@@ -122,10 +122,11 @@ class SousCategoriesController < ApplicationController
   # DELETE /sous_categories/1.json
   # Should delete the subcategory passed in params only if contains no incidents.
   def destroy
+    # TODO: Check if correct .empty?.
     @delete_subcategories = verifRight('delete_subcategories')
     if @delete_subcategories
       respond_to do |format|
-        if Incident.where(sous_category_id: @sous_category.id).pluck(:title).join('') == ''
+        if Incident.where(sous_category_id: @sous_category.id).empty?
           @sous_category.destroy
           format.json { head :no_content }
           format.html { redirect_to :back, notice: "La sous catégorie vient d'être supprimée." }

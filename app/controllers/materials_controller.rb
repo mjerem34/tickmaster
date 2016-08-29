@@ -5,6 +5,7 @@ class MaterialsController < ApplicationController
 
   # GET /materials
   # GET /materials.json
+  # Should render all the materials.
   def index
     @view_material = verifRight('view_material')
     if @view_material
@@ -21,6 +22,7 @@ class MaterialsController < ApplicationController
 
   # GET /materials/1
   # GET /materials/1.json
+  # Should render specs of one material.
   def show
     @view_material = verifRight('view_material')
     if @view_material
