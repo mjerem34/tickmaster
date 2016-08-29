@@ -1,5 +1,6 @@
 class UpdatesController < ApplicationController
   before_action :set_update, only: [:show, :edit, :update, :destroy]
+  before_action :set_expiration
   before_action :restrict_access
   
   # GET /updates

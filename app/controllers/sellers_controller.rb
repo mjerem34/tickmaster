@@ -1,5 +1,7 @@
 class SellersController < ApplicationController
   before_action :set_seller, only: [:show, :edit, :update, :destroy]
+  before_action :set_expiration
+  before_action :restrict_access
 
   # GET /sellers
   # GET /sellers.json

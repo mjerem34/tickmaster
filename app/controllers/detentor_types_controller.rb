@@ -1,5 +1,7 @@
 class DetentorTypesController < ApplicationController
   before_action :set_detentor_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_expiration
+  before_action :restrict_access
 
   # GET /detentor_types
   # GET /detentor_types.json
@@ -32,11 +34,11 @@ class DetentorTypesController < ApplicationController
 
     respond_to do |format|
       if @detentor_type.save
-        format.html { redirect_to @detentor_type, notice: 'Detentor type was successfully created.' }
         format.json { render :show, status: :created, location: @detentor_type }
+        format.html { redirect_to @detentor_type, notice: 'Detentor type was successfully created.' }
       else
-        format.html { render :new }
         format.json { render json: @detentor_type.errors, status: :unprocessable_entity }
+        format.html { render :new }
       end
     end
   end
