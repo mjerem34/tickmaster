@@ -4,9 +4,10 @@ class UsersController < ApplicationController
   before_action :restrict_access, except: [:new, :create, :forget_identifiers, :change_ip]
 
   # GET /users
-  def index # Page liste des utilisateurs
+  # GET /users.json
+  # Should render all users.
+  def index
     @view_index_users = verifRight('view_index_users')
-
     if @view_index_users
       @title = 'Liste des utilisateurs'
       @edit_other_user = verifRight('edit_other_user')
@@ -20,33 +21,41 @@ class UsersController < ApplicationController
     end
   end
 
+  # Should be used for the desktop application.
+  # It gets the ip address of the user that start the desktop app, and
+  # it update his params.
+  # It used for the notifications desktop app.
   def change_ip
     unless params[:pseudo].nil?
       @user = User.where(pseudo: params[:pseudo]).first
       if @user.nil?
         render nothing: true, status: 404, content_type: 'text/html'
-        # le pseudo na pas été trouvé
+        # Pseudo does not exists.
         return false
       else
         unless params[:ip_addr].nil?
           @user.update(ip_addr: params[:ip_addr])
           render json: @user, status: 200
-          # tout est ok
+          # All it is ok ! Ip is changed.
           return true
         end
       end
       render json: @user, status: 206
-      # l'ip na pas été rentrée
+      # params[:ip_addr] = nil => ERROR.
       return false
     end
     render nothing: true, status: 400, content_type: 'text/html'
-    # il ny a ni le pseudo ni l'ip
+    # params[:ip_addr] = nil and params[:pseudo] = nil => BIG ERROR !
     false
   end
 
-  def forget_identifiers # Fonction pour oubli de pseudonyme
+  # GET /users/:id/forget_identifiers
+  # Render the page for those that forget his email (noobs).
+  # And on reload (when user has completed field) it send an email.
+  def forget_identifiers
     @title = "Identifiants oubliés"
     @user = User.find_by_email(params[:email])
+    # This appenned if the user has completed the email field.
     unless params[:email].nil?
       unless @user.nil?
         begin
@@ -64,6 +73,9 @@ class UsersController < ApplicationController
     end
   end
 
+  # I think this is useless now because I disabled it.
+  # It was used for the browser notification.
+  # It takes the incidents that have notification and return it in json to the browser.
   def check
     return false if current_user.nil?
     @idOfIncident = []
@@ -80,6 +92,9 @@ class UsersController < ApplicationController
     render json: @idOfIncident
   end
 
+  # GET /users/:id
+  # GET /users/:id.json
+  # Should render all the incidents that the user have created.
   def show
     @incidents = Incident.where(user_id: current_user.id, incident_state_id_for_user_id: [1, 2, 3, 4, 5, 6, 8, 9, 11, 12]).includes(:user, :category, :sous_category).order('created_at desc')
     @title = 'Mes incidents'
@@ -89,6 +104,10 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /user/:id/profil
+  # GET /user/:id/profil.json
+  # Should render the form for edit his profile.
+  # TODO: Maybe re-use the edit mthd for that ...
   def profil
     if @user.nil?
       respond_to do |format|
@@ -108,6 +127,10 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/:id/to_treat
+  # GET /users/:id/to_treat.json
+  # Should render all the incidents that the tech have to treat.
+  # This page load only if current_user is tech.
   def to_treat
     @treat_incidents = verifRight('treat_incidents')
     if @treat_incidents
@@ -122,10 +145,16 @@ class UsersController < ApplicationController
     end
   end
 
+  # Signup page.
   def new
     @user = User.new
   end
 
+  # GET /users/:id/all_incidents
+  # GET /users/:id/all_incidents.json
+  # As not his name said, it does not render all the incidents of everyone.
+  # But only all the incidents of the current_user.
+  # The incidents closed, rejected, and opened.
   def allincidents
     @title = "Liste des incidents cloturés de #{current_user.surname} #{current_user.name}"
     @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user_id: [7, 10]).order('created_at desc')
@@ -135,44 +164,58 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST /users
+  # POST /users.json
+  # Should be used for create an user.
+  # It signin the user when created.
   def create
     @user = User.new(user_params)
     respond_to do |format|
       if User.exists?(pseudo: @user.pseudo)
         format.json { render json: "Nom d'utilisateur déjà enregistré", status: 409 }
         format.html { redirect_to :back, notice: "Nom d'utilisateur déjà enregistré" }
+        return false
       else
         if @user.save
+          # If it is new user and if there are no user currently signed in
+          # It signed in automatically.
           if current_user.nil?
             sign_in @user
+            return true
           else
+            # It render only the id in json.
             format.json { render json: @user.id }
-            format.html { redirect_to current_user }
-          end
-          format.json { render json: @user.id }
-          format.html do
+            # It redirect to the help page.
+            # TODO: See to modify that mthd. It redirects to help page even if current_user exists... o_O
+            format.html do
             redirect_to pages_help_path,
                         notice: 'Bienvenue, votre inscription a bien été prise en compte.'
-            User.where(tech_id: 5).each do |disp|
-              unless disp.ip_addr.nil?
-                sendNotif(disp.ip_addr, @user.name + ' ' + @user.surname + " vient de s'inscrire !")
+              User.where(tech_id: 5).each do |disp|
+                unless disp.ip_addr.nil?
+                  sendNotif(disp.ip_addr, @user.name + ' ' + @user.surname + " vient de s'inscrire !")
+                end
               end
             end
+            return true
           end
         else
           format.json { render json: @user.errors, status: :unprocessable_entity }
           format.html { render :new }
+          return false
         end
       end
     end
   end
 
+  # PUT /users/:id
+  # PUT /users/:id.json
+  # Should changes the params of the user.
   def update
     @edit_other_user = verifRight('edit_other_user')
     if @edit_other_user || current_user == @user
       respond_to do |format|
         if @user.update(user_params)
-          format.json { render json: nil, status: 200 }
+          format.json { render json: nil, status: :ok }
           format.html { redirect_to @user, notice: "Vos informations ont bien été actualisées." }
         else
           format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -184,6 +227,9 @@ class UsersController < ApplicationController
     end
   end
 
+  # DELETE /users/:id
+  # DELETE /users/:id.json
+  # Should delete the user selected but nobody have the right to do that terrible thing ... Fortunately ...
   def destroy
     @delete_user = verifRight('delete_user')
     if @delete_user
@@ -201,9 +247,12 @@ class UsersController < ApplicationController
     end
   end
 
+  # This should be used for the theme of the web app.
+  # It just change an user param in bdd. "Night...Day...Night...Day...Night...Day... Please Mr Jackouille, eventually it gets breaks foot..."
   def mode_nuit_jour
     current_user.update(mode: 'Jour') if current_user.mode == ''
     current_user.mode == 'Jour' ? current_user.update(mode: 'Nuit') : current_user.update(mode: 'Jour')
+    # It reload to see the changes.
     redirect_to :back
   end
 
