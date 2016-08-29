@@ -1,5 +1,5 @@
 AppTickets
 
-* Ruby Version : ruby 2.2.1p85 (2015-02-26 revision 49769) [x86_64-linux]
+* Ruby Version : ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-linux]
 * Rails Version : Rails 4.2.3
-* Database : MySql
+* Database : MySql-5.5
