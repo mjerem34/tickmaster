@@ -1,20 +1,3 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id         :integer          not null, primary key
-#  pseudo     :string(255)
-#  email      :string(255)
-#  name       :string(255)
-#  surname    :string(255)
-#  ip_adress  :integer
-#  salt       :string(255)
-#  level      :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  tech      :boolean          default(FALSE)
-#
-
 class User < ActiveRecord::Base
   module Usermod
     attr_accessor :pseudo, :id, :email, :name, :surname, :tel, :mobile, :tech_id, :agency_id, :mode
@@ -30,8 +13,11 @@ class User < ActiveRecord::Base
   belongs_to :agency
   belongs_to :tech
 
+  # Regexp for the email.
   email_regexp = /\A[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,4}$\z/
+  # Regexp for the pseudo.
   pseudo_regexp = /\A([a-zA-Z0-9._-]{2,36})\z/
+  # Regexp for the phone number.
   phone_regexp = /\A^0[0-9]([ .-]?[0-9]{2}){4}\z/
   validates :pseudo, presence: true,
                      format: { with: pseudo_regexp },
@@ -44,9 +30,6 @@ class User < ActiveRecord::Base
   validates :tel, presence: true,
                   format: { with: phone_regexp }, length: { in: 0..30 }
 
-  # validates :mobile, presence: true,
-  #                format: {with: phone_regexp},
-  #                uniqueness: true
   validates :email, presence: true,
                     format: { with: email_regexp }
 

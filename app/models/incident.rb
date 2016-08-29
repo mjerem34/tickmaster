@@ -21,6 +21,8 @@ class Incident < ActiveRecord::Base
   before_update :verify_if_incident_is_reaffected
   before_create :set_multiples_fields_defaults_values
 
+  # This appenned every time an incident have params updated.
+  # It verify if the tech have changed.
   def verify_if_incident_is_reaffected
     if tech_id_changed?
       self.incident_state_id_for_user_id = '2'
@@ -40,11 +42,14 @@ class Incident < ActiveRecord::Base
       end
     end
   end
-
+  # Mmh...
   def downloadable?(user)
     user != :guest
   end
 
+  # Cron job every day that verify all the incidents non-clotured
+  # are not pending since 3 days.
+  # Or it cloture it automatically, it sends emails and archive them.
   def self.cloture_automaticaly
     @users = User.all
     Incident.where(incident_state_id_for_tech_id: 9).each do |incident|
@@ -82,6 +87,7 @@ class Incident < ActiveRecord::Base
     end
   end
 
+  # Only if the fields have no values at the creation.
   def set_multiples_fields_defaults_values
     self.incident_state_id_for_user_id ||= 1
     self.incident_state_id_for_tech_id ||= 1

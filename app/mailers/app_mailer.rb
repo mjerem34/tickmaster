@@ -1,5 +1,6 @@
 class AppMailer < ApplicationMailer
   before_filter :test_connection
+  # Uncomment cc for receive all sended emails in copy.
   default from: 'ticket@cle-expertises.fr'
           # cc: 'ticket@cle-expertises.fr'
   def incident_created_for_disp(incident, users)
