@@ -76,7 +76,7 @@ class CategoriesController < ApplicationController
       @category = Category.new(category_params)
       respond_to do |format|
         if @category.save
-          format.json { render json: @category, status: :created }
+          format.json { render json: @category.id, status: :created }
           format.html { redirect_to :back, notice: 'Catégorie crée avec success.' }
           # Create an new subcategory for the category created.
           @sous_category = SousCategory.new(name: 'Autre', category_id: @category.id, lvl_urgence_max: '10')

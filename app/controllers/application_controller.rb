@@ -1,3 +1,5 @@
+# TODO: Check all create methds returns only the id in json.
+# TODO: Update mthd should render only head :no_content.
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
