@@ -66,23 +66,6 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # TODO: We can delete this mthd and do the thing with the mthd create.
-  def create_cats
-    if verifRight('create_new_category')
-      @title = 'Nouvelle catégorie'
-      @category = Category.new(name: params[:category_name])
-      respond_to do |format|
-        if @category.save
-          format.js
-          @sous_category = SousCategory.new(name: 'Autre', category_id: @category.id, lvl_urgence_max: '10')
-          @sous_category.save
-        end
-      end
-    else
-      renderUnauthorized
-    end
-  end
-
   # POST /categories
   # POST /categories.json
   # Should do the job for create the category.
@@ -133,7 +116,6 @@ class CategoriesController < ApplicationController
   # But only if it does not contains incidents.
   # Because if not, an thermo-nuclear war begin...
   def destroy
-    # TODO: Test if correct .empty?.
     if verifRight('delete_category')
       if Incident.where(category_id: @category.id).empty?
         @category.destroy!
@@ -161,6 +143,6 @@ class CategoriesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def category_params
-    params.require(:category).permit(:name, :category_id)
+    params.require(:category).permit(:name)
   end
 end

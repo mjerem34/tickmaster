@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   end
   resources :sous_categories do
     member do
-      get :create_subcats
     end
   end
   get 'pages/home'

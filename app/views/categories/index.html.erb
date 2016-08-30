@@ -7,13 +7,10 @@
         <th colspan="2"></th>
       </tr>
     </thead>
-
     <tbody>
       <% @categories.each do |category| %>
-
       <tr>
         <td onClick="document.location.href='<%=edit_category_path(category)%>'"><%= category.id %></td>
-
         <% if @view_details_category then %>
         <td onClick="document.location.href='<%=edit_category_path(category)%>'"><%= category.name %></td>
       <% else %>
@@ -49,13 +46,6 @@
 <br>
 <script type="text/javascript">
   $("#sendButton").click(function () {
-    $.ajax({
-      url: '/categories/:id/create_cats',
-      type: 'GET',
-      dataType: 'script',
-      data: {
-        category_name: $("#category_name").val()
-      }
-    });
+    $("#new_category").submit();
   });
 </script>

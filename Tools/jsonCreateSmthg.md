@@ -39,9 +39,14 @@ Créer procedure :
 
 ---
 
+Créer Cat :
+{"name":"Yay"}
+
+---
+
 Créer sous cat :
 
-{name":"Messagerie","category_id":3,"lvl_urgence_max":10}
+{"name":"Messagerie","category_id":3,"lvl_urgence_max":10}
 
 
 ---
