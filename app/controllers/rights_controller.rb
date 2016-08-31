@@ -96,7 +96,7 @@ class RightsController < ApplicationController
     if @edit_rights
       respond_to do |format|
         if @right.update(right_params)
-          format.json { render json: nil, status: :ok }
+          format.json { head :no_content }
           format.html { redirect_to rights_path, notice: 'Droit mis à jour.' }
         else
           format.json { render json: @right.errors, status: :unprocessable_entity }

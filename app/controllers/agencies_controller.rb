@@ -96,7 +96,7 @@ class AgenciesController < ApplicationController
       @agency = Agency.new(agency_params)
       respond_to do |format|
         if @agency.save
-          format.json { render @agency.id, status: :created }
+          format.json { render json: @agency.id, status: :created }
           format.html { redirect_to @agency, notice: "Vous venez de créer une agence. Merci d'avoir contribué à la baisse du chômage." }
         else
           format.json { render json: @agency.errors, status: :unprocessable_entity }

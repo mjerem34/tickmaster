@@ -86,7 +86,7 @@ class SousCategoriesController < ApplicationController
       @sous_category.lvl_urgence_max.nil? ? @sous_category.lvl_urgence_max = 10 : false
       respond_to do |format|
         if @sous_category.save
-          format.json { render json: @sous_category.id, status: :ok }
+          format.json { render json: @sous_category.id, status: :created }
           format.html { redirect_to :back, notice: 'Vous venez de créer une sous catégorie.' }
         else
           format.json { render json: nil, status: :unprocessable_entity }
@@ -106,7 +106,7 @@ class SousCategoriesController < ApplicationController
     if @edit_subcategories
       respond_to do |format|
         if @sous_category.update(sous_category_params)
-          format.json { render json: nil, status: :ok }
+          format.json { head :no_content }
           format.html { redirect_to :back, notice: 'Les paramètres de la sous catégorie ont été actualisés.' }
         else
           format.json { render json: @sous_category.errors, status: :unprocessable_entity }

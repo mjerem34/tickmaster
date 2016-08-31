@@ -98,7 +98,7 @@ class CategoriesController < ApplicationController
     if verifRight('edit_category')
       respond_to do |format|
         if @category.update(category_params)
-          format.json { render json: @category, status: :ok }
+          format.json { head :no_content }
           format.html { redirect_to :back, notice: 'Catégorie actualisée avec success.' }
         else
           format.json { render json: @category.errors, status: :unprocessable_entity }

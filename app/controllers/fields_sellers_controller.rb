@@ -70,7 +70,7 @@ class FieldsSellersController < ApplicationController
       @fields_seller = FieldsSeller.new(fields_seller_params)
       respond_to do |format|
         if @fields_seller.save
-          format.json { render @fields_seller.id, status: :created }
+          format.json { render json: @fields_seller.id, status: :created }
           format.html { redirect_to @fields_seller, notice: 'Le champ a bien été créé' }
         else
           format.json { render json: @fields_seller.errors, status: :unprocessable_entity }

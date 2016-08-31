@@ -53,14 +53,14 @@ class UsersController < ApplicationController
   # Render the page for those that forget his email (noobs).
   # And on reload (when user has completed field) it send an email.
   def forget_identifiers
-    @title = "Identifiants oubliés"
+    @title = 'Identifiants oubliés'
     @user = User.find_by_email(params[:email])
     # This appenned if the user has completed the email field.
     unless params[:email].nil?
       unless @user.nil?
         begin
           AppMailer.pseudonyme_forgeted(@user).deliver_now
-          flash[:notice] = "Un email contenant votre pseudonyme vient de vous être envoyé."
+          flash[:notice] = 'Un email contenant votre pseudonyme vient de vous être envoyé.'
           redirect_to signin_path
           return true
         rescue
@@ -134,7 +134,7 @@ class UsersController < ApplicationController
   def to_treat
     @treat_incidents = verifRight('treat_incidents')
     if @treat_incidents
-      @title = "Incidents à traiter"
+      @title = 'Incidents à traiter'
       @incidents = current_user.tech_incidents.where(incident_state_id_for_tech_id: [2, 3, 4, 5, 6]).order('created_at desc')
       respond_to do |format|
         format.json { render json: @incidents }
@@ -173,35 +173,41 @@ class UsersController < ApplicationController
     respond_to do |format|
       if User.exists?(pseudo: @user.pseudo)
         format.json { render json: "Nom d'utilisateur déjà enregistré", status: 409 }
-        format.html { redirect_to :back, notice: "Nom d'utilisateur déjà enregistré" }
-        return false
+        format.html do
+          flash[:notice] = "Nom d'utilisateur déjà enregistré"
+          render :new
+        end
       else
         if @user.save
           # If it is new user and if there are no user currently signed in
           # It signed in automatically.
           if current_user.nil?
             sign_in @user
-            return true
-          else
-            # It render only the id in json.
-            format.json { render json: @user.id }
-            # It redirect to the help page.
-            # TODO: See to modify that mthd. It redirects to help page even if current_user exists... o_O
+            format.json { render json: @user.id, status: :created }
             format.html do
-            redirect_to pages_help_path,
-                        notice: 'Bienvenue, votre inscription a bien été prise en compte.'
+              redirect_to pages_help_path,
+                          notice: 'Bienvenue, votre inscription a bien été prise en compte.'
               User.where(tech_id: 5).each do |disp|
                 unless disp.ip_addr.nil?
                   sendNotif(disp.ip_addr, @user.name + ' ' + @user.surname + " vient de s'inscrire !")
                 end
               end
             end
-            return true
+          else
+            # It render only the id in json.
+            format.json { render json: @user.id, status: :created }
+            format.html do
+              flash[:notice] = "L'utilisateur a bien été créé."
+              render :new
+            end
+            # TODO: See to modify that mthd. It redirects to help page even if current_user exists... o_O
           end
         else
           format.json { render json: @user.errors, status: :unprocessable_entity }
-          format.html { render :new }
-          return false
+          format.html do
+            flash[:notice] = "Impossible de procéder à l'inscription, veuillez contacter votre administrateur réseau."
+            render :new
+          end
         end
       end
     end
@@ -215,8 +221,8 @@ class UsersController < ApplicationController
     if @edit_other_user || current_user == @user
       respond_to do |format|
         if @user.update(user_params)
-          format.json { render json: nil, status: :ok }
-          format.html { redirect_to @user, notice: "Vos informations ont bien été actualisées." }
+          format.json { head :no_content }
+          format.html { redirect_to @user, notice: 'Vos informations ont bien été actualisées.' }
         else
           format.json { render json: @user.errors, status: :unprocessable_entity }
           format.html { render :edit, notice: "Impossible d'éditer vos paramètres ... Pourquoi voulez vous changer ? Vous n'êtes pas assez bien comme ça ?" }

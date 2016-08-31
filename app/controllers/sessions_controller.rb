@@ -6,13 +6,13 @@ class SessionsController < ApplicationController
   end
 
   # POST /sessions
+  # POST /sessions.json
   def create
     respond_to do |format|
       if !current_user.nil?
-        format.json { render json: "Vous êtes déjà connecté !" }
+        format.json { render json: 'Vous êtes déjà connecté !' }
         format.html { redirect_to '/', notice: 'Vous êtes déjà connecté !' }
       else
-
         user = User.authenticate(params[:session][:pseudo],
                                  params[:session][:password])
         if user.nil?
@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
             format.json { render json: @changesMade.changesMade, status: 202 }
             format.html { redirect_to '/' }
           else
-            format.json { render json: "Connexion réussie", status: :ok }
+            format.json { render json: 'Connexion réussie', status: :ok }
             format.html { redirect_to '/', notice: 'Connexion réussie' }
           end
         end
@@ -38,7 +38,7 @@ class SessionsController < ApplicationController
   def destroy
     respond_to do |format|
       if current_user.nil?
-        format.json { render json: "Vous êtes déjà déconnecté !" }
+        format.json { render json: 'Vous êtes déjà déconnecté !' }
         format.html { redirect_to '/', notice: 'Vous êtes déjà déconnecté !' }
       else
         sign_out

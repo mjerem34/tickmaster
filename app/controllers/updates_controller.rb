@@ -2,13 +2,13 @@ class UpdatesController < ApplicationController
   before_action :set_update, only: [:show, :edit, :update, :destroy]
   before_action :set_expiration
   before_action :restrict_access
-  
+
   # GET /updates
   # GET /updates.json
   def index
     @view_update = verifRight('view_update')
     if @view_update
-      @title = "Liste des mises à jour"
+      @title = 'Liste des mises à jour'
       @updates = Update.all
       respond_to do |format|
         format.json { render json: @updates }
@@ -38,7 +38,7 @@ class UpdatesController < ApplicationController
   def new
     @create_update = verifRight('create_update')
     if @create_update
-      @title = "Nouvelle mise à jour"
+      @title = 'Nouvelle mise à jour'
       @update = Update.new
     else
       renderUnauthorized
@@ -109,7 +109,7 @@ class UpdatesController < ApplicationController
           format.json { head :no_content }
           format.html { redirect_to updates_url, notice: 'Mise à jour supprimée !' }
         else
-          format.json { render json: "Impossible de supprimer la mise à jour !" }
+          format.json { render json: 'Impossible de supprimer la mise à jour !', status: :unprocessable_entity }
           format.html { redirect_to updates_url, notice: 'Impossible de supprimer la mise à jour !' }
         end
       end

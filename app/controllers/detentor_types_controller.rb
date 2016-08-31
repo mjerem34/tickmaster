@@ -64,7 +64,7 @@ class DetentorTypesController < ApplicationController
       @detentor_type = DetentorType.new(detentor_type_params)
       respond_to do |format|
         if @detentor_type.save
-          format.json { render @detentor_type.id, status: :created }
+          format.json { render json: @detentor_type.id, status: :created }
           format.html { redirect_to @detentor_type, notice: 'Le type de détenteur a bien été créé.' }
         else
           format.json { render json: @detentor_type.errors, status: :unprocessable_entity }

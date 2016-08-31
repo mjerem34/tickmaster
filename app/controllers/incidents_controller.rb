@@ -191,7 +191,7 @@ class IncidentsController < ApplicationController
     if @edit_incidents
       respond_to do |format|
         if @incident.update(incident_params)
-          format.json { render json: "L'incident a bien été mis à jour.", status: :ok }
+          format.json { head :no_content }
           format.html { redirect_to :back, notice: "L'incident a bien été mis à jour." }
         else
           format.html { redirect_to :back }
@@ -204,7 +204,10 @@ class IncidentsController < ApplicationController
 
   # DELETE /incidents/1
   # DELETE /incidents/1.json
-  # Should delete an incident but as the mthd edit, nobody can delete an incident.
+  # Could not delete an incident.
+  # Could only reject, cloture or reaffect it.
+  # It depends on the value of params[:commit].
+  # The incident is determined by the params[:id].
   def destroy
     @delete_incident = verifRight('delete_incident')
     if @delete_incident

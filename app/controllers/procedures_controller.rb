@@ -130,7 +130,7 @@ class ProceduresController < ApplicationController
     if @edit_procedure
       respond_to do |format|
         if @procedure.update(procedure_params)
-          format.json { render json: nil, status: :ok }
+          format.json { head :no_content }
           format.html { redirect_to @procedure, notice: 'La procedure a été mise a jour.' }
         else
           format.json { render json: @procedure.errors, status: :unprocessable_entity }

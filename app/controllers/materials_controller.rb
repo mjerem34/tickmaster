@@ -66,11 +66,11 @@ class MaterialsController < ApplicationController
       @material = Material.new(material_params)
       respond_to do |format|
         if @material.save
-          format.json { render :show, status: :created, location: @material }
+          format.json { render json: @material.id }
           format.html { redirect_to @material, notice: 'Le matériel a bien été créé.' }
         else
           format.json { render json: @material.errors, status: :unprocessable_entity }
-          format.html { render :new }
+          format.html { render :new, notice: 'Impossible de créer le matériel.' }
         end
       end
     else
@@ -84,7 +84,7 @@ class MaterialsController < ApplicationController
     if verifRight('modify_material')
       respond_to do |format|
         if @material.update(material_params)
-          format.json { render :show, status: :ok, location: @material }
+          format.json { head :no_content }
           format.html { redirect_to @material, notice: 'Le matériel a bien été mis à jour.' }
         else
           format.json { render json: @material.errors, status: :unprocessable_entity }

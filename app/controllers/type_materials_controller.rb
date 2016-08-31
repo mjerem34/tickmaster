@@ -6,17 +6,43 @@ class TypeMaterialsController < ApplicationController
   # GET /type_materials
   # GET /type_materials.json
   def index
-    @type_materials = TypeMaterial.all
+    @view_type_material = verifRight('view_type_material')
+    if @view_type_material
+      @title = 'Type material'
+      @type_materials = TypeMaterial.all
+      respond_to do |format|
+        format.json { render json: @type_materials }
+        format.html { render :index }
+      end
+    else
+      renderUnauthorized
+    end
   end
 
   # GET /type_materials/1
   # GET /type_materials/1.json
   def show
+    @view_type_material = verifRight('view_type_material')
+    if @view_type_material
+      @title = 'Type material'
+      respond_to do |format|
+        format.json { render json: @type_material }
+        format.html { render :show }
+      end
+    else
+      renderUnauthorized
+    end
   end
 
   # GET /type_materials/new
   def new
-    @type_material = TypeMaterial.new
+    @create_type_material = verifRight('create_type_material')
+    if @create_type_material
+      @title = 'Nouveau TypeMaterial'
+      @type_material = TypeMaterial.new
+    else
+      renderUnauthorized
+    end
   end
 
   # GET /type_materials/1/edit
@@ -26,51 +52,73 @@ class TypeMaterialsController < ApplicationController
   # POST /type_materials
   # POST /type_materials.json
   def create
-    @type_material = TypeMaterial.new(type_material_params)
-
-    respond_to do |format|
-      if @type_material.save
-        format.html { redirect_to @type_material, notice: 'Type material was successfully created.' }
-        format.json { render :show, status: :created, location: @type_material }
-      else
-        format.html { render :new }
-        format.json { render json: @type_material.errors, status: :unprocessable_entity }
+    @create_type_material = verifRight('create_type_material')
+    if @create_type_material
+      @title = 'Nouveau TypeMaterial'
+      @type_material = TypeMaterial.new(type_material_params)
+      respond_to do |format|
+        if @type_material.save
+          format.json { render @type_material.id, status: :created }
+          format.html { redirect_to @type_material, notice: 'Le TypeMaterial a bien été créé.' }
+        else
+          format.json { render json: @type_material.errors, status: :unprocessable_entity }
+          format.html { render :new, notice: 'Impossible de créer le TypeMaterial.' }
+        end
       end
+    else
+      renderUnauthorized
     end
   end
 
   # PATCH/PUT /type_materials/1
   # PATCH/PUT /type_materials/1.json
   def update
-    respond_to do |format|
-      if @type_material.update(type_material_params)
-        format.html { redirect_to @type_material, notice: 'Type material was successfully updated.' }
-        format.json { render :show, status: :ok, location: @type_material }
-      else
-        format.html { render :edit }
-        format.json { render json: @type_material.errors, status: :unprocessable_entity }
+    @modify_type_material = verifRight('modify_type_material')
+    if @modify_type_material
+      @title = 'Editer TypeMaterial'
+      respond_to do |format|
+        if @type_material.update(type_material_params)
+          format.json { head :no_content }
+          format.html { redirect_to @type_material, notice: 'Le TypeMaterial a bien été édité.' }
+        else
+          format.json { render json: @type_material.errors, status: :unprocessable_entity }
+          format.html { render :edit, "Impossible d'éditer le TypeMaterial." }
+        end
       end
+    else
+      renderUnauthorized
     end
   end
 
   # DELETE /type_materials/1
   # DELETE /type_materials/1.json
   def destroy
-    @type_material.destroy
-    respond_to do |format|
-      format.html { redirect_to type_materials_url, notice: 'Type material was successfully destroyed.' }
-      format.json { head :no_content }
+    @delete_type_material = verifRight('delete_type_material')
+    if @delete_type_material
+      @title = 'Supprimer TypeMaterial'
+      respond_to do |format|
+        if @type_material.destroy
+          format.json { head :no_content }
+          format.html { redirect_to type_materials_url, notice: 'Le TypeMaterial a bien été supprimé.' }
+        else
+          format.json { render json: @type_material.errors, status: :unprocessable_entity }
+          format.html { redirect_to type_materials_url, notice: 'Impossible de supprimer le TypeMaterial.' }
+        end
+      end
+    else
+      renderUnauthorized
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_type_material
-      @type_material = TypeMaterial.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def type_material_params
-      params.require(:type_material).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_type_material
+    @type_material = TypeMaterial.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def type_material_params
+    params.require(:type_material).permit(:name)
+  end
 end
