@@ -200,7 +200,6 @@ class UsersController < ApplicationController
               flash[:notice] = "L'utilisateur a bien été créé."
               render :new
             end
-            # TODO: See to modify that mthd. It redirects to help page even if current_user exists... o_O
           end
         else
           format.json { render json: @user.errors, status: :unprocessable_entity }

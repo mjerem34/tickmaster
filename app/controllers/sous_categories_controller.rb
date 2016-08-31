@@ -122,7 +122,6 @@ class SousCategoriesController < ApplicationController
   # DELETE /sous_categories/1.json
   # Should delete the subcategory passed in params only if contains no incidents.
   def destroy
-    # TODO: Check if correct .empty?.
     @delete_subcategories = verifRight('delete_subcategories')
     if @delete_subcategories
       respond_to do |format|

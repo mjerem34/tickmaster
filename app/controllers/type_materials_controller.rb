@@ -58,7 +58,7 @@ class TypeMaterialsController < ApplicationController
       @type_material = TypeMaterial.new(type_material_params)
       respond_to do |format|
         if @type_material.save
-          format.json { render @type_material.id, status: :created }
+          format.json { render json: @type_material.id, status: :created }
           format.html { redirect_to @type_material, notice: 'Le TypeMaterial a bien été créé.' }
         else
           format.json { render json: @type_material.errors, status: :unprocessable_entity }

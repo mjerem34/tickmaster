@@ -1,13 +1,13 @@
 class SpecsTypesMaterialsController < ApplicationController
-  before_action :set_specs_types_material, only: [:show, :edit, :update, :destroy]
+  before_action :set_spec_types_material, only: [:show, :edit, :update, :destroy]
   before_action :set_expiration
   before_action :restrict_access
 
   # GET /specs_types_materials
   # GET /specs_types_materials.json
   def index
-    @view_specs_type_material = verifRight('view_specs_type_material')
-    if @view_specs_type_material
+    @view_spec_type_material = verifRight('view_spec_type_material')
+    if @view_spec_type_material
       @title = 'Index'
       @specs_types_materials = SpecsTypesMaterial.all
       respond_to do |format|
@@ -22,8 +22,8 @@ class SpecsTypesMaterialsController < ApplicationController
   # GET /specs_types_materials/1
   # GET /specs_types_materials/1.json
   def show
-    @view_specs_type_material = verifRight('view_specs_type_material')
-    if @view_specs_type_material
+    @view_spec_type_material = verifRight('view_spec_type_material')
+    if @view_spec_type_material
       @title = 'Show'
       respond_to do |format|
         format.json { render json: @specs_types_material }
@@ -120,7 +120,7 @@ class SpecsTypesMaterialsController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_specs_types_material
+  def set_spec_types_material
     @specs_types_material = SpecsTypesMaterial.find(params[:id])
   end
 

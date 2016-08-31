@@ -54,3 +54,49 @@ Créer sous cat :
 Créer droit :
 
 {"name":"view_index_users","content":"Autorisé à voir la liste des utilisateurs","user":false,"tech":true,"super_tech":true,"admin":true,"disp":true,"assistant":true,"expert":true,"comptable":true}
+
+---
+
+Créer DetentorTypesController :
+
+{"name": "Test"}
+
+---
+
+Créer FieldsSellers :
+
+{"name": "Test"}
+
+---
+
+Créer MaterialsController :
+
+{"type_material_id": 1,"detentor_type_id": 1,"detentor_id": 1,"seller_id": 1,"date": null}
+
+---
+
+Créer SellersController :
+Un vendeur n'a aucune valeur dans sa table, tout est présent dans une autre table reliée avec une clé étrangère.
+{}
+
+---
+
+Créer SpecsMaterialsController :
+{"spec_type_material_id":"1"}
+
+---
+
+Créer SpecsTypesMaterialsController :
+{"name":"Test"}
+
+
+---
+
+Créer TypeMaterialsController :
+{"name":"Test"}
+
+---
+
+Créer UpdatesController :
+
+{"changesMade": "Correction de trucs "}

@@ -1,12 +1,3 @@
-# TODO: Test detentor type rest.
-# TODO: Test fields sellers rest.
-# TODO: Test materials rest.
-# TODO: Test sellers rest.
-# TODO: Test specs materials rest.
-# TODO: Test specs types materials rest.
-# TODO: Test type material rest.
-# TODO: Test updates rest.
-
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

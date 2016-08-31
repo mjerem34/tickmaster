@@ -1,4 +1,3 @@
-# TODO: Verify if rights are correct.
 class FieldsSellersController < ApplicationController
   before_action :set_fields_seller, only: [:show, :edit, :update, :destroy]
   before_action :set_expiration
@@ -27,7 +26,7 @@ class FieldsSellersController < ApplicationController
   # Should render only one field seller.
   def show
     @view_fields_sellers = verifRight('view_fields_sellers')
-    if @view_index_agencies
+    if @view_fields_sellers
       @title = "Champ n° : #{@fields_seller.id}"
       respond_to do |format|
         format.json { render json: @fields_seller }
@@ -53,9 +52,9 @@ class FieldsSellersController < ApplicationController
   # GET /fields_sellers/1/edit
   # Should render the edit form. Only in web.
   def edit
-    @edit_fields_sellers = verifRight('edit_fields_sellers')
-    if @edit_fields_sellers
-      @title = "Editer le champ du vendeur"
+    @modify_fields_sellers = verifRight('modify_fields_sellers')
+    if @modify_fields_sellers
+      @title = 'Editer le champ du vendeur'
     else
       renderUnauthorized
     end
@@ -86,8 +85,8 @@ class FieldsSellersController < ApplicationController
   # PATCH/PUT /fields_sellers/1.json
   # Should update the params of the field seller.
   def update
-    @edit_fields_sellers = verifRight('edit_fields_sellers')
-    if @edit_fields_sellers
+    @modify_fields_sellers = verifRight('modify_fields_sellers')
+    if @modify_fields_sellers
       respond_to do |format|
         if @fields_seller.update(fields_seller_params)
           format.json { head :no_content }
