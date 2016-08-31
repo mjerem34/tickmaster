@@ -4,7 +4,7 @@
     <h2>Catégorie : </h2>
 <div class="row">
   <div class="col-md-4">
-    <%= f.text_field :name, class: "form-control ", placeholder: "Nom(champ requis)" %>
+    <%= f.text_field :name, class: "form-control ", placeholder: "Nom(champ requis)", "data-id": "#{@category.id}" %>
   </div>
   <div class="col-md-4">
     <%= f.submit "", id: "sendButton", class: "btn btn-success btn-edit-category ", data: { confirm: 'Êtes vous sûr de vouloir editer cette catégorie ?' } %>
@@ -27,9 +27,9 @@
       <thead class="header">
         <tr>
           <th>Sous-Catégorie</th>
-          <th>Categorie</th>
           <th>Niveau d'urgence maximum</th>
-          <th colspan="2"></th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
 
@@ -41,7 +41,6 @@
           <% else %>
           <td onClick="document.location.href='<%=sous_category_path(sous_category)%>'"><%= sous_category.name %></td>
           <% end %>
-          <td onClick="document.location.href='<%=sous_category_path(sous_category)%>'"><%= Category.where(id: "#{sous_category.category_id}").pluck(:name).join %></td>
           <td onClick="document.location.href='<%=sous_category_path(sous_category)%>'"><%= sous_category.lvl_urgence_max %></td>
 
           <% if Right.where(name: "edit_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
@@ -55,9 +54,8 @@
             <tr class="formsnewsubcats">
             <%= simple_form_for(@sous_category) do |f| %>
             <td class='newsubcat'><%= f.text_field :name, class: "form-control ", placeholder: "Nom(Requis)", style: "margin-left:0px;"%></td>
-            <td class='newsubcat'><%= f.text_field "CategoryName", id: "CategoryName", "data-id": @category.id, value: @category.name, class: "form-control ", style: "margin-left:0px;", disabled: true %></td>
             <td class='newsubcat'><%= select_tag "sous_category[lvl_urgence_max]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10" selected="selected">10</option>'.html_safe, class: 'form-control ', style: "margin-left:0px;" %></td>
-            <td class='newsubcat'><p type="submit" name="commit" class="btn btn-success > submit" id="sendButton">+</p></td>
+            <td class='newsubcat'><button class="btn btn-success > submit" id="sendSubCatButton">+</button></td>
             <td> </td>
             <% end %>
             <td colspan="2"></td>
@@ -67,18 +65,26 @@
   </div>
   <div class="actions">
   </div>
-
 <script type="text/javascript">
-  $(".btn-create-category").click(function(){
+  $("#sendSubCatButton").click(function(){
+    var catId = $("#category_name").data("id");
+    var subCatName = $("#sous_category_name").val();
+    var lvlUrgenceMax = $("#sous_category_lvl_urgence_max option:selected").val();
+    var data = { "data": {
+              "name": subCatName,
+              "category_id": catId,
+              "lvl_urgence_max": lvlUrgenceMax
+            }};
+
+    // alert(catId);
+    // alert(subCatName);
+    // alert(lvlUrgenceMax);
     $.ajax({
-      url: '/sous_categories/:id/create_subcats',
-      type: 'GET',
-      dataType: 'script',
-      data: {
-        sous_category_name: $("#sous_category_name").val(),
-        sous_category_category_id: $("#CategoryName").data("id"),
-        sous_category_lvl_urgence_max: $("#sous_category_lvl_urgence_max option:selected").val()
-      }
+      url: '/sous_categories',
+      type: 'POST',
+      contentType: 'application/json',
+      dataType: 'json',
+      data: JSON.stringify(data)
     });
   });
 </script>

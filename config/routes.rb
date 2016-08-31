@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :categories do
     member do
       get :create_cats
+      get :subcats
     end
   end
   resources :sous_categories do

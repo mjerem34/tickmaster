@@ -6,8 +6,6 @@ class SousCategoriesController < ApplicationController
   before_action :set_expiration
   before_action :restrict_access
 
-  # TODO: Need to add a mthd for return only subcategories of categ passed in params.
-
   # GET /sous_categories
   # GET /sous_categories.json
   # Should get and return all the subcategories
@@ -65,21 +63,13 @@ class SousCategoriesController < ApplicationController
     end
   end
 
-  # TODO: Understand what is its use.
-  def create_subcats
-    @sous_category = SousCategory.new(name: params[:sous_category_name], category_id: params[:sous_category_category_id], lvl_urgence_max: params[:sous_category_lvl_urgence_max])
-    @sous_category.save
-    respond_to do |format|
-      format.js
-    end
-  end
-
   # POST /sous_categories
   # POST /sous_categories.json
   # I think this method should create an subcategory... But I am not sure..
   def create
     @create_new_subcategory = verifRight('create_new_subcategory')
     if @create_new_subcategory
+      @category = Category.find(params[:category_id])
       @sous_category = SousCategory.new(sous_category_params)
       # Any category have a 'lvl_urgence_max', for those who create an incident.
       # With that, we can determine how many an incident is important.
@@ -87,9 +77,9 @@ class SousCategoriesController < ApplicationController
       respond_to do |format|
         if @sous_category.save
           format.json { render json: @sous_category.id, status: :created }
-          format.html { redirect_to :back, notice: 'Vous venez de créer une sous catégorie.' }
+          format.html { redirect_to edit_category_path(@category), notice: 'Vous venez de créer une sous catégorie.' }
         else
-          format.json { render json: nil, status: :unprocessable_entity }
+          format.json { render json: @sous_category.errors, status: :unprocessable_entity }
           format.html { redirect_to :back, notice: 'Impossible de créer la sous catégorie.' }
         end
       end

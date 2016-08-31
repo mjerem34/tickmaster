@@ -130,8 +130,6 @@ class IncidentsController < ApplicationController
       @incident.user_id ||= current_user.id
       # Set the ip address from where are created the incident.
       @incident.ip_adress ||= request.remote_ip
-      # TODO: Set the same agency of the creator to the incident. Maybe unusual.
-      @incident.agency_id ||= current_user.agency_id
       respond_to do |format|
         if @incident.save
           # If the incident is save, and if it contains files, it save files.

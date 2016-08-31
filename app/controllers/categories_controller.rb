@@ -3,6 +3,19 @@ class CategoriesController < ApplicationController
   before_action :set_expiration
   before_action :restrict_access
 
+  # GET /index_by_category/:id.json
+  def subcats
+    if verifRight('view_details_category')
+      @title = "Sous categories de la categorie n° #{params[:id]}"
+      @sous_categories = SousCategory.where(category_id: params[:id])
+      respond_to do |format|
+        format.json { render json: @sous_categories }
+      end
+    else
+      renderUnauthorized
+    end
+  end
+
   # GET /categories
   # GET /categories.json
   # Should get and return all the categories.
