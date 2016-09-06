@@ -69,7 +69,7 @@ class SousCategoriesController < ApplicationController
   def create
     @create_new_subcategory = verifRight('create_new_subcategory')
     if @create_new_subcategory
-      @category = Category.find(params[:category_id])
+      @category = Category.find(params[:sous_category][:category_id])
       @sous_category = SousCategory.new(sous_category_params)
       # Any category have a 'lvl_urgence_max', for those who create an incident.
       # With that, we can determine how many an incident is important.

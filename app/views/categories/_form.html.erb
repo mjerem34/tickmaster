@@ -23,7 +23,7 @@
   </div><br>
 
   <div class="table-responsive">
-    <table class="table table-hover">
+    <table class="table table-hover table-subcats">
       <thead class="header">
         <tr>
           <th>Sous-Catégorie</th>
@@ -44,47 +44,58 @@
           <td onClick="document.location.href='<%=sous_category_path(sous_category)%>'"><%= sous_category.lvl_urgence_max %></td>
 
           <% if Right.where(name: "edit_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
-          <td><%= link_to 'Editer', edit_sous_category_path(sous_category) %></td>
+            <td><%= link_to 'Editer', edit_sous_category_path(sous_category) %></td>
           <% end %>
           <% if Right.where(name: "delete_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
-          <td><%= link_to 'Supprimer', sous_category, method: :delete, data: { confirm: 'Êtes vous VRAIMENT sûr de vouloir supprimer cette sous catégorie ? Non, je dis ça parce que si vous la supprimez et bien elle y sera plus ! Serieux !' }%></td>
-          <% end %>
+            <td class="delete_subcat_btn" data-id="<%= sous_category.id %>">Supprimer</td>
           <% end %>
         </tr>
+        <% end %>
             <tr class="formsnewsubcats">
-            <%= simple_form_for(@sous_category) do |f| %>
-            <td class='newsubcat'><%= f.text_field :name, class: "form-control ", placeholder: "Nom(Requis)", style: "margin-left:0px;"%></td>
+            <td class='newsubcat'><input type="text" id="sous_category_name" class="form-control" placeholder="Nom(Requis)" style="margin-left:0px;"></td>
             <td class='newsubcat'><%= select_tag "sous_category[lvl_urgence_max]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10" selected="selected">10</option>'.html_safe, class: 'form-control ', style: "margin-left:0px;" %></td>
             <td class='newsubcat'><button class="btn btn-success > submit" id="sendSubCatButton">+</button></td>
-            <td> </td>
-            <% end %>
-            <td colspan="2"></td>
+            <td></td>
           </tr>
       </tbody>
     </table>
   </div>
-  <div class="actions">
-  </div>
 <script type="text/javascript">
+$(document).ready(function(){
   $("#sendSubCatButton").click(function(){
-    var catId = $("#category_name").data("id");
-    var subCatName = $("#sous_category_name").val();
-    var lvlUrgenceMax = $("#sous_category_lvl_urgence_max option:selected").val();
-    var data = { "data": {
-              "name": subCatName,
-              "category_id": catId,
-              "lvl_urgence_max": lvlUrgenceMax
-            }};
-
-    // alert(catId);
-    // alert(subCatName);
-    // alert(lvlUrgenceMax);
+    var name = $("#sous_category_name").val();
+    var category_id = $("#category_name").data("id");
+    var lvl_urgence_max = $("#sous_category_lvl_urgence_max option:selected").val();
     $.ajax({
       url: '/sous_categories',
       type: 'POST',
-      contentType: 'application/json',
       dataType: 'json',
-      data: JSON.stringify(data)
+      data: { "sous_category" :{
+                name: name,
+                category_id: category_id,
+                lvl_urgence_max: lvl_urgence_max
+              }
+            }
+          }).done(function(data) {
+            $('.principal_body tr:last').before('<tr><td>' + name + '</td><td>' + lvl_urgence_max + '</td><td><a href="/sous_categories/' + data + '/edit">Editer</a></td><td class="delete_subcat_btn" data-id="' + data + '">Supprimer</td></tr>');
+            $('#sous_category_name').val('');
+          });
+  });
+  $('#sous_category_name').keypress(function(e){
+    if (e.which == 13){
+        $("#sendSubCatButton").click();
+        return true;
+    }
+  });
+  $(document).on('click', '.delete_subcat_btn', function(){
+     $.that = $(this);
+    $.ajax({
+      url: '/sous_categories/' + $(this).data("id"),
+      type: 'DELETE',
+      dataType: 'json'
+    }).done(function(){
+      $.that.parent().remove();
     });
   });
+});
 </script>
