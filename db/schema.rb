@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160831095303) do
+ActiveRecord::Schema.define(version: 20160906084500) do
 
   create_table "agencies", force: :cascade do |t|
     t.string "name",       limit: 45
@@ -28,21 +28,16 @@ ActiveRecord::Schema.define(version: 20160831095303) do
   end
 
   create_table "archives", force: :cascade do |t|
-    t.text     "content",             limit: 65535
-    t.integer  "incident_id",         limit: 4
-    t.integer  "sender_id",           limit: 2
-    t.integer  "receiver_id",         limit: 2
-    t.string   "ip_adress_sender",    limit: 255
-    t.integer  "pc_id",               limit: 4
-    t.string   "attach_file_name",    limit: 255
-    t.string   "attach_content_type", limit: 255
-    t.integer  "attach_file_size",    limit: 4
-    t.datetime "attach_updated_at"
-    t.datetime "updated_at",                        null: false
-    t.datetime "created_at",                        null: false
+    t.text     "content",          limit: 65535
+    t.integer  "incident_id",      limit: 4
+    t.integer  "sender_id",        limit: 2
+    t.integer  "receiver_id",      limit: 2
+    t.string   "ip_adress_sender", limit: 255
+    t.integer  "pc_id",            limit: 4
+    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                     null: false
   end
 
-  add_index "archives", ["attach_file_name"], name: "index_archives_on_attachment_id", using: :btree
   add_index "archives", ["incident_id"], name: "index_archives_on_incident_id", using: :btree
   add_index "archives", ["pc_id"], name: "index_archives_on_pc_id", using: :btree
 
@@ -141,10 +136,6 @@ ActiveRecord::Schema.define(version: 20160831095303) do
     t.integer  "lvl_of_incident",               limit: 4
     t.datetime "archived_at"
     t.datetime "resolved_at"
-    t.string   "attach_file_name",              limit: 255
-    t.string   "attach_content_type",           limit: 255
-    t.integer  "attach_file_size",              limit: 4
-    t.datetime "attach_updated_at"
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
     t.boolean  "notify_for_tech"
@@ -190,18 +181,14 @@ ActiveRecord::Schema.define(version: 20160831095303) do
   end
 
   create_table "responses", force: :cascade do |t|
-    t.text     "content",             limit: 65535
-    t.integer  "incident_id",         limit: 4
-    t.integer  "sender_id",           limit: 2
-    t.integer  "receiver_id",         limit: 2
-    t.string   "ip_adress_sender",    limit: 255
-    t.integer  "pc_id",               limit: 4
-    t.string   "attach_file_name",    limit: 255
-    t.string   "attach_content_type", limit: 255
-    t.integer  "attach_file_size",    limit: 4
-    t.datetime "attach_updated_at"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.text     "content",          limit: 65535
+    t.integer  "incident_id",      limit: 4
+    t.integer  "sender_id",        limit: 2
+    t.integer  "receiver_id",      limit: 2
+    t.string   "ip_adress_sender", limit: 255
+    t.integer  "pc_id",            limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   add_index "responses", ["incident_id"], name: "index_responses_on_incident_id", using: :btree
@@ -282,24 +269,20 @@ ActiveRecord::Schema.define(version: 20160831095303) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "pseudo",              limit: 100
-    t.string   "email",               limit: 255
-    t.string   "tel",                 limit: 30
-    t.string   "mobile",              limit: 15
-    t.string   "name",                limit: 100
-    t.string   "surname",             limit: 100
-    t.string   "password",            limit: 255
-    t.string   "salt",                limit: 255
-    t.integer  "tech_id",             limit: 4
-    t.string   "attach_file_name",    limit: 255
-    t.string   "attach_content_type", limit: 255
-    t.integer  "attach_file_size",    limit: 4
-    t.datetime "attach_updated_at"
-    t.integer  "agency_id",           limit: 4
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "mode",                limit: 255
-    t.string   "ip_addr",             limit: 20
+    t.string   "pseudo",     limit: 100
+    t.string   "email",      limit: 255
+    t.string   "tel",        limit: 30
+    t.string   "mobile",     limit: 15
+    t.string   "name",       limit: 100
+    t.string   "surname",    limit: 100
+    t.string   "password",   limit: 255
+    t.string   "salt",       limit: 255
+    t.integer  "tech_id",    limit: 4
+    t.integer  "agency_id",  limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "mode",       limit: 255
+    t.string   "ip_addr",    limit: 20
     t.boolean  "maj"
   end
 
