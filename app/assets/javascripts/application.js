@@ -11,9 +11,16 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery_ujs
 //= require bootstrap-sprockets
 //= require highcharts
 //= require chartkick
 //= require ckeditor/init
-//= require jquery_ujs
+//= require select2
+//= require select2_locale_fr
 //= require_tree
+$(document).ready(function(){
+  $( ".dropdownSearch" ).select2({
+    theme: "bootstrap"
+  });
+});

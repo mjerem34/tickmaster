@@ -108,7 +108,6 @@
 </li>
 <ul class="sub-menu collapse" id="material">
 <li><%= link_to "Liste des matériels", materials_url, class: " ", tabindex: -1, method: :get  %></li>
-<li><%= link_to "Nouveau matériel", new_material_url, class: " ", tabindex: -1, method: :get  %></li>
 </ul>
 <% else %>
 <% if !current_user.nil? &&  Right.where(name: "create_material").pluck(current_user.tech.name).join('')  == 'true' %>
@@ -275,7 +274,7 @@ $(document).ready(function () {
     $("#material").removeClass('in').attr('aria-expanded', false);
     $(".active[data-target='#procedures']").addClass('collapsed').attr('aria-expanded', false);
     $("#procedures").removeClass('in').attr('aria-expanded', false);
-    
+
 
   });
   $(".active[data-target='#rights']").click(function () {

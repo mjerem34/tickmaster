@@ -1,4 +1,4 @@
 class TypesMaterialsSeller < ActiveRecord::Base
-  belongs_to :TypeMaterial
-  belongs_to :Seller
+  belongs_to :type_material
+  belongs_to :seller
 end

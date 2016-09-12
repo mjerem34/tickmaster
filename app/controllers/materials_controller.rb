@@ -10,6 +10,35 @@ class MaterialsController < ApplicationController
     @view_material = verifRight('view_material')
     if @view_material
       @title = 'Matériels'
+
+      @type_materials = TypeMaterial.all
+      type_materials_specs_types_materials = @type_materials.first.type_materials_specs_types_materials.all
+
+      @specs_types_materials = []
+      type_materials_specs_types_materials.each do |tmstm|
+        @specs_types_materials << tmstm.specs_types_material
+      end
+
+      @sellers = []
+      @type_materials.first.types_materials_sellers.each do |a|
+        @sellers << a.seller
+      end
+      @seller = @sellers.first
+      @titles_fields_sellers = []
+      @values_fields_sellers = @seller.fields_seller_sellers.all
+      @values_fields_sellers.each do |vfs|
+        @titles_fields_sellers << vfs.fields_seller
+      end
+
+      # This for the dropdown list, it list all the names of the sellers.
+      @sellers_names_and_id = []
+      @sellers.each do |seller|
+        seller.fields_seller_sellers.each do |fss|
+          fss.fields_seller.inspect
+          @sellers_names_and_id << fss if fss.fields_seller.name == 'Nom'
+        end
+      end
+
       @materials = Material.all
       respond_to do |format|
         format.json { render json: @materials }
@@ -17,6 +46,34 @@ class MaterialsController < ApplicationController
       end
     else
       renderUnauthorized
+    end
+  end
+
+  def redefine_seller_selected
+    @type_materials = TypeMaterial.all
+    @sellers = []
+    @type_materials.first.types_materials_sellers.each do |a|
+      @sellers << a.seller
+    end
+    @seller = @sellers.select { |seller| seller.id == params[:id_seller] }
+    puts '______________________'
+    puts @sellers.select { |seller| seller.id == params[:id_seller] }
+    puts '______________________'
+    # TODO: Voir pourquoi @seller ne se rempli pas avec le select, Cette fonction doit renvoyer un seul vendeur, pour récuperer les champs dans la vue.
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def redefine_type_material
+    @type_materials = TypeMaterial.find(params[:type_material_id])
+    type_materials_specs_types_materials = @type_materials.type_materials_specs_types_materials.all
+    @specs_types_materials = []
+    type_materials_specs_types_materials.each do |tmstm|
+      @specs_types_materials << tmstm.specs_types_material
+    end
+    respond_to do |format|
+      format.js
     end
   end
 

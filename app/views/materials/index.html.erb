@@ -1,9 +1,49 @@
-<p id="notice"><%= notice %></p>
+<%= @values_fields_sellers.where(fields_seller_id: @titles_fields_sellers.select!{|tfs| tfs.name == "Nom"}.first.id).first.content.inspect %>
 
-<h1>Listing Materials</h1>
+<!--  -->
+<div class="row">
+  <div class="col-md-8">
+  <%= select_tag "SelectSellers", options_for_select(@sellers_names_and_id.collect{|seller| [seller.content.titleize, seller.seller_id]}), {class: "dropdownSearch form-control"} %><br><br>
+    </div>
+</div>
+<div id="fields-sellers">
+  <div class="row">
+    <div class="col-md-4" id="fields-sellers-titles">
+      <% @seller.fields_seller_sellers.each do |fss| %>
+        <input type="text" name="name" value="<%= fss.fields_seller.name %>" class="form-control" disabled><br>
+      <% end %>
+    </div>
+    <div class="col-md-4" id="fields-sellers-values">
+      <% @seller.fields_seller_sellers.each do |fss| %>
+        <input type="text" name="name" value="<%= fss.content %>" class="form-control"><br>
+      <% end %>
+    </div>
+  </div>
 
-<table>
-  <thead>
+  <div class="row">
+    <div class="col-md-8">
+      <button type="button" name="button" class="btn btn-success" id="add-fields-sellers" style="width:100%;">+</button>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#SelectSellers").change(function(){
+      
+  });
+
+  $(document).on( 'click', '#add-fields-sellers', function(){
+    $('#fields-sellers-titles').append("<input type='text' class='form-control'><br>");
+    $('#fields-sellers-values').append("<input type='text' class='form-control'><br>");
+  });
+});
+</script>
+<!--  -->
+
+<h1>Listing Materials <button type="button" name="button" data-toggle="modal" data-target="#NewMaterial" class="btn btn-success">Ajouter</button></h1>
+<div class="table-responsive">
+  <table class="table table-hover" id="table_agencies">
+    <thead class="header">
     <tr>
       <th>Type material</th>
       <th>Detentor type</th>
@@ -13,7 +53,6 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @materials.each do |material| %>
       <tr>
@@ -29,7 +68,203 @@
     <% end %>
   </tbody>
 </table>
-
+</div>
 <br>
+<div class="clean-fields">
+  <!-- 1 - Choix du type de matériel. -->
+  <div class="container-modal">
+    <div class="modal fade" id="NewMaterial" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Créer un matériel</h4>
+            <h5 class="modal-title">Type de matériel</h5>
+          </div>
+          <div class="modal-body">
+            <%= select_tag "SelectTypeMaterial", options_for_select(@type_materials.collect{|type_material| [type_material.name.titleize, type_material.id]}), {:class => "dropdownSearch"}%><br>
+          </div>
+          <div class="modal-footer">
+            <p>1/6</p>
+            <button id="TypeMaterialNext" type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSpecs">Suivant</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>l
+  </div>
 
-<%= link_to 'New Material', new_material_path %>
+  <!-- 2 - Choix des specs -->
+  <div class="container-modal">
+    <div class="modal fade" id="ChoiceSpecs" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Créer un matériel</h4>
+            <h5 class="modal-title">Caractéristiques</h5>
+          </div>
+          <div class="modal-body">
+            <div id="fields-specs-types-materials">
+              <div class="row">
+                <div class="col-md-4" id="fields-specs-types-titles">
+                  <% @specs_types_materials.each do |stm|  %>
+                  <input type="text" value="<%= stm.name%>" disabled class="form-control">
+                  <br>
+                  <% end %>
+                </div>
+                <div class="col-md-4" id="fields-specs-types-values">
+                  <% @specs_types_materials.each do |stm|  %>
+                  <input type="text" name="<%= stm.name%>" class="form-control">
+                  <br>
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-8">
+                  <button type="button" name="button" class="btn btn-success" id="add-fields-specs-types" style="width:100%;">+</button>
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+            $(document).ready(function(){
+              $(document).on( 'click', '#add-fields-specs-types', function(){
+                $('#fields-specs-types-titles').append("<input type='text' class='form-control'><br>");
+                $('#fields-specs-types-values').append("<input type='text' class='form-control'><br>");
+              });
+            });
+            </script>
+          </div>
+          <div class="modal-footer">
+            <p>2/6</p>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#NewMaterial">Précédent</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSeller">Suivant</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 - Choix du vendeur -->
+  <div class="container-modal">
+    <div class="modal fade" id="ChoiceSeller" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Créer un matériel</h4>
+            <h5 class="modal-title">Choix du vendeur</h5>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-8">
+              <%= select_tag "SelectSellers", options_for_select(@sellers_names_and_id.collect{|seller| [seller.content.titleize, seller.seller_id]}), {class: "dropdownSearch"} %><br><br>
+                </div>
+            </div>
+            <div id="fields-sellers">
+              <div class="row">
+                <div class="col-md-4" id="fields-sellers-titles">
+                  <input type="button" name="name" value="">
+                </div>
+                <div class="col-md-4" id="fields-sellers-values">
+                  <input type="button" name="name" value="">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-8">
+                  <button type="button" name="button" class="btn btn-success" id="add-fields-specs-types" style="width:100%;">+</button>
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+            $(document).ready(function(){
+              $(document).on( 'click', '#add-fields-specs-types', function(){
+                $('#fields-specs-types-titles').append("<input type='text' class='form-control'><br>");
+                $('#fields-specs-types-values').append("<input type='text' class='form-control'><br>");
+              });
+            });
+            </script>
+          </div>
+          <div class="modal-footer">
+            <p>3/6</p>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSpecs">Précédent</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceTypeDetentor">Suivant</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 - Choix du type de détenteur -->
+  <div class="container-modal">
+    <div class="modal fade" id="ChoiceTypeDetentor" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Créer un matériel</h4>
+            <h5 class="modal-title">Type de détenteur</h5>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <p>4/6</p>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSeller">Précédent</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceDetentor">Suivant</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 - Choix du détenteur -->
+  <div class="container-modal">
+    <div class="modal fade" id="ChoiceDetentor" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Créer un matériel</h4>
+            <h5 class="modal-title">Choix du détenteur</h5>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <p>5/6</p>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceTypeDetentor">Précédent</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#VerifAndValid">Suivant</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 - Vérification et résumé -->
+  <div class="container-modal">
+    <div class="modal fade" id="VerifAndValid" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Créer un matériel</h4>
+            <h5 class="modal-title">Confirmation</h5>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <p>6/6</p>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceDetentor">Précédent</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal">Créer</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

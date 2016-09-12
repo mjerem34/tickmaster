@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906084500) do
+ActiveRecord::Schema.define(version: 20160912094205) do
 
   create_table "agencies", force: :cascade do |t|
     t.string "name",       limit: 45
@@ -59,9 +59,9 @@ ActiveRecord::Schema.define(version: 20160906084500) do
   end
 
   create_table "fields_seller_sellers", force: :cascade do |t|
-    t.integer "field_seller_id", limit: 4
-    t.integer "seller_id",       limit: 4
-    t.string  "content",         limit: 255
+    t.integer "fields_seller_id", limit: 4
+    t.integer "seller_id",        limit: 4
+    t.string  "content",          limit: 255
   end
 
   create_table "fields_sellers", force: :cascade do |t|
@@ -252,14 +252,14 @@ ActiveRecord::Schema.define(version: 20160906084500) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "type_materials_specs_types_materials", force: :cascade do |t|
+    t.integer "type_material_id",      limit: 4
+    t.integer "spec_type_material_id", limit: 4
+  end
+
   create_table "types_materials_sellers", force: :cascade do |t|
     t.integer "type_material_id", limit: 4
     t.integer "seller_id",        limit: 4
-  end
-
-  create_table "types_materials_spec_materials", force: :cascade do |t|
-    t.integer "type_material_id", limit: 4
-    t.integer "spec_material_id", limit: 4
   end
 
   create_table "updates", force: :cascade do |t|

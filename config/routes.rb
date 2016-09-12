@@ -11,7 +11,12 @@ Rails.application.routes.draw do
   resources :fields_sellers
   resources :detentor_types
   resources :specs_materials
-  resources :materials
+  resources :materials do
+    collection do
+      get :redefine_type_material
+      get :redefine_seller_selected
+    end
+  end
   resources :procedures
   resources :agencies
   resources :categories do
