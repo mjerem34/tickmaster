@@ -1,43 +1,6 @@
-<%= @values_fields_sellers.where(fields_seller_id: @titles_fields_sellers.select!{|tfs| tfs.name == "Nom"}.first.id).first.content.inspect %>
+<% @values_fields_sellers.where(fields_seller_id: @titles_fields_sellers.select!{|tfs| tfs.name == "Nom"}.first.id).first.content.inspect %>
 
 <!--  -->
-<div class="row">
-  <div class="col-md-8">
-  <%= select_tag "SelectSellers", options_for_select(@sellers_names_and_id.collect{|seller| [seller.content.titleize, seller.seller_id]}), {class: "dropdownSearch form-control"} %><br><br>
-    </div>
-</div>
-<div id="fields-sellers">
-  <div class="row">
-    <div class="col-md-4" id="fields-sellers-titles">
-      <% @seller.fields_seller_sellers.each do |fss| %>
-        <input type="text" name="name" value="<%= fss.fields_seller.name %>" class="form-control" disabled><br>
-      <% end %>
-    </div>
-    <div class="col-md-4" id="fields-sellers-values">
-      <% @seller.fields_seller_sellers.each do |fss| %>
-        <input type="text" name="name" value="<%= fss.content %>" class="form-control"><br>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-8">
-      <button type="button" name="button" class="btn btn-success" id="add-fields-sellers" style="width:100%;">+</button>
-    </div>
-  </div>
-</div>
-<script type="text/javascript">
-$(document).ready(function(){
-  $("#SelectSellers").change(function(){
-      
-  });
-
-  $(document).on( 'click', '#add-fields-sellers', function(){
-    $('#fields-sellers-titles').append("<input type='text' class='form-control'><br>");
-    $('#fields-sellers-values').append("<input type='text' class='form-control'><br>");
-  });
-});
-</script>
 <!--  -->
 
 <h1>Listing Materials <button type="button" name="button" data-toggle="modal" data-target="#NewMaterial" class="btn btn-success">Ajouter</button></h1>
@@ -159,31 +122,39 @@ $(document).ready(function(){
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-8" id="SelectSellersDiv">
               <%= select_tag "SelectSellers", options_for_select(@sellers_names_and_id.collect{|seller| [seller.content.titleize, seller.seller_id]}), {class: "dropdownSearch"} %><br><br>
                 </div>
             </div>
             <div id="fields-sellers">
               <div class="row">
                 <div class="col-md-4" id="fields-sellers-titles">
-                  <input type="button" name="name" value="">
+                  <% @seller.fields_seller_sellers.each do |fss| %>
+                    <input type="text" name="name" value="<%= fss.fields_seller.name %>" class="form-control" disabled><br>
+                  <% end %>
                 </div>
                 <div class="col-md-4" id="fields-sellers-values">
-                  <input type="button" name="name" value="">
+                  <% @seller.fields_seller_sellers.each do |fss| %>
+                    <input type="text" name="name" value="<%= fss.content %>" class="form-control"><br>
+                  <% end %>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-8">
-                  <button type="button" name="button" class="btn btn-success" id="add-fields-specs-types" style="width:100%;">+</button>
+                  <button type="button" name="button" class="btn btn-success" id="add-fields-sellers" style="width:100%;">+</button>
                 </div>
               </div>
             </div>
             <script type="text/javascript">
             $(document).ready(function(){
-              $(document).on( 'click', '#add-fields-specs-types', function(){
-                $('#fields-specs-types-titles').append("<input type='text' class='form-control'><br>");
-                $('#fields-specs-types-values').append("<input type='text' class='form-control'><br>");
+              $("#SelectSellers").change(function(){
+
+              });
+
+              $(document).on( 'click', '#add-fields-sellers', function(){
+                $('#fields-sellers-titles').append("<input type='text' class='form-control'><br>");
+                $('#fields-sellers-values').append("<input type='text' class='form-control'><br>");
               });
             });
             </script>
@@ -210,6 +181,11 @@ $(document).ready(function(){
             <h5 class="modal-title">Type de détenteur</h5>
           </div>
           <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12" id="SelectDetentorTypeDiv">
+              <%= select_tag "SelectDetentorType", options_for_select(@detentor_types.collect{|detentor_type| [detentor_type.name.titleize, detentor_type.id]}), {class: "dropdownSearch"} %><br><br>
+                </div>
+            </div>
           </div>
           <div class="modal-footer">
             <p>4/6</p>
@@ -233,11 +209,17 @@ $(document).ready(function(){
             <h5 class="modal-title">Choix du détenteur</h5>
           </div>
           <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12" id="SelectDetentorDiv">
+              <%= select_tag "SelectDetentor", options_for_select(@possible_detentors.collect{|possible_detentor| [possible_detentor.name.titleize, possible_detentor.id]}), {class: "dropdownSearch"} %><br><br>
+                </div>
+            </div>
+
           </div>
           <div class="modal-footer">
             <p>5/6</p>
             <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceTypeDetentor">Précédent</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#VerifAndValid">Suivant</button>
+            <button id="VerifAndValidBtn" type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#VerifAndValid">Suivant</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
@@ -257,6 +239,32 @@ $(document).ready(function(){
           </div>
           <div class="modal-body">
           </div>
+          <script type="text/javascript">
+          $(document).ready(function(){
+            $(document).on('click', '#VerifAndValidBtn', function(){
+              var materialType = $('#SelectTypeMaterial option:selected').val();
+              var seller = $('#SelectSellers option:selected').val();
+              var detentorType = $('#SelectDetentorType option:selected').val();
+              var detentor = $('#SelectDetentor option:selected').val();
+              var specs = [];
+              var titles = [];
+              var titlesSpecs = {};
+              $('#fields-specs-types-titles > input[type="text"]').each(function(){
+                titles.push($(this).val());
+              });
+              $('#fields-specs-types-values > input[type="text"]').each(function(){
+                specs.push($(this).val());
+              });
+              titles.forEach(function(item, index){
+                titlesSpecs[item] = specs[index];
+              });
+                $("#VerifAndValid > .modal-body").empty();
+                for (var item in titlesSpecs){
+                  $("#VerifAndValid > .modal-body").append("<p>" + item + " : " + titlesSpecs[item] + "</p>");
+                }
+            });
+          });
+          </script>
           <div class="modal-footer">
             <p>6/6</p>
             <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceDetentor">Précédent</button>

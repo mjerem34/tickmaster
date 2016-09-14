@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     collection do
       get :redefine_type_material
       get :redefine_seller_selected
+      get :redefine_detentor_type
     end
   end
   resources :procedures

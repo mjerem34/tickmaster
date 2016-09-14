@@ -9,10 +9,6 @@ $ ->
       data: {
         type_material_id: $('#SelectTypeMaterial option:selected').val()
       }
-      error: (jqXHR, textStatus, errorThrown) ->
-        console.log("AJAAX Error: #{textStatus}, #{jqXHR}, #{errorThrown}")
-      success: (data, textStatus, jqXHR) ->
-        console.log("Dynamic category select OK!")
 
 $ ->
   $(document).on 'change', '#SelectSellers', (evt) ->
@@ -21,8 +17,14 @@ $ ->
       dataType: 'script',
       data: {
         id_seller: $('#SelectSellers option:selected').val()
+        type_material_id: $('#SelectTypeMaterial option:selected').val()
       }
-      error: (jqXHR, textStatus, errorThrown) ->
-        console.log("AJAAX Error: #{textStatus}, #{jqXHR}, #{errorThrown}")
-      success: (data, textStatus, jqXHR) ->
-        console.log("Dynamic category select OK!")
+
+$ ->
+  $(document).on 'change', '#SelectDetentorType', (evt) ->
+    $.ajax '/materials/redefine_detentor_type',
+      type: 'GET',
+      dataType: 'script',
+      data: {
+        id_detentor: $('#SelectDetentorType option:selected').val()
+      }
