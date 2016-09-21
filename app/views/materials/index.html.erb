@@ -9,10 +9,6 @@
     <thead class="header">
     <tr>
       <th>Type material</th>
-      <th>Detentor type</th>
-      <th>Detentor</th>
-      <th>Seller</th>
-      <th>Date</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,10 +16,6 @@
     <% @materials.each do |material| %>
       <tr>
         <td><%= material.type_material_id %></td>
-        <td><%= material.detentor_type_id %></td>
-        <td><%= material.detentor_id %></td>
-        <td><%= material.seller_id %></td>
-        <td><%= material.date %></td>
         <td><%= link_to 'Show', material %></td>
         <td><%= link_to 'Edit', edit_material_path(material) %></td>
         <td><%= link_to 'Destroy', material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -33,7 +25,7 @@
 </table>
 </div>
 <br>
-<div class="clean-fields">
+<div class="clean-fields modals-create-material">
   <!-- 1 - Choix du type de matériel. -->
   <div class="container-modal">
     <div class="modal fade" id="NewMaterial" role="dialog">
@@ -49,12 +41,12 @@
           </div>
           <div class="modal-footer">
             <p>1/6</p>
-            <button id="TypeMaterialNext" type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSpecs">Suivant</button>
+            <button id="TypeMaterialNext" type="button" class="btn btn-success btn-next1" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSpecs">Suivant</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
       </div>
-    </div>l
+    </div>
   </div>
 
   <!-- 2 - Choix des specs -->
@@ -90,25 +82,77 @@
                 </div>
               </div>
             </div>
-            <script type="text/javascript">
-            $(document).ready(function(){
-              $(document).on( 'click', '#add-fields-specs-types', function(){
-                $('#fields-specs-types-titles').append("<input type='text' class='form-control'><br>");
-                $('#fields-specs-types-values').append("<input type='text' class='form-control'><br>");
-              });
-            });
-            </script>
           </div>
           <div class="modal-footer">
             <p>2/6</p>
             <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#NewMaterial">Précédent</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSeller">Suivant</button>
+            <button type="button" class="btn btn-success btn-next" id="ChoiceSellerTest">Suivant</button>
+            <button type="button" class="btn btn-success" id="ChoiceSellerOk" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSeller" style="display:none;"></button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on( 'click', '#add-fields-specs-types', function(){
+      var dejaPresent = [];
+      $.ajax({
+        url: '/materials/get_all_specs_types',
+        type: 'GET',
+        dataType: 'json',
+        success: function(result){
+          $('#fields-specs-types-titles > input[type="text"]').each(function(){
+            dejaPresent.push($(this).val());
+          });
+          $('#fields-specs-types-titles > select[name="all-specs-types"] > option:selected').each(function(){
+            dejaPresent.push($(this).text());
+          });
+          for (var index in dejaPresent){
+            for (var item in result){
+              if (dejaPresent[index] == result[item]['name']){
+                result.splice(item, 1);
+              }
+            }
+          }
+              $('#fields-specs-types-titles').append("<select name='all-specs-types' class='form-control dropdownSearch'></select><br>");
+            for (var index in result){
+              $('#fields-specs-types-titles > select[name="all-specs-types"]:last').append("<option value='" + JSON.stringify(result[index]['id']) + "'>" + result[index]['name'] + "</option>");
+            }
+              $('#fields-specs-types-titles > select[name="all-specs-types"]:last').selectize({create: true, persist: false});
+          $('#fields-specs-types-values').append("<input type='text' class='form-control'><br>");
+        }
+      });
+    });
+    // Verification des données avant l'envoie
+    $(document).on('click', '#ChoiceSellerTest', function(){
+      var validTitles = [];
+      var countDouble = 0;
+      $('#fields-specs-types-titles > input[type="text"]').each(function(){
+        if($.inArray($(this).val(), validTitles) === -1){
+          validTitles.push($(this).val());
+        }else{
+          countDouble++;
+          return;
+        }
+      });
+      $('#fields-specs-types-titles > select').each(function(){
+                if($.inArray($(this).text(), validTitles) === -1){
+          validTitles.push($(this).text());
+        }else{
+          countDouble++;
+          return;
+        }
+      });
+        if(countDouble == 0){
+          $("#ChoiceSellerOk").trigger('click');
+        }else{
+          alert("Un doublon est présent dans la liste. Merci de vérifier.")
+        }
+    });
+  });
+  </script>
 
   <!-- 3 - Choix du vendeur -->
   <div class="container-modal">
@@ -123,7 +167,7 @@
           <div class="modal-body">
             <div class="row">
               <div class="col-md-8" id="SelectSellersDiv">
-              <%= select_tag "SelectSellers", options_for_select(@sellers_names_and_id.collect{|seller| [seller.content.titleize, seller.seller_id]}), {class: "dropdownSearch"} %><br><br>
+              <%= select_tag "SelectSellers", options_for_select(@sellers_names_and_id.collect{|seller| [seller.content.titleize, seller.seller_id]}), {class: "dropdownSearchCreate"} %><br><br>
                 </div>
             </div>
             <div id="fields-sellers">
@@ -146,23 +190,71 @@
                 </div>
               </div>
             </div>
-            <script type="text/javascript">
+          </div>
+          <script type="text/javascript">
             $(document).ready(function(){
-              $("#SelectSellers").change(function(){
-
+              $(document).on('click', '#add-fields-sellers', function(){
+                var dejaPresent = [];
+                $.ajax({
+                  url: '/materials/get_all_fields_sellers',
+                  type: 'GET',
+                  dataType: 'json',
+                  success: function(result){
+                    $('#fields-sellers-titles > input[type="text"]').each(function(){
+                      dejaPresent.push($(this).val());
+                    });
+                    $('#fields-sellers-titles > select[name="all-fields-sellers"] > option:selected').each(function(){
+                      dejaPresent.push($(this).text());
+                    });
+                    for (var index in dejaPresent){
+                      for (var item in result){
+                        if (dejaPresent[index] == result[item]['name']){
+                          result.splice(item, 1);
+                        }
+                      }
+                    }
+                        $('#fields-sellers-titles').append("<select name='all-fields-sellers' class='form-control dropdownSearch'></select><br>");
+                      for (var index in result){
+                        $('#fields-sellers-titles > select[name="all-fields-sellers"]:last').append("<option value='" + JSON.stringify(result[index]['id']) + "'>" + result[index]['name'] + "</option>");
+                      }
+                        $('#fields-sellers-titles > select[name="all-fields-sellers"]:last').selectize({create: true, persist: false});
+                    $('#fields-sellers-values').append("<input type='text' class='form-control'><br>");
+                  }
+                });
               });
-
-              $(document).on( 'click', '#add-fields-sellers', function(){
-                $('#fields-sellers-titles').append("<input type='text' class='form-control'><br>");
-                $('#fields-sellers-values').append("<input type='text' class='form-control'><br>");
+              // Verification des données avant l'envoi
+              $(document).on('click', '#ChoiceTypeDetentorTestBtn', function(){
+                var validTitles = [];
+                var countDouble = 0;
+                $('#fields-sellers-titles > input[type="text"]').each(function(){
+                  if($.inArray($(this).val(), validTitles) === -1){
+                    validTitles.push($(this).val());
+                  }else{
+                    countDouble++;
+                    return;
+                  }
+                });
+                $('#fields-sellers-titles > select').each(function(){
+                          if($.inArray($(this).text(), validTitles) === -1){
+                    validTitles.push($(this).text());
+                  }else{
+                    countDouble++;
+                    return;
+                  }
+                });
+                  if(countDouble == 0){
+                    $("#ChoiceTypeDetentorOkBtn").trigger('click');
+                  }else{
+                    alert("Un doublon est présent dans la liste. Merci de vérifier.")
+                  }
               });
             });
-            </script>
-          </div>
+          </script>
           <div class="modal-footer">
             <p>3/6</p>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSpecs">Précédent</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceTypeDetentor">Suivant</button>
+            <button type="button" id="ChoiceSpecsReturn" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSpecs">Précédent</button>
+            <button type="button" class="btn btn-success btn-next" id="ChoiceTypeDetentorTestBtn">Suivant</button>
+            <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceTypeDetentor" style="display:none;" id="ChoiceTypeDetentorOkBtn"></button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
@@ -190,7 +282,7 @@
           <div class="modal-footer">
             <p>4/6</p>
             <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSeller">Précédent</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceDetentor">Suivant</button>
+            <button type="button" class="btn btn-success btn-next" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceDetentor">Suivant</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
@@ -219,7 +311,7 @@
           <div class="modal-footer">
             <p>5/6</p>
             <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceTypeDetentor">Précédent</button>
-            <button id="VerifAndValidBtn" type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#VerifAndValid">Suivant</button>
+            <button id="VerifAndValidBtn" type="button" class="btn btn-success btn-next" data-dismiss="modal" data-toggle="modal" data-target="#VerifAndValid">Suivant</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
@@ -237,38 +329,80 @@
             <h4 class="modal-title">Créer un matériel</h4>
             <h5 class="modal-title">Confirmation</h5>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" id="modal-body-validation">
           </div>
           <script type="text/javascript">
           $(document).ready(function(){
             $(document).on('click', '#VerifAndValidBtn', function(){
-              var materialType = $('#SelectTypeMaterial option:selected').val();
-              var seller = $('#SelectSellers option:selected').val();
-              var detentorType = $('#SelectDetentorType option:selected').val();
-              var detentor = $('#SelectDetentor option:selected').val();
-              var specs = [];
-              var titles = [];
-              var titlesSpecs = {};
+              var materialType = $('#SelectTypeMaterial option:selected').text();
+              var seller = $('#SelectSellers option:selected').text();
+              var detentorType = $('#SelectDetentorType option:selected').text();
+              var detentor = $('#SelectDetentor option:selected').text();
+              var titlesSeller = [];
+              var valuesSeller = [];
+              var seller = [];
+              var valueSpecs = [];
+              var titlesSpecs = [];
+              var specs = {};
+              // stockage des valeurs pour les specs
               $('#fields-specs-types-titles > input[type="text"]').each(function(){
-                titles.push($(this).val());
+                titlesSpecs.push($(this).val());
+              });
+              $('#fields-specs-types-titles > select').each(function(){
+                  titlesSpecs.push($(this).text());
               });
               $('#fields-specs-types-values > input[type="text"]').each(function(){
-                specs.push($(this).val());
+                valueSpecs.push($(this).val());
               });
-              titles.forEach(function(item, index){
-                titlesSpecs[item] = specs[index];
+              $('#fields-specs-types-values > select').each(function(){
+                valueSpecs.push($(this).text());
               });
-                $("#VerifAndValid > .modal-body").empty();
-                for (var item in titlesSpecs){
-                  $("#VerifAndValid > .modal-body").append("<p>" + item + " : " + titlesSpecs[item] + "</p>");
+              titlesSpecs.forEach(function(item, index){
+                specs[item] = valueSpecs[index];
+              });
+
+              // stockage des valeurs pour le vendeur
+              $('#fields-sellers-titles > input[type="text"]').each(function(){
+                titlesSeller.push($(this).val());
+              });
+              $('#fields-sellers-titles > select').each(function(){
+                  titlesSeller.push($(this).text());
+              });
+
+              $('#fields-sellers-values > input[type="text"]').each(function(){
+                valuesSeller.push($(this).val());
+              });
+              $('#fields-sellers-values > select').each(function(){
+                  valuesSeller.push($(this).text());
+              });
+
+              titlesSeller.forEach(function(item, index){
+                seller[item] = valuesSeller[index];
+              });
+
+                $("#modal-body-validation").empty();
+                $("#modal-body-validation").append("<p>Type de matériel : " + materialType + "</p>");
+                $("#modal-body-validation").append("<hr>");
+
+                for (var item in specs){
+                  $("#modal-body-validation").append("<p>" + item + " : " + specs[item] + "</p>");
                 }
+                $("#modal-body-validation").append("<hr>");
+                $("#modal-body-validation").append("<p>Vendeur : " + seller + "</p>");
+                for (var item in seller){
+                  $("#modal-body-validation").append("<p>" + item + " : " + seller[item] + "</p>");
+                }
+                $("#modal-body-validation").append("<hr>");
+                $("#modal-body-validation").append("<p>Type de détenteur : " + detentorType + "</p>");
+                $("#modal-body-validation").append("<p>Détenteur : " + detentor + "</p>");
+
             });
           });
           </script>
           <div class="modal-footer">
             <p>6/6</p>
             <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceDetentor">Précédent</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal">Créer</button>
+            <button type="button" class="btn btn-success btn-next" id="createMaterialOk" data-dismiss="modal">Créer</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
@@ -276,3 +410,86 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+// $(document).keypress(function(e) {
+//     if(e.which == 13) {
+//         $(".modal.fade.in > .btn-next1").click();
+//     }
+// });
+$(document).on('click', '#createMaterialOk', function(){
+  // Recupération du type de matériel, de l'id du vendeur, du type de détenteur et de l'id du détenteur.
+  var materialType = $('#SelectTypeMaterial option:selected').val();
+  var sellerId = $('#SelectSellers option:selected').val();
+  var detentorType = $('#SelectDetentorType option:selected').val();
+  var detentor = $('#SelectDetentor option:selected').val();
+  var titlesSeller = [];
+  var valuesSeller = [];
+  var seller = {};
+  var valueSpecs = [];
+  var titlesSpecs = [];
+  var specs = {};
+  // Récupération des titres de valeurs pour les specs dans les champs textes
+  $('#fields-specs-types-titles > input[type="text"]').each(function(){
+    titlesSpecs.push($(this).val());
+  });
+  // Récupération des titres de valeurs pour les specs dans les champs select
+  $('#fields-specs-types-titles > select').each(function(){
+      titlesSpecs.push($(this).text());
+  });
+  // Récupération des valeurs pour les specs dans les champs textes
+  $('#fields-specs-types-values > input[type="text"]').each(function(){
+    valueSpecs.push($(this).val());
+  });
+  // Récupération des valeurs pour les specs dans les champs select
+  $('#fields-specs-types-values > select').each(function(){
+    valueSpecs.push($(this).text());
+  });
+  // Rassemblement des valeurs pour faire des tuples
+  titlesSpecs.forEach(function(item, index){
+    specs[item] = valueSpecs[index];
+  });
+  // Récupération des titres de valeurs pour les vendeurs dans les champs textes
+  $('#fields-sellers-titles > input[type="text"]').each(function(){
+    titlesSeller.push($(this).val());
+  });
+  // Récupération des titres de valeurs pour les vendeurs dans les champs select
+  $('#fields-sellers-titles > select').each(function(){
+      titlesSeller.push($(this).text());
+  });
+  // Récupération des valeurs pour les vendeurs dans les champs textes
+  $('#fields-sellers-values > input[type="text"]').each(function(){
+    valuesSeller.push($(this).val());
+  });
+  // Récupération des valeurs pour les vendeurs dans les champs select
+  $('#fields-sellers-values > select').each(function(){
+      valuesSeller.push($(this).text());
+  });
+  // Rassemblement des valeurs pour faire des tuples
+  titlesSeller.forEach(function(item, index){
+    seller[item] = valuesSeller[index];
+  });
+  $.ajax({
+    url: '/materials',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      "material": {
+        type_material_id: materialType
+      },
+      seller_id: sellerId,
+      detentor_type_id: detentorType,
+      detentor_id: detentor,
+      seller_specs: seller,
+      specs_values: specs
+    },
+    success: function(result){
+      alert("Le matériel a bien été créé !");
+    },
+    error: function(result){
+      alert(result.responseText);
+    }
+  });
+});
+
+</script>

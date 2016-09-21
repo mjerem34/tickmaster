@@ -1,5 +1,9 @@
 class Material < ActiveRecord::Base
-  has_many :SpecMaterialMaterials
-  has_many :SpecsMaterials, through: :SpecMaterialMaterials
-  belongs_to :DetentorType
+  belongs_to :type_material, foreign_key: :type_material_id
+
+  has_many :spec_material_materials
+  has_many :specs_materials, through: :spec_material_materials
+
+  has_many :materials_sellers
+  has_many :sellers, through: :materials_sellers
 end

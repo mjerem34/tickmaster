@@ -167,9 +167,8 @@ FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
   <script type="text/javascript">
     $(document).ready(function () {
       $("#notice-modal").modal('show');
-      $(document).keypress(function(event){
-        var keycode = (event.keyCode ? event.keyCode : event.which);
-        if (keycode == '13'){
+      $(document).keypress(function(e){
+        if (e.which == 13){
           $("#notice-modal").modal('hide');
         }
       });
@@ -197,8 +196,7 @@ FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
         $("#erreur").hide(300);
       });
       $(document).keypress(function(event){
-        var keycode = (event.keyCode ? event.keyCode : event.which);
-        if (keycode == '13'){
+        if (event.which == 13){
           $(".closepopup").click();
         }
       });
@@ -212,17 +210,6 @@ FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
     <div class="circle1"></div>
   </p>
 </div>
-<script type="text/javascript">
-  $(document).ready(function () {
-    $("#notice-modal").modal('show');
-    $(document).keypress(function(event){
-      var keycode = (event.keyCode ? event.keyCode : event.which);
-      if (keycode == '13'){
-        $("#notice-modal").modal('hide');
-      }
-    });
-  });
-</script>
 <script type="text/javascript">
 $(document).ready(function () {
   $("#page-cover").hide();

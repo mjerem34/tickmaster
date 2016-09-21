@@ -19,6 +19,24 @@ $ ->
         id_seller: $('#SelectSellers option:selected').val()
         type_material_id: $('#SelectTypeMaterial option:selected').val()
       }
+      error: (result) ->
+        $("#fields-sellers").empty().html("
+        <div class='row'>
+          <div class='col-md-4' id='fields-sellers-titles'>
+              <input type='text' name='name' value='' class='form-control' placeholder='Nom'><br>
+          </div>
+          <div class='col-md-4' id='fields-sellers-values'>
+              <input type='text' name='name' value='' class='form-control' placeholder='Valeur'><br>
+          </div>
+        </div>
+
+        <div class='row'>
+          <div class='col-md-8'>
+            <button type='button' name='button' class='btn btn-success' id='add-fields-sellers' style='width:100%;'>+</button>
+          </div>
+        </div>
+      ");
+
 
 $ ->
   $(document).on 'change', '#SelectDetentorType', (evt) ->

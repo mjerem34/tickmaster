@@ -100,3 +100,37 @@ Créer TypeMaterialsController :
 Créer UpdatesController :
 
 {"changesMade": "Correction de trucs "}
+
+
+---
+
+Créer un matériel (avec tout ce qu'on a besoin) :
+
+{
+  "material":
+    {
+      "type_material_id":"1"
+    },
+  "seller_id":"1",
+  "detentor_type_id":"2",
+  "detentor_id":"14",
+  "seller_specs":
+    {
+      "Nom":"Samsung",
+      "Adresse":"Domaine de la tour, Nébian",
+      "Code postal":"fsef",
+      "Ville":"esfes",
+      "sfesfsef":"fsezfe"
+    },
+  "specs_values":
+    {
+    "Numéro de série":",opk,op",
+    "Processeur":"k,opk",
+    "Mémoire vive":"pklplojoij",
+    "Mémoire de stockage":"ojpo",
+    "Carte graphique":"kok",
+    "Interface réseau":"nuibnio",
+    "Carte mère":"sefsf",
+    "fefgsdgfrg":"sefesfsefes"
+    }
+}

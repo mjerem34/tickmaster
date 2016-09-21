@@ -1,4 +1,4 @@
 class SpecMaterialMaterial < ActiveRecord::Base
-  belongs_to :SpecsMaterial
-  belongs_to :Material
+  belongs_to :specs_material
+  belongs_to :material
 end

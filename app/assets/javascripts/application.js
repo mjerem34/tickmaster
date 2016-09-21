@@ -16,11 +16,14 @@
 //= require highcharts
 //= require chartkick
 //= require ckeditor/init
-//= require select2
-//= require select2_locale_fr
+//= require selectize
 //= require_tree
-$(document).ready(function(){
-  $( ".dropdownSearch" ).select2({
-    theme: "bootstrap"
-  });
+// $(document).ready(function(){
+//   $( ".dropdownSearch" ).select2({
+//     theme: "bootstrap"
+//   });
+// });
+$(function(){
+  $('.dropdownSearch').selectize({selectOnTab: true, closeAfterSelect: true, placeholder: "Merci de sélectionner une valeur" });
+  $('.dropdownSearchCreate').selectize({create: true, persist: false, createOnBlur: true, closeAfterSelect: true, placeholder: "Merci de sélectionner une valeur"});
 });

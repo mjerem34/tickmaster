@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'select2-rails'
+# gem 'select2-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
@@ -17,6 +17,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'simple_form', '~> 3.1.1'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'selectize-rails'
 # gem 'dropzonejs-rails'
 gem 'net-ping'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
