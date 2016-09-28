@@ -1,15 +1,20 @@
-$("#fields-sellers").empty().html("
-  <div class='row'>
-    <div class='col-md-4' id='fields-sellers-titles'>
+$("#fields-seller-with-btn-add").empty().html("
+  <div id='fields-sellers'>
+    <% unless @seller.nil? %>
       <% @seller.fields_seller_sellers.each do |fss| %>
-        <input type='text' name='name' value='<%= j fss.fields_seller.name %>' class='form-control' disabled><br>
+        <div class='row'>
+          <div class='col-md-4' id='fields-sellers-titles'>
+            <input type='text' name='name' value='<%= fss.fields_seller.name %>' class='form-control' disabled><br>
+          </div>
+          <div class='col-md-4' id='fields-sellers-values'>
+            <input type='text' name='name' value='<%= fss.content %>' class='form-control'><br>
+          </div>
+          <div class='col-md-4' id='div-btns-delete-row'>
+            <button type='button' name='button' class='btn btn-danger' id='btn-delete-row'>&#8211;</button>
+          </div>
+        </div>
       <% end %>
-    </div>
-    <div class='col-md-4' id='fields-sellers-values'>
-      <% @seller.fields_seller_sellers.each do |fss| %>
-        <input type='text' name='name' value='<%= j fss.content %>' class='form-control'><br>
-      <% end %>
-    </div>
+    <% end %>
   </div>
 
   <div class='row'>

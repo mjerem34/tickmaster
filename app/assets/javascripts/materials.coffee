@@ -7,7 +7,7 @@ $ ->
       type: 'GET',
       dataType: 'script',
       data: {
-        type_material_id: $('#SelectTypeMaterial option:selected').val()
+        type_material_name: $('#SelectTypeMaterial option:selected').text()
       }
 
 $ ->
@@ -17,7 +17,6 @@ $ ->
       dataType: 'script',
       data: {
         id_seller: $('#SelectSellers option:selected').val()
-        type_material_id: $('#SelectTypeMaterial option:selected').val()
       }
       error: (result) ->
         $("#fields-sellers").empty().html("
