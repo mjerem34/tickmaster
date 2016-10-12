@@ -4,7 +4,7 @@
 }
 .btn-link-pj, .btn-modal, .button_ping_agency, .button_ping_stop_agency, .btn-do-graphic{color:black !important; border-color: black !important;}
 .btn-save, .btn-save:hover, .btn-save:active, .btn-save:focus{
-  background: url("ICOMOON/32pxBlack/273-checkmark.png") no-repeat 10% !important;
+  background: url("ICONS/1002.png") no-repeat 10% !important;
   background-size: 16px 16px !important;
   border-width: 1px;
   border-style: solid;
@@ -78,26 +78,26 @@ li{
   }
 }
 .btn-reaffect{
-  background: url("ICOMOON/32pxBlack/305-shuffle.png") 10% no-repeat;
+  background: url("ICONS/957.png") 10% no-repeat;
 }
 .btn-cloture{
-  background: url("ICOMOON/32pxBlack/058-ticket.png") 10% no-repeat;
+  background: url("ICONS/535.png") 10% no-repeat;
 }
 .btn-reject{
-  background: url("ICOMOON/32pxBlack/272-cross.png") 10% no-repeat;
+  background: url("ICONS/962.png") 10% no-repeat;
 }
 .btn-procedure{
-  background: url("ICOMOON/32pxBlack/006-pencil.png") 10% no-repeat;
+  background: url("ICONS/1004.png") 10% no-repeat;
 }
 .btn-response{
-  background: url("ICOMOON/32pxBlack/108-bubble.png") 10% no-repeat;
+  background: url("ICONS/1005.png") 10% no-repeat;
 }
 .btn-cancel, .btn-cancel:active, .btn-cancel:focus{
-  background:url("ICOMOON/32pxBlack/272-cross.png") 10% no-repeat !important;
+  background:url("ICONS/1003.png") 10% no-repeat !important;
   background-size: 16px 16px !important;
 }
 .submitforms{
-  background-image:image-url("ICOMOON/32pxBlack/273-checkmark.png");
+  background-image:image-url("ICONS/1002.png");
   bottom:10px;
 }
 .btn-align{
@@ -112,7 +112,7 @@ li{
 .btn-edit-agency, .btn-edit-category{
   width: 35px;
   height:35px;
-  background:image-url("ICOMOON/32pxBlack/006-pencil.png") no-repeat center;
+  background:image-url("ICONS/1004.png") no-repeat center;
   background-size: 25px 25px;
 
 }
@@ -121,16 +121,13 @@ li{
   height:35px;
 }
 
-body{
+div.content{
   .btn:hover, .link_procedurer, a, .btn, .btn:focus, .btn:active,{
     text-decoration: none;
-    color:$text-color-nuit;
-    border-color: white;
-  }
-  div.nav-side-menu a{
-    color: $text-color-nuit;
+    color:$text-color-jour;
+    border-color: $text-color-jour;
   }
   li.new_incident_button a{
-    color: $text-color-nuit !important;
+    color: $text-color-jour !important;
   }
 }

@@ -21,9 +21,10 @@
 }
 
 .navbar {
-
-  // box-shadow: 5px 5px 10px rgba(#222, 0.5);
   border-bottom-color: $border-bottom-color-navbar;
+  span, a{
+    color: $text-color-nuit;
+  }
 }
 #connected .navbar {
   background: $background-navbar-connected-nuit;
@@ -91,6 +92,7 @@ header .button:focus {
     }
     .search-icon{
       right: 210px;
+      top: 4px;
     }
     .dropdown-search{
       .dropdown-menu{

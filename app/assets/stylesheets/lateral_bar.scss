@@ -7,6 +7,10 @@
   width: 220px;
   height: 100%;
   padding-top: 10px;
+
+  a{
+    color: $text-color-nuit;
+    }
 }
 #connected > .nav-side-menu{
   background: $background-connected-black;

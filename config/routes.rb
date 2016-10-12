@@ -1,7 +1,3 @@
-#
-# Copyright (c) 2015 by Montesinos Jeremy. All Rights Reserved.
-#
-
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   resources :updates
@@ -38,10 +34,7 @@ Rails.application.routes.draw do
       get :subcats
     end
   end
-  resources :sous_categories do
-    member do
-    end
-  end
+  resources :sous_categories
   get 'pages/home'
   get 'pages/help'
   get 'pages/404'

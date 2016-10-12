@@ -5,7 +5,7 @@
     <ul id="menu-content" class="menu-content collapse out">
       <% if !current_user.nil? %>
         <% if Right.where(name: "create_procedure").pluck(current_user.tech.name).join('')  == 'true' %>
-          <li data-toggle="collapse" data-target="#procedures" class="collapsed active"><%= image_tag("ICOMOON/32pxWhite/0032-book.png", size: "16x16", alt: "", class: "fa-img") %>
+          <li data-toggle="collapse" data-target="#procedures" class="collapsed active"><%= image_tag("ICONS/262.png", size: "26x26", alt: "", class: "fa-img") %>
             <a href="#"><i class="fa fa-gift fa-lg"></i>Procédures</a>
           </li>
           <ul class="sub-menu collapse" id="procedures">
@@ -13,14 +13,14 @@
             <li><%= link_to "Créer procédure", new_procedure_path, method: :get %></li>
         <% else %>
           <% if Right.where(name: "view_procedures").pluck(current_user.tech.name).join('')  == 'true' %>
-              <li><%= image_tag("ICOMOON/32pxWhite/0032-book.png", size: "16x16", alt: "", class: "fa-img")%>
+              <li><%= image_tag("ICONS/262.png", size: "26x26", alt: "", class: "fa-img")%>
             <i class="fa fa-gift fa-lg"></i>
             <%= link_to "Procedures", procedures_path, method: :get %></li>
           <% end %>
         <% end %>
           </ul>
 
-        <li data-toggle="collapse" data-target="#incidents" class="collapsed active"><%= image_tag("accidentsWhite.png", size: "16x16", alt: "", class: "fa-img") %>
+        <li data-toggle="collapse" data-target="#incidents" class="collapsed active"><%= image_tag("ICONS/153.png", size: "26x26", alt: "", class: "fa-img") %>
           <a href="#"><i class="fa fa-gift fa-lg"></i>Incidents</a>
         </li>
         <ul class="sub-menu collapse" id="incidents">
@@ -40,7 +40,7 @@
         </ul>
       <% end %>
       <% if !current_user.nil? && Right.where(name: "view_index_categories").pluck(current_user.tech.name).join('')  == 'true' %>
-        <li data-toggle="collapse" data-target="#categ" class="collapsed active"><%= image_tag("ICOMOON/32pxWhite/0189-tree.png", size: "16x16", alt: "", class: "fa-img") %>
+        <li data-toggle="collapse" data-target="#categ" class="collapsed active"><%= image_tag("ICONS/572.png", size: "26x26", alt: "", class: "fa-img") %>
           <a href="#"><i class="fa fa-gift fa-lg"></i>Categories</a>
         </li>
         <ul class="sub-menu collapse" id="categ">
@@ -49,7 +49,7 @@
         </ul>
       <% end %>
       <% if !current_user.nil? && Right.where(name: "create_new_tech").pluck(current_user.tech.name).join('')  == 'true' %>
-        <li data-toggle="collapse" data-target="#users" class="collapsed active"><%= image_tag("ICOMOON/32pxWhite/0115-users.png", size: "16x16", alt: "", class: "fa-img") %>
+        <li data-toggle="collapse" data-target="#users" class="collapsed active"><%= image_tag("ICONS/349.png", size: "26x26", alt: "", class: "fa-img") %>
           <a href="#"><i class="fa fa-gift fa-lg"></i>Utilisateurs</a>
         </li>
         <ul class="sub-menu collapse" id="users">
@@ -58,22 +58,22 @@
         </ul>
       <% else %>
         <% if !current_user.nil? && Right.where(name: "view_index_users").pluck(current_user.tech.name).join('')  == 'true' %>
-          <li><%= image_tag("ICOMOON/32pxWhite/0115-users.png", size: "16x16", alt: "", class: "fa-img")%>
+          <li><%= image_tag("ICONS/349.png", size: "26x26", alt: "", class: "fa-img")%>
             <i class="fa fa-gift fa-lg"></i>
           <%= link_to "Utilisateurs", users_url, method: :get %></li>
         <% end %>
       <%end%>
       <% if !current_user.nil? && Right.where(name: "view_index_rights").pluck(current_user.tech.name).join('')  == 'true' %>
-        <li data-toggle="collapse" data-target="#rights" class="collapsed active"><%= image_tag("ICOMOON/32pxWhite/0147-equalizer.png", size: "16x16", alt: "", class: "fa-img") %>
+        <li data-toggle="collapse" data-target="#rights" class="collapsed active"><%= image_tag("ICONS/236.png", size: "26x26", alt: "", class: "fa-img") %>
           <a href="#"><i class="fa fa-gift fa-lg"></i>Droits</a>
         </li>
         <ul class="sub-menu collapse" id="rights">
           <li><%= link_to "Liste des droits", rights_url, class: " ", tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Liste des profils", "pages/under_construction", class: " ", tabindex: -1, method: :get  %></li>
+          <li><%= link_to "Liste des profils", pages_under_construction_path, class: " ", tabindex: -1, method: :get  %></li>
         </ul>
       <% end %>
       <% if !current_user.nil? && Right.where(name: "create_new_agency").pluck(current_user.tech.name).join('')  == 'true' %>
-        <li data-toggle="collapse" data-target="#agencies" class="collapsed active"><%= image_tag("ICOMOON/32pxWhite/0004-office.png", size: "16x16", alt: "", class: "fa-img") %>
+        <li data-toggle="collapse" data-target="#agencies" class="collapsed active"><%= image_tag("ICONS/604.png", size: "26x26", alt: "", class: "fa-img") %>
           <a href="#"><i class="fa fa-gift fa-lg"></i>Agences</a>
         </li>
         <ul class="sub-menu collapse" id="agencies">
@@ -82,13 +82,13 @@
         </ul>
       <% else %>
         <% if !current_user.nil? &&  Right.where(name: "view_index_agencies").pluck(current_user.tech.name).join('')  == 'true' %>
-          <li><%= image_tag("ICOMOON/32pxWhite/0004-office.png", size: "16x16", alt: "", class: "fa-img")%>
+          <li><%= image_tag("ICONS/604.png", size: "26x26", alt: "", class: "fa-img")%>
             <i class="fa fa-gift fa-lg"></i>
           <%= link_to "Agences", agencies_url, method: :get %></li>
         <% end %>
       <% end %>
       <% if !current_user.nil? && Right.where(name: "create_material").pluck(current_user.tech.name).join('')  == 'true' %>
-        <li data-toggle="collapse" data-target="#material" class="collapsed active"><%= image_tag("ICOMOON/32pxWhite/0146-wrench.png", size: "16x16", alt: "", class: "fa-img") %>
+        <li data-toggle="collapse" data-target="#material" class="collapsed active"><%= image_tag("ICONS/1001.png", size: "24x24", alt: "", class: "fa-img") %>
           <a href="#">
           <i class="fa fa-gift fa-lg"></i>Matériel</a>
         </li>
@@ -100,7 +100,7 @@
         </ul>
       <% end %>
       <% if !current_user.nil? %>
-      <li data-toggle="collapse" data-target="#aide" class="collapsed active"><%= image_tag("ICOMOON/32pxWhite/0066-lifebuoy.png", size: "16x16", alt: "", class: "fa-img")%>
+      <li data-toggle="collapse" data-target="#aide" class="collapsed active"><%= image_tag("ICONS/522.png", size: "26x26", alt: "", class: "fa-img")%>
         <a href="#"><i class="fa fa-gift fa-lg"></i>Aide</a>
       </li>
       <ul class="sub-menu collapse" id="aide">
@@ -123,13 +123,13 @@
       <% if !current_user.nil? %>
       <div class="whoisconnected">
         <li class="dropdown-search">
-          <a href="#" class="dropdown-toggle search-icon" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag "ICOMOON/32pxWhite/0135-search.png" %><span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle search-icon" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag "ICONS/013 MagnifyingGlass.png", size: "24x24" %><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <form>
               <div class="row">
                 <div class="col-md-12">
                   <li class="field"><input type="text" class="form-control" name="name" placeholder="Rechercher..."></li>
-                  <li class="img"><%= image_tag "ICOMOON/32pxBlack/135-search.png", size: "16x16"%></li>
+                  <li class="img"><%= image_tag "ICONS/013 MagnifyingGlass.png", size: "24x24"%></li>
                 </div>
               </div>
               <div class="row">
@@ -144,13 +144,13 @@
           </ul>
       </li>
           <li class="dropdown-notif">
-            <a href="#" class="dropdown-toggle bell-icon" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag "ICOMOON/32pxWhite/0082-bell.png" %><span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle bell-icon" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag "ICONS/569.png", size: "32x32" %><span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li>Notifications à venir !</li>
             </ul>
           </li>
         <li class="dropdown-user">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag "ICOMOON/32pxWhite/0114-user.png" %><span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag "ICONS/#{Random.new.rand(901..920)}.png", size: "32x32" %><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><%= link_to"#{current_user.name} #{current_user.surname}", profil_user_path(current_user)%></li>
             <li><%= link_to "Se déconnecter", signout_path, method: :get %></li>
