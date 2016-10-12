@@ -5,9 +5,9 @@ class Incident < ActiveRecord::Base
   belongs_to :incident_state_id_for_user, class_name: 'IncidentsState', foreign_key: 'incident_state_id_for_user_id'
   belongs_to :sous_category
   belongs_to :category
-  has_many :responses
-  has_many :archives
-  has_many :file_incidents
+  has_many :responses, dependent: :destroy
+  has_many :archives, dependent: :destroy
+  has_many :file_incidents, dependent: :destroy
   accepts_nested_attributes_for :file_incidents
   module Incidentmod
     attr_accessor :name, :content, :tech_id, :incident_state_id_for_user, :incident_state_id_for_tech, :lvl_urgence_user, :lvl_urgence_tech, :file

@@ -4,6 +4,9 @@
 .dropdown-submenu {
   position: relative;
 }
+.dropdown-menu{
+  border-radius: 2px;
+}
 .dropdown-submenu>.dropdown-menu {
   top: 0;
   width: 230px;
@@ -48,11 +51,7 @@
 }
 
 /*SUBMENUS DROPDOWN MULTIPLE ------------ fin*/
-.dropdown ul.Jour {
-  background: $background-connected-white;
-  border-radius: 0;
-}
-.dropdown ul.Nuit {
+.dropdown ul {
   background: $background-connected-black;
   border-radius: 0;
 }

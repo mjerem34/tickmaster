@@ -120,43 +120,17 @@ li{
   width: 35px;
   height:35px;
 }
-.btn-loading{
-  background:url("ICOMOON/loading.gif") no-repeat center;
-  background-size: 30px 30px;
-  text-indent: -99999999px;
-}
 
-.Nuit{
+body{
   .btn:hover, .link_procedurer, a, .btn, .btn:focus, .btn:active,{
     text-decoration: none;
     color:$text-color-nuit;
     border-color: white;
   }
   div.nav-side-menu a{
-    color: $text-color-title;
+    color: $text-color-nuit;
   }
   li.new_incident_button a{
     color: $text-color-nuit !important;
-  }
-}
-.Jour{
-  .btn-save{
-    border-color: black;
-  }
-  .btn:hover{
-    color:$text-color-jour !important;
-  }
-  .link_procedurer{
-    color: $text-color-jour !important;
-  }
-  a{
-    text-decoration: none;
-    color: $text-color-jour;
-  }
-  .buttons-edit-incident-right .btn, .btn-procedure{
-    border-color: black !important;
-  }
-  .buttons{
-    color: $text-color-jour !important;
   }
 }

@@ -1,9 +1,9 @@
 /*
 *= require selectize
 *= require selectize.bootstrap3
+*= require materials
 */
-@import url(https://fonts.googleapis.com/css?family=Black+Ops+One);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800);
+
 @import "vars.scss";
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -31,16 +31,37 @@
   right:0;
   top:0;
 }
+@font-face {
+  font-family: "Pacifico";
+  src:url('fonts/Pacifico.ttf');
+}
+@font-face {
+  font-family: "Quicksand";
+  font-style: normal;
+  src: url('fonts/Quicksand-Regular.otf');
+}
+@font-face {
+  font-family: "Quicksand";
+  font-style: bold;
+  src: url('fonts/Quicksand-Bold.otf');
+}
+@font-face {
+  font-family: "Quicksand";
+  font-style: thin;
+  src: url('fonts/Quicksand-Light.otf');
+}
+@font-face {
+  font-family: "Quicksand";
+  font-style: italic;
+  src: url('fonts/Quicksand-Italic.otf');
+}
 body{
   font-family: $text-font;
   font-weight: $font-weight;
   background: $background;
   background-size: 100% 100%;
 }
-body.Jour{
-  color: $text-color-jour;
-}
-body.Nuit{
+body{
   color: $text-color-nuit;
 }
 h1.home{
@@ -73,10 +94,7 @@ div.field.select_yes_no{
 }
 /*CONTENU UNIQUEMENT QUAND DECONNECTÉ -------- FIN*/
 /*CONTENU UNIQUEMENT QUAND CONNECTÉ*/
-#connected.Jour{
-  background: $background-content-jour;
-}
-#connected.Nuit{
+#connected{
   background: $background-content-nuit;
   color: $text-color-nuit;
 }

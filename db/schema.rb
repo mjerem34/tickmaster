@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921080548) do
+ActiveRecord::Schema.define(version: 20161011145318) do
 
   create_table "agencies", force: :cascade do |t|
     t.string "name",       limit: 45
@@ -53,9 +53,7 @@ ActiveRecord::Schema.define(version: 20160921080548) do
   end
 
   create_table "detentor_types", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string "name", limit: 255
   end
 
   create_table "fields_seller_sellers", force: :cascade do |t|
@@ -65,9 +63,7 @@ ActiveRecord::Schema.define(version: 20160921080548) do
   end
 
   create_table "fields_sellers", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string "name", limit: 255
   end
 
   create_table "file_archives", force: :cascade do |t|
@@ -162,24 +158,12 @@ ActiveRecord::Schema.define(version: 20160921080548) do
 
   create_table "materials", force: :cascade do |t|
     t.integer  "type_material_id", limit: 4
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-  end
-
-  create_table "materials_detentors", force: :cascade do |t|
-    t.integer  "material_id",      limit: 4
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "name",             limit: 255
+    t.integer  "seller_id",        limit: 4
     t.integer  "detentor_type_id", limit: 4
     t.integer  "detentor_id",      limit: 4
-    t.date     "date"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-  end
-
-  create_table "materials_sellers", force: :cascade do |t|
-    t.integer  "material_id", limit: 4
-    t.integer  "seller_id",   limit: 4
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
   end
 
   create_table "procedures", force: :cascade do |t|
@@ -220,8 +204,9 @@ ActiveRecord::Schema.define(version: 20160921080548) do
   end
 
   create_table "sellers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.string   "name",       limit: 255
+    t.boolean  "actif"
   end
 
   create_table "sous_categories", force: :cascade do |t|
@@ -240,10 +225,8 @@ ActiveRecord::Schema.define(version: 20160921080548) do
   end
 
   create_table "specs_materials", force: :cascade do |t|
-    t.integer  "spec_type_material_id", limit: 4
-    t.string   "spec_value",            limit: 255
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.integer "spec_type_material_id", limit: 4
+    t.string  "spec_value",            limit: 255
   end
 
   create_table "specs_types_materials", force: :cascade do |t|
@@ -259,9 +242,7 @@ ActiveRecord::Schema.define(version: 20160921080548) do
   end
 
   create_table "type_materials", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string "name", limit: 255
   end
 
   create_table "type_materials_specs_types_materials", force: :cascade do |t|
@@ -277,7 +258,6 @@ ActiveRecord::Schema.define(version: 20160921080548) do
   create_table "updates", force: :cascade do |t|
     t.text     "changesMade", limit: 65535
     t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -293,7 +273,6 @@ ActiveRecord::Schema.define(version: 20160921080548) do
     t.integer  "agency_id",  limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.string   "mode",       limit: 255
     t.string   "ip_addr",    limit: 20
     t.boolean  "maj"
   end

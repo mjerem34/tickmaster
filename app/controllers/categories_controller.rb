@@ -90,7 +90,7 @@ class CategoriesController < ApplicationController
       respond_to do |format|
         if @category.save
           format.json { render json: @category.id, status: :created }
-          format.html { redirect_to :back, notice: 'Catégorie crée avec success.' }
+          format.html { redirect_to :back, notice: 'Catégorie crée avec succès.' }
           # Create an new subcategory for the category created.
           @sous_category = SousCategory.new(name: 'Autre', category_id: @category.id, lvl_urgence_max: '10')
           @sous_category.save
@@ -112,7 +112,7 @@ class CategoriesController < ApplicationController
       respond_to do |format|
         if @category.update(category_params)
           format.json { head :no_content }
-          format.html { redirect_to :back, notice: 'Catégorie actualisée avec success.' }
+          format.html { redirect_to :back, notice: 'Catégorie actualisée avec succès.' }
         else
           format.json { render json: @category.errors, status: :unprocessable_entity }
           format.html { render :back, notice: 'Impossible de modifier la catégorie ...' }

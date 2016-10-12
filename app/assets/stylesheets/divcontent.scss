@@ -1,14 +1,13 @@
 #content {
   position: relative;
-  margin-left: 195px;
+  margin-left: 220px;
   background-size: 100% 100%;
 
   margin-top: 9px;
+  color: $text-color-jour;
+
 }
-#content.Jour{
-  background: $background-content-jour;
-}
-#content.Nuit{
+#content{
   background: $background-content-nuit;
 }
 #content.isOpen {

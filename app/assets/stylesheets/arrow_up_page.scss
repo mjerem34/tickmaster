@@ -11,22 +11,12 @@
  visibility: hidden;
  font-size: 3em;
 }
-.updown-arrow:active.Jour{
- color: $background-navbar-connected-jour;
- background: rgba(0, 0, 0, 0.3);
-
-}
-.updown-arrow:active.Nuit{
+.updown-arrow:active{
  color: $background-navbar-connected-nuit;
  background: rgba(255, 255, 255, 0.3);
 
 }
-.updown-arrow.Jour{
-color: $background-navbar-connected-jour;
-background: rgba(0, 0, 0, 0.3);
-
-}
-.updown-arrow.Nuit{
+.updown-arrow{
  color: $background-navbar-connected-nuit;
  background: rgba(255, 255, 255, 0.3);
 

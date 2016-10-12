@@ -1,17 +1,14 @@
 .nav-side-menu {
   overflow: auto;
-  font-size: 12px;
+  font-size: 11px;
   background: transparent;
   position: fixed;
   top: 0;
-  width: 180;
+  width: 220px;
   height: 100%;
   padding-top: 10px;
 }
-#connected > .nav-side-menu.Jour{
-  background: $background-connected-white;
-}
-#connected > .nav-side-menu.Nuit{
+#connected > .nav-side-menu{
   background: $background-connected-black;
 }
 .nav-side-menu .brand {
@@ -29,7 +26,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  line-height: 35px;
+  line-height: 30px;
   cursor: pointer;
   /*
     .collapsed{
@@ -73,21 +70,14 @@
 .nav-side-menu li .sub-menu li.active a {
   color: $link-hover;
 }
-.nav-side-menu.Jour ul .sub-menu li,
-.nav-side-menu.Jour li .sub-menu li {
-  background-color: $background-link-lateral-bar-open-jour;
-  border: none;
-  line-height: 28px;
-  border-bottom: $border-bottom-nav-side-menu-open;
-  padding-left: 0;
+.nav-side-menu ul .sub-menu{
+  padding-left: 30px;
 }
-.nav-side-menu.Nuit ul .sub-menu li,
-.nav-side-menu.Nuit li .sub-menu li {
-  background-color: $background-link-lateral-bar-open-nuit;
+.nav-side-menu ul .sub-menu li,
+.nav-side-menu li .sub-menu li {
   border: none;
   line-height: 28px;
-  border-bottom: $border-bottom-nav-side-menu-open;
-  padding-left: 0;
+  padding-left: 20px;
 }
 .nav-side-menu ul .sub-menu li:hover,
 .nav-side-menu li .sub-menu li:hover {
@@ -99,8 +89,8 @@
 .nav-side-menu ul .sub-menu li:before,
 .nav-side-menu li .sub-menu li:before {
   font-family: FontAwesome;
-  content: "\2234";
-  display: inline-block;
+  // content: "\2234";
+  display: block;
   padding-left: 5px;
   padding-right: 5px;
   vertical-align: middle;
@@ -109,35 +99,20 @@
   padding-left: 0;
   border-left: $border-nav-side-menu-nouvel-incident;
 }
-.nav-side-menu li a {
-  max-width: inherit;
-  padding-bottom: 2.5%;
-  padding-top: 2.5%;
-  text-decoration: none;
-  // padding-right: 30px;
+.nav-side-menu .sub-menu li a {
+  display: block;
 }
 .sub-menu.collapse.in li a {
-  padding-right: 25%;
-  padding-bottom: 5%;
-  padding-top: 5%;
   text-decoration: none;
 }
 .sub-menu.collapse.out li a {
-  padding-right: 20%;
-  padding-bottom: 2.5%;
-  padding-top: 2.5%;
   text-decoration: none;
 }
 .sub-menu.collapsing li a {
-  padding-right: 20%;
-  padding-bottom: 2.5%;
-  padding-top: 2.5%;
   text-decoration: none;
 }
-.nav-side-menu li a i {
+.nav-side-menu li a,.nav-side-menu i {
   padding-left: 10px;
-  width: 20px;
-  // padding-right: 20px;
 }
 .nav-side-menu li:hover {
   border-left: 3px solid #34314c;

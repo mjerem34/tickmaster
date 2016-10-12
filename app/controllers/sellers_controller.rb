@@ -19,6 +19,30 @@ class SellersController < ApplicationController
     end
   end
 
+  # GET /sellers/get_all_fields_sellers.json
+  def get_all_fields_sellers
+    fssFind = []
+    @seller_id = params[:seller_id]
+    Seller.find(@seller_id).fields_seller_sellers.each do |fss|
+      # Get all fields already defined to the seller to remove them
+      fssFind << fss.fields_seller.id
+    end
+    # Select all fields except those already defined (fssFind)
+    @all_fields_sellers = FieldsSeller.where.not(id: fssFind)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  # GET /sellers/get_all_type_materials.json
+  def get_all_type_materials
+    @type_materials = TypeMaterial.all
+    @seller_id = params[:seller_id]
+    respond_to do |format|
+      format.js
+    end
+  end
+
   # GET /sellers/1
   # GET /sellers/1.json
   def show
@@ -101,13 +125,16 @@ class SellersController < ApplicationController
   def destroy
     @delete_sellers = verifRight('delete_sellers')
     if @delete_sellers
+      @title = 'Désactivation/Activation vendeur'
       respond_to do |format|
-        if @seller.destroy
+        if @seller.actif
+          @seller.update(actif: false)
           format.json { head :no_content }
-          format.html { redirect_to sellers_url, notice: 'Le vendeur a bien été supprimé ! Il ne vendra plus jamais quoi que ce soit... Mouahahahahahaha !!!' }
+          format.html { redirect_to sellers_url, notice: 'Le vendeur a bien été désactivé ! <br> Il ne vendra plus jamais quoi que ce soit... Mouahahahahahaha !!!' }
         else
-          format.json { render json: @seller.errors, status: :unprocessable_entity }
-          format.html { render :edit, notice: 'Impossible de supprimer le vendeur.' }
+          @seller.update(actif: true)
+          format.json { head :no_content }
+          format.html { redirect_to sellers_url, notice: 'Le vendeur a bien été activé !' }
         end
       end
     else

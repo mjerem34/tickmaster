@@ -1,25 +1,104 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Sellers</h1>
-
-<table>
-  <thead>
+<div class="table-responsive">
+  <table class="table table-hover" id="table_sellers">
+    <thead class="header">
     <tr>
-      <th colspan="3"></th>
+      <th>N°</th>
+      <th>Nom</th>
     </tr>
   </thead>
-
   <tbody>
     <% @sellers.each do |seller| %>
-      <tr>
-        <td><%= link_to 'Show', seller %></td>
-        <td><%= link_to 'Edit', edit_seller_path(seller) %></td>
-        <td><%= link_to 'Destroy', seller, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr data-dismiss="modal" data-toggle="modal" data-target="#<%= seller.id %>">
+        <td><%= seller.id %></td>
+        <td><%= seller.name %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
+<% @sellers.each do |seller| %>
+<div class="container-modal">
+  <div class="modal fade" id="<%= seller.id %>" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Détails du vendeur</h4>
+          <h5 class="modal-title">N°<%= seller.id %> : <%= seller.name%></h5>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <p>Vendeur : <input type="text" value="<%= seller.name %>" name="seller_name" class="form-control"/></p>
+              <% seller.fields_seller_sellers.each do |fss| %>
+              <p><%= fss.fields_seller.name %> : <input name="<%= fss.fields_seller.name %>" value="<%=fss.content %>" class="form-control"/></p>
+              <% end %>
+              <button data-sellerid="<%= seller.id %>" type="button" name="button" class='btn btn-success' id='add_field_seller'>+</button>
+            </div>
+          </div>
+          <script type="text/javascript">
+            $(document).ready(function(){
+              $(document).on("click", "#add_field_seller", function(){
 
-<br>
-
-<%= link_to 'New Seller', new_seller_path %>
+              });
+            });
+          </script>
+          <hr>
+          <table class="table table-hover" id="table_type_materials_sellers">
+            <thead class="header">
+              <tr>
+                <th>N°</th>
+                <th>Nom</th>
+              </tr>
+            </thead>
+            <tbody data-sellerid="<%= seller.id %>">
+              <% seller.types_materials_sellers.each do |tms| %>
+                <tr>
+                    <td><%= tms.type_material.id %></td>
+                    <td><%= tms.type_material.name %></td>
+                </tr>
+              <% end %>
+                <tr class='row_add_type_material'>
+                  <td><button type="button" name="button" class='btn btn-success' id='add_type_material'>+</button></td>
+                  <td></td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <% if seller.actif == true %>
+          <%= link_to 'Désactiver', seller, method: :delete, class: 'btn btn-primary' %>
+          <% else %>
+          <%= link_to 'Activer', seller, method: :delete, class: 'btn btn-primary' %>
+          <% end %>
+          <button type="button" class="btn btn-success" data-dismiss="modal">Enregistrer les modifications</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+<script type="text/javascript">
+$(document).on('click', '#save_type_material', function(){
+  var name = $(this).parent().parent().children('td').children('select').children('option:selected').text();
+  var seller_id = $(this).parent().parent().parent().data('sellerid');
+  $.ajax({
+    url: '/type_materials/rely_type_material_to_seller',
+    type: 'POST',
+    dataType: 'script',
+    data: {
+      type_material: {
+        seller_id: seller_id,
+        name: name
+      }
+    },
+    success: function(result){
+      var typeMatId = $("tbody[data-sellerid='" + seller_id + "'] > tr > td > select option").filter(function(){ return $(this).html() == name;}).val();
+      var typeMatName = $("tbody[data-sellerid='" + seller_id + "'] > tr > td > select option").filter(function(){ return $(this).html() == name;}).text();
+      $('tbody[data-sellerid="' + seller_id + '"] > tr').last().remove();
+      $('tbody[data-sellerid="' + seller_id + '"]').append("<tr><td>" + typeMatId + "</td><td>" + typeMatName + "</td></tr><tr class='row_add_type_material'><td><button type='button' name='button' class='btn btn-success' id='add_type_material'>+</button></td><td></td></tr>");
+    }
+  });
+});
+</script>

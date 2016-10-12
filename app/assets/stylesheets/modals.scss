@@ -6,3 +6,8 @@ div.container-modal{
 .modal{
   overflow-y: scroll;
 }
+
+div.modal-content{
+  border-radius: 2px !important;
+  border-color: transparent !important;
+}

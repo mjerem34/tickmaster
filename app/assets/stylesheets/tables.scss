@@ -41,6 +41,10 @@ select:nth-child(1) {
 }
 td {
   cursor: pointer;
+  border-top: 0px solid black !important;
+  a{
+    color: $text-color-jour !important;
+  }
 }
 table tr th {
   font-weight: $font-weight-tables !important;
@@ -49,11 +53,8 @@ tbody td {
   word-wrap: break-word;
   overflow: hidden;
 }
-.Nuit>thead {
-  background: $background-connected-black;
-}
-.Jour>thead {
-  background: $background-connected-white;
+thead {
+  // background: $background-connected-black;
 }
 .tableau-de-bord {
   label {

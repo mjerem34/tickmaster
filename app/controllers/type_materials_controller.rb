@@ -19,6 +19,21 @@ class TypeMaterialsController < ApplicationController
     end
   end
 
+  # POST /type_materials/rely_type_material_to_seller
+  def rely_type_material_to_seller
+    TypeMaterial.exists?(name: params[:type_material][:name]) ? @type_material = TypeMaterial.where(name: params[:type_material][:name]).first : @type_material = TypeMaterial.create(name: params[:type_material][:name])
+    if TypesMaterialsSeller.exists?(type_material_id: @type_material.id, seller_id: params[:type_material][:seller_id])
+      respond_to do |format|
+        format.json { render json: nil, status: :unprocessable_entity }
+      end
+    else
+      TypesMaterialsSeller.create(type_material_id: @type_material.id, seller_id: params[:type_material][:seller_id])
+      respond_to do |format|
+        format.json { render json: @type_material.id, status: :ok }
+      end
+    end
+  end
+
   # GET /type_materials/1
   # GET /type_materials/1.json
   def show

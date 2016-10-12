@@ -41,7 +41,6 @@ class User < ActiveRecord::Base
   before_save { |user| user.email.downcase! }
   before_save { |user| user.name.capitalize! }
   before_save { |user| user.surname.capitalize! }
-  before_create {|user| user.mode = "Jour"}
 
   def self.authenticate_with_salt(id, cookie_salt)
     user = find_by_id(id)

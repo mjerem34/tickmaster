@@ -252,15 +252,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # This should be used for the theme of the web app.
-  # It just change an user param in bdd. "Night...Day...Night...Day...Night...Day... Please Mr Jackouille, eventually it gets breaks foot..."
-  def mode_nuit_jour
-    current_user.update(mode: 'Jour') if current_user.mode == ''
-    current_user.mode == 'Jour' ? current_user.update(mode: 'Nuit') : current_user.update(mode: 'Jour')
-    # It reload to see the changes.
-    redirect_to :back
-  end
-
   private
 
   def set_user

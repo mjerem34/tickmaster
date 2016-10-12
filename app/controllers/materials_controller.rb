@@ -2,7 +2,7 @@ class MaterialsController < ApplicationController
   before_action :restrict_access
   before_action :set_material, only: [:show, :edit, :update, :destroy]
   before_action :set_expiration
-  before_action :set_detentor_type, only: [:index, :redefine_detentor_type]
+  before_action :set_detentor_type, only: [:new, :redefine_detentor_type]
   # GET /materials/get_all_specs_types
   def get_all_specs_types
     @all_specs_types = SpecsTypesMaterial.all
@@ -11,16 +11,28 @@ class MaterialsController < ApplicationController
     end
   end
 
-  # GET /materials/get_all_fields_sellers
-  def get_all_fields_sellers
-    @all_fields_sellers = FieldsSeller.all
+  # GET /materials/get_all_type_materials.json
+  def get_all_type_materials
+    @type_materials = TypeMaterial.all
+    @seller_id = params[:seller_id]
     respond_to do |format|
-      format.json { render json: @all_fields_sellers }
+      format.js
+    end
+  end
+  # GET /materials/redefine_seller_selected
+  def redefine_seller_selected
+    @seller = Seller.find(params[:id_seller]) if Seller.exists?(params[:id_seller])
+    respond_to do |format|
+      format.js
     end
   end
 
-  def redefine_seller_selected
-    @seller = Seller.find(params[:id_seller]) if Seller.exists?(params[:id_seller])
+  def redefine_material_selected
+    @material = Material.find(params[:material_id])
+    @material_specs = {}
+    @material.spec_material_materials.each do |smm|
+      @material_specs[smm.specs_material.specs_types_material.name] = smm.specs_material.spec_value
+    end
     respond_to do |format|
       format.js
     end
@@ -33,19 +45,6 @@ class MaterialsController < ApplicationController
     @view_material = verifRight('view_material')
     if @view_material
       @title = 'Matériels'
-      @sellers_names_and_id = []
-      @type_materials = TypeMaterial.all
-      @specs_types_materials = []
-      @type_materials.first.type_materials_specs_types_materials.each do |tmstm|
-        @specs_types_materials << tmstm.specs_types_material
-      end
-      @seller = Seller.first
-      Seller.all.each do |seller|
-        seller.fields_seller_sellers.each do |fss|
-          @sellers_names_and_id << fss if fss.fields_seller.name == 'Nom'
-        end
-      end
-
       @materials = Material.all
       respond_to do |format|
         format.json { render json: @materials }
@@ -57,12 +56,14 @@ class MaterialsController < ApplicationController
   end
 
   def redefine_type_material
-    @specs_types_materials = []
-
     @type_materials = TypeMaterial.where(name: params[:type_material_name])
     unless @type_materials.first.nil?
-      @type_materials.first.type_materials_specs_types_materials.each do |tmstm|
-        @specs_types_materials << tmstm.specs_types_material
+      @all_materials = Material.where(type_material_id: @type_materials.first.id)
+      @materials = @all_materials.select(:name).uniq.each { |mat| mat.id = @all_materials.where(name: mat.name).first.id }
+      @material = @materials.first
+      @material_specs = {}
+      @material.spec_material_materials.each do |smm|
+        @material_specs[smm.specs_material.specs_types_material.name] = smm.specs_material.spec_value
       end
     end
     respond_to do |format|
@@ -97,7 +98,20 @@ class MaterialsController < ApplicationController
     @create_material = verifRight('create_material')
     if @create_material
       @title = 'Nouveau Matériel'
-      @material = Material.new
+      @type_materials = TypeMaterial.all
+      @type_material = @type_materials.first
+      @all_materials = Material.where(type_material_id: @type_material.id)
+      @materials = @all_materials.select(:name).uniq.each { |mat| mat.id = @all_materials.where(name: mat.name).first.id }
+      @material = @materials.first
+      @material_specs = {}
+      @material.spec_material_materials.each do |smm|
+        @material_specs[smm.specs_material.specs_types_material.name] = smm.specs_material.spec_value
+        puts '---------------------------------'
+        puts @material_specs.inspect
+        puts '---------------------------------'
+      end
+      @sellers = Seller.where(actif: true)
+      @seller = @sellers.first
     else
       renderUnauthorized
     end
@@ -125,16 +139,16 @@ class MaterialsController < ApplicationController
   def create
     @create_material = verifRight('create_material')
     if @create_material
-      if !params[:material][:type_material_name].blank? && !params[:seller_id].blank? && !params[:detentor_type_id].blank? && !params[:detentor_id].blank? && !params[:seller_specs].blank? && !params[:specs_values].blank?
+      if !params[:material][:type_material_name].blank? && !params[:material][:material_name].blank? && !params[:seller_name].blank? && !params[:detentor_type_id].blank? && !params[:detentor_id].blank? && !params[:seller_specs].blank? && !params[:specs_values].blank?
         @title = 'Nouveau Matériel'
-        Seller.exists?(id: params[:seller_id]) ? @seller = Seller.find(params[:seller_id]) : @seller = Seller.create
+        Seller.exists?(name: params[:seller_name]) ? @seller = Seller.where(name: params[:seller_name]).first : @seller = Seller.create(name: params[:seller_name])
         TypeMaterial.exists?(name: params[:material][:type_material_name]) ? @type_material = TypeMaterial.where(name: params[:material][:type_material_name]).first : @type_material = TypeMaterial.create(name: params[:material][:type_material_name])
         TypesMaterialsSeller.create(type_material_id: @type_material.id, seller_id: @seller.id) unless TypesMaterialsSeller.exists?(type_material_id: @type_material.id, seller_id: @seller.id)
         params[:seller_specs].keys.each do |key|
           FieldsSeller.exists?(name: key) ? fields_seller = FieldsSeller.where(name: key).first : fields_seller = FieldsSeller.create!(name: key)
           FieldsSellerSeller.exists?(seller_id: @seller.id, fields_seller_id: fields_seller.id) ? FieldsSellerSeller.where(seller_id: @seller.id).first.update(content: params[:seller_specs][key]) : FieldsSellerSeller.create(fields_seller_id: fields_seller.id, seller_id: @seller.id, content: params[:seller_specs][key])
         end
-        @material = Material.create(type_material_id: @type_material.id)
+        @material = Material.create(type_material_id: @type_material.id, name: params[:material][:material_name])
         MaterialsSeller.create(material_id: @material.id, seller_id: @seller.id)
         params[:specs_values].keys.each do |key|
           SpecsTypesMaterial.exists?(name: key) ? specs_types_material = SpecsTypesMaterial.where(name: key).first : specs_types_material = SpecsTypesMaterial.create(name: key)
@@ -149,7 +163,6 @@ class MaterialsController < ApplicationController
         end
       else
         respond_to do |format|
-          puts '-----------------------------------------------------------'
           format.json { render json: 'Impossible de créer le matériel, il manque des données.', status: :unprocessable_entity }
           format.html { redirect_to :back, notice: 'Impossible de créer le matériel, il manque des données.' }
         end
@@ -202,10 +215,13 @@ class MaterialsController < ApplicationController
     params[:id_detentor].nil? ? @detentor_type_selected = @detentor_types.first : @detentor_type_selected = DetentorType.find(params[:id_detentor])
 
     if [1, 4].include?(@detentor_type_selected.id.to_i)
+      # Alors c'est une agence ou la réserve
       @possible_detentors = Agency.all.order(name: :asc)
     elsif [3].include?(@detentor_type_selected.id.to_i)
+      # Alors c'est un technicien
       @possible_detentors = User.where(tech_id: [2, 3, 4, 5]).order(name: :asc)
     else
+      # Alors ce n'est pas un technicien
       @possible_detentors = User.where.not(tech_id: [2, 3, 4, 5]).order(name: :asc)
     end
   end

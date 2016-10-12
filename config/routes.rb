@@ -5,9 +5,18 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   resources :updates
-  resources :type_materials
+  resources :type_materials do
+    collection do
+      post :rely_type_material_to_seller
+    end
+  end
   resources :specs_types_materials
-  resources :sellers
+  resources :sellers do
+    collection do
+      get :get_all_type_materials
+      get :get_all_fields_sellers
+    end
+  end
   resources :fields_sellers
   resources :detentor_types
   resources :specs_materials
@@ -16,6 +25,7 @@ Rails.application.routes.draw do
       get :redefine_type_material
       get :redefine_seller_selected
       get :redefine_detentor_type
+      get :redefine_material_selected
       get :get_all_specs_types
       get :get_all_fields_sellers
     end
@@ -59,7 +69,6 @@ Rails.application.routes.draw do
       get :to_treat
       get :profil
       get :download
-      get :mode_nuit_jour
       get :forget_identifiers
       post :forget_identifiers
       get :change_ip
@@ -79,7 +88,6 @@ Rails.application.routes.draw do
   get '/check_notify', to: 'users#check'
   get '/sessions', to: redirect('/sessions/new')
 
-  # get '/nuit_jour', to: 'users#mode_nuit_jour'
   # get '/test_exception', to: 'application#test_exception'
 
   # The priority is based upon order of creation: first created -> highest priority.

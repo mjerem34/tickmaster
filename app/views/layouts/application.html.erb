@@ -17,17 +17,17 @@
   <% unless current_user.nil? %>
   <%= render 'layouts/k'%>
   <% if @title == "Se connecter" || @title == "S'inscrire" || @title == "Accueil" || @title == "Identifiants oubliés"%>
-  <%= content_tag(:body, '', id: 'not-connected', class: "Jour") %>
+  <%= content_tag(:body, '', id: 'not-connected') %>
   <% else %>
-  <%= content_tag(:body, '', id: 'connected', class: current_user.mode) %>
+  <%= content_tag(:body, '', id: 'connected') %>
   <% end %>
   <!--Header-->
   <%= render 'layouts/header' %>
   <!--Header-->
   <% if @title == "Se connecter" || @title == "S'inscrire" || @title == "Accueil" || @title == "Identifiants oubliés"%>
-  <div class="isOpen" id="content" class="Jour">
+  <div class="isOpen" id="content">
     <% else %>
-    <div id="content" class="<%= current_user.mode %>">
+    <div id="content">
       <% end %>
       <% end %>
 
@@ -82,7 +82,7 @@
       </script>
 
       <% if @title != "Accueil" %>
-      <a class="updown-arrow <%= current_user != nil ? current_user.mode : 'Jour'%>" href="#">&#9650;</a>
+      <a class="updown-arrow" href="#">&#9650;</a>
       <% end %>
       <script type="text/javascript">
         $(window).scroll(function () {

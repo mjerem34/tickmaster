@@ -1,509 +1,73 @@
 <br>
-<button type="button" name="button" data-toggle="modal" data-target="#NewMaterial" class="btn btn-success">Ajouter</button>
 <div class="table-responsive">
-  <table class="table table-hover" id="table_agencies">
+  <table class="table table-hover" id="table_materials">
     <thead class="header">
     <tr>
+      <th>N°</th>
       <th>Type</th>
       <th>Vendeur</th>
       <th>Détenteur</th>
-      <th>Nom</th>
-      <th colspan="3"></th>
+      <th>Dénomination</th>
     </tr>
   </thead>
   <tbody>
     <% @materials.each do |material| %>
-      <tr>
-        <td><%= TypeMaterial.find(material.type_material_id).name %></td>
-        <td><%= FieldsSellerSeller.where(fields_seller_id: FieldsSeller.where(name: 'Nom').first.id, seller_id: MaterialsSeller.where(material_id: material.id).first.seller_id).first.content %></td>
-        <td><%= TypeMaterial.find(material.type_material_id).name %></td>
-        <td><%= TypeMaterial.find(material.type_material_id).name %></td>
-
-        <td><%= link_to 'Show', material %></td>
-        <td><%= link_to 'Modifier', edit_material_path(material) %></td>
-        <td><%= link_to 'Supprimer', material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr data-dismiss="modal" data-toggle="modal" data-target="#<%= material.id %>">
+        <td><%= material.id %></td>
+        <td><%= material.type_material.name %></td>
+        <td><%= material.seller.name %></td>
+        <% if [1, 4].include?(material.detentor_type_id) then %>
+        <!-- Alors c'est une agence -->
+        <% detentor = Agency.find(material.detentor_id) %>
+        <% else %>
+        <!-- Alors c'est un utilisateur -->
+        <% detentor = User.find(material.detentor_id) %>
+        <% end %>
+        <td><%= detentor.name %></td>
+        <td><%= material.name %></td>
       </tr>
+      <div class="container-modal">
+        <div class="modal fade" id="<%= material.id %>" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Détails du matériel</h4>
+                <h5 class="modal-title">N°<%= material.id %> : <%= material.name%></h5>
+              </div>
+              <div class="modal-body">
+                <p>Type du matériel : <%= material.type_material.name %></p>
+                <hr>
+                <% material.spec_material_materials.each do |smm| %>
+                <p><%= smm.specs_material.specs_types_material.name + ' : ' + smm.specs_material.spec_value %></p>
+                <% end %>
+                <hr>
+                <p>Vendeur : <%= link_to "#{material.seller.name}", edit_seller_path(material.seller.id) %></p>
+                <% material.seller.fields_seller_sellers.each do |fss| %>
+                  <p><%= fss.fields_seller.name + ' : ' + fss.content %></p>
+                <% end %>
+                <hr>
+                <p>Type de détenteur : <%= material.detentor_type.name %></p>
+                <% if [1, 4].include?(material.detentor_type_id) then %>
+                <!-- Alors c'est une agence -->
+                <p>Détenteur : <%= link_to "#{detentor.name}", edit_agency_path(detentor.id) %></p>
+                <% else %>
+                <!-- Alors c'est un utilisateur -->
+                <p>Détenteur : <%= link_to "#{detentor.name + ' ' + detentor.surname}", profil_user_path(detentor.id) %></p>
+                <% end %>
+              </div>
+              <div class="modal-footer">
+                <%= link_to 'Editer', edit_material_path(material), class: 'btn btn-success' %>
+                <%= link_to 'Supprimer', material, method: :delete, data: { confirm: 'Êtes vous sûr de vouloir supprimer ce matériel ?' }, class: 'btn btn-primary' %>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <% end %>
   </tbody>
 </table>
 </div>
 <br>
-<div class="clean-fields modals-create-material">
-  <!-- 1 - Choix du type de matériel. -->
-  <div class="container-modal">
-    <div class="modal fade" id="NewMaterial" role="dialog">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Créer un matériel</h4>
-            <h5 class="modal-title">Type de matériel</h5>
-          </div>
-          <div class="modal-body">
-            <%= select_tag "SelectTypeMaterial", options_for_select(@type_materials.collect{|type_material| [type_material.name.titleize, type_material.id]}), {:class => "dropdownSearchCreate"}%><br>
-          </div>
-          <div class="modal-footer">
-            <p>1/6</p>
-            <button id="TypeMaterialNext" type="button" class="btn btn-success btn-next1" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSpecs">Suivant</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2 - Choix des specs -->
-  <div class="container-modal">
-    <div class="modal fade" id="ChoiceSpecs" role="dialog">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Créer un matériel</h4>
-            <h5 class="modal-title">Caractéristiques</h5>
-          </div>
-          <div class="modal-body modal-body-specs">
-            <div id="fields-specs-types-materials">
-              <% @specs_types_materials.each do |stm|  %>
-              <div class="row">
-                <div class="col-md-4" id="fields-specs-types-titles">
-                  <input type="text" value="<%= stm.name%>" disabled class="form-control">
-                  <br>
-                </div>
-                <div class="col-md-4" id="fields-specs-types-values">
-                  <input type="text" name="<%= stm.name%>" class="form-control">
-                  <br>
-                </div>
-                <div class='col-md-4' id='div-btns-delete-row'>
-                    <button class='btn btn-danger' id='btn-delete-row'>&#8211;</button>
-                    <br><br>
-                </div>
-              </div>
-              <% end %>
-            </div>
-              <div class="row">
-                <div class="col-md-8">
-                  <button type="button" name="button" class="btn btn-success" id="add-fields-specs-types" style="width:100%;">+</button>
-                </div>
-              </div>
-          </div>
-          <div class="modal-footer">
-            <p>2/6</p>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#NewMaterial">Précédent</button>
-            <button type="button" class="btn btn-success btn-next" id="ChoiceSellerTest">Suivant</button>
-            <button type="button" class="btn btn-success" id="ChoiceSellerOk" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSeller" style="display:none;"></button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script type="text/javascript">
-  $(document).ready(function(){
-    $(document).on( 'click', '#add-fields-specs-types', function(){
-      var dejaPresent = [];
-      $.ajax({
-        url: '/materials/get_all_specs_types',
-        type: 'GET',
-        dataType: 'json',
-        success: function(result){
-          $('#fields-specs-types-materials > .row > #fields-specs-types-titles > input[type="text"]').each(function(){
-            dejaPresent.push($(this).val());
-          });
-          $('#fields-specs-types-materials > .row > #fields-specs-types-titles > select[name="all-specs-types"] > option:selected').each(function(){
-            dejaPresent.push($(this).text());
-          });
-          for (var index in dejaPresent){
-            for (var item in result){
-              if (dejaPresent[index] == result[item]['name']){
-                result.splice(item, 1);
-              }
-            }
-          }
-              $('#fields-specs-types-materials').append("<div class='row'><div class='col-md-4' id='fields-specs-types-titles'></div><div class='col-md-4' id='fields-specs-types-values'></div><div class='col-md-4' id='div-btns-delete-row'></div></div>")
-              $('#fields-specs-types-materials > .row:last > #fields-specs-types-titles').append("<select name='all-specs-types' class='form-control dropdownSearch'></select><br>");
-            for (var index in result){
-              $('#fields-specs-types-materials > .row:last > #fields-specs-types-titles > select[name="all-specs-types"]').append("<option value='" + JSON.stringify(result[index]['id']) + "'>" + result[index]['name'] + "</option>");
-            }
-              $('#fields-specs-types-materials > .row:last > #fields-specs-types-titles > select[name="all-specs-types"]').selectize({create: true, persist: false});
-          $('#fields-specs-types-materials > .row:last > #fields-specs-types-values').append("<input type='text' class='form-control'><br>");
-          $('#fields-specs-types-materials > .row:last > #div-btns-delete-row').append("<button class='btn btn-danger' id='btn-delete-row'>&#8211;</button><br><br>");
-        }
-      });
-    });
-    $(document).on('click', '#btn-delete-row', function(){
-      $(this).closest('.row').remove();
-    });
-    // Verification des données avant l'envoi
-    $(document).on('click', '#ChoiceSellerTest', function(){
-      var validTitles = [];
-      var countDouble = 0;
-      $('#fields-specs-types-titles > input[type="text"]').each(function(){
-        if($.inArray($(this).val(), validTitles) === -1){
-          validTitles.push($(this).val());
-        }else{
-          countDouble++;
-          return;
-        }
-      });
-      $('#fields-specs-types-titles > select').each(function(){
-                if($.inArray($(this).text(), validTitles) === -1){
-          validTitles.push($(this).text());
-        }else{
-          countDouble++;
-          return;
-        }
-      });
-        if(countDouble == 0){
-          $("#ChoiceSellerOk").trigger('click');
-        }else{
-          alert("Un doublon est présent dans la liste. Merci de vérifier.")
-        }
-    });
-  });
-  </script>
-
-  <!-- 3 - Choix du vendeur -->
-  <div class="container-modal">
-    <div class="modal fade" id="ChoiceSeller" role="dialog">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Créer un matériel</h4>
-            <h5 class="modal-title">Choix du vendeur</h5>
-          </div>
-          <div class="modal-body modal-body-seller">
-            <div class="row">
-              <div class="col-md-8" id="SelectSellersDiv">
-              <%= select_tag "SelectSellers", options_for_select(@sellers_names_and_id.collect{|seller| [seller.content.titleize, seller.seller_id]}), {class: "dropdownSearchCreate"} %><br><br>
-                </div>
-            </div>
-            <div id="fields-seller-with-btn-add">
-              <div id="fields-sellers">
-                <% @seller.fields_seller_sellers.each do |fss| %>
-                <div class="row">
-                  <div class="col-md-4" id="fields-sellers-titles">
-                    <input type="text" name="name" value="<%= fss.fields_seller.name %>" class="form-control" disabled><br>
-                  </div>
-                  <div class="col-md-4" id="fields-sellers-values">
-                    <input type="text" name="name" value="<%= fss.content %>" class="form-control"><br>
-                  </div>
-                  <div class="col-md-4" id="div-btns-delete-row">
-                    <button type="button" name="button" class='btn btn-danger' id="btn-delete-row">&#8211;</button>
-                  </div>
-                </div>
-              <% end %>
-              </div>
-              <div class="row">
-                <div class="col-md-8">
-                  <button type="button" name="button" class="btn btn-success" id="add-fields-sellers" style="width:100%;">+</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <script type="text/javascript">
-            $(document).ready(function(){
-              $(document).on('click', '#add-fields-sellers', function(){
-                var dejaPresent = [];
-                $.ajax({
-                  url: '/materials/get_all_fields_sellers',
-                  type: 'GET',
-                  dataType: 'json',
-                  success: function(result){
-                    $('#fields-seller-with-btn-add > #fields-sellers > .row > #fields-sellers-titles > input[type="text"]').each(function(){
-                      dejaPresent.push($(this).val());
-                    });
-                    $('#fields-seller-with-btn-add > #fields-sellers > .row > #fields-sellers-titles > select[name="all-fields-sellers"] > option:selected').each(function(){
-                      dejaPresent.push($(this).text());
-                    });
-                    for (var index in dejaPresent){
-                      for (var item in result){
-                        if (dejaPresent[index] == result[item]['name']){
-                          result.splice(item, 1);
-                        }
-                      }
-                    }
-                        $('.modal-body-seller').append('<div id="fields-sellers"></div> ');
-                        $('#fields-sellers').append("<div class='row'><div class='col-md-4' id='fields-sellers-titles'></div><div class='col-md-4' id='fields-sellers-values'></div><div class='col-md-4' id='div-btns-delete-row'></div></div>")
-                        $('#fields-sellers > .row:last > #fields-sellers-titles').append("<select name='all-fields-sellers' class='form-control dropdownSearch'></select><br>");
-                      for (var index in result){
-                        $('#fields-sellers > .row:last > #fields-sellers-titles > select[name="all-fields-sellers"]:last').append("<option value='" + JSON.stringify(result[index]['id']) + "'>" + result[index]['name'] + "</option>");
-                      }
-                        $('#fields-sellers > .row:last > #fields-sellers-titles > select[name="all-fields-sellers"]:last').selectize({create: true, persist: false});
-                    $('#fields-sellers > .row:last > #fields-sellers-values').append("<input type='text' class='form-control'><br>");
-                    $('#fields-sellers > .row:last > #div-btns-delete-row').append("<button class='btn btn-danger' id='btn-delete-row'>&#8211;</button><br><br>");
-                  }
-                });
-              });
-              // Verification des données avant l'envoi
-              $(document).on('click', '#ChoiceTypeDetentorTestBtn', function(){
-                var validTitles = [];
-                var countDouble = 0;
-                $('#fields-sellers > .row > #fields-sellers-titles > input[type="text"]').each(function(){
-                  if($.inArray($(this).val(), validTitles) === -1){
-                    validTitles.push($(this).val());
-                  }else{
-                    countDouble++;
-                    return;
-                  }
-                });
-                $('#fields-sellers > .row > #fields-sellers-titles > select').each(function(){
-                          if($.inArray($(this).text(), validTitles) === -1){
-                    validTitles.push($(this).text());
-                  }else{
-                    countDouble++;
-                    return;
-                  }
-                });
-                  if(countDouble == 0){
-                    $("#ChoiceTypeDetentorOkBtn").trigger('click');
-                  }else{
-                    alert("Un doublon est présent dans la liste. Merci de vérifier.")
-                  }
-              });
-            });
-          </script>
-          <div class="modal-footer">
-            <p>3/6</p>
-            <button type="button" id="ChoiceSpecsReturn" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSpecs">Précédent</button>
-            <button type="button" class="btn btn-success btn-next" id="ChoiceTypeDetentorTestBtn">Suivant</button>
-            <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceTypeDetentor" style="display:none;" id="ChoiceTypeDetentorOkBtn"></button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 4 - Choix du type de détenteur -->
-  <div class="container-modal">
-    <div class="modal fade" id="ChoiceTypeDetentor" role="dialog">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Créer un matériel</h4>
-            <h5 class="modal-title">Type de détenteur</h5>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-12" id="SelectDetentorTypeDiv">
-              <%= select_tag "SelectDetentorType", options_for_select(@detentor_types.collect{|detentor_type| [detentor_type.name.titleize, detentor_type.id]}), {class: "dropdownSearch"} %><br><br>
-                </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <p>4/6</p>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSeller">Précédent</button>
-            <button type="button" class="btn btn-success btn-next" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceDetentor">Suivant</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 5 - Choix du détenteur -->
-  <div class="container-modal">
-    <div class="modal fade" id="ChoiceDetentor" role="dialog">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Créer un matériel</h4>
-            <h5 class="modal-title">Choix du détenteur</h5>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-md-12" id="SelectDetentorDiv">
-              <%= select_tag "SelectDetentor", options_for_select(@possible_detentors.collect{|possible_detentor| [possible_detentor.name.titleize, possible_detentor.id]}), {class: "dropdownSearch"} %><br><br>
-                </div>
-            </div>
-
-          </div>
-          <div class="modal-footer">
-            <p>5/6</p>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceTypeDetentor">Précédent</button>
-            <button id="VerifAndValidBtn" type="button" class="btn btn-success btn-next" data-dismiss="modal" data-toggle="modal" data-target="#VerifAndValid">Suivant</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 6 - Vérification et résumé -->
-  <div class="container-modal">
-    <div class="modal fade" id="VerifAndValid" role="dialog">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Créer un matériel</h4>
-            <h5 class="modal-title">Confirmation</h5>
-          </div>
-          <div class="modal-body" id="modal-body-validation">
-          </div>
-          <script type="text/javascript">
-          $(document).ready(function(){
-            $(document).on('click', '#VerifAndValidBtn', function(){
-              var materialType = $('#SelectTypeMaterial option:selected').text();
-              var seller = $('#SelectSellers option:selected').text();
-              var detentorType = $('#SelectDetentorType option:selected').text();
-              var detentor = $('#SelectDetentor option:selected').text();
-              var titlesSeller = [];
-              var valuesSeller = [];
-              var seller = [];
-              var valueSpecs = [];
-              var titlesSpecs = [];
-              var specs = {};
-              // stockage des valeurs pour les specs
-              $('#fields-specs-types-materials > .row > #fields-specs-types-titles > input[type="text"]').each(function(){
-                titlesSpecs.push($(this).val());
-              });
-              $('#fields-specs-types-materials > .row > #fields-specs-types-titles > select').each(function(){
-                  titlesSpecs.push($(this).text());
-              });
-              $('#fields-specs-types-materials > .row > #fields-specs-types-values > input[type="text"]').each(function(){
-                valueSpecs.push($(this).val());
-              });
-              $('#fields-specs-types-materials > .row > #fields-specs-types-values > select').each(function(){
-                valueSpecs.push($(this).text());
-              });
-              titlesSpecs.forEach(function(item, index){
-                specs[item] = valueSpecs[index];
-              });
-
-              // stockage des valeurs pour le vendeur
-              $('#fields-sellers > .row > #fields-sellers-titles > input[type="text"]').each(function(){
-                titlesSeller.push($(this).val());
-              });
-              $('#fields-sellers > .row > #fields-sellers-titles > select').each(function(){
-                  titlesSeller.push($(this).text());
-              });
-
-              $('#fields-sellers > .row > #fields-sellers-values > input[type="text"]').each(function(){
-                valuesSeller.push($(this).val());
-              });
-              $('#fields-sellers > .row > #fields-sellers-values > select').each(function(){
-                  valuesSeller.push($(this).text());
-              });
-
-              titlesSeller.forEach(function(item, index){
-                seller[item] = valuesSeller[index];
-              });
-
-                $("#modal-body-validation").empty();
-                $("#modal-body-validation").append("<p>Type de matériel : " + materialType + "</p>");
-                $("#modal-body-validation").append("<hr>");
-
-                for (var item in specs){
-                  $("#modal-body-validation").append("<p>" + item + " : " + specs[item] + "</p>");
-                }
-                $("#modal-body-validation").append("<hr>");
-                $("#modal-body-validation").append("<p>Vendeur : " + seller + "</p>");
-                for (var item in seller){
-                  $("#modal-body-validation").append("<p>" + item + " : " + seller[item] + "</p>");
-                }
-                $("#modal-body-validation").append("<hr>");
-                $("#modal-body-validation").append("<p>Type de détenteur : " + detentorType + "</p>");
-                $("#modal-body-validation").append("<p>Détenteur : " + detentor + "</p>");
-
-            });
-          });
-          </script>
-          <div class="modal-footer">
-            <p>6/6</p>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceDetentor">Précédent</button>
-            <button type="button" class="btn btn-success btn-next" id="createMaterialOk" data-dismiss="modal">Créer</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script type="text/javascript">
-// $(document).keypress(function(e) {
-//     if(e.which == 13) {
-//         $(".modal.fade.in > .btn-next1").click();
-//     }
-// });
-$(document).on('click', '#createMaterialOk', function(){
-  // Recupération du type de matériel, de l'id du vendeur, du type de détenteur et de l'id du détenteur.
-  var materialType = $('#SelectTypeMaterial option:selected').text();
-  var sellerId = $('#SelectSellers option:selected').val();
-  var detentorType = $('#SelectDetentorType option:selected').val();
-  var detentor = $('#SelectDetentor option:selected').val();
-  var titlesSeller = [];
-  var valuesSeller = [];
-  var seller = {};
-  var valueSpecs = [];
-  var titlesSpecs = [];
-  var specs = {};
-  // Récupération des titres de valeurs pour les specs dans les champs textes
-  $('#fields-specs-types-materials > .row > #fields-specs-types-titles > input[type="text"]').each(function(){
-    titlesSpecs.push($(this).val());
-  });
-  // Récupération des titres de valeurs pour les specs dans les champs select
-  $('#fields-specs-types-materials > .row > #fields-specs-types-titles > select').each(function(){
-      titlesSpecs.push($(this).text());
-  });
-  // Récupération des valeurs pour les specs dans les champs textes
-  $('#fields-specs-types-materials > .row > #fields-specs-types-values > input[type="text"]').each(function(){
-    valueSpecs.push($(this).val());
-  });
-  // Récupération des valeurs pour les specs dans les champs select
-  $('#fields-specs-types-materials > .row > #fields-specs-types-values > select').each(function(){
-    valueSpecs.push($(this).text());
-  });
-  // Rassemblement des valeurs pour faire des tuples
-  titlesSpecs.forEach(function(item, index){
-    specs[item] = valueSpecs[index];
-  });
-  // Récupération des titres de valeurs pour les vendeurs dans les champs textes
-  $('#fields-sellers > .row > #fields-sellers-titles > input[type="text"]').each(function(){
-    titlesSeller.push($(this).val());
-  });
-  // Récupération des titres de valeurs pour les vendeurs dans les champs select
-  $('#fields-sellers > .row > #fields-sellers-titles > select').each(function(){
-      titlesSeller.push($(this).text());
-  });
-  // Récupération des valeurs pour les vendeurs dans les champs textes
-  $('#fields-sellers > .row > #fields-sellers-values > input[type="text"]').each(function(){
-    valuesSeller.push($(this).val());
-  });
-  // Récupération des valeurs pour les vendeurs dans les champs select
-  $('#fields-sellers > .row > #fields-sellers-values > select').each(function(){
-      valuesSeller.push($(this).text());
-  });
-  // Rassemblement des valeurs pour faire des tuples
-  titlesSeller.forEach(function(item, index){
-    seller[item] = valuesSeller[index];
-  });
-  $.ajax({
-    url: '/materials',
-    type: 'POST',
-    dataType: 'json',
-    data: {
-      "material": {
-        type_material_name: materialType
-      },
-      seller_id: sellerId,
-      detentor_type_id: detentorType,
-      detentor_id: detentor,
-      seller_specs: seller,
-      specs_values: specs
-    },
-    success: function(result){
-      alert("Le matériel a bien été créé !");
-    },
-    error: function(result){
-      alert(result.responseText);
-    }
-  });
-});
-
-</script>
