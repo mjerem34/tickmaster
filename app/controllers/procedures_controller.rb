@@ -10,6 +10,7 @@ class ProceduresController < ApplicationController
     if @view_procedures
       @title = 'Liste des procedures'
       @procedures = Procedure.all.reorder('created_at asc')
+      @edit_procedure = verifRight('edit_procedure')
       respond_to do |format|
         format.json { render json: @procedures }
         format.html { render :index }

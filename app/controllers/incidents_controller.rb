@@ -78,6 +78,11 @@ class IncidentsController < ApplicationController
       @cloture_incidents = verifRight('cloture_incidents')
       @reject_incidents = verifRight('reject_incidents')
       @ask_for_reaffect = verifRight('ask_for_reaffect')
+      @edit_incidents = verifRight('edit_incidents')
+      @edit_categories_incidents = verifRight('edit_categories_incidents')
+      @edit_lvl_incident = verifRight('edit_lvl_incident')
+      @dispatch_incidents = verifRight('dispatch_incidents')
+      @save_changes_of_edit = verifRight('save_changes_of_edit')
       @response = Response.new
       @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
       @title = "Incident n°#{@incident.id} de #{@incident.user.name} #{@incident.user.surname}"

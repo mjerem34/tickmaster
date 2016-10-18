@@ -24,7 +24,7 @@
 12 - Incident en attente de réponse pour prise en charge par un technicien supérieur : #2ecc71
 
 
-<% if current_user.tech.simple_user == false %>
+<% if current_user.type_user.is_tech == false %>
 <% case incident.incident_state_id_for_tech.id %>
 <% when 1, 2, 3, 4 %>
 <tr style=" background: #e74c3c;" data-toggle="modal" data-target="#<%= incident.id %>">

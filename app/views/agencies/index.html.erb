@@ -13,8 +13,6 @@
       <% if @edit_agency then %>
       <tr>
         <th>Nom</th>
-        <th>Adresse email</th>
-        <th>Téléphone</th>
         <th>IP</th>
         <th>Ping</th>
         <th>Pong</th>
@@ -22,8 +20,6 @@
     <% else %>
       <tr>
         <th>Nom</th>
-        <th>Adresse email</th>
-        <th>Téléphone</th>
       </tr>
       <% end %>
     </thead>
@@ -33,8 +29,6 @@
       <% @agencies.each do |agency| %>
       <tr data-ip="<%= agency.ip_adress %>" data-id="<%= agency.id %>" data-name="<%= agency.name %>">
         <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.name %></td>
-        <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.email == "NULL" ? "" : agency.email %>
-          <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.tel == "NULL" ? "" : agency.tel %></td>
           <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.ip_adress == "NULL" ? "" : agency.ip_adress %></td>
           <% if agency.ip_adress != "NULL" %>
           <td id="agencyTd<%= agency.id %>" class="hover-cellule <%= agency.id %>">
@@ -65,24 +59,6 @@
                     <%= agency.id %></p>
                   <p>NOM :
                     <%= agency.name %></p>
-                  <p>ADDRESSE :
-                    <%= agency.adress == 'NULL' ? "" : agency.adress%></p>
-                  <p>COMPL. ADDRESSE :
-                    <%= agency.adress2 == "NULL" ? "" : agency.adress2%></p>
-                  <p>SUPPL. ADRESSE :
-                    <%= agency.adress3 == "NULL" ? "" : agency.adress3%></p>
-                  <p>CODE POSTAL :
-                    <%= agency.cp == "NULL" ? "" : agency.cp %>
-                    <p>VILLE :
-                      <%= agency.city == "NULL" ? "" : agency.city %></p>
-                    <p>DEPARTEMENT :
-                      <%= agency.department == "NULL" ? "" : agency.department %></p>
-                    <p>ADRESSE EMAIL :
-                      <%= agency.email == "NULL" ? "" : agency.email %>
-                      <p>TÉLÉPHONE :
-                        <%= agency.tel == "NULL" ? "" : agency.tel %></p>
-                      <p>FAX :
-                        <%= agency.fax == "NULL" ? "" : agency.fax %></p>
                       <p>IP :
                         <%= agency.ip_adress == "NULL" ? "" : agency.ip_adress %></p>
                     </div>
@@ -142,24 +118,6 @@
                         <div class="modal-body">
                           <p>NOM :
                             <%= agency.name %></p>
-                          <p>ADDRESSE :
-                            <%= agency.adress == 'NULL' ? "" : agency.adress%></p>
-                          <p>COMPL. ADDRESSE :
-                            <%= agency.adress2 == "NULL" ? "" : agency.adress2%></p>
-                          <p>SUPPL. ADRESSE :
-                            <%= agency.adress3 == "NULL" ? "" : agency.adress3%></p>
-                          <p>CODE POSTAL :
-                            <%= agency.cp == "NULL" ? "" : agency.cp %>
-                            <p>VILLE :
-                              <%= agency.city == "NULL" ? "" : agency.city %></p>
-                            <p>DEPARTEMENT :
-                              <%= agency.department == "NULL" ? "" : agency.department %></p>
-                            <p>ADRESSE EMAIL :
-                              <%= agency.email == "NULL" ? "" : agency.email %>
-                              <p>TÉLÉPHONE :
-                                <%= agency.tel == "NULL" ? "" : agency.tel %></p>
-                              <p>FAX :
-                                <%= agency.fax == "NULL" ? "" : agency.fax %></p>
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Fermer</button>

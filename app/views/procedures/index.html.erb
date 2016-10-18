@@ -31,7 +31,7 @@
                 <p style="width:600px;"><%= strip_tags(procedure.contenu) %></p>
               </div>
               <div class="modal-footer">
-                <% if Right.where(name: "edit_procedure").pluck(current_user.tech.name).join('')  == 'true' then %>
+                <% if @edit_procedure%>
 
                 <%= link_to "Editer", edit_procedure_path(procedure), class: "btn btn-primary"%>
                 <% end %>

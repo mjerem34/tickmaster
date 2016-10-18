@@ -1,0 +1,1 @@
+json.array! @field_type_users, partial: 'field_type_users/field_type_user', as: :field_type_user

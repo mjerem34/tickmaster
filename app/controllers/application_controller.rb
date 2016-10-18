@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   skip_before_filter :verify_authenticity_token
   before_filter :maj_flash_from_params
+  before_action :set_default_rights
 
   include SessionsHelper
 
@@ -178,11 +179,7 @@ class ApplicationController < ActionController::Base
 
   # Verify if the current_user have the right passed in params.
   def verifRight(right)
-    if Right.where(name: right).pluck(current_user.tech.name).join('') == 'true'
-      return true
-    else
-      return false
-    end
+    Right.where(name: right).first.type_user_rights.each { |tur| return tur.value if tur.type_user_id == current_user.type_user_id }
   end
 
   # Must reject the incident and send emails.
@@ -351,6 +348,25 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.json { render json: "Vous n'avez pas l'autorisation d'accéder à cette page", status: 403 }
       format.html { redirect_to '/', not_authorized: "Vous n'avez pas l'autorisation d'accéder à cette page" }
+    end
+  end
+
+  # Must check rights to display the lateral bar.
+  # Bar needs to check rights to display only buttons current user can see.
+  def set_default_rights
+    unless current_user.nil?
+      Right.where(name: 'create_procedure').first.type_user_rights.each { |tur| @create_procedure = tur.value if tur.type_user_id == current_user.type_user_id }
+      Right.where(name: 'view_procedures').first.type_user_rights.each { |tur| @view_procedures = tur.value if tur.type_user_id == current_user.type_user_id }
+      Right.where(name: 'view_index_all_of_incidents').first.type_user_rights.each { |tur| @view_index_all_of_incidents = tur.value if tur.type_user_id == current_user.type_user_id }
+      Right.where(name: 'view_index_categories').first.type_user_rights.each { |tur| @view_index_categories = tur.value if tur.type_user_id == current_user.type_user_id }
+      Right.where(name: 'create_new_tech').first.type_user_rights.each { |tur| @create_new_tech = tur.value if tur.type_user_id == current_user.type_user_id }
+      Right.where(name: 'view_index_users').first.type_user_rights.each { |tur| @view_index_users = tur.value if tur.type_user_id == current_user.type_user_id }
+      Right.where(name: 'view_index_rights').first.type_user_rights.each { |tur| @view_index_rights = tur.value if tur.type_user_id == current_user.type_user_id }
+      Right.where(name: 'create_new_agency').first.type_user_rights.each { |tur| @create_new_agency = tur.value if tur.type_user_id == current_user.type_user_id }
+      Right.where(name: 'view_index_agencies').first.type_user_rights.each { |tur| @view_index_agencies = tur.value if tur.type_user_id == current_user.type_user_id }
+      Right.where(name: 'create_material').first.type_user_rights.each { |tur| @create_material = tur.value if tur.type_user_id == current_user.type_user_id }
+      Right.where(name: 'create_update').first.type_user_rights.each { |tur| @create_update = tur.value if tur.type_user_id == current_user.type_user_id }
+      Right.where(name: 'view_update').first.type_user_rights.each { |tur| @view_update = tur.value if tur.type_user_id == current_user.type_user_id }
     end
   end
 

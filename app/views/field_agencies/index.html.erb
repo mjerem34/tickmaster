@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Field Agencies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @field_agencies.each do |field_agency| %>
+      <tr>
+        <td><%= field_agency.name %></td>
+        <td><%= link_to 'Show', field_agency %></td>
+        <td><%= link_to 'Edit', edit_field_agency_path(field_agency) %></td>
+        <td><%= link_to 'Destroy', field_agency, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Field agency', new_field_agency_path %>

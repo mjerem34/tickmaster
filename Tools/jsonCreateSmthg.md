@@ -134,3 +134,17 @@ Créer un matériel (avec tout ce qu'on a besoin) :
     "fefgsdgfrg":"sefesfsefes"
     }
 }
+
+
+
+---
+
+
+Se connecter :
+
+{
+  "session":{
+    "pseudo":"jm",
+    "password":""
+  }
+}

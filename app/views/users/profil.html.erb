@@ -78,7 +78,7 @@
       </div>
     </div>
 
-    <% if Right.where(name: "edit_like_a_boss").pluck(current_user.tech.name).join('') == 'true' %>
+    <% if @edit_like_a_boss %>
     <div class="field form-group select_tag">
       <%= f.label "Type d'utilisateur", class: ""%>
       <%= select_tag "user[tech_id]", options_for_select(Tech.all.pluck(:name, :id), selected: @user.tech_id), class: "form-control  text-uppercase", include_blank: "Type d'utilisateur :"%>

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :field_agencies
+  resources :type_users
+  resources :field_type_users
   mount Ckeditor::Engine => '/ckeditor'
   resources :updates
   resources :type_materials do
@@ -40,7 +43,11 @@ Rails.application.routes.draw do
   get 'pages/404'
   get 'pages/under_construction'
 
-  resources :rights
+  resources :rights do
+    collection do
+      post :check_uncheck_right
+    end
+  end
   resources :file
   resources :sessions, only: [:new, :create, :destroy]
   resources :incidents do
@@ -65,6 +72,12 @@ Rails.application.routes.draw do
       get :forget_identifiers
       post :forget_identifiers
       get :change_ip
+      get :enable
+      get :disable
+    end
+    collection do
+      get :new_user
+      get :new_tech
     end
   end
   get '/', to: 'pages#home'
@@ -78,7 +91,6 @@ Rails.application.routes.draw do
   get '/rights', to: 'rights#index'
   get '/agencies', to: 'agencies#index'
   get '/agencies_doPing', to: 'agencies#doPing'
-  get '/check_notify', to: 'users#check'
   get '/sessions', to: redirect('/sessions/new')
 
   # get '/test_exception', to: 'application#test_exception'

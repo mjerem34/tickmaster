@@ -1510,7 +1510,7 @@ href="Incident.html">Incident</a> pris en charge par un technicien
 supérieur : #2c3e50 12 - <a href="Incident.html">Incident</a> en attente de
 réponse pour prise en charge par un technicien supérieur : #2ecc71</p>
 
-<p>&lt;% if current_user.tech.simple_user == false %&gt; &lt;% case
+<p>&lt;% if current_user.type_user.is_tech == false %&gt; &lt;% case
 incident.incident_state_id_for_tech.id %&gt; &lt;% when 1, 2, 3, 4 %&gt;
 &lt;tr style=“ background: e74c3c;” data-toggle=“modal”
 data-target=“#&lt;%= incident.id %&gt;”&gt;  &lt;% when 5, 11, 12 %&gt; 

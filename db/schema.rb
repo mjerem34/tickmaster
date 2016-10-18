@@ -11,20 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011145318) do
+ActiveRecord::Schema.define(version: 20161017135900) do
 
   create_table "agencies", force: :cascade do |t|
-    t.string "name",       limit: 45
-    t.string "adress",     limit: 100
-    t.string "adress2",    limit: 100
-    t.string "adress3",    limit: 100
-    t.string "cp",         limit: 20
-    t.string "city",       limit: 45
-    t.string "email",      limit: 45
-    t.string "tel",        limit: 20
-    t.string "fax",        limit: 20
-    t.string "department", limit: 50
-    t.string "ip_adress",  limit: 50
+    t.string "name",      limit: 45
+    t.string "ip_adress", limit: 50
   end
 
   create_table "archives", force: :cascade do |t|
@@ -54,6 +45,28 @@ ActiveRecord::Schema.define(version: 20161011145318) do
 
   create_table "detentor_types", force: :cascade do |t|
     t.string "name", limit: 255
+  end
+
+  create_table "field_agencies", force: :cascade do |t|
+    t.string "name", limit: 255
+  end
+
+  create_table "field_agency_agencies", force: :cascade do |t|
+    t.integer "agency_id",       limit: 4
+    t.integer "field_agency_id", limit: 4
+    t.text    "content",         limit: 65535
+  end
+
+  create_table "field_type_users", force: :cascade do |t|
+    t.integer "type_user_id",    limit: 4
+    t.string  "name",            limit: 255
+    t.boolean "display_in_list"
+  end
+
+  create_table "field_users", force: :cascade do |t|
+    t.integer "field_type_user_id", limit: 4
+    t.integer "user_id",            limit: 4
+    t.text    "content",            limit: 65535
   end
 
   create_table "fields_seller_sellers", force: :cascade do |t|
@@ -191,16 +204,8 @@ ActiveRecord::Schema.define(version: 20161011145318) do
   add_index "responses", ["pc_id"], name: "index_responses_on_pc_id", using: :btree
 
   create_table "rights", force: :cascade do |t|
-    t.string  "name",       limit: 255
-    t.string  "content",    limit: 255
-    t.boolean "user"
-    t.boolean "tech"
-    t.boolean "super_tech"
-    t.boolean "admin"
-    t.boolean "disp"
-    t.boolean "assistant"
-    t.boolean "expert"
-    t.boolean "comptable"
+    t.string "name",    limit: 255
+    t.string "content", limit: 255
   end
 
   create_table "sellers", force: :cascade do |t|
@@ -233,14 +238,6 @@ ActiveRecord::Schema.define(version: 20161011145318) do
     t.string "name", limit: 255
   end
 
-  create_table "teches", force: :cascade do |t|
-    t.string   "name",        limit: 40
-    t.boolean  "afficher"
-    t.boolean  "simple_user"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
   create_table "type_materials", force: :cascade do |t|
     t.string "name", limit: 255
   end
@@ -248,6 +245,18 @@ ActiveRecord::Schema.define(version: 20161011145318) do
   create_table "type_materials_specs_types_materials", force: :cascade do |t|
     t.integer "type_material_id",      limit: 4
     t.integer "spec_type_material_id", limit: 4
+  end
+
+  create_table "type_user_rights", force: :cascade do |t|
+    t.integer "right_id",     limit: 4
+    t.integer "type_user_id", limit: 4
+    t.boolean "value"
+  end
+
+  create_table "type_users", force: :cascade do |t|
+    t.string  "name",    limit: 255
+    t.boolean "secure"
+    t.boolean "is_tech"
   end
 
   create_table "types_materials_sellers", force: :cascade do |t|
@@ -261,23 +270,23 @@ ActiveRecord::Schema.define(version: 20161011145318) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "pseudo",     limit: 100
-    t.string   "email",      limit: 255
-    t.string   "tel",        limit: 30
-    t.string   "mobile",     limit: 15
-    t.string   "name",       limit: 100
-    t.string   "surname",    limit: 100
-    t.string   "password",   limit: 255
-    t.string   "salt",       limit: 255
-    t.integer  "tech_id",    limit: 4
-    t.integer  "agency_id",  limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "ip_addr",    limit: 20
+    t.string   "pseudo",       limit: 100
+    t.string   "email",        limit: 255
+    t.string   "tel",          limit: 30
+    t.string   "password",     limit: 255
+    t.string   "salt",         limit: 255
+    t.integer  "agency_id",    limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "ip_addr",      limit: 20
     t.boolean  "maj"
+    t.integer  "type_user_id", limit: 4
+    t.boolean  "sys_msg"
+    t.boolean  "actif"
+    t.string   "name",         limit: 255
+    t.string   "surname",      limit: 255
   end
 
   add_index "users", ["agency_id"], name: "index_users_on_agency_id", using: :btree
-  add_index "users", ["tech_id"], name: "index_users_on_tech_id", using: :btree
 
 end

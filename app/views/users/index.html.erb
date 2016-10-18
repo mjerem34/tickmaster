@@ -3,21 +3,15 @@
     <thead class="header">
       <% if @edit_other_user then %>
       <tr>
-        <th>#</th>
+        <!-- <th>#</th>
         <th>Pseudo</th>
         <th>Email</th>
-        <th>Nom</th>
-        <th>Prénom</th>
         <th>Tel</th>
-        <th>Mobile</th>
         <th>Agence</th>
-        <th>Inscription</th>
-        <th>Compte</th>
+        <th>Inscription</th> -->
       </tr>
     <% else %>
       <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
         <th>Tel</th>
         <th>Mobile</th>
         <th>Email</th>
@@ -30,28 +24,10 @@
       <% if @edit_other_user then %>
       <!-- Vue pour les administrateurs -->
       <tr>
-        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.id%></td>
-        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.pseudo%></td>
-        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.email%></td>
-        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.name%></td>
-        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.surname%></td>
-        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.tel == nil ? "Inconnu" : user.tel %></td>
-        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.mobile == nil ? "Inconnu" : user.mobile %></td>
-        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.agency.name%></td>
-        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.created_at == nil ? "Date inconnue" : user.created_at.strftime("%d %b %Y %H:%M")  %></td>
-        <td onClick="document.location.href='<%=profil_user_path(user)%>'"><%= user.tech.name %></td>
       </tr>
     <% else %>
       <!-- Vue pour les utilisateurs -->
       <tr>
-        <td><%= user.name%></td>
-        <td><%= user.surname%></td>
-        <td><%= user.tel == nil ? "Inconnu" : user.tel %></td>
-        <td><%= user.mobile == nil ? "Inconnu" : user.mobile %></td>
-        <td>
-          <a href="mailto:<%= user.email%>"><%= user.email%></a>
-        </td>
-        <td><%= user.agency.name%></td>
       </tr>
       <% end %>
       <%end%>

@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy, :profil, :download]
   before_action :set_expiration
   before_action :restrict_access, except: [:new, :create, :forget_identifiers, :change_ip]
-
   # GET /users
   # GET /users.json
   # Should render all users.
@@ -11,11 +10,37 @@ class UsersController < ApplicationController
     if @view_index_users
       @title = 'Liste des utilisateurs'
       @edit_other_user = verifRight('edit_other_user')
-      @users = User.order('name asc')
+      @users = User.order('pseudo asc')
       respond_to do |format|
         format.json { render json: @users }
         format.html { render :index }
       end
+    else
+      renderUnauthorized
+    end
+  end
+
+  # GET /user/:id/enable
+  def enable
+    @enable_disable_user = verifRight('enable_disable_user')
+    if @enable_disable_user
+      @title = 'Activer/Désactiver un utilisateur'
+      @user = User.find(params[:id])
+      @user.update(actif: true)
+      respond_to { |format| format.json { head :no_content } }
+    else
+      renderUnauthorized
+    end
+  end
+
+  # GET /user/:id/disable
+  def disable
+    @enable_disable_user = verifRight('enable_disable_user')
+    if @enable_disable_user
+      @title = 'Activer/Désactiver un utilisateur'
+      @user = User.find(params[:id])
+      @user.update(actif: false)
+      respond_to { |format| format.json { head :no_content } }
     else
       renderUnauthorized
     end
@@ -73,25 +98,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # I think this is useless now because I disabled it.
-  # It was used for the browser notification.
-  # It takes the incidents that have notification and return it in json to the browser.
-  def check
-    return false if current_user.nil?
-    @idOfIncident = []
-    if current_user.tech.name == 'disp'
-      @incidents = Incident.where(notify_for_tech: 1, incident_state_id_for_tech_id: 1)
-    elsif current_user.tech.simple_user == true
-      @incidents = Incident.where(user_id: current_user.id, notify_for_user: 1)
-    elsif current_user.tech.simple_user == false
-      @incidents = Incident.where(tech_id: current_user.id, notify_for_tech: 1)
-    end
-    @incidents.each do |incident|
-      @idOfIncident << incident.id
-    end
-    render json: @idOfIncident
-  end
-
   # GET /users/:id
   # GET /users/:id.json
   # Should render all the incidents that the user have created.
@@ -102,6 +108,16 @@ class UsersController < ApplicationController
       format.json { render json: @incidents }
       format.html { render :show }
     end
+  end
+
+  # GET /users/new_tech
+  def new_tech
+    @user = User.new
+  end
+
+  # GET /users/new_user
+  def new_user
+    @user = User.new
   end
 
   # GET /user/:id/profil
@@ -118,6 +134,7 @@ class UsersController < ApplicationController
     end
     if current_user == @user || verifRight('edit_other_user')
       @title = "Profil d'utilisateur #{@user.surname} #{@user.name}"
+      @edit_like_a_boss = verifRight('edit_like_a_boss')
       respond_to do |format|
         format.json { render json: @user }
         format.html { render :profil }
@@ -143,11 +160,6 @@ class UsersController < ApplicationController
     else
       renderUnauthorized
     end
-  end
-
-  # Signup page.
-  def new
-    @user = User.new
   end
 
   # GET /users/:id/all_incidents
@@ -261,7 +273,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:pseudo, :password, :email, :name, :surname, :ip_addr,
-                                 :tel, :mobile, :tech_id, :agency_id, file_users_attributes: [:id, :user_id, :file, :content_type, :file_size])
+    params.require(:user).permit(:type_user_id, :pseudo, :password, :email, :tel, :salt, :agency_id, :mode, :ip_addr, :maj, :sys_msg, :actif, file_users_attributes: [:id, :user_id, :file, :content_type, :file_size])
   end
 end

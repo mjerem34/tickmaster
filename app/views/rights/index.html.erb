@@ -1,135 +1,77 @@
-<% if @edit_rights %>
-<div class="table-responsive">
-  <table class="table table-hover">
-    <thead class="header">
-      <tr>
-        <th>Nom</th>
-        <th>Description</th>
-        <th>Demandeur</th>
-        <%= current_user.tech.name == "tech" ? "<th style='color:#47b8e0 !important;'>Technicien</th>".html_safe : "<th>Technicien</th>".html_safe%>
-        <%= current_user.tech.name == "super_tech" ? "<th style='color:#47b8e0 !important;'>SuperTech</th>".html_safe : "<th>SuperTech</th>".html_safe%>
-        <%= current_user.tech.name == "admin" ? "<th style='color:#47b8e0 !important;'>Administrateur</th>".html_safe : "<th>Administrateur</th>".html_safe%>
-        <%= current_user.tech.name == "assistant" ? "<th style='color:#47b8e0 !important;'>Assistant</th>".html_safe : "<th>Assistant</th>".html_safe%>
-        <%= current_user.tech.name == "expert" ? "<th style='color:#47b8e0 !important;'>Expert</th>".html_safe : "<th>Expert</th>".html_safe%>
-        <%= current_user.tech.name == "comptable" ? "<th style='color:#47b8e0 !important;'>Comptable</th>".html_safe : "<th>Comptable</th>".html_safe%>
-      </tr>
-    </thead>
-    <tbody>
-      <% @rights.each do |right| %>
-      <tr>
-        <td><%= right.name %></td>
-        <td><%= right.content %></td>
-        <%if right.user == true%>
-        <td style="background: darkgreen;"><%= right.user %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.user %></td>
-        <%end%>
-        <%if right.tech == true%>
-        <td style="background: darkgreen;"><%= right.tech %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.tech %></td>
-        <%end%>
-        <%if right.super_tech == true%>
-        <td style="background: darkgreen;"><%= right.super_tech %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.super_tech %></td>
-        <%end%>
-        <%if right.admin == true%>
-        <td style="background: darkgreen;"><%= right.admin %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.admin %></td>
-        <%end%>
-        <%if right.disp == true%>
-        <td style="background: darkgreen;"><%= right.disp %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.disp %></td>
-        <%end%>
-        <%if right.assistant == true%>
-        <td style="background: darkgreen;"><%= right.assistant %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.assistant %></td>
-        <%end%>
-        <%if right.expert == true%>
-        <td style=" background: darkgreen;"><%= right.expert %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.expert %></td>
-        <%end%>
-        <%if right.comptable == true%>
-        <td style="background: darkgreen;"><%= right.comptable %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.comptable %></td>
-        <%end%>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+<div class="tabs">
+  <!-- Vue par type d'utilisateur  -->
+  <% @type_users.each do |type_user| %>
+  <div class="tab">
+    <input type="radio" name="tabgroup" id="tab-<%= type_user.name %>">
+    <label for="tab-<%= type_user.name %>"><%= type_user.name %></label>
+    <div class="content-tab">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead class="header">
+            <tr>
+              <th>Nom</th>
+              <th>Description</th>
+              <th>Droit?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% type_user.type_user_rights.each do |tur| %>
+            <tr>
+              <td style="padding:0 !important;"><%= tur.right.name %></td>
+              <td style="padding:0 !important;"><%= tur.right.content %></td>
+              <% if tur.value %>
+              <td style="padding:0 !important;">
+                <div class="slideThree">
+                  <input class="checkbox-right" type="checkbox" data-id="<%= type_user.id %>" name="<%= type_user.name %>" value="<%= tur.right.id %>" checked>
+                  <label for="checkbox-right"></label>
+                </div>
+              </td>
+              <% else %>
+              <td style="padding:0 !important;">
+                <div class="slideThree">
+                  <input class="checkbox-right" type="checkbox" data-id="<%= type_user.id %>" name="<%= type_user.name %>" value="<%= tur.right.id %>">
+                  <label for="checkbox-right"></label>
+                </div>
+              </td>
+              <% end %>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+  <% end %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('input[type="radio"]:nth-child(1)').click();
+      $(document).on('click', '.slideThree', function(){
+        var checked = $(this).children('input[type="checkbox"]').is(":checked");
+        var type_user = $(this).children('input[type="checkbox"]').data("id");
+        var right = $(this).children('input[type="checkbox"]').val();
+        $.clicked = $(this);
+        $.ajax({
+          url: '/rights/check_uncheck_right',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            checked:!checked,
+            type_user:type_user,
+            right:right
+          },
+          success: function(result){
+            if($.clicked.children('label').css("left") == "3px"){
+              $.clicked.children('label').css("left", "43px");
+              $.clicked.children('input[type="checkbox"]').prop('checked', true);
+            }else{
+              $.clicked.children('label').css("left", "3px");
+              $.clicked.children('input[type="checkbox"]').prop('checked', false);
+            }
+          }
+        });
+      });
+    });
+  </script>
+  <!--  -->
 </div>
-<% else %>
-<div class="table-responsive">
-  <table class="table table-hover">
-    <thead class="header">
-      <tr>
-        <th>Nom</th>
-        <th>Description</th>
-        <th>Demandeur</th>
-        <th>Technicien</th>
-        <th>SuperTech</th>
-        <th>Administrateur</th>
-        <th>Dispatcheur</th>
-        <th>Assistant</th>
-        <th>Expert</th>
-        <th>Comptable</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @rights.each do |right| %>
-      <tr>
-        <td><%= right.name %></td>
-        <td><%= right.content %></td>
-        <%if right.user == true%>
-        <td style="background: darkgreen;"><%= right.user %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.user %></td>
-        <%end%>
-        <%if right.tech == true%>
-        <td style="background: darkgreen;"><%= right.tech %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.tech %></td>
-        <%end%>
-        <%if right.super_tech == true%>
-        <td style="background: darkgreen;"><%= right.super_tech %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.super_tech %></td>
-        <%end%>
-        <%if right.admin == true%>
-        <td style="background: darkgreen;"><%= right.admin %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.admin %></td>
-        <%end%>
-        <%if right.disp == true%>
-        <td style="background: darkgreen;"><%= right.disp %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.disp %></td>
-        <%end%>
-        <%if right.assistant == true%>
-        <td style="background: darkgreen;"><%= right.assistant %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.assistant %></td>
-        <%end%>
-        <%if right.expert == true%>
-        <td style="background: darkgreen;"><%= right.expert %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.expert %></td>
-        <%end%>
-        <%if right.comptable == true%>
-        <td style="background: darkgreen;"><%= right.comptable %></td>
-        <%else%>
-        <td style="background: darkred;"><%= right.comptable %></td>
-        <%end%>
-      </tr>
-      <% end %>
-    </tbody>
-    <% end %>
-  </table>
-</div>
-<br>

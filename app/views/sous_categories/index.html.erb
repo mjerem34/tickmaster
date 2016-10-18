@@ -14,17 +14,17 @@
       <% @sous_categories.each do |sous_category| %>
       <tr>
         <td onClick="document.location.href='<%=sous_category_path(sous_category)%>'"><%= sous_category.id %></td>
-        <% if !current_user.nil? && Right.where(name: "view_details_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+        <% if !current_user.nil? && @view_details_subcategories %>
         <td onClick="document.location.href='<%=sous_category_path(sous_category)%>'"><%= sous_category.name %></td>
         <% else %>
         <td><%= sous_category.name %></td>
         <% end %>
         <td><%= Category.where(id: "#{sous_category.category_id}").pluck(:name).join %></td>
 
-        <% if Right.where(name: "edit_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+        <% if @edit_subcategories %>
         <td><%= link_to 'Editer', edit_sous_category_path(sous_category) %></td>
         <% end %>
-        <% if Right.where(name: "delete_subcategories").pluck(current_user.tech.name).join('')  == 'true' %>
+        <% if @delete_subcategories %>
         <td><%= link_to 'Supprimer', sous_category, method: :delete, data: { confirm: 'Êtes vous sûr de vouloir supprimer cette sous catégorie ?' }%></td>
         <% end %>
 

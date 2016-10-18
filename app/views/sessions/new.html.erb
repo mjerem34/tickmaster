@@ -56,12 +56,12 @@
     <div class="field form-group">
 
       <% @arr = [] %>
-      <%@arr = User.find_by_sql('SELECT users.pseudo FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false').collect{|u| u.pseudo}%>
+      <%@arr = User.find_by_sql('SELECT users.pseudo FROM users INNER JOIN type_users ON users.type_user_id = type_users.id WHERE type_users.is_tech = true').collect{|u| u.pseudo}%>
       <%= f.text_field :pseudo, class: "form-control pseudo-entry", placeholder: "Pseudonyme(en minuscules)", id: 'next' %>
       <%= f.password_field :password, class: "form-control password-entry", placeholder: "Mot de passe" %>
       <script type="text/javascript">
         $(document).ready(function () {
-          var count = "<%=User.find_by_sql('SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false').count%>";
+          var count = "<%=User.find_by_sql('SELECT users.id, users.name, users.surname FROM users INNER JOIN type_users ON users.type_user_id = type_users.id WHERE type_users.is_tech = true').count%>";
           $(".password-entry").hide();
           $(".password-entry").val(' ');
           $(".pseudo-entry").keyup(function () {

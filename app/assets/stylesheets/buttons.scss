@@ -1,3 +1,6 @@
+.btn{
+  font-weight: $font-weight-btns;
+}
 .btn-se-deco{
   background: $btn-se-deco-color;
   color: $link-hover;
@@ -77,6 +80,11 @@ li{
     background-position: center !important;
   }
 }
+
+.btn-reaffect, .btn-save, .btn-cloture, .btn-reject, .btn-procedure, .btn-response, .btn-cancel{
+  color:$text-color-btn;
+  border-color: $border-color-btns;
+}
 .btn-reaffect{
   background: url("ICONS/957.png") 10% no-repeat;
 }
@@ -124,8 +132,6 @@ li{
 div.content{
   .btn:hover, .link_procedurer, a, .btn, .btn:focus, .btn:active,{
     text-decoration: none;
-    color:$text-color-jour;
-    border-color: $text-color-jour;
   }
   li.new_incident_button a{
     color: $text-color-jour !important;

@@ -55,24 +55,15 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # GET /categories/new
-  # Should render the new form for create an category, only for web.
-  def new
-    @create_new_category = verifRight('create_new_category')
-    if @create_new_category
-      @title = 'Nouvelle catégorie'
-      @category = Category.new
-    else
-      renderUnauthorized
-    end
-  end
-
   # GET /categories/1/edit
   # Should render the edit form for edit an category, only for web.
   def edit
     @edit_category = verifRight('edit_category')
     if @edit_category
       @title = "Editer catégorie : #{@category.name}"
+      @view_details_subcategories = verifRight('view_details_subcategories')
+      @edit_subcategories = verifRight('edit_subcategories')
+      @delete_subcategories = verifRight('delete_subcategories')
       @sous_category = SousCategory.new
     else
       renderUnauthorized

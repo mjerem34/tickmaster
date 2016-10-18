@@ -22,6 +22,7 @@
 @import "forms.scss";
 @import "procedures.scss";
 @import "modals.scss";
+@import "rights.scss";
 
 #functions li,
 #functions{
@@ -68,6 +69,10 @@ h1.home{
   text-align:center;
   padding-top: 10px;
   font-weight: 700;
+  color: $text-color-h1-home;
+}
+option{
+  font-weight: $font-weight-options-select;
 }
 /*navbar ---------- fin*/
 /*formulaires*/

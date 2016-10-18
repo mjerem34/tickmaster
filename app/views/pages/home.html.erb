@@ -1,6 +1,6 @@
 <% if !current_user.nil? %>
 <% @title = 'Tableau de bord' %>
-<% if !current_user.tech.simple_user %>
+<% if !current_user.type_user.is_tech %>
 <% @incidents = Incident.all.order("created_at asc") %>
 <% @agencies = Agency.all %>
 <% @incidents_without_tech = @incidents.where(tech_id: nil).includes(:user, :category, :sous_category).order("created_at asc") %>

@@ -39,7 +39,7 @@
       <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
       <td onClick="document.location.href='<%=edit_incident_path(incident)%>'" class="hover-cellule"><%= IncidentsState.where(id: "#{incident.incident_state_id_for_user_id}").pluck(:shortcut).join('') %>
         <span>
-          <%=IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:name).join('')%>
+          <%= IncidentsState.where(id: "#{incident.incident_state_id_for_tech}").pluck(:name).join('')%>
         </span>
       </td>
     </tr>

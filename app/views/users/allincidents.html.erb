@@ -26,7 +26,7 @@
 
         <td><%= incident.category.name %></td>
         <td><%= incident.created_at.strftime("%d %b %Y") %></td>
-        <% if current_user.tech.simple_user == true %>
+        <% if current_user.type_user.is_tech == true %>
         <td><%= incident.incident_state_id_for_user.shortcut %></td>
       <% else %>
         <td><%= incident.incident_state_id_for_tech.shortcut %></td>
@@ -67,7 +67,7 @@
                 <p>Créé à :
                   <%= incident.created_at.strftime("%d %b %Y %H:%M") %></p>
                 <p>Etat :
-                  <% if current_user.tech.simple_user == true %>
+                  <% if current_user.type_user.is_tech == true %>
                   <%= incident.incident_state_id_for_user.shortcut %>
                 <% else %>
                   <%= incident.incident_state_id_for_tech.shortcut %>

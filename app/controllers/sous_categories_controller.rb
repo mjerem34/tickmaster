@@ -14,6 +14,9 @@ class SousCategoriesController < ApplicationController
     if @view_index_subcategories
       @title = 'Liste des sous catégories'
       @sous_categories = SousCategory.all
+      @view_details_subcategories = verifRight('view_details_subcategories')
+      @edit_subcategories = verifRight('edit_subcategories')
+      @delete_subcategories = verifRight('delete_subcategories')
       respond_to do |format|
         format.json { render json: @sous_categories }
         format.html { render :index }

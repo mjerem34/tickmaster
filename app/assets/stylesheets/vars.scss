@@ -5,19 +5,22 @@ $text-color-nuit: #EEE;
 $text-color-title: #47b8e0 ;
 $link-hover:#FFF !important;
 $text-color-navbar: #000 !important;
-
+$text-color-h1-home: #111;
 /*police*/
 $text-font: 'Quicksand',Arial,cursive;
 $text-font-title: 'Pacifico', cursive;
 /*weight*/
 $font-weight: bold;
 $font-weight-tables: bold;
+$font-weight-btns: bold;
+$font-weight-options-select: bold;
 /*size*/
 $title-font-size: 22px;
 $font-size-big: 3em;
 $font-size-default: 2em;
 $font-size-little: 1.5em;
 $font-size-extra-little: 1em;
+$font-size-links-lateral-bar: 13px;
 
 /*FONTS*/
 
@@ -53,7 +56,8 @@ $box-shadow-form-user: 0 0 0;
 
 //btn
 $btn-se-deco-color: #FF7473;
-
+$border-color-btns: $text-color-jour;
+$text-color-btn: $text-color-jour;
 // OTHERS
 
 $border-bottom-color-navbar: transparent;

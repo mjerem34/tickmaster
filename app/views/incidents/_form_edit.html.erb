@@ -36,7 +36,6 @@
                     <p>Pseudo : <%= @incident.user.pseudo %></p>
                     <p>Mail : <a style="color:dimgrey !important;" href="mailto:<%= @incident.user.email %>"><%= @incident.user.email%></a></p>
                     <p>Tel : <%= @incident.user.tel %></p>
-                    <p>Mobile : <%= unless @incident.user.mobile.nil? then @incident.user.mobile else "Non renseigné" end %></p>
                     <p>Agence : <%= @incident.user.agency.name %></p>
                   </div>
                   <div class="modal-footer">
@@ -51,7 +50,7 @@
           </div>
 
           <p>Etat de l'incident :
-          <% if current_user.tech.simple_user == true %>
+          <% if current_user.type_user.is_tech == true %>
         <%= @incident.incident_state_id_for_user.name %></p>
         <% else %>
         <%= @incident.incident_state_id_for_tech.name  %></p>
@@ -59,7 +58,7 @@
       </div>
     <div class="field">
       <%= f.label "Objet", class: ""  %><br>
-      <% if Right.where(name: "edit_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
+      <% if @edit_incidents %>
       <%= f.text_field :title, class: "form-control "  %>
       <% else %>
       <%= f.text_field :title, disabled: "disabled", class: "form-control "  %>
@@ -68,20 +67,20 @@
 
     <div class="field tech_name">
       <%= f.label "Nom du technicien", class: ""  %>
-      <% if Right.where(name: "dispatch_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
+      <% if @dispatch_incidents %>
       <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10%>
-      <%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), disabled: 'disabled', class: "form-control ", data_name: @incident.id  %>
+      <%= select_tag "incident[tech_id]", options_for_select(User.joins(:type_user).where("type_users.is_tech = ?", true).collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), disabled: 'disabled', class: "form-control ", data_name: @incident.id  %>
       <% else %>
-      <%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), class: "form-control ", include_blank: "Technicien non défini...", data_name: @incident.id  %>
+      <%= select_tag "incident[tech_id]", options_for_select(User.joins(:type_user).where("type_users.is_tech = ?", true).collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), class: "form-control ", include_blank: "Technicien non défini...", data_name: @incident.id  %>
       <% end %>
       <% else %>
-      <%= select_tag "incident[tech_id]", options_for_select(User.find_by_sql("SELECT users.id, users.name, users.surname FROM users INNER JOIN teches ON users.tech_id = teches.id WHERE teches.simple_user = false").collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), include_blank: "Technicien non défini...", disabled: 'disabled', class: "form-control ", data_name: @incident.id  %>
+      <%= select_tag "incident[tech_id]", options_for_select(User.joins(:type_user).where("type_users.is_tech = ?", true).collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), include_blank: "Technicien non défini...", disabled: 'disabled', class: "form-control ", data_name: @incident.id  %>
       <% end %>
     </div>
     <div class="field category_name">
       <%= f.label "Catégorie de l'incident", class: ""  %><br>
-      <% if Right.where(name: "edit_categories_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
+      <% if @edit_categories_incidents %>
       <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10 %>
       <%= select_tag("incident[category_id]", options_for_select(@categories.collect{ |u| [u.name, u.id]}, selected: @incident.category_id), disabled: "disabled", class: "form-control ")%>
@@ -95,7 +94,7 @@
 
     <div class="field">
       <%= f.label "Sous_Catégorie de l'incident", class: ""  %><br>
-      <% if Right.where(name: "edit_categories_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
+      <% if @edit_categories_incidents %>
       <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10 %>
       <%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), disabled: "disabled", class: "form-control " )%>
@@ -137,7 +136,7 @@
     </ul>
   </div>
   <div class="field">
-    <% if Right.where(name: "edit_lvl_incident").pluck(current_user.tech.name).join('')  == 'true' %>
+    <% if @edit_lvl_incident %>
     <%= f.label "Niveau d'urgence suggéré par l'utilisateur", class: ""%>
     <p class="form-control ">
       <%= @incident.lvl_urgence_user %>
@@ -151,7 +150,7 @@
   <div class="col-md-8">
     <div class="field">
       <%= f.label "Contenu", class: ""  %><br>
-      <% if Right.where(name: "edit_incidents").pluck(current_user.tech.name).join('')  == 'true' %>
+      <% if @edit_incidents %>
       <%=f.cktext_area :content, :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control "%>
       <% else %>
       <%=f.cktext_area :content, :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control ", :disabled => "disabled"%>
@@ -178,7 +177,7 @@
   <div class="col-md-12">
     <div class="actions">
       <% if !clotured_or_rejected?(@incident) %>
-      <% if Right.where(name: "save_changes_of_edit").pluck(current_user.tech.name).join('')  == 'true' %>
+      <% if @save_changes_of_edit %>
       <ul class="buttons-edit-incident-right valider">
         <li>
           <%= f.submit "Enregistrer", id: "sendButton", class: "sendButton btn btn-save " %>

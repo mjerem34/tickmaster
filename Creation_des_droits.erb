@@ -1,6 +1,0 @@
-<% if Right.where(name: "NOMDUDROIT").pluck(current_user.tech.name).join('')  == 'true' %>
-
-<%else%>
-<% @title = "Accès non autorisé"%>
-<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
-<% end %>
