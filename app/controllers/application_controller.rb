@@ -3,21 +3,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
   skip_before_filter :verify_authenticity_token
-  before_filter :maj_flash_from_params
   before_action :set_default_rights
 
   include SessionsHelper
 
   private
-
-  # Must allow the flash of a lot of text.
-  def default_url_options
-    { maj_flash: @maj_flash }
-  end
-
-  def maj_flash_from_params
-    @maj_flash = params[:maj]
-  end
 
   # Must signout the user when he close the navigator.
   def set_expiration
@@ -66,12 +56,12 @@ class ApplicationController < ActionController::Base
       when 'Valider' then
         if @response.receiver.nil?
           User.where(tech_id: 5).each do |disp|
-            unless disp.ip_addr.nil?
+            unless disp.ip_addr.blank?
               sendNotif(disp.ip_addr, @response.sender.name + ' ' + @response.sender.surname + ' a envoyé un message !')
             end
           end
         else
-          unless @response.receiver.ip_addr.nil?
+          unless @response.receiver.ip_addr.blank?
             sendNotif(@response.receiver.ip_addr, @response.sender.name + ' ' + @response.sender.surname + ' a envoyé un message !')
           end
         end
@@ -195,11 +185,11 @@ class ApplicationController < ActionController::Base
       nil
     end
     User.where(tech_id: 5).each do |disp|
-      unless disp.ip_addr.nil?
+      unless disp.ip_addr.blank?
         sendNotif(disp.ip_addr, "L'incident n°" + incident.id.to_s + ' a été rejeté !')
       end
     end
-    unless incident.user.ip_addr.nil?
+    unless incident.user.ip_addr.blank?
       sendNotif(incident.user.ip_addr, 'Votre incident n°' + incident.id.to_s + ' a été rejeté !')
     end
     respond_to do |format|
@@ -244,7 +234,7 @@ class ApplicationController < ActionController::Base
         nil
       end
     else # Or if is tech that have ask for a cloturation.
-      unless incident.user.ip_addr.nil?
+      unless incident.user.ip_addr.blank?
         # Send the notification to the user if the user have the app installed.
         sendNotif(incident.user.ip_addr, 'Votre incident n°' + incident.id.to_s + ' demande à être cloturé !')
       end
@@ -330,7 +320,7 @@ class ApplicationController < ActionController::Base
     end
     # Must find the dispatchors.
     User.where(tech_id: 5).each do |disp|
-      unless disp.ip_addr.nil?
+      unless disp.ip_addr.blank?
         # Try to send the notification to his app.
         sendNotif(disp.ip_addr, "L'incident n°" + incident.id.to_s + ' demande a être réaffecté !')
       end

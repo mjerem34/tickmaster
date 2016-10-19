@@ -109,7 +109,7 @@ class IncidentsController < ApplicationController
     if @dispatch_incidents
       @incident = Incident.find(params[:incident_id])
       @incident.update(tech_id: params[:tech_id])
-      unless @incident.tech.ip_addr.nil?
+      unless @incident.tech.ip_addr.blank?
         begin
           sendNotif(@incident.tech.ip_addr, "L'incident n°" + @incident.id.to_s + ' vient de vous être affecté !')
         rescue
@@ -168,7 +168,7 @@ class IncidentsController < ApplicationController
             nil
           end
           User.where(tech_id: 5).each do |disp|
-            next if disp.ip_addr.nil?
+            next if disp.ip_addr.blank?
             # Try to send an notification to all of the dispatchor that
             # Have installed the desktop app.
             sendNotif(disp.ip_addr, @incident.user.name + ' ' + @incident.user.surname + ' a créé un incident !')

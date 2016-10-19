@@ -78,11 +78,10 @@ transformer fields_seller_sellers content en text au lieu de string
         * juste besoin d'une vue index pour les afficher et les créer dans la liste bouton +
 
 
-* Type_users index liste avec à la fin un champ pour ajouter avec cocher si mot de passe ou si c'est un tech
 * Créer les droits pour index/show/new/delete/update type_user
+* Type_users index liste avec à la fin un champ pour ajouter avec cocher si mot de passe ou si c'est un tech
 * Type_users show liste les utilisateurs qui appartiennent au type
 * Mettre un modal pour editer le type
-* Rajouter champ actif dans base si pas present
 * Destroy doit juste désactiver le type et ne plus le proposer
 
 

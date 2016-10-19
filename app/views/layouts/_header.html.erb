@@ -56,6 +56,7 @@
         <ul class="sub-menu collapse" id="users">
           <li><%= link_to "Tous les utilisateurs", users_url, class: " ", tabindex: -1, method: :get  %></li>
           <li><%= link_to "Créer un utilisateur", signup_path, class: " ", tabindex: -1, method: :get  %></li>
+          <li><%= link_to "Profils utilisateurs", type_users_path, class: " ", tabindex: -1, method: :get  %></li>
         </ul>
       <% else %>
         <% if !current_user.nil? && @view_index_users %>

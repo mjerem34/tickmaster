@@ -1,3 +1,32 @@
+-- Mockup d'une requète
+INSERT INTO `Tickets_development`.`rights` (`name`, `content`) VALUES ('...', 'Autorisé à ...');
+
+-- Mockup requête pour assigner les droits aux 23 type d'utilisateurs
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '1', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '2', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '3', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '4', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '5', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '6', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '7', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '8', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '9', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '10', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '11', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '12', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '13', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '14', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '15', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '16', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '17', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '18', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '19', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '20', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '21', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '22', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '23', '1');
+--
+
 INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('1', '1', '1');
 INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('2', '1', '1');
 INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('3', '1', '1');
@@ -1977,7 +2006,7 @@ INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`
 INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('86', '23', '1');
 INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('87', '23', '1');
 
-
+--
 
 # Ajout du droit pour activer, désactiver un utilisateur
 INSERT INTO `Tickets_development`.`rights` (`id`, `name`, `content`) VALUES ('88', 'enable_disable_user', 'Autorisé à activer ou désactiver un utilisateur');
@@ -2006,3 +2035,147 @@ INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`
 INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '21', '1');
 INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '22', '1');
 INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('88', '23', '1');
+
+--
+
+# Ajout du des droits pour voir la liste des types d'utilisateurs, editer un type, ajouter un type, ajouter un champ pour un type, désactiver un type
+
+INSERT INTO `Tickets_development`.`rights` (`name`, `content`) VALUES ('view_type_users', 'Autorisé à voir la liste des types utilisateurs');
+
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '1', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '2', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '3', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '4', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '5', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '6', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '7', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '8', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '9', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '10', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '11', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '12', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '13', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '14', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '15', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '16', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '17', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '18', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '19', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '20', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '21', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '22', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('89', '23', '1');
+
+--
+
+INSERT INTO `Tickets_development`.`rights` (`name`, `content`) VALUES ('edit_type_users', 'Autorisé à editer un type utilisateur');
+
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '1', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '2', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '3', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '4', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '5', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '6', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '7', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '8', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '9', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '10', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '11', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '12', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '13', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '14', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '15', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '16', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '17', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '18', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '19', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '20', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '21', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '22', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('90', '23', '1');
+
+--
+
+INSERT INTO `Tickets_development`.`rights` (`name`, `content`) VALUES ('add_type_users', 'Autorisé à ajouter un type utilisateur');
+
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '1', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '2', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '3', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '4', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '5', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '6', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '7', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '8', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '9', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '10', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '11', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '12', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '13', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '14', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '15', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '16', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '17', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '18', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '19', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '20', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '21', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '22', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('91', '23', '1');
+
+--
+
+INSERT INTO `Tickets_development`.`rights` (`name`, `content`) VALUES ('add_field_type_users', 'Autorisé à ajouter un champ pour un type utilisateur');
+
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '1', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '2', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '3', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '4', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '5', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '6', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '7', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '8', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '9', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '10', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '11', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '12', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '13', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '14', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '15', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '16', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '17', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '18', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '19', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '20', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '21', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '22', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('92', '23', '1');
+
+--
+
+INSERT INTO `Tickets_development`.`rights` (`name`, `content`) VALUES ('disable_type_users', 'Autorisé à désactiver un type utilisateur');
+
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '1', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '2', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '3', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '4', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '5', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '6', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '7', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '8', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '9', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '10', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '11', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '12', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '13', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '14', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '15', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '16', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '17', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '18', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '19', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '20', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '21', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '22', '1');
+INSERT INTO `Tickets_development`.`type_user_rights` (`right_id`, `type_user_id`, `value`) VALUES ('93', '23', '1');
+
+--

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017135900) do
+ActiveRecord::Schema.define(version: 20161019133253) do
 
   create_table "agencies", force: :cascade do |t|
     t.string "name",      limit: 45
@@ -57,10 +57,15 @@ ActiveRecord::Schema.define(version: 20161017135900) do
     t.text    "content",         limit: 65535
   end
 
-  create_table "field_type_users", force: :cascade do |t|
-    t.integer "type_user_id",    limit: 4
-    t.string  "name",            limit: 255
+  create_table "field_type_user_type_users", force: :cascade do |t|
+    t.integer "type_user_id",       limit: 4
+    t.integer "field_type_user_id", limit: 4
     t.boolean "display_in_list"
+  end
+
+  create_table "field_type_users", force: :cascade do |t|
+    t.integer "type_user_id", limit: 4
+    t.string  "name",         limit: 255
   end
 
   create_table "field_users", force: :cascade do |t|
@@ -257,6 +262,7 @@ ActiveRecord::Schema.define(version: 20161017135900) do
     t.string  "name",    limit: 255
     t.boolean "secure"
     t.boolean "is_tech"
+    t.boolean "actif"
   end
 
   create_table "types_materials_sellers", force: :cascade do |t|
@@ -279,7 +285,6 @@ ActiveRecord::Schema.define(version: 20161017135900) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.string   "ip_addr",      limit: 20
-    t.boolean  "maj"
     t.integer  "type_user_id", limit: 4
     t.boolean  "sys_msg"
     t.boolean  "actif"

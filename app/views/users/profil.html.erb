@@ -2,118 +2,50 @@
 <div class="row">
   <div class="col-md-4"></div>
   <div class="col-md-4">
-    <%= form_for(@user) do |f| %>
-    <br>
-    <div id="next">
-      <div class="field form-group">
-        <%= f.label "Pseudonyme", class: ""%>
+    <form class="profile_form">
+      <label for="user_pseudo">Pseudonyme</label>
+      <input type="text" name="user_pseudo" value="<%= @user.pseudo %>" class="form-control">
 
-        <%= f.text_field :pseudo, class: "form-control  next", placeholder: "Pseudonyme" %>
-        <% if @user.errors[:pseudo].first != nil %>
-        <div class="alert alert-danger">
-        <%= "Pseudonyme " + @user.errors[:pseudo].first%><br>
-          <% if @user.errors[:pseudo].second != nil %>
-            <%= "Pseudonyme " + @user.errors[:pseudo].second%><br>
-          <% end %>
-      </div><!-- DIV ERROR -->
-        <% end %>
-      </div>
-      <div class="field form-group">
-        <%= f.label "Adresse email", class: ""%>
-        <%= f.email_field :email, class: "form-control  next", placeholder: "Adresse email" %>
-        <% if @user.errors[:email].first != nil  %>
-        <div class="alert alert-danger">
-        <%= "Adresse email " + @user.errors[:email].first%><br>
-          <% if @user.errors[:email].second != nil %>
-            <%= "Adresse email " + @user.errors[:email].second%><br>
-          <% end %>
-      </div> <!-- DIV ERROR -->
-        <% end %>
-      </div>
+      <label for="user_email">Adresse mail</label>
+      <input type="text" name="user_email" value="<%= @user.email %>" class="form-control">
 
-      <div class="field form-group">
-        <%= f.label "Nom", class: ""%>
-        <%= f.text_field :name, class: "form-control  next", placeholder: "Nom" %>
-        <% if @user.errors[:name].first != nil  %>
-        <div class="alert alert-danger">
-        <%= "Nom " + @user.errors[:name].first%><br>
-      </div><!-- DIV ERROR -->
-        <% end %>
-      </div>
+      <label for="user_name">Nom</label>
+      <input type="text" name="user_name" value="<%= @user.name %>" class="form-control">
 
-      <div class="field form-group">
-        <%= f.label "Prénom", class: ""%>
-        <%= f.text_field :surname, class: "form-control  next", placeholder: "Prénom" %>
-        <% if @user.errors[:surname].first != nil  %>
-        <div class="alert alert-danger">
-        <%= "Prénom " + @user.errors[:surname].first%><br>
-      </div><!-- DIV ERROR -->
-        <% end %>
-      </div>
+      <label for="user_surname">Prénom</label>
+      <input type="text" name="user_surname" value="<%= @user.surname %>" class="form-control">
 
-      <div class="field form-group">
-        <%= f.label "Numéro de téléphone 1", class: ""%>
-        <%= f.phone_field :tel, class: "form-control  next", placeholder: "Téléphone (ex : 04...)" %>
-        <% if @user.errors[:tel].first != nil  %>
-        <div class="alert alert-danger">
-        <%= "Téléphone " + @user.errors[:tel].first%><br>
-          <% if @user.errors[:tel].second != nil %>
-            <%= "Téléphone " + @user.errors[:tel].second%><br>
-          <% end %>
-      </div><!-- DIV ERROR -->
-        <% end %>
-      </div>
+      <label for="user_tel">Numéro de téléphone 1</label>
+      <input type="text" name="user_tel" value="<%= @user.tel %>" class="form-control">
 
-      <div class="field form-group">
-        <%= f.label "Numéro de téléphone 2", class: ""%>
-        <%= f.phone_field :mobile, class: "form-control  next", placeholder: "Mobile (ex : 06...)" %>
-        <% if @user.errors[:mobile].first != nil  %>
-        <div class="alert alert-danger">
-        <%= "Mobile " + @user.errors[:mobile].first%><br>
-          <% if @user.errors[:mobile].second != nil %>
-            <%= "Mobile " + @user.errors[:mobile].second%><br>
-          <% end %>
-      </div><!-- DIV ERROR -->
-        <% end %>
-      </div>
-    </div>
-
-    <% if @edit_like_a_boss %>
-    <div class="field form-group select_tag">
-      <%= f.label "Type d'utilisateur", class: ""%>
-      <%= select_tag "user[tech_id]", options_for_select(Tech.all.pluck(:name, :id), selected: @user.tech_id), class: "form-control  text-uppercase", include_blank: "Type d'utilisateur :"%>
-      <% if @user.errors[:tech_id].first != nil  %>
-      <div class="alert alert-danger">
-      <%= "Type d'utilisateur " + @user.errors[:tech_id].first%><br>
-        <% if @user.errors[:tech_id].second != nil %>
-          <%= "Type d'utilisateur " + @user.errors[:tech_id].second%><br>
-        <% end %>
-    </div><!-- DIV ERROR -->
+      <label for="type_user">Type d'utilisateur</label>
+      <% if @edit_like_a_boss %>
+        <%= select_tag "type_user", options_for_select(@type_users.map{|type_user| [type_user.name, type_user.id]}, @user.type_user_id), class: "form-control" %>
+      <% else %>
+        <input type="text" name="type_user" value="<%= @user.type_user.name %>" class="form-control" disabled>
       <% end %>
-    </div>
-    <% end %>
 
-    <div class="field form-group select_tech">
-      <%= f.label "Agence", class: ""%>
-      <%= select_tag "user[agency_id]", options_for_select(Agency.all.pluck(:name, :id), selected: @user.agency_id), class: "form-control   text-uppercase", include_blank: "Agence :" %>
-      <% if @user.errors[:agency_id].first != nil  %>
-      <div class="alert alert-danger">
-      <%= "Agence " + @user.errors[:agency_id].first%><br>
-        <% if @user.errors[:agency_id].second != nil %>
-          <%= "Agence " + @user.errors[:agency_id].second%><br>
-        <% end %>
-    </div><!-- DIV ERROR -->
+      <label for="user_agency">Agence</label>
+      <% if @edit_like_a_boss %>
+        <%= select_tag "user_agency", options_for_select(@agencies.map{|agency| [agency.name, agency.id]}, @user.agency_id), class: "form-control" %>
+      <% else %>
+        <input type="text" name="user_agency" value="<%= @user.agency.name %>" class="form-control" disabled>
       <% end %>
-    </div>
 
-      <div class="actions form-group">
-        <%= f.submit "Enregistrer les modifications", class: "btn btn-success "%>
+      <% @user.field_users.each do |field_user| %>
+        <label for="user_<%= field_user.field_type_user.name %>"></label>
+        <input type="button" name="user_<%= field_user.field_type_user.name %>" value="<%= field_user.content %>">
+      <% end %>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <input type="button" name="valid_changes" value="Enregistrer" class="form-control btn btn-success">
+        </div>
+        <div class="col-md-6">
+          <input type="button" name="cancel_button" value="Annuler" class="btn btn-danger form-control">
+        </div>
       </div>
-      <%= link_to 'Voir les incidents de l\'utilisateur', user_path(@user), class: "btn btn-primary " %>
-
-    <% end %>
-
-
+    </form>
   </div>
   <div class="col-md-4"></div>
 </div>

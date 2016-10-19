@@ -1,27 +1,159 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Type Users</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @type_users.each do |type_user| %>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead class="header">
       <tr>
-        <td><%= type_user.name %></td>
-        <td><%= link_to 'Show', type_user %></td>
-        <td><%= link_to 'Edit', edit_type_user_path(type_user) %></td>
-        <td><%= link_to 'Destroy', type_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Nom</th>
+        <th>Securisé ?</th>
+        <th>Technicien ?</th>
+        <th>Actif ?</th>
       </tr>
-    <% end %>
-  </tbody>
+    </thead>
+
+    <tbody>
+      <% @type_users.each do |type_user| %>
+        <tr>
+          <td><%= type_user.name %></td>
+          <td>
+            <div class="slideThree">
+              <%= type_user.secure ? "<input class='form-control' type='checkbox' value='secure'> checked".html_safe : "<input class='form-control' type='checkbox' value='secure'>".html_safe %>
+              <label for="checkbox-right"></label>
+            </div>
+          </td>
+          <td>
+            <div class="slideThree">
+              <%= type_user.is_tech ? "<input class='form-control' type='checkbox' value='secure'> checked".html_safe : "<input class='form-control' type='checkbox' value='secure'>".html_safe %>
+              <label for="checkbox-right"></label>
+            </div>
+          </td>
+          <td>
+            <div class="slideThree">
+              <%= type_user.actif ? "<input class='form-control' type='checkbox' value='secure'> checked".html_safe : "<input class='form-control' type='checkbox' value='secure'>".html_safe %>
+              <label for="checkbox-right"></label>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+      <tr><td></td><td></td><td></td><td></td></tr>
+      <tr>
+        <td><input class="form-control" type="text" name="new_type_user" value="" placeholder="Nouveau type utilisateur"></td>
+        <td>
+          <div class="slideThree">
+            <input class="form-control" type="checkbox" name="new_type_user_secure" value="secure">
+            <label for="checkbox-right"></label>
+          </div>
+        </td>
+        <td>
+          <div class="slideThree">
+            <input class="form-control" type="checkbox" name="new_type_user_tech" value="tech">
+            <label for="checkbox-right"></label>
+          </div>
+        </td>
+        <td>
+            <input id="choose_rights_new_type_user" class="btn btn-success" type="button" name="choose_rights_new_type_user" value="Valider" data-target='#new_type_user_modal' data-toggle="modal">
+        </td>
+      </tr>
+    </tbody>
 </table>
+</div>
 
-<br>
+<div class="container-modal">
+  <!-- Modal -->
+  <div class="modal fade" id="new_type_user_modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Attribution des droits au type utilisateur</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+              <div class="col-md-12">
+                <input type="text" name="new_type_user_modal" value="" placeholder="Nouveau type utilisateur" class="form-control">
+              </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-4 labels-checkboxes">
+              <p>Sécurisé ?</p>
+            </div>
+            <div class="col-md-4 labels-checkboxes">
+              <p>Technicien ?</p>
+            </div>
+            <div class="col-md-4 labels-checkboxes">
+              <p>Actif ?</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="slideThree">
+                <input class="form-control" type="checkbox" name="new_type_user_secure_modal" value="secure">
+                <label for="checkbox-right"></label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="slideThree">
+                <input class="form-control" type="checkbox" name="new_type_user_tech_modal" value="tech">
+                <label for="checkbox-right"></label>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="slideThree">
+                <input class="form-control" type="checkbox" name="new_type_user_actif_modal" value="actif" checked>
+                <label for="checkbox-right"></label>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <% @rights.each do |right| %>
+            <div class="row">
+              <div class="col-md-6">
+                <p><%= right.content %></p>
+              </div>
+              <div class="col-md-6">
+                <div class="slideThree">
+                  <input class="form-control" type="checkbox" name="new_type_user_rights_checkbox" value="<%= right.id %>">
+                  <label for="checkbox-right"></label>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button name="save_new_type_user" type="button" class="btn btn-success" data-dismiss="modal">Enregistrer</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+        </div>
+      </div>
 
-<%= link_to 'New Type user', new_type_user_path %>
+    </div>
+  </div>
+
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#choose_rights_new_type_user').click(function(){
+      // Getting values
+      var typeUserName = $('input[name="new_type_user"]').val();
+      var secure = $('input[name="new_type_user_secure"]').is(":checked");
+      var tech = $('input[name="new_type_user_tech"]').is(":checked");
+
+      // Fill form in modal
+      $("input[name='new_type_user_modal']").val(typeUserName);
+      $("input[name='new_type_user_secure_modal']").prop("checked", secure);
+      $("input[name='new_type_user_tech_modal']").prop("checked", tech);
+
+    });
+    // This is for the yes/no buttons
+    $(document).on('click', '.slideThree', function(){
+      if($(this).children('label').css("left") == "3px"){
+        $(this).children('label').css("left", "43px");
+        $(this).children('input[type="checkbox"]').prop('checked', true);
+      }else{
+        $(this).children('label').css("left", "3px");
+        $(this).children('input[type="checkbox"]').prop('checked', false);
+      }
+    });
+  });
+</script>

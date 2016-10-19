@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy, :profil, :download]
   before_action :set_expiration
-  before_action :restrict_access, except: [:new, :create, :forget_identifiers, :change_ip]
+  before_action :restrict_access, except: [:new_user, :create, :forget_identifiers, :change_ip]
+  skip_before_action :set_default_rights, only: [:new_user]
   # GET /users
   # GET /users.json
   # Should render all users.
@@ -10,6 +11,7 @@ class UsersController < ApplicationController
     if @view_index_users
       @title = 'Liste des utilisateurs'
       @edit_other_user = verifRight('edit_other_user')
+      @view_users_pages = verifRight('view_users_pages')
       @users = User.order('pseudo asc')
       respond_to do |format|
         format.json { render json: @users }
@@ -74,7 +76,8 @@ class UsersController < ApplicationController
     false
   end
 
-  # GET /users/:id/forget_identifiers
+  # GET /users/forget_identifiers
+  # POST /users/forget_identifiers
   # Render the page for those that forget his email (noobs).
   # And on reload (when user has completed field) it send an email.
   def forget_identifiers
@@ -82,19 +85,22 @@ class UsersController < ApplicationController
     @user = User.find_by_email(params[:email])
     # This appenned if the user has completed the email field.
     unless params[:email].nil?
-      unless @user.nil?
+      if !@user.nil?
         begin
-          AppMailer.pseudonyme_forgeted(@user).deliver_now
-          flash[:notice] = 'Un email contenant votre pseudonyme vient de vous être envoyé.'
-          redirect_to signin_path
-          return true
+          respond_to do |format|
+            AppMailer.pseudonyme_forgeted(@user).deliver_now
+            format.json { render json: 'Un email contenant votre pseudonyme vient de vous être envoyé.', status: :ok }
+            format.html { redirect_to signin_path, notice: 'Un email contenant votre pseudonyme vient de vous être envoyé.' }
+          end
         rescue
           nil
         end
+      else
+        respond_to do |format|
+          format.json { render json: "L'adresse email est incorrecte, peut être n'êtes vous pas encore inscrit ?", status: :unprocessable_entity }
+          format.html { redirect_to signup_path, notice: "L'adresse email est incorrecte, peut être n'êtes vous pas encore inscrit ?" }
+        end
       end
-      flash[:notice] = "L'adresse email est incorrecte, peut être n'êtes vous pas encore inscrit ?"
-      redirect_to signup_path
-      return false
     end
   end
 
@@ -113,11 +119,13 @@ class UsersController < ApplicationController
   # GET /users/new_tech
   def new_tech
     @user = User.new
+    @type_users = TypeUser.all
   end
 
   # GET /users/new_user
   def new_user
     @user = User.new
+    @type_users = TypeUser.where(is_tech: false)
   end
 
   # GET /user/:id/profil
@@ -135,6 +143,8 @@ class UsersController < ApplicationController
     if current_user == @user || verifRight('edit_other_user')
       @title = "Profil d'utilisateur #{@user.surname} #{@user.name}"
       @edit_like_a_boss = verifRight('edit_like_a_boss')
+      @type_users = TypeUser.all.order('name asc')
+      @agencies = Agency.all.order('name ASC')
       respond_to do |format|
         format.json { render json: @user }
         format.html { render :profil }
@@ -187,7 +197,11 @@ class UsersController < ApplicationController
         format.json { render json: "Nom d'utilisateur déjà enregistré", status: 409 }
         format.html do
           flash[:notice] = "Nom d'utilisateur déjà enregistré"
-          render :new
+          if current_user.nil?
+            redirect_to :new_user
+          else
+            redirect_to :new_tech
+          end
         end
       else
         if @user.save
@@ -196,29 +210,19 @@ class UsersController < ApplicationController
           if current_user.nil?
             sign_in @user
             format.json { render json: @user.id, status: :created }
-            format.html do
-              redirect_to pages_help_path,
-                          notice: 'Bienvenue, votre inscription a bien été prise en compte.'
-              User.where(tech_id: 5).each do |disp|
-                unless disp.ip_addr.nil?
-                  sendNotif(disp.ip_addr, @user.name + ' ' + @user.surname + " vient de s'inscrire !")
-                end
-              end
+            format.html { redirect_to pages_help_path, notice: 'Bienvenue, votre inscription a bien été prise en compte.' }
+            User.joins(:type_user).where('type_users.is_tech=1').each do |tech|
+              next if tech.ip_addr.blank?
+              sendNotif(tech.ip_addr, @user.name + ' ' + @user.surname + " vient de s'inscrire !")
             end
           else
             # It render only the id in json.
             format.json { render json: @user.id, status: :created }
-            format.html do
-              flash[:notice] = "L'utilisateur a bien été créé."
-              render :new
-            end
+            format.html { redirect_to :new_tech, notice: "L'utilisateur a bien été créé." }
           end
         else
           format.json { render json: @user.errors, status: :unprocessable_entity }
-          format.html do
-            flash[:notice] = "Impossible de procéder à l'inscription, veuillez contacter votre administrateur réseau."
-            render :new
-          end
+          format.html { redirect_to :new_user, notice: "Impossible  de procéder à l'inscription, veuillez contacter votre administrateur réseau." }
         end
       end
     end
@@ -273,6 +277,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:type_user_id, :pseudo, :password, :email, :tel, :salt, :agency_id, :mode, :ip_addr, :maj, :sys_msg, :actif, file_users_attributes: [:id, :user_id, :file, :content_type, :file_size])
+    params.require(:user).permit(:type_user_id, :pseudo, :password, :email, :tel, :salt, :agency_id, :mode, :ip_addr, :sys_msg, :actif, :name, :surname, file_users_attributes: [:id, :user_id, :file, :content_type, :file_size])
   end
 end

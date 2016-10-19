@@ -4,7 +4,14 @@ class TypeUsersController < ApplicationController
   # GET /type_users
   # GET /type_users.json
   def index
-    @type_users = TypeUser.all
+    @view_type_users = verifRight('view_type_users')
+    if @view_type_users
+      @title = 'Liste des types utilisateurs'
+      @type_users = TypeUser.all
+      @rights = Right.all
+    else
+      renderUnauthorized
+    end
   end
 
   # GET /type_users/1
@@ -25,7 +32,7 @@ class TypeUsersController < ApplicationController
   # POST /type_users.json
   def create
     @type_user = TypeUser.new(type_user_params)
-
+    @type_user.actif = true
     respond_to do |format|
       if @type_user.save
         format.html { redirect_to @type_user, notice: 'Type user was successfully created.' }
@@ -70,6 +77,6 @@ class TypeUsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def type_user_params
-    params.require(:type_user).permit(:name, :secure, :is_tech)
+    params.require(:type_user).permit(:name, :secure, :is_tech, :actif)
   end
 end

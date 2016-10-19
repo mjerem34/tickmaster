@@ -69,8 +69,6 @@ Rails.application.routes.draw do
       get :to_treat
       get :profil
       get :download
-      get :forget_identifiers
-      post :forget_identifiers
       get :change_ip
       get :enable
       get :disable
@@ -78,13 +76,15 @@ Rails.application.routes.draw do
     collection do
       get :new_user
       get :new_tech
+      get :forget_identifiers
+      post :forget_identifiers
     end
   end
   get '/', to: 'pages#home'
   get '/categories', to: 'categories#index'
   get '/sous_categories', to: 'sous_categories#index'
   get '/incidents', to: 'incidents#index'
-  get '/signup', to: 'users#new'
+  get '/signup', to: 'users#new_user'
   get '/signin', to: 'sessions#new'
   get '/signout', to: 'sessions#destroy'
   delete '/sessions', to: 'sessions#destroy'
