@@ -336,8 +336,8 @@ class ApplicationController < ActionController::Base
   def renderUnauthorized
     @title = 'Accès non autorisé'
     respond_to do |format|
-      format.json { render json: "Vous n'avez pas l'autorisation d'accéder à cette page", status: 403 }
-      format.html { redirect_to '/', not_authorized: "Vous n'avez pas l'autorisation d'accéder à cette page" }
+      format.json { render json: "Vous n'êtes pas autorisé à faire cela.", status: 403 }
+      format.html { redirect_to '/', not_authorized: "Vous n'êtes pas autorisé à faire cela." }
     end
   end
 

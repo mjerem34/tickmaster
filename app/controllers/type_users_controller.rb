@@ -31,30 +31,38 @@ class TypeUsersController < ApplicationController
   # POST /type_users
   # POST /type_users.json
   def create
-    @type_user = TypeUser.new(type_user_params)
-    @type_user.actif = true
-    respond_to do |format|
+    @add_type_users = verifRight('add_type_users')
+    if @add_type_users
+      @type_user = TypeUser.new(name: params[:type_user_name], secure: params[:secure], is_tech: params[:is_tech], actif: params[:actif])
       if @type_user.save
-        format.html { redirect_to @type_user, notice: 'Type user was successfully created.' }
-        format.json { render :show, status: :created, location: @type_user }
+        params[:rights].each do |index, right|
+          unless TypeUserRight.exists?(right_id: index, type_user_id: @type_user.id, value: right)
+            TypeUserRight.create(right_id: index, type_user_id: @type_user.id, value: right)
+          end
+        end
+        respond_to { |format| format.json { render json: @type_user.id, status: :created } }
       else
-        format.html { render :new }
-        format.json { render json: @type_user.errors, status: :unprocessable_entity }
+        respond_to { |format| format.json { render json: @type_user.errors, status: :unprocessable_entity } }
       end
+    else
+      renderUnauthorized
     end
   end
 
   # PATCH/PUT /type_users/1
   # PATCH/PUT /type_users/1.json
   def update
-    respond_to do |format|
-      if @type_user.update(type_user_params)
-        format.html { redirect_to @type_user, notice: 'Type user was successfully updated.' }
-        format.json { render :show, status: :ok, location: @type_user }
-      else
-        format.html { render :edit }
-        format.json { render json: @type_user.errors, status: :unprocessable_entity }
+    @edit_type_users = verifRight('edit_type_users')
+    if @edit_type_users
+      respond_to do |format|
+        if @type_user.update(type_user_params)
+          format.json { head :no_content }
+        else
+          format.json { render json: @type_user.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      renderUnauthorized
     end
   end
 

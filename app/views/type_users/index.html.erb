@@ -12,22 +12,22 @@
     <tbody>
       <% @type_users.each do |type_user| %>
         <tr>
-          <td><%= type_user.name %></td>
+          <td class='type_user_name' data-type_user="<%= type_user.id%>"><%= type_user.name %></td>
           <td>
-            <div class="slideThree">
-              <%= type_user.secure ? "<input class='form-control' type='checkbox' value='secure'> checked".html_safe : "<input class='form-control' type='checkbox' value='secure'>".html_safe %>
+            <div class="slideThree tableRight">
+              <%= type_user.secure ? "<input class='form-control' data-type_user='#{type_user.id}' type='checkbox' value='secure' checked>".html_safe : "<input class='form-control' data-type_user='#{type_user.id}' type='checkbox' value='secure'>".html_safe %>
               <label for="checkbox-right"></label>
             </div>
           </td>
           <td>
-            <div class="slideThree">
-              <%= type_user.is_tech ? "<input class='form-control' type='checkbox' value='secure'> checked".html_safe : "<input class='form-control' type='checkbox' value='secure'>".html_safe %>
+            <div class="slideThree tableRight">
+              <%= type_user.is_tech ? "<input class='form-control' data-type_user='#{type_user.id}' type='checkbox' value='is_tech' checked>".html_safe : "<input class='form-control' data-type_user='#{type_user.id}' type='checkbox' value='is_tech'>".html_safe %>
               <label for="checkbox-right"></label>
             </div>
           </td>
           <td>
-            <div class="slideThree">
-              <%= type_user.actif ? "<input class='form-control' type='checkbox' value='secure'> checked".html_safe : "<input class='form-control' type='checkbox' value='secure'>".html_safe %>
+            <div class="slideThree tableRight">
+              <%= type_user.actif ? "<input class='form-control' data-type_user='#{type_user.id}' type='checkbox' value='actif' checked>".html_safe : "<input class='form-control' data-type_user='#{type_user.id}' type='checkbox' value='actif'>".html_safe %>
               <label for="checkbox-right"></label>
             </div>
           </td>
@@ -106,21 +106,23 @@
           </div>
           <hr>
           <% @rights.each do |right| %>
+          <div class="list-rights">
             <div class="row">
               <div class="col-md-6">
                 <p><%= right.content %></p>
               </div>
-              <div class="col-md-6">
-                <div class="slideThree">
-                  <input class="form-control" type="checkbox" name="new_type_user_rights_checkbox" value="<%= right.id %>">
-                  <label for="checkbox-right"></label>
+                <div class="col-md-6">
+                  <div class="slideThree">
+                    <input class="form-control" type="checkbox" name="new_type_user_rights_checkbox" value="<%= right.id %>">
+                    <label for="checkbox-right"></label>
+                  </div>
                 </div>
               </div>
             </div>
           <% end %>
         </div>
         <div class="modal-footer">
-          <button name="save_new_type_user" type="button" class="btn btn-success" data-dismiss="modal">Enregistrer</button>
+          <button id="save_new_type_user" name="save_new_type_user" type="button" class="btn btn-success" data-dismiss="modal">Enregistrer</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
         </div>
       </div>
@@ -133,18 +135,121 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+    $(document).on('dblclick', '.type_user_name', function(){
+      $.dataTypeUser = $(this).data("type_user");
+      var text = $(this).html();
+      $(this).replaceWith('<td><input class="form-control" id="type_user_name_text" data-type_user=' + $.dataTypeUser + ' type="text" value="' + text + '"></td>');
+      $("#type_user_name_text").focus();
+      $("#type_user_name_text").focusout(function(){
+        $(this).parent("td").replaceWith("<td class='type_user_name' data-type_user='" + $.dataTypeUser + "'>" + text + "</td>")
+      });
+      $("#type_user_name_text").keyup(function(e){
+        if(e.keyCode == 13){
+          $.finalText = $("#type_user_name_text").val();
+          $.this = $(this);
+          $.ajax({
+            url: '/type_users/'+$.dataTypeUser,
+            type: 'PUT',
+            dataType: 'script',
+            data: {
+              type_user: {
+                name: $.finalText
+              }
+            },
+            success: function(result){
+              $.this.parent("td").replaceWith("<td class='type_user_name' data-type_user='" + $.dataTypeUser + "'>" + $.finalText + "</td>");
+            },
+            error: function(result){
+              alert(result.responseText);
+            }
+          });
+        }
+      });
+    });
+
+
+    $(document).on("click", "div.tableRight", function(){
+      $.clicked = $(this);
+      var dataTypeUser = $.clicked.children('input[type="checkbox"]').data("type_user");
+      if($.clicked.children('label').css("left") == "3px"){
+        $.clicked.children('label').css("left", "43px");
+        $.clicked.children('input[type="checkbox"]').prop('checked', true);
+      }else{
+        $.clicked.children('label').css("left", "3px");
+        $.clicked.children('input[type="checkbox"]').prop('checked', false);
+      }
+      var secure = $("div.tableRight > input[value='secure'][data-type_user='" + dataTypeUser + "']").is(":checked");
+      var is_tech = $("div.tableRight > input[value='is_tech'][data-type_user='" + dataTypeUser + "']").is(":checked");
+      var actif = $("div.tableRight > input[value='actif'][data-type_user='" + dataTypeUser + "']").is(":checked");
+      $.ajax({ // demarage ajax
+        url: '/type_users/' + dataTypeUser, // url du controller rails
+        type: 'PUT',
+        dataType: 'script',
+        data: {
+          type_user:{
+            secure: secure,
+            is_tech: is_tech,
+            actif: actif
+          }
+        },
+        error: function(result){
+          if($.clicked.children('label').css("left") == "3px"){
+            $.clicked.children('label').css("left", "43px");
+            $.clicked.children('input[type="checkbox"]').prop('checked', true);
+          }else{
+            $.clicked.children('label').css("left", "3px");
+            $.clicked.children('input[type="checkbox"]').prop('checked', false);
+          }
+          alert(result.responseText);
+        }
+      });
+    });
+
+    // This is for save new user type with ajax
+    var typeUserName;
+    var secure;
+    var tech;
+    var actif;
+    var rights = {};
     $('#choose_rights_new_type_user').click(function(){
       // Getting values
-      var typeUserName = $('input[name="new_type_user"]').val();
-      var secure = $('input[name="new_type_user_secure"]').is(":checked");
-      var tech = $('input[name="new_type_user_tech"]').is(":checked");
+      typeUserName = $('input[name="new_type_user"]').val();
+      secure = $('input[name="new_type_user_secure"]').is(":checked");
+      tech = $('input[name="new_type_user_tech"]').is(":checked");
+      actif = $('input[name="new_type_user_actif_modal"]').is(":checked");
 
       // Fill form in modal
       $("input[name='new_type_user_modal']").val(typeUserName);
       $("input[name='new_type_user_secure_modal']").prop("checked", secure);
       $("input[name='new_type_user_tech_modal']").prop("checked", tech);
+    });
+    $(document).on('click', '#save_new_type_user', function(){
+      $("div.list-rights > div.row > div.col-md-6 > div.slideThree > input[name='new_type_user_rights_checkbox']").each(function(){
+        rights[$(this).val()] = $(this).is(":checked");
+      });
+      $.ajax({ // demarage ajax
+        url: '/type_users', // url du controller rails pour pinger (methode doPing)
+        type: 'POST',
+        dataType: 'script',
+        data: {
+          type_user_name: typeUserName,
+          secure: secure,
+          is_tech: tech,
+          actif: actif,
+          rights: rights
+        },
+        success: function(){
+          window.reload();
+        },
+        error: function(result){
+          for(var key in JSON.parse(result.responseText)){
+            alert(key + " : " + JSON.parse(result.responseText)[key]);
+          }
+        }
+      });
 
     });
+
     // This is for the yes/no buttons
     $(document).on('click', '.slideThree', function(){
       if($(this).children('label').css("left") == "3px"){
@@ -155,5 +260,6 @@
         $(this).children('input[type="checkbox"]').prop('checked', false);
       }
     });
+
   });
 </script>

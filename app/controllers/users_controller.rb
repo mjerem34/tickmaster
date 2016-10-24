@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     if @view_index_users
       @title = 'Liste des utilisateurs'
       @edit_other_user = verifRight('edit_other_user')
+      @enable_disable_user = verifRight('enable_disable_user')
       @view_users_pages = verifRight('view_users_pages')
       @users = User.order('pseudo asc')
       respond_to do |format|
@@ -22,27 +23,17 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /user/:id/enable
-  def enable
+  # PUT /user/:id/enable_disable
+  def enable_disable
     @enable_disable_user = verifRight('enable_disable_user')
     if @enable_disable_user
       @title = 'Activer/Désactiver un utilisateur'
       @user = User.find(params[:id])
-      @user.update(actif: true)
-      respond_to { |format| format.json { head :no_content } }
-    else
-      renderUnauthorized
-    end
-  end
-
-  # GET /user/:id/disable
-  def disable
-    @enable_disable_user = verifRight('enable_disable_user')
-    if @enable_disable_user
-      @title = 'Activer/Désactiver un utilisateur'
-      @user = User.find(params[:id])
-      @user.update(actif: false)
-      respond_to { |format| format.json { head :no_content } }
+      if @user.update(actif: params[:actif])
+        respond_to { |format| format.json { head :no_content } }
+      else
+        respond_to { |format| format.json { render json: nil, status: :unprocessable_entity } }
+      end
     else
       renderUnauthorized
     end
@@ -118,14 +109,20 @@ class UsersController < ApplicationController
 
   # GET /users/new_tech
   def new_tech
-    @user = User.new
-    @type_users = TypeUser.all
+    @create_new_tech = verifRight('create_new_tech')
+    if @create_new_tech
+      @user = User.new
+      @title = 'Créer un utilisateur'
+      @type_users = TypeUser.where(actif: true)
+    else
+      renderUnauthorized
+    end
   end
 
   # GET /users/new_user
   def new_user
     @user = User.new
-    @type_users = TypeUser.where(is_tech: false)
+    @type_users = TypeUser.where(is_tech: false, actif: true)
   end
 
   # GET /user/:id/profil
@@ -192,15 +189,16 @@ class UsersController < ApplicationController
   # It signin the user when created.
   def create
     @user = User.new(user_params)
+    @user.password = '' unless @user.type_user.secure
     respond_to do |format|
       if User.exists?(pseudo: @user.pseudo)
         format.json { render json: "Nom d'utilisateur déjà enregistré", status: 409 }
         format.html do
           flash[:notice] = "Nom d'utilisateur déjà enregistré"
           if current_user.nil?
-            redirect_to :new_user
+            redirect_to :back
           else
-            redirect_to :new_tech
+            redirect_to :back
           end
         end
       else
@@ -218,11 +216,11 @@ class UsersController < ApplicationController
           else
             # It render only the id in json.
             format.json { render json: @user.id, status: :created }
-            format.html { redirect_to :new_tech, notice: "L'utilisateur a bien été créé." }
+            format.html { redirect_to :back, notice: "L'utilisateur a bien été créé." }
           end
         else
           format.json { render json: @user.errors, status: :unprocessable_entity }
-          format.html { redirect_to :new_user, notice: "Impossible  de procéder à l'inscription, veuillez contacter votre administrateur réseau." }
+          format.html { redirect_to :back, notice: "Impossible  de procéder à l'inscription, veuillez contacter votre administrateur réseau." }
         end
       end
     end

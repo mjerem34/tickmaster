@@ -4,20 +4,6 @@ module SessionsHelper
     self.current_user = user
   end
 
-  def signed_in?
-    !current_user.nil?
-  end
-
-  def is_tech
-    if signed_in?
-      if current_user.tech_id == true
-        return true
-      else
-        return false
-      end
-    end
-  end
-
   def sign_out
     cookies.delete(:remember_token)
     self.current_user = nil

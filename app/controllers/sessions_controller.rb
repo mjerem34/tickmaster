@@ -13,16 +13,24 @@ class SessionsController < ApplicationController
         format.json { render json: 'Vous êtes déjà connecté !' }
         format.html { redirect_to '/', notice: 'Vous êtes déjà connecté !' }
       else
+        puts '_____________________________________'
         user = User.authenticate(params[:session][:pseudo],
                                  params[:session][:password])
+
         if user.nil?
           @title = "S'identifier"
-          format.json { render json: 'Pseudonyme et/ou mot de passe invalide' }
-          format.html { render :new, notice: 'Pseudonyme et/ou mot de passe invalide' }
+          format.json { render json: 'Pseudonyme et/ou mot de passe invalide', status: :unprocessable_entity }
+          format.html { redirect_to '/sessions', notice: 'Pseudonyme et/ou mot de passe invalide' }
         else
-          sign_in user
-          format.json { render json: 'Connexion réussie', status: :ok }
-          format.html { redirect_to '/', notice: 'Connexion réussie' }
+          if user.actif == false || user.type_user.actif == false
+            @title = "S'identifier"
+            format.json { render json: 'Votre compte a été désactivé, veuillez contacter votre administrateur réseau.', status: :unprocessable_entity }
+            format.html { redirect_to '/sessions', notice: 'Votre compte a été désactivé, veuillez contacter votre administrateur réseau.' }
+          else
+            sign_in user
+            format.json { render json: 'Connexion réussie', status: :ok }
+            format.html { redirect_to '/', notice: 'Connexion réussie' }
+          end
         end
       end
     end

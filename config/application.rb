@@ -18,5 +18,6 @@ module Tickets
     config.active_record.raise_in_transactional_callbacks = true
     config.web_console.whiny_requests = false
     config.web_console.development_only = false
+    config.i18n.default_locale = :fr
   end
 end

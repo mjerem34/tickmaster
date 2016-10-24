@@ -70,8 +70,7 @@ Rails.application.routes.draw do
       get :profil
       get :download
       get :change_ip
-      get :enable
-      get :disable
+      put :enable_disable
     end
     collection do
       get :new_user

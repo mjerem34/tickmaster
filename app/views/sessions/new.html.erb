@@ -1,53 +1,6 @@
 <% @title = "Se connecter"%>
 <% if current_user == nil %>
 <% content_for :form do %>
-<!-- <script type="text/javascript">
-// window.addEventListener('load', function () {
-// // Premièrement, vérifions que nous avons la permission de publier des notifications. Si ce n'est pas le cas, demandons la
-// if (window.Notification && Notification.permission !== "granted") {
-//   Notification.requestPermission(function (status) {
-//     if (Notification.permission !== status) {
-//       Notification.permission = status;
-//     }
-//   });
-// }
-//
-// var button = document.getElementsByTagName('button')[0];
-//
-// button.addEventListener('click', function () {
-//   // Si l'utilisateur accepte d'être notifié
-//   if (window.Notification && Notification.permission === "granted") {
-//     var n = new Notification("TickMaster requiert votre attention !");
-//   }
-//
-//   // Si l'utilisateur n'a pas choisi s'il accepte d'être notifié
-//   // Note: à cause de Chrome, nous ne sommes pas certains que la propriété permission soit définie, par conséquent il n'est pas sûr de vérifier la valeur par défaut.
-//   else if (window.Notification && Notification.permission !== "denied") {
-//     Notification.requestPermission(function (status) {
-//       if (Notification.permission !== status) {
-//         Notification.permission = status;
-//       }
-//
-//       // Si l'utilisateur est OK
-//       if (status === "granted") {
-//         var n = new Notification("TickMaster requiert votre attention !");
-//       }
-//
-//       // Sinon, revenons en à un mode d'alerte classique
-//       else {
-//         alert("TickMaster requiert votre attention !");
-//       }
-//     });
-//   }
-//
-//   // Si l'utilisateur refuse d'être notifié
-//   else {
-//     // We can fallback to a regular modal alert
-//     alert("TickMaster requiert votre attention !");
-//   }
-// });
-// });
-</script> -->
 <div class="row">
   <div class="col-md-4"></div>
   <div class="col-md-4">
@@ -56,12 +9,12 @@
     <div class="field form-group">
 
       <% @arr = [] %>
-      <%@arr = User.find_by_sql('SELECT users.pseudo FROM users INNER JOIN type_users ON users.type_user_id = type_users.id WHERE type_users.is_tech = true').collect{|u| u.pseudo}%>
+      <% @arr = User.find_by_sql('SELECT users.pseudo FROM users INNER JOIN type_users ON users.type_user_id = type_users.id WHERE type_users.secure = true').collect{|u| u.pseudo} %>
       <%= f.text_field :pseudo, class: "form-control pseudo-entry", placeholder: "Pseudonyme(en minuscules)", id: 'next' %>
       <%= f.password_field :password, class: "form-control password-entry", placeholder: "Mot de passe" %>
       <script type="text/javascript">
         $(document).ready(function () {
-          var count = "<%=User.find_by_sql('SELECT users.id, users.name, users.surname FROM users INNER JOIN type_users ON users.type_user_id = type_users.id WHERE type_users.is_tech = true').count%>";
+          var count = "<%= User.find_by_sql('SELECT users.id, users.name, users.surname FROM users INNER JOIN type_users ON users.type_user_id = type_users.id WHERE type_users.secure = true').count %>";
           $(".password-entry").hide();
           $(".password-entry").val(' ');
           $(".pseudo-entry").keyup(function () {

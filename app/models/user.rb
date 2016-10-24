@@ -32,13 +32,20 @@ class User < ActiveRecord::Base
                   format: { with: phone_regexp }, length: { in: 0..30 }
 
   validates :email, presence: true,
-                    format: { with: email_regexp }
+                    format: { with: email_regexp }, length: { in: 0..254 }
 
   # Methods
   def self.authenticate(pseudo, password)
     user = find_by_pseudo(pseudo)
-    !user.nil? && password == user.password ? user : nil
+    unless user.nil?
+      if user.type_user.secure
+        password == user.password ? user : nil
+      else
+        user
+      end
+    end
   end
+
   before_save { |user| user.pseudo.downcase! }
   before_save { |user| user.email.downcase! }
 

@@ -7,6 +7,8 @@
         <th>Tel</th>
         <th>Email</th>
         <th>Agence</th>
+        <%= "<th>Type utilisateur</th>".html_safe if @view_users_pages %>
+        <%= "<th>Actif</th>".html_safe if @enable_disable_user %>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +23,11 @@
           <td><%= user.tel %></td>
           <td><%= user.email %></td>
           <td><%= user.agency.name %></td>
+          <%= "<td>#{user.type_user.name}</td>".html_safe if @view_users_pages %>
+          <% if @enable_disable_user %>
+            <%= "<td><div class='slideThree' data-id='#{user.id}'><input class='checkbox-right' type='checkbox' checked><label for='checkbox-right'></label></div></td>".html_safe if user.actif %>
+            <%= "<td><div class='slideThree' data-id='#{user.id}'><input class='checkbox-right' type='checkbox'><label for='checkbox-right'></label></div></td>".html_safe if !user.actif %>
+          <% end %>
         </tr>
         <div class="container-modal">
           <!-- Modal -->
@@ -56,3 +63,31 @@
     </tbody>
   </table>
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on('click', 'div.slideThree', function(){
+      $.clicked = $(this);
+      $.id = $(this).data('id');
+      $.ajax({
+        url: 'users/'+$.id+'/enable_disable',
+        type: 'PUT',
+        dataType: 'script',
+        data: {
+          actif: !$.clicked.children("input").is(":checked")
+        },
+        success: function(){
+          if($.clicked.children('label').css("left") == "3px"){
+            $.clicked.children('label').css("left", "43px");
+            $.clicked.children('input[type="checkbox"]').prop('checked', true);
+          }else{
+            $.clicked.children('label').css("left", "3px");
+            $.clicked.children('input[type="checkbox"]').prop('checked', false);
+          }
+        },
+        error: function(result){
+          alert(result.responseText);
+        }
+      });
+    });
+  });
+</script>
