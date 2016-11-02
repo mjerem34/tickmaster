@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :field_agencies
-  resources :type_users
+  resources :type_users do
+    member do
+      delete :disable_type_users
+    end
+  end
   resources :field_type_users
   mount Ckeditor::Engine => '/ckeditor'
   resources :updates

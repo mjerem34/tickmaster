@@ -7,3 +7,19 @@
     text-align: center;
   }
 }
+
+.modal-details-type-user{
+  span{
+    cursor: pointer;
+  }
+  h5.modal-title, img.edit_img{
+    display: inline-block;
+  }
+  img.edit_img{
+    margin-left: 10px;
+    margin-top: -3px;
+  }
+  img.edit_img.save{
+    display: none;
+  }
+}

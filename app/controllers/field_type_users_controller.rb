@@ -24,16 +24,16 @@ class FieldTypeUsersController < ApplicationController
   # POST /field_type_users
   # POST /field_type_users.json
   def create
-    @field_type_user = FieldTypeUser.new(field_type_user_params)
-
-    respond_to do |format|
-      if @field_type_user.save
-        format.html { redirect_to @field_type_user, notice: 'Field type user was successfully created.' }
-        format.json { render :show, status: :created, location: @field_type_user }
-      else
-        format.html { render :new }
-        format.json { render json: @field_type_user.errors, status: :unprocessable_entity }
+    if verifRight('add_field_type_users')
+      respond_to do |format|
+        if @field_type_user.save
+          format.json { render :show, status: :created, location: @field_type_user }
+        else
+          format.json { render json: @field_type_user.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      renderUnauthorized
     end
   end
 
@@ -62,13 +62,14 @@ class FieldTypeUsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_field_type_user
-      @field_type_user = FieldTypeUser.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def field_type_user_params
-      params.require(:field_type_user).permit(:type_user_id, :name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_field_type_user
+    @field_type_user = FieldTypeUser.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def field_type_user_params
+    params.require(:field_type_user).permit(:type_user_id, :name)
+  end
 end

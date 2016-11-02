@@ -31,7 +31,6 @@ transformer fields_seller_sellers content en text au lieu de string
         * juste besoin d'une vue index pour les afficher et les créer dans la liste bouton +
 
 
-* Type_users show liste les utilisateurs qui appartiennent au type
 
 * Vérifier que tous les modèles ont des validates
 * Vérifier que tous les modèles ont le validate uniqueness
@@ -40,3 +39,10 @@ Faire des verifications pour les champs, limiter a 254 caracteres exemple table 
 
 * Finir le fr.yml
 * Voir pourquoi le fr.yml ne fonctionne pas avec les noms de modèles
+
+
+* index#type_users
+  * modal details type utilisateur
+    * enlever table et faire que des div (new#materials)
+    * enlever le toggle
+    * mettre bouton - qui va supprimer le champ et qui suppr toutes les valeurs associées (faire un confirm avant)

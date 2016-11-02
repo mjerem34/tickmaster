@@ -1,5 +1,5 @@
 class TypeUsersController < ApplicationController
-  before_action :set_type_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_type_user, only: [:show, :edit, :update, :destroy, :disable_type_users]
 
   # GET /type_users
   # GET /type_users.json
@@ -9,6 +9,12 @@ class TypeUsersController < ApplicationController
       @title = 'Liste des types utilisateurs'
       @type_users = TypeUser.all
       @rights = Right.all
+      @field_type_users = FieldTypeUser.all
+      respond_to do |format|
+        format.json { render json: @type_users }
+        format.html { render :index }
+      end
+
     else
       renderUnauthorized
     end
@@ -17,15 +23,28 @@ class TypeUsersController < ApplicationController
   # GET /type_users/1
   # GET /type_users/1.json
   def show
+    if verifRight('view_type_users')
+      @title = 'Type utilisateur : ' + @type_user.name
+      respond_to do |format|
+        format.json { render json: @type_user }
+        format.html { redirect_to type_users_url }
+      end
+
+    else
+      renderUnauthorized
+    end
   end
 
   # GET /type_users/new
   def new
-    @type_user = TypeUser.new
+    @title = 'Redirection ...'
+    respond_to { |format| format.html { redirect_to type_users_url } }
   end
 
   # GET /type_users/1/edit
   def edit
+    @title = 'Redirection ...'
+    respond_to { |format| format.html { redirect_to type_users_url } }
   end
 
   # POST /type_users
@@ -66,13 +85,37 @@ class TypeUsersController < ApplicationController
     end
   end
 
-  # DELETE /type_users/1
+  # DELETE /type_users/1/disable_type_users.json
+  def disable_type_users
+    @disable_type_users = verifRight('disable_type_users')
+    if @disable_type_users
+      respond_to do |format|
+        if @type_user.update(actif: !@type_user.actif)
+          @type_user.users.each { |user| !@type_user.actif ? user.update(actif: false) : user.update(actif: true) }
+          format.json { head :no_content }
+        else
+          format.json { render json: @type_user.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      renderUnauthorized
+    end
+  end
+
   # DELETE /type_users/1.json
   def destroy
-    @type_user.destroy
-    respond_to do |format|
-      format.html { redirect_to type_users_url, notice: 'Type user was successfully destroyed.' }
-      format.json { head :no_content }
+    @destroy_type_users = verifRight('destroy_type_users')
+    if @destroy_type_users
+      respond_to do |format|
+        if @type_user.destroy
+          @type_user.users.each { |user| !@type_user.actif ? user.update(actif: false) : user.update(actif: true) }
+          format.json { head :no_content }
+        else
+          format.json { render json: @type_user.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      renderUnauthorized
     end
   end
 
