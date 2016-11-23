@@ -68,39 +68,23 @@
             <span class="type_user_name"><h5 class="modal-title" data-type_user="<%= type_user.id%>" ><%= type_user.name%></h5><%= image_tag 'ICONS/1004.png', size: "20x20", class: "edit_img" %></span>
           </div>
           <div class="modal-body">
-            <div class="table-responsive" style="overflow:initial;">
-              <table class="table table-hover">
-                <caption>Champs type utilisateur : </caption>
-                <thead>
-                  <th>Nom</th>
-                  <th>Actif ?</th>
-                </thead>
-                <tbody>
-                  <% type_user.field_type_user_type_users.each do |ftutu| %>
-                  <tr>
-                    <td><%= ftutu.field_type_user.name %></td>
-                    <td>
-                    <div class="col-md-4">
-                      <div class="slideThree">
-                        <% if ftutu.display_in_list %>
-                        <input class="form-control" type="checkbox" name="ftutu_display_in_list" value="actif" checked>
-                        <% else %>
-                        <input class="form-control" type="checkbox" name="ftutu_display_in_list" value="actif">
-                        <% end %>
-                        <label for="checkbox-right"></label>
-                      </div>
-                    </div>
-                  </td>
-                  </tr>
-                  <% end %>
-                  <tr>
-                    <td style="overflow:initial;"><%= select_tag 'new_field_user', options_for_select(@field_type_users.collect{|ftu| [ftu.name, ftu.id]}), class: "dropdownSearchCreate form-control" %></td>
-                    <td>
-                        <input data-id_type_user="<%= type_user.id %>" id="valid_new_field_user" class="btn btn-success" type="button" value="Valider">
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <h5>Champs type utilisateur : </h5>
+            <div id="fields-user-type">
+              <% type_user.field_type_user_type_users.each do |ftutu| %>
+              <div class="row">
+                <div class="col-md-4" id="fields-specs-types-values">
+                  <%= select_tag 'new_field_user', options_for_select(@field_type_users.collect{|ftu| [ftu.name, ftu.id]}), class: "dropdownSearchCreate form-control" %>
+                </div>
+                <div class='col-md-4' id='div-btns-delete-row'>
+                    <button class='btn btn-danger' id='btn-delete-row'>&#8211;</button>
+                    <br><br>
+                </div>
+              </div>
+              <% end %>
+              <input data-id_type_user="<%= type_user.id %>" id="valid_new_field_user" class="btn btn-success" type="button" value="Valider">
+            </div>
+
+
               <script type="text/javascript">
                 $(document).ready(function(){
                   $(document).on('click', '#valid_new_field_user', function(){
@@ -127,7 +111,6 @@
                   });
                 });
               </script>
-            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger btn-modal" data-dismiss="modal">Fermer</button>
