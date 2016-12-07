@@ -108,12 +108,17 @@ class FieldsSellersController < ApplicationController
     @delete_fields_sellers = verifRight('delete_fields_sellers')
     if @delete_fields_sellers
       respond_to do |format|
-        if @fields_seller.destroy
-          format.json { head :no_content }
-          format.html { redirect_to fields_sellers_url, notice: 'Le champ a bien été supprimé' }
+        if !@fields_seller.fields_seller_sellers.any?
+          if @fields_seller.destroy
+            format.json { head :no_content }
+            format.html { redirect_to fields_sellers_url, notice: 'Le champ a bien été supprimé' }
+          else
+            format.json { render json: @fields_seller.errors, status: :unprocessable_entity }
+            format.html { redirect_to @fields_seller, notice: 'Impossible de supprimer le champ.' }
+          end
         else
-          format.json { head @fields_seller.errors, status: :unprocessable_entity }
-          format.html { redirect_to @fields_seller, notice: 'Impossible de supprimer le champ.' }
+          format.json { render json: 'Impossible de supprimer le champ car il contient des données associées', status: :unprocessable_entity }
+          format.html { redirect_to fields_sellers_url, notice: 'Impossible de supprimer le champ car il contient des données associées' }
         end
       end
     else

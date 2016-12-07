@@ -2,60 +2,77 @@
   <table class="table table-hover" id="table_sellers">
     <thead class="header">
     <tr>
-      <th>N°</th>
       <th>Nom</th>
+      <th>Actif</th>
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td><input type="text" name="new_seller_name" value="" placeholder="Nom du nouveau vendeur" class="form-control" id='new_seller_name'></td>
+      <td><button type="button" name="add_new_seller" class='btn btn-success' id='add_new_seller'>+</button></td>
+    </tr>
     <% @sellers.each do |seller| %>
-      <tr data-dismiss="modal" data-toggle="modal" data-target="#<%= seller.id %>">
-        <td><%= seller.id %></td>
-        <td><%= seller.name %></td>
+      <tr>
+        <td data-dismiss="modal" data-toggle="modal" data-target="#<%= seller.id %>"><%= seller.name %></td>
+        <td>
+          <div class="slideThree etatVendeur">
+            <%= seller.actif ? "<input class='form-control' type='checkbox' data-seller='#{seller.id}' value='actif' checked>".html_safe : "<input class='form-control' data-seller='#{seller.id}' type='checkbox' value='actif'>".html_safe %>
+            <label for="checkbox-right"></label>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 </div>
 <% @sellers.each do |seller| %>
-<div class="container-modal">
+<div class="container-modal modal-details-seller">
   <div class="modal fade" id="<%= seller.id %>" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Détails du vendeur</h4>
-          <h5 class="modal-title">N°<%= seller.id %> : <%= seller.name%></h5>
+          <h4 class="modal-title">Vendeur : </h4>
+          <span class="seller_name"><h5 class="modal-title" data-seller="<%= seller.id %>"><%= seller.name%></h5><%= image_tag 'ICONS/1004.png', size: "20x20", class: "edit_img" %></span>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="col-md-6">
-              <p>Vendeur : <input type="text" value="<%= seller.name %>" name="seller_name" class="form-control"/></p>
+          <caption class='modal-body-title'>Informations :</caption>
+          <table class="table table-hover" id="table_fields_sellers" data-seller_id='<%= seller.id %>'>
+            <thead>
+              <tr>
+                <th>Champ</th>
+                <th>Valeur</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
               <% seller.fields_seller_sellers.each do |fss| %>
-              <p><%= fss.fields_seller.name %> : <input name="<%= fss.fields_seller.name %>" value="<%=fss.content %>" class="form-control"/></p>
+              <tr>
+                <td><%= fss.fields_seller.name %></td>
+                <td><input data-seller="<%= seller.id %>" data-field_seller="<%= fss.fields_seller.id %>" name="<%= fss.fields_seller.name %>" value="<%=fss.content %>" class="form-control value-field-seller"/></td>
+                <td><button type="button" name="delete_field_seller" class="btn btn-danger" id="delete_field_seller">-</button></td>
+              </tr>
               <% end %>
-              <button data-sellerid="<%= seller.id %>" type="button" name="button" class='btn btn-success' id='add_field_seller'>+</button>
-            </div>
-          </div>
-          <script type="text/javascript">
-            $(document).ready(function(){
-              $(document).on("click", "#add_field_seller", function(){
+              <tr><td><button data-sellerid="<%= seller.id %>" type="button" name="button" class='btn btn-success' id='add_field_seller'>+</button></td><td></td></tr>
+            </tbody>
+          </table>
 
-              });
-            });
+          <script type="text/javascript">
           </script>
           <hr>
+          <caption class='modal-body-title'>Types de matériels vendus :</caption>
           <table class="table table-hover" id="table_type_materials_sellers">
             <thead class="header">
               <tr>
-                <th>N°</th>
                 <th>Nom</th>
+                <th></th>
               </tr>
             </thead>
             <tbody data-sellerid="<%= seller.id %>">
               <% seller.types_materials_sellers.each do |tms| %>
                 <tr>
-                    <td><%= tms.type_material.id %></td>
                     <td><%= tms.type_material.name %></td>
+                    <td><button type="button" class="delete_type_material btn btn-danger" data-seller='<%= seller.id %>' data-type_material="<%= tms.type_material.id %>">-</button></td>
                 </tr>
               <% end %>
                 <tr class='row_add_type_material'>
@@ -66,12 +83,6 @@
           </table>
         </div>
         <div class="modal-footer">
-          <% if seller.actif == true %>
-          <%= link_to 'Désactiver', seller, method: :delete, class: 'btn btn-primary' %>
-          <% else %>
-          <%= link_to 'Activer', seller, method: :delete, class: 'btn btn-primary' %>
-          <% end %>
-          <button type="button" class="btn btn-success" data-dismiss="modal">Enregistrer les modifications</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
         </div>
       </div>
@@ -97,8 +108,239 @@ $(document).on('click', '#save_type_material', function(){
       var typeMatId = $("tbody[data-sellerid='" + seller_id + "'] > tr > td > select option").filter(function(){ return $(this).html() == name;}).val();
       var typeMatName = $("tbody[data-sellerid='" + seller_id + "'] > tr > td > select option").filter(function(){ return $(this).html() == name;}).text();
       $('tbody[data-sellerid="' + seller_id + '"] > tr').last().remove();
-      $('tbody[data-sellerid="' + seller_id + '"]').append("<tr><td>" + typeMatId + "</td><td>" + typeMatName + "</td></tr><tr class='row_add_type_material'><td><button type='button' name='button' class='btn btn-success' id='add_type_material'>+</button></td><td></td></tr>");
+      $('tbody[data-sellerid="' + seller_id + '"]').append("<tr><td>" + typeMatName + "</td><td><button type='button' class='delete_type_material btn btn-danger' data-seller='" + seller_id + "' data-type_material='" + typeMatId + "'>-</button></td></tr><tr class='row_add_type_material'><td><button type='button' name='button' class='btn btn-success' id='add_type_material'>+</button></td><td></td></tr>");
     }
   });
 });
+  $(document).on("click", "div.etatVendeur", function(){
+    $.clicked = $(this);
+    var idSeller = $(this).children('input[type="checkbox"]').data("seller");
+    $.ajax({
+      url: '/sellers/' + idSeller,
+      type: "DELETE",
+      dataType: 'script',
+      success: function(){
+        if($.clicked.children('label').css("left") == "3px"){
+          $.clicked.children('label').css("left", "43px");
+          $.clicked.children('input[type="checkbox"]').prop('checked', true);
+        }else{
+          $.clicked.children('label').css("left", "3px");
+          $.clicked.children('input[type="checkbox"]').prop('checked', false);
+        }
+      },
+      error: function(result){
+        alert(result.responseText);
+      }
+    });
+  });
+
+  $(document).on('click', '.seller_name', function(){
+    $(this).removeClass('seller_name');
+    $.dataSeller = $(this).children("h5").data("seller");
+    $.h5Text = $(this).children("h5").html();
+    $(this).children('img').addClass('save');
+    $(this).children("h5").replaceWith('<h5 class="modal-title" data-seller=' + $.dataSeller + '><input class="form-control" id="seller_name_text"  type="text" value="' + $.h5Text + '"></h5>');
+    $("#seller_name_text").focus();
+  });
+
+  $(document).on('keyup','#seller_name_text', function(e){
+    if(e.keyCode == 13){
+      $.this = $(this);
+      $.finalText = $.this.val();
+      $.this.parent("h5").parent("span").addClass('seller_name');
+
+      if($.finalText == $.h5Text){
+        $('img.save').removeClass('save');
+        $.this.replaceWith($.h5Text);
+      }else{
+        $.ajax({
+          url: '/sellers/'+$.dataSeller,
+          type: 'PUT',
+          dataType: 'script',
+          data: {
+            seller: {
+              name: $.finalText
+            }
+          },
+          success: function(result){
+            $.this.parent("h5").parent("span").children('img').removeClass('save');
+            $.this.parent("h5").replaceWith("<h5 class='modal-title' data-seller='" + $.dataSeller + "'>" + $.finalText + "</h5>");
+            // $("td").find("[data-target='#" + $.dataSeller + "']").replaceWith("<td data-toggle='modal' data-target='" + $.dataSeller + "'>" + $.finalText + "</td>");
+            $("td[data-target='#" + $.dataSeller + "']").replaceWith("<td data-toggle='modal' data-target='#" + $.dataSeller + "'>" + $.finalText + "</td>");
+          },
+          error: function(result){
+            $.this.parent("h5").parent("span").children('img').removeClass('save');
+            $.this.parent("h5").replaceWith($.h5Text);
+            $.this.parent("h5").parent("span").addClass('seller_name');
+            alert(result.responseText);
+          }
+        });
+      }
+    }
+  });
+  $(document).on('focusout', '#seller_name_text', function(){
+    $(this).parent("h5").parent("span").addClass('seller_name');
+    $(this).parent("h5").parent("span").children('img').removeClass('save');
+    $(this).replaceWith($.h5Text)
+  });
+  $(document).on('click', 'button.delete_type_material', function(){
+    $.this = $(this);
+    var sellerId = $(this).data("seller");
+    var type_material_id = $(this).data("type_material");
+    $.ajax({
+      url: "/sellers/"+sellerId+"/delete_type_material",
+      type: "DELETE",
+      dataType: 'script',
+      data: {
+        type_material_id: type_material_id
+      },
+      success: function(){
+        $.this.parent().parent().remove();
+      },
+      error: function(result){
+        alert(result.responseText);
+      }
+    });
+  });
+
+  $(document).on('keyup', '#new_field_seller_input', function(e){
+    if(e.keyCode == 13){
+      $.this = $(this);
+      var field_seller_name = $(this).parent().parent().children("td").children('select').children("option:selected").html();
+      var seller_id = $(this).data("seller");
+      var field_seller_id = $(this).parent().parent().children("td").children('select').val();
+      var content = $(this).val();
+      $.ajax({
+        url: '/sellers/'+seller_id+'/add_field_seller',
+        type: "POST",
+        dataType: 'script',
+        data: {
+          field_seller_id: field_seller_id,
+          field_seller_name: field_seller_name,
+          content: content
+        },
+        success: function(result){
+          $.this.parent().parent().replaceWith("<tr><td>" + field_seller_name + "</td><td><input type='text' data-seller='" + seller_id + "' data-field_seller='" + result + "' name='valueFieldSeller' class='form-control value-field-seller' value='" + content + "'/></td><td><button type='button' name='delete_field_seller' class='btn btn-danger' id='delete_field_seller'>-</button></td></tr><tr><td><button data-sellerid='" + seller_id + "' type='button' name='button' class='btn btn-success' id='add_field_seller'>+</button><affic/td><td></td></tr>");
+        },
+        error: function(result){
+          alert(result.responseText);
+        }
+      });
+    }
+  });
+
+  $(document).on('click', 'button#save_field_seller', function(){
+    $.this = $(this);
+    var field_seller_name = $(this).parent().parent().children("td").children('select').children("option:selected").html();
+    var seller_id = $(this).parent().parent().children("td").children('input').data("seller");
+    var field_seller_id = $(this).parent().parent().children("td").children('select').val();
+    var content = $(this).parent().parent().children("td").children('input').val();
+    $.ajax({
+      url: '/sellers/'+seller_id+'/add_field_seller',
+      type: "POST",
+      dataType: 'script',
+      data: {
+        field_seller_id: field_seller_id,
+        field_seller_name: field_seller_name,
+        content: content
+      },
+      success: function(result){
+        $.this.parent().parent().replaceWith("<tr><td>" + field_seller_name + "</td><td><input type='text' data-seller='" + seller_id + "' data-field_seller='" + result + "' name='valueFieldSeller' class='form-control value-field-seller' value='" + content + "'/></td><td><button type='button' name='delete_field_seller' class='btn btn-danger' id='delete_field_seller'>-</button></td></tr><tr><td><button data-sellerid='" + seller_id + "' type='button' name='button' class='btn btn-success' id='add_field_seller'>+</button><affic/td><td></td></tr>");
+      },
+      error: function(result){
+        alert(result.responseText);
+      }
+    });
+  });
+
+  $(document).on('keyup', '.value-field-seller', function(e){
+    if(e.keyCode == 13){
+      var field_seller_id = $(this).data("field_seller");
+      var seller_id = $(this).data("seller");
+      var content = $(this).val();
+      $.ajax({
+        url: '/sellers/' + seller_id + '/update_field_seller',
+        type: "PUT",
+        dataType: "script",
+        data: {
+          field_seller_id: field_seller_id,
+          content: content
+        },
+        error: function(result){
+          alert(result.responseText);
+        }
+      });
+    }
+  });
+
+  $(document).on("click", "button#delete_field_seller", function(){
+    $.this = $(this);
+    var seller_id = $.this.parent().parent().children("td").children('input').data("seller");
+    var field_seller_id = $.this.parent().parent().children("td").children('input').data("field_seller");
+    $.ajax({
+      url: '/sellers/' + seller_id + '/delete_field_seller',
+      type: 'DELETE',
+      dataType: 'script',
+      data: {
+        field_seller_id: field_seller_id
+      },
+      success: function(){
+        $.this.parent().parent().remove();
+      },
+      error: function(result){
+        alert(result.responseText);
+      }
+    });
+  });
+
+  $(document).on('click', 'button#add_new_seller', function(){
+    $.this = $(this);
+    var seller_name = $.this.parent().parent().children('td').children('input').val();
+    $.ajax({
+      url: '/sellers',
+      type: 'POST',
+      dataType: 'script',
+      data: {
+        seller: {
+          name: seller_name,
+          actif: true
+        }
+      },
+      success: function(seller_id){
+        location.reload();
+        // Ce qui suit est pour si pas besoin du reload, ça génère directement la ligne, mais pas le modal du vendeur donc vaut mieux faire un reload comme ça le modal est généré.
+        // $.this.parent().parent().replaceWith("<tr><td>" + seller_name + "</td><td><div class='slideThree etatVendeur'><input class='form-control' type='checkbox' data-seller='" + seller_id + "' value='actif' checked><label for='checkbox-right'></label></div></td></tr>");
+      },
+      error: function(result){
+        alert(result.responseText);
+      }
+    });
+  });
+
+  $(document).on('keyup', 'input#new_seller_name', function(e){
+    if(e.keyCode == 13){
+      $(this).focusout();
+      $.this = $(this);
+      var seller_name = $.this.val();
+      $.ajax({
+        url: '/sellers',
+        type: 'POST',
+        dataType: 'script',
+        data: {
+          seller: {
+            name: seller_name,
+            actif: true
+          }
+        },
+        success: function(seller_id){
+          location.reload();
+          // Ce qui suit est pour si pas besoin du reload, ça génère directement la ligne, mais pas le modal du vendeur donc vaut mieux faire un reload comme ça le modal est généré.
+          // $.this.parent().parent().replaceWith("<tr><td>" + seller_name + "</td><td><div class='slideThree etatVendeur'><input class='form-control' type='checkbox' data-seller='" + seller_id + "' value='actif' checked><label for='checkbox-right'></label></div></td></tr>");
+        },
+        error: function(result){
+          alert(result.responseText);
+        }
+      });
+    }
+  });
 </script>

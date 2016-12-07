@@ -63,6 +63,8 @@ fr:
         secure: "Champ 'Sécurisé ?'"
         is_tech: "Champ 'Technicien ?'"
         actif: "Champ 'Actif ?'"
+      fields_seller:
+        name: "Champ 'Nom'"
     errors:
       models:
         incident:
@@ -185,3 +187,9 @@ fr:
               blank: "requis"
               invalid: "invalide"
               inclusion: "requis"
+        fields_seller:
+          attributes:
+            name:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"

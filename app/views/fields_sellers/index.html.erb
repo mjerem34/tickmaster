@@ -1,27 +1,98 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Fields Sellers</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @fields_sellers.each do |fields_seller| %>
+<div class="table-responsive">
+  <table class="table table-hover" id="table_fields_sellers">
+    <thead class="header">
       <tr>
-        <td><%= fields_seller.name %></td>
-        <td><%= link_to 'Show', fields_seller %></td>
-        <td><%= link_to 'Edit', edit_fields_seller_path(fields_seller) %></td>
-        <td><%= link_to 'Destroy', fields_seller, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <tr><td><input type="text" name="name_fields_seller" value="" placeholder="Nom du champ" class='form-control' id='name_fields_seller'/></td><td><button type="button" name="add_fields_seller" class='btn btn-success' id='add_fields_seller'>+</button></td></tr>
+      <% @fields_sellers.each do |fields_seller| %>
+        <tr data-fields_seller_id='<%= fields_seller.id %>'>
+          <td><input type='text' name='fields_seller_name' id='fields_seller_name' value='<%= fields_seller.name %>' class='form-control'/></td>
+          <td><button type="button" name="delete_fields_sellers" class='btn btn-danger' id='delete_fields_sellers'>-</button></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-<br>
+<script type="text/javascript">
+  $(document).on('keyup', 'input#fields_seller_name', function(e){
+    if(e.keyCode == 13 && $(this).val() != ""){
+      $.ajax({
+        url: '/fields_sellers/' + $(this).parent().parent().data('fields_seller_id'),
+        type: 'PUT',
+        dataType: 'script',
+        data: {
+          fields_seller: {
+            name: $(this).val()
+          }
+        },
+        error: function(result){
+          alert(result.responseText);
+        }
+      });
+    }
+  });
 
-<%= link_to 'New Fields seller', new_fields_seller_path %>
+  $(document).on('click', '#delete_fields_sellers', function(){
+    $.this = $(this);
+    $.ajax({
+      url: '/fields_sellers/' + $(this).parent().parent().data('fields_seller_id'),
+      type: 'DELETE',
+      error: function(result){
+        alert(result.responseText);
+      },
+      success: function(){
+        $.this.parent().parent().remove();
+      }
+    });
+  });
+
+  $(document).on('click', 'button#add_fields_seller', function(){
+    $.this = $(this);
+    var name = $(this).parent().parent().children('td').children('input').val();
+    $.ajax({
+      url: '/fields_sellers/',
+      type: 'POST',
+      dataType: 'script',
+      data: {
+        fields_seller: {
+          name: name
+        }
+      },
+      success: function(){
+        $('#table_fields_sellers > tbody').append('<tr><td><input type="text" value="' + name + '" name="fields_seller_name" id="fields_seller_name" class="form-control" /></td><td><button class="btn btn-danger" name="delete_fields_sellers" type="button" id="delete_fields_sellers">-</button></td></tr>')
+        $.this.parent().parent().children('td').children('input').val("");
+      },
+      error: function(result){
+        alert(result.responseText);
+      }
+    });
+  });
+  $(document).on('keyup', 'input#name_fields_seller', function(e){
+    if(e.keyCode == 13 && $(this).val() != ""){
+      $.this = $(this);
+      var name = $(this).val();
+      $.ajax({
+        url: '/fields_sellers/',
+        type: 'POST',
+        dataType: 'script',
+        data: {
+          fields_seller: {
+            name: name
+          }
+        },
+        success: function(){
+          $('#table_fields_sellers > tbody').append('<tr><td><input type="text" value="' + name + '" name="fields_seller_name" id="fields_seller_name" class="form-control" /></td><td><button class="btn btn-danger" name="delete_fields_sellers" type="button" id="delete_fields_sellers">-</button></td></tr>')
+          $.this.val("");
+        },
+        error: function(result){
+          alert(result.responseText);
+        }
+      });
+    }
+  });
+</script>

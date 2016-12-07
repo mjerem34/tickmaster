@@ -44,7 +44,6 @@ class RightsController < ApplicationController
     end
   end
 
-  # GET /rights/1
   # GET /rights/1.json
   # Should render one right (by id passed in params)
   def show
@@ -54,7 +53,7 @@ class RightsController < ApplicationController
       @title = "Droit : #{@right.name}"
       respond_to do |format|
         format.json { render json: @right }
-        format.html { redirect_to :edit }
+        format.html { redirect_to_back }
       end
     else
       renderUnauthorized

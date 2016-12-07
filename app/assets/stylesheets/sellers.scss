@@ -1,3 +1,24 @@
 // Place all the styles related to the sellers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.modal-details-seller{
+  span{
+    cursor: pointer;
+  }
+  h5.modal-title, img.edit_img{
+    display: inline-block;
+  }
+  img.edit_img{
+    margin-left: 10px;
+    margin-top: -3px;
+  }
+  img.edit_img.save{
+    display: none;
+  }
+}
+
+#table_fields_sellers{
+  td{
+    overflow: auto;
+  }
+}

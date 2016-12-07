@@ -3,7 +3,6 @@
   <table class="table table-hover" id="table_materials">
     <thead class="header">
     <tr>
-      <th>N°</th>
       <th>Type</th>
       <th>Vendeur</th>
       <th>Détenteur</th>
@@ -11,9 +10,9 @@
     </tr>
   </thead>
   <tbody>
+    <tr><td colspan='4'><%= link_to "Nouveau matériel", new_material_url, class: 'btn btn-success btn-block', id: 'create_new_material'%><td></tr>
     <% @materials.each do |material| %>
       <tr data-dismiss="modal" data-toggle="modal" data-target="#<%= material.id %>">
-        <td><%= material.id %></td>
         <td><%= material.type_material.name %></td>
         <td><%= material.seller.name %></td>
         <% if [1, 4].include?(material.detentor_type_id) then %>

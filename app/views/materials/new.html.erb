@@ -6,7 +6,7 @@
       <h3>Vous devez être ici pour ajouter un matériel, dans ce cas, cliquez ci-dessous :</h3>
     </div>
     <div class="col-md-8 col-md-offset-2">
-      <button type="button" name="button" class="btn btn-success btn-add-new-material" data-dismiss="modal" data-toggle="modal" data-target="#NewMaterial">Ajouter un matériel</button>
+      <button type="button" name="button" class="btn btn-success btn-add-new-material" data-dismiss="modal" data-toggle="modal" data-target="#NewMaterial" id='new_material_btn'>Ajouter un matériel</button>
     </div>
   </div>
 </div>
@@ -499,5 +499,7 @@ $(document).on('click', '#createMaterialOk', function(){
     }
   });
 });
-
+$(document).ready(function(){
+  $('#new_material_btn').click();
+});
 </script>

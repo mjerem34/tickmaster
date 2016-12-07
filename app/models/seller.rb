@@ -4,4 +4,7 @@ class Seller < ActiveRecord::Base
   has_many :types_materials_sellers
   has_many :type_materials, through: :types_materials_sellers
   has_many :materials
+
+  validates :name, presence: true,
+                   uniqueness: { case_sensitive: false }, length: { in: 0..254 }
 end

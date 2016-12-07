@@ -19,6 +19,12 @@ Rails.application.routes.draw do
       get :get_all_type_materials
       get :get_all_fields_sellers
     end
+    member do
+      delete :delete_type_material
+      post :add_field_seller
+      put :update_field_seller
+      delete :delete_field_seller
+    end
   end
   resources :fields_sellers
   resources :detentor_types

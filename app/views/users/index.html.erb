@@ -13,22 +13,18 @@
     </thead>
     <tbody>
       <% @users.each do |user| %>
-        <% if @view_users_pages %>
-        <tr data-toggle="modal" data-target="#<%= user.id %>">
-        <% else %>
-        <tr>
-        <% end %>
-          <td><%= user.name %></td>
-          <td><%= user.surname %></td>
-          <td><%= user.tel %></td>
-          <td><%= user.email %></td>
-          <td><%= user.agency.name %></td>
+          <td data-toggle="modal" data-target="#<%= user.id %>"><%= user.name %></td>
+          <td data-toggle="modal" data-target="#<%= user.id %>"><%= user.surname %></td>
+          <td data-toggle="modal" data-target="#<%= user.id %>"><%= user.tel %></td>
+          <td data-toggle="modal" data-target="#<%= user.id %>"><%= user.email %></td>
+          <td data-toggle="modal" data-target="#<%= user.id %>"><%= user.agency.name %></td>
           <%= "<td>#{user.type_user.name}</td>".html_safe if @view_users_pages %>
           <% if @enable_disable_user %>
             <%= "<td><div class='slideThree' data-id='#{user.id}'><input class='checkbox-right' type='checkbox' checked><label for='checkbox-right'></label></div></td>".html_safe if user.actif %>
             <%= "<td><div class='slideThree' data-id='#{user.id}'><input class='checkbox-right' type='checkbox'><label for='checkbox-right'></label></div></td>".html_safe if !user.actif %>
           <% end %>
         </tr>
+        <% if @view_users_pages %>
         <div class="container-modal">
           <!-- Modal -->
           <div class="modal fade" id="<%= user.id %>" role="dialog">
@@ -58,6 +54,7 @@
           </div>
 
         </div>
+        <% end %>
 
       <% end %>
     </tbody>
