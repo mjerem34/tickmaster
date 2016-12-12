@@ -46,36 +46,25 @@ class SellersController < ApplicationController
   # GET /sellers/1
   # GET /sellers/1.json
   def show
-    @view_sellers = verifRight('view_sellers')
-    if @view_sellers
-      @title = "Vendeur n° : #{@seller.id}"
-      respond_to do |format|
-        format.json { render json: @seller }
-        format.html { render :show }
-      end
-    else
-      renderUnauthorized
+    respond_to do |format|
+      format.json { render json: nil, status: 404 }
+      format.html { redirect_to fields_sellers_url }
     end
   end
 
   # GET /sellers/new
   def new
-    @create_sellers = verifRight('create_sellers')
-    if @create_sellers
-      @title = 'Nouveau vendeur'
-      @seller = Seller.new
-    else
-      renderUnauthorized
+    respond_to do |format|
+      format.json { render json: nil, status: 404 }
+      format.html { redirect_to fields_sellers_url }
     end
   end
 
   # GET /sellers/1/edit
   def edit
-    @modify_seller = verifRight('modify_seller')
-    if @modify_seller
-      @title = "Editer vendeur n° #{@seller.id}"
-    else
-      renderUnauthorized
+    respond_to do |format|
+      format.json { render json: nil, status: 404 }
+      format.html { redirect_to fields_sellers_url }
     end
   end
 

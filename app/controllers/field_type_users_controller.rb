@@ -1,35 +1,42 @@
 class FieldTypeUsersController < ApplicationController
-  before_action :set_field_type_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_field_type_user, only: [:update, :destroy]
+  before_action :set_expiration
+  before_action :restrict_access
 
   # GET /field_type_users
   # GET /field_type_users.json
   def index
-    @field_type_users = FieldTypeUser.all
+    @view_field_type_users = verifRight('view_field_type_users')
+    if @view_field_type_users
+      @title = 'Champs utilisateurs'
+      @field_type_users = FieldTypeUser.all
+      respond_to do |format|
+        format.json { render json: @field_type_users }
+        format.html { render :index }
+      end
+    else
+      renderUnauthorized
+    end
   end
 
-  # GET /field_type_users/1
-  # GET /field_type_users/1.json
-  def show
-  end
-
-  # GET /field_type_users/new
-  def new
-    @field_type_user = FieldTypeUser.new
-  end
-
-  # GET /field_type_users/1/edit
-  def edit
-  end
-
-  # POST /field_type_users
   # POST /field_type_users.json
   def create
-    if verifRight('add_field_type_users')
+    @add_field_type_users = verifRight('add_field_type_users')
+    if @add_field_type_users
+      @title = "Création d'un champ type utilisateur"
+      @field_type_user = FieldTypeUser.new(field_type_user_params)
       respond_to do |format|
         if @field_type_user.save
-          format.json { render :show, status: :created, location: @field_type_user }
+          format.js
+          format.json do
+            render json: @field_type_user.id,
+                   status: :created
+          end
         else
-          format.json { render json: @field_type_user.errors, status: :unprocessable_entity }
+          format.json do
+            render json: @field_type_user.errors,
+                   status: :unprocessable_entity
+          end
         end
       end
     else
@@ -37,27 +44,55 @@ class FieldTypeUsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /field_type_users/1
   # PATCH/PUT /field_type_users/1.json
   def update
-    respond_to do |format|
-      if @field_type_user.update(field_type_user_params)
-        format.html { redirect_to @field_type_user, notice: 'Field type user was successfully updated.' }
-        format.json { render :show, status: :ok, location: @field_type_user }
-      else
-        format.html { render :edit }
-        format.json { render json: @field_type_user.errors, status: :unprocessable_entity }
+    @edit_fields_type_user = verifRight('edit_fields_type_user')
+    if @edit_fields_type_user
+      @title = "Edition d'un champ type utilisateur"
+      respond_to do |format|
+        if @field_type_user.update(field_type_user_params)
+          format.js
+          format.json { head :no_content }
+        else
+          format.json do
+            render json: @field_type_user.errors,
+                   status: :unprocessable_entity
+          end
+        end
       end
+    else
+      renderUnauthorized
     end
   end
 
-  # DELETE /field_type_users/1
   # DELETE /field_type_users/1.json
   def destroy
-    @field_type_user.destroy
-    respond_to do |format|
-      format.html { redirect_to field_type_users_url, notice: 'Field type user was successfully destroyed.' }
-      format.json { head :no_content }
+    @delete_field_type_user = verifRight('delete_field_type_user')
+    if @delete_field_type_user
+      @title = "Suppression d'un champ type utilisateur"
+      respond_to do |format|
+        if !@field_type_user.field_type_user_type_users.any?
+          if @field_type_user.destroy
+            format.js
+            format.json do
+              head :no_content
+            end
+          else
+            format.json do
+              render json: @field_type_user.errors,
+                     status: :unprocessable_entity
+            end
+          end
+        else
+          format.json do
+            render json: 'Impossible de supprimer le champ car il contient'\
+            ' des données associées',
+                   status: :unprocessable_entity
+          end
+        end
+      end
+    else
+      renderUnauthorized
     end
   end
 
@@ -68,8 +103,9 @@ class FieldTypeUsersController < ApplicationController
     @field_type_user = FieldTypeUser.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  # Never trust parameters from the scary internet, only allow the white
+  # list through.
   def field_type_user_params
-    params.require(:field_type_user).permit(:type_user_id, :name)
+    params.require(:field_type_user).permit(:name)
   end
 end

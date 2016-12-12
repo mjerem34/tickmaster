@@ -57,12 +57,14 @@ class ApplicationController < ActionController::Base
         if @response.receiver.nil?
           User.where(tech_id: 5).each do |disp|
             unless disp.ip_addr.blank?
-              sendNotif(disp.ip_addr, @response.sender.name + ' ' + @response.sender.surname + ' a envoyé un message !')
+              sendNotif(disp.ip_addr, @response.sender.name + ' ' +
+              @response.sender.surname + ' a envoyé un message !')
             end
           end
         else
           unless @response.receiver.ip_addr.blank?
-            sendNotif(@response.receiver.ip_addr, @response.sender.name + ' ' + @response.sender.surname + ' a envoyé un message !')
+            sendNotif(@response.receiver.ip_addr, @response.sender.name + ' ' +
+             @response.sender.surname + ' a envoyé un message !')
           end
         end
         if @response.sender_id == @incident.user_id
@@ -256,8 +258,14 @@ class ApplicationController < ActionController::Base
       end
     end
     respond_to do |format|
-      format.json { render json: 'Votre demande de cloture a bien été prise en compte.', status: 200 }
-      format.html { redirect_to :edit_incident, notice: 'Votre demande de cloture a bien été prise en compte.' }
+      format.json do
+        render json: 'Votre demande de cloture a bien été prise en compte.',
+               status: 200
+      end
+      format.html do
+        redirect_to :edit_incident,
+                    notice: 'Votre demande de cloture a bien été prise en compte.'
+      end
     end
   end
 
@@ -289,8 +297,22 @@ class ApplicationController < ActionController::Base
           # Or ...
         else
           respond_to do |format|
-            format.json { render json: "Une erreur est apparue lors de l'archivage des fichiers de l'incident. Merci de contacter votre administrateur en lui fournissant ces informations : #{@file_archives.inspect} ------ #{response.inspect} ------ #{incident.inspect}", status: 409 }
-            format.html { redirect_to :back, notice: "Une erreur est apparue lors de l'archivage des fichiers de l'incident. Merci de contacter votre administrateur en lui fournissant ces informations : #{@file_archives.inspect} ------ #{response.inspect} ------ #{incident.inspect}" }
+            format.json do
+              render json: "Une erreur est apparue lors de
+              l'archivage des fichiers de l'incident. Merci de contacter votre
+              administrateur en lui fournissant ces informations
+              : #{@file_archives.inspect} ------ #{response.inspect}
+              ------ #{incident.inspect}",
+                     status: 409
+            end
+            format.html do
+              redirect_to :back,
+                          notice: "Une erreur est
+                          apparue lors de l'archivage des fichiers de l'incident. Merci de
+                          contacter votre administrateur en lui fournissant ces informations
+                           : #{@file_archives.inspect} ------ #{response.inspect}
+                           ------ #{incident.inspect}"
+            end
           end
         end
       end
@@ -301,8 +323,19 @@ class ApplicationController < ActionController::Base
         # Or ...
       else
         respond_to do |format|
-          format.json { render json: "Une erreur est apparue lors de l'archivage de l'incident. Merci de contacter votre administrateur en lui fournissant ces informations : #{@file_archives.inspect} ------ #{response.inspect} ------ #{incident.inspect}", status: 409 }
-          format.html { redirect_to :back, notice: "Une erreur est apparue lors de l'archivage de l'incident. Merci de contacter votre administrateur en lui fournissant ces informations : #{@file_archives.inspect} ------ #{response.inspect} ------ #{incident.inspect}" }
+          format.json do
+            render json: "Une erreur est apparue lors de l'archivage
+             de l'incident. Merci de contacter votre administrateur en lui
+              fournissant ces informations : #{@file_archives.inspect}
+              ------ #{response.inspect} ------ #{incident.inspect}",
+                   status: 409
+          end
+          format.html do
+            redirect_to :back, notice: "Une erreur est apparue lors de
+             l'archivage de l'incident. Merci de contacter votre administrateur
+             en lui fournissant ces informations : #{@file_archives.inspect}
+             ------ #{response.inspect} ------ #{incident.inspect}"
+          end
         end
       end
     end
@@ -320,14 +353,22 @@ class ApplicationController < ActionController::Base
     end
     # Must find the dispatchors.
     User.where(tech_id: 5).each do |disp|
-      unless disp.ip_addr.blank?
-        # Try to send the notification to his app.
-        sendNotif(disp.ip_addr, "L'incident n°" + incident.id.to_s + ' demande a être réaffecté !')
-      end
+      next if disp.ip_addr.blank?
+      # Try to send the notification to his app.
+      sendNotif(disp.ip_addr, "L'incident n°" + incident.id.to_s +
+      ' demande a être réaffecté !')
     end
     respond_to do |format|
-      format.json { render json: 'Votre demande de réaffectation a bien été prise en compte.', status: 200 }
-      format.html { redirect_to :edit_incident, notice: 'Votre demande de réaffectation a bien été prise en compte.' }
+      format.json do
+        render json: 'Votre demande de réaffectation a bien '\
+        'été prise en compte.',
+               status: 200
+      end
+      format.html do
+        redirect_to :edit_incident,
+                    notice: 'Votre demande de réaffectation a bien été'\
+                    ' prise en compte.'
+      end
     end
   end
 
@@ -336,8 +377,14 @@ class ApplicationController < ActionController::Base
   def renderUnauthorized
     @title = 'Accès non autorisé'
     respond_to do |format|
-      format.json { render json: "Vous n'êtes pas autorisé à faire cela.", status: 403 }
-      format.html { redirect_to '/', not_authorized: "Vous n'êtes pas autorisé à faire cela." }
+      format.json do
+        render json: "Vous n'êtes pas autorisé à faire cela.",
+               status: 403
+      end
+      format.html do
+        redirect_to '/',
+                    not_authorized: "Vous n'êtes pas autorisé à faire cela."
+      end
     end
   end
 
@@ -364,8 +411,15 @@ class ApplicationController < ActionController::Base
   def restrict_access
     if current_user.nil?
       respond_to do |format|
-        format.json { render json: 'Vous devez être connecté pour accéder à cette page', status: 401 }
-        format.html { redirect_to '/', not_authorized: 'Vous devez être connecté pour accéder à cette page' }
+        format.json do
+          render json: 'Vous devez être connecté pour accéder à cette page',
+                 status: 401
+        end
+        format.html do
+          redirect_to '/',
+                      not_authorized: 'Vous devez être connecté pour accéder à'\
+                      ' cette page'
+        end
       end
     end
   end

@@ -37,31 +37,26 @@ class TypeMaterialsController < ApplicationController
   # GET /type_materials/1
   # GET /type_materials/1.json
   def show
-    @view_type_material = verifRight('view_type_material')
-    if @view_type_material
-      @title = 'Type material'
-      respond_to do |format|
-        format.json { render json: @type_material }
-        format.html { render :show }
-      end
-    else
-      renderUnauthorized
+    respond_to do |format|
+      format.json { render json: nil, status: 404 }
+      format.html { redirect_to fields_sellers_url }
     end
   end
 
   # GET /type_materials/new
   def new
-    @create_type_material = verifRight('create_type_material')
-    if @create_type_material
-      @title = 'Nouveau TypeMaterial'
-      @type_material = TypeMaterial.new
-    else
-      renderUnauthorized
+    respond_to do |format|
+      format.json { render json: nil, status: 404 }
+      format.html { redirect_to fields_sellers_url }
     end
   end
 
   # GET /type_materials/1/edit
   def edit
+    respond_to do |format|
+      format.json { render json: nil, status: 404 }
+      format.html { redirect_to fields_sellers_url }
+    end
   end
 
   # POST /type_materials

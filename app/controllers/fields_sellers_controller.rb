@@ -1,5 +1,5 @@
 class FieldsSellersController < ApplicationController
-  before_action :set_fields_seller, only: [:show, :edit, :update, :destroy]
+  before_action :set_fields_seller, only: [:update, :destroy]
   before_action :set_expiration
   before_action :restrict_access
 
@@ -16,45 +16,6 @@ class FieldsSellersController < ApplicationController
         format.json { render json: @fields_sellers }
         format.html { render :index }
       end
-    else
-      renderUnauthorized
-    end
-  end
-
-  # GET /fields_sellers/1
-  # GET /fields_sellers/1.json
-  # Should render only one field seller.
-  def show
-    @view_fields_sellers = verifRight('view_fields_sellers')
-    if @view_fields_sellers
-      @title = "Champ n° : #{@fields_seller.id}"
-      respond_to do |format|
-        format.json { render json: @fields_seller }
-        format.html { render :show }
-      end
-    else
-      renderUnauthorized
-    end
-  end
-
-  # GET /fields_sellers/new
-  # Should render the new form. Only in web.
-  def new
-    @create_fields_sellers = verifRight('create_fields_sellers')
-    if @create_fields_sellers
-      @fields_seller = FieldsSeller.new
-      @title = 'Nouveau champ'
-    else
-      renderUnauthorized
-    end
-  end
-
-  # GET /fields_sellers/1/edit
-  # Should render the edit form. Only in web.
-  def edit
-    @modify_fields_sellers = verifRight('modify_fields_sellers')
-    if @modify_fields_sellers
-      @title = 'Editer le champ du vendeur'
     else
       renderUnauthorized
     end

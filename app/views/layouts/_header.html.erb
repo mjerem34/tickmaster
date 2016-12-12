@@ -10,13 +10,13 @@
             <a href="#"><i class="fa fa-gift fa-lg"></i>Procédures</a>
           </li>
           <ul class="sub-menu collapse" id="procedures">
-            <li><%= link_to 'Liste procedures', procedures_path, method: :get %></li>
-            <li><%= link_to "Créer procédure", new_procedure_path, method: :get %></li>
+            <li><%= link_to 'Liste procedures', procedures_url, method: :get %></li>
+            <li><%= link_to "Créer procédure", new_procedure_url, method: :get %></li>
         <% else %>
           <% if @view_procedures %>
               <li><%= image_tag("ICONS/262.png", size: "26x26", alt: "", class: "fa-img")%>
             <i class="fa fa-gift fa-lg"></i>
-            <%= link_to "Procedures", procedures_path, method: :get %></li>
+            <%= link_to "Procedures", procedures_url, method: :get %></li>
           <% end %>
         <% end %>
           </ul>
@@ -29,15 +29,15 @@
           <li><%= link_to "Mes incidents (#{my_incidents})", current_user, method: :get %></li>
           <% if !current_user.type_user.is_tech %>
             <% to_treat = current_user.tech_incidents.where(incident_state_id_for_tech: [2, 3, 5, 6]).count %>
-            <li><%= link_to "A traiter (#{to_treat})", to_treat_user_path(current_user), method: :get %></li>
+            <li><%= link_to "A traiter (#{to_treat})", to_treat_user_url(current_user), method: :get %></li>
             <% without_tech = Incident.where(tech_id: nil).where.not(incident_state_id_for_tech: [7, 10]).count %>
-            <li><%= link_to "Non attribués (#{without_tech})", incidents_without_tech_incident_path(current_user), method: :get%></li>
+            <li><%= link_to "Non attribués (#{without_tech})", incidents_without_tech_incident_url(current_user), method: :get%></li>
             <% if @view_index_all_of_incidents%>
             <% all_incidents = Incident.all.count %>
               <li><%= link_to "Tous les incidents (#{all_incidents})", incidents_url, method: :get%></li>
             <% end %>
           <% end %>
-          <li><%= link_to 'Cloturés/Rejetés', allincidents_user_path(current_user), method: :get %></li>
+          <li><%= link_to 'Cloturés/Rejetés', allincidents_user_url(current_user), method: :get %></li>
         </ul>
       <% end %>
       <% if !current_user.nil? && @view_index_categories %>
@@ -45,8 +45,8 @@
           <a href="#"><i class="fa fa-gift fa-lg"></i>Categories</a>
         </li>
         <ul class="sub-menu collapse" id="categ">
-          <li><%= link_to "Liste des categories", categories_path, class: " ", tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Liste des sous categories", sous_categories_path, class: " ", tabindex: -1, method: :get  %></li>
+          <li><%= link_to "Categories", categories_url, class: " ", tabindex: -1, method: :get  %></li>
+          <li><%= link_to "Sous-categories", sous_categories_url, class: " ", tabindex: -1, method: :get  %></li>
         </ul>
       <% end %>
       <% if !current_user.nil? && @view_index_users %>
@@ -56,7 +56,8 @@
         <ul class="sub-menu collapse" id="users">
           <li><%= link_to "Tous les utilisateurs", users_url, class: " ", tabindex: -1, method: :get  %></li>
           <% if !current_user.nil? && @create_new_tech %>
-            <li><%= link_to "Créer un utilisateur", new_tech_users_path, class: " ", tabindex: -1, method: :get  %></li>
+            <li><%= link_to "Créer un utilisateur", new_tech_users_url, class: " ", tabindex: -1, method: :get  %></li>
+            <li><%= link_to "Champs utilisateurs", field_type_users_url, class: " ", tabindex: -1, method: :get  %></li>
           <% end %>
         </ul>
       <%end%>
@@ -66,7 +67,7 @@
         </li>
         <ul class="sub-menu collapse" id="rights">
           <li><%= link_to "Liste des droits", rights_url, class: " ", tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Profils utilisateurs", type_users_path, class: " ", tabindex: -1, method: :get  %></li>
+          <li><%= link_to "Profils utilisateurs", type_users_url, class: " ", tabindex: -1, method: :get  %></li>
         </ul>
       <% end %>
       <% if !current_user.nil? &&  @view_index_agencies %>
@@ -76,7 +77,8 @@
         <ul class="sub-menu collapse" id="agencies">
           <li><%= link_to "Liste des agences", agencies_url, class: " ", tabindex: -1, method: :get  %></li>
           <% if !current_user.nil? && @create_new_agency %>
-          <li><%= link_to "Nouvelle agence", new_agency_path, class: " ", tabindex: -1, method: :get  %></li>
+          <li><%= link_to "Nouvelle agence", new_agency_url, class: " ", tabindex: -1, method: :get  %></li>
+          <li><%= link_to "Champs agences", field_agencies_url, class: " ", tabindex: -1, method: :get %></li>
           <% end %>
         </ul>
         <% end %>
@@ -97,7 +99,7 @@
         <a href="#"><i class="fa fa-gift fa-lg"></i>Aide</a>
       </li>
       <ul class="sub-menu collapse" id="aide">
-        <li><%= link_to "Faq", pages_help_path,tabindex:- 1, method: :get %></li>
+        <li><%= link_to "Faq", pages_help_url,tabindex:- 1, method: :get %></li>
         <li><%= mail_to "jeremy.montesinos@cle-expertises.fr", "Bug/Suggestion", cc: "jerome.guillot@cle-expertises.fr", subject: "Bug ou suggestion à propos de TickMaster", tabindex: -1 %>
       </ul>
       <% end %>
@@ -145,8 +147,8 @@
         <li class="dropdown-user">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag "ICONS/#{Random.new.rand(901..920)}.png", size: "32x32" %><span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><%= link_to"#{current_user.name} #{current_user.surname}", profil_user_path(current_user)%></li>
-            <li><%= link_to "Se déconnecter", signout_path, method: :get %></li>
+            <li><%= link_to"#{current_user.name} #{current_user.surname}", profil_user_url(current_user)%></li>
+            <li><%= link_to "Se déconnecter", signout_url, method: :get %></li>
             <% if @create_update %>
               <li><%= link_to "Créer une mise à jour", new_update_url %></li>
             <% end %>
@@ -154,7 +156,7 @@
               <li><%= link_to "Liste des mise à jour", updates_url %></li>
             <% end %>
           </ul>
-            <a href="<%= new_incident_path %>" id="btn_new_incident_top_right">+</a>
+            <a href="<%= new_incident_url %>" id="btn_new_incident_top_right">+</a>
           </li>
         </div>
         </li>

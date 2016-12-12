@@ -1,6 +1,7 @@
 class TypeUsersController < ApplicationController
   before_action :set_type_user, only: [:show, :edit, :update, :destroy, :disable_type_users]
-
+  before_action :set_expiration
+  before_action :restrict_access
   # GET /type_users
   # GET /type_users.json
   def index
@@ -23,28 +24,26 @@ class TypeUsersController < ApplicationController
   # GET /type_users/1
   # GET /type_users/1.json
   def show
-    if verifRight('view_type_users')
-      @title = 'Type utilisateur : ' + @type_user.name
-      respond_to do |format|
-        format.json { render json: @type_user }
-        format.html { redirect_to type_users_url }
-      end
-
-    else
-      renderUnauthorized
+    respond_to do |format|
+      format.json { render json: nil, status: 404 }
+      format.html { redirect_to fields_sellers_url }
     end
   end
 
   # GET /type_users/new
   def new
-    @title = 'Redirection ...'
-    respond_to { |format| format.html { redirect_to type_users_url } }
+    respond_to do |format|
+      format.json { render json: nil, status: 404 }
+      format.html { redirect_to fields_sellers_url }
+    end
   end
 
   # GET /type_users/1/edit
   def edit
-    @title = 'Redirection ...'
-    respond_to { |format| format.html { redirect_to type_users_url } }
+    respond_to do |format|
+      format.json { render json: nil, status: 404 }
+      format.html { redirect_to fields_sellers_url }
+    end
   end
 
   # POST /type_users

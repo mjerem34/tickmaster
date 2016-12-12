@@ -1,29 +1,22 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Field Type Users</h1>
-
-<table>
-  <thead>
+<div class="table-responsive">
+  <table class="table table-hover" id="table_field_type_users">
+    <thead class="header">
     <tr>
-      <th>Type user</th>
-      <th>Name</th>
-      <th colspan="3"></th>
+      <th>Nom</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
+    <tr class="add_field_type_user">
+      <td><input type="text" name="name_field_type_users" value="" class="form-control" placeholder="Nom du champ" id="name_add_field_type_users"></td>
+      <td><button type="button" name="add_field_type_users" class="btn btn-success" id="add_field_type_users">+</button></td>
+    </tr>
     <% @field_type_users.each do |field_type_user| %>
-      <tr>
-        <td><%= field_type_user.type_user_id %></td>
-        <td><%= field_type_user.name %></td>
-        <td><%= link_to 'Show', field_type_user %></td>
-        <td><%= link_to 'Edit', edit_field_type_user_path(field_type_user) %></td>
-        <td><%= link_to 'Destroy', field_type_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr id="<%= field_type_user.id %>" class="fields_type_user">
+        <td><input type="text" name="name_field_type_users" value="<%= field_type_user.name %>" class="form-control"></td>
+        <td><button type="button" name="delete_field_type_users" class="btn btn-danger" id="delete_field_type_users">-</button></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Field type user', new_field_type_user_path %>

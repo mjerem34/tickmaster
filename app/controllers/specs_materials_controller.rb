@@ -22,36 +22,25 @@ class SpecsMaterialsController < ApplicationController
   # GET /specs_materials/1
   # GET /specs_materials/1.json
   def show
-    @view_spec_material = verifRight('view_spec_material')
-    if @view_spec_material
-      @title = "SpecMaterial n° #{@specs_material.id}"
-      respond_to do |format|
-        format.json { render json: @specs_material }
-        format.html { render :show }
-      end
-    else
-      renderUnauthorized
+    respond_to do |format|
+      format.json { render json: nil, status: 404 }
+      format.html { redirect_to fields_sellers_url }
     end
   end
 
   # GET /specs_materials/new
   def new
-    @create_spec_material = verifRight('create_spec_material')
-    if @create_spec_material
-      @title = 'Nouveau SpecMaterial'
-      @specs_material = SpecsMaterial.new
-    else
-      renderUnauthorized
+    respond_to do |format|
+      format.json { render json: nil, status: 404 }
+      format.html { redirect_to fields_sellers_url }
     end
   end
 
   # GET /specs_materials/1/edit
   def edit
-    @modify_spec_material = verifRight('modify_spec_material')
-    if @modify_spec_material
-      @title = "Editer SpecMaterial n° #{@specs_material.id}"
-    else
-      renderUnauthorized
+    respond_to do |format|
+      format.json { render json: nil, status: 404 }
+      format.html { redirect_to fields_sellers_url }
     end
   end
 

@@ -12,7 +12,7 @@
 * index#agencies Faire comme les matériels, table avec les champs et pouvoir modifier direct
 * field_agencies_controller juste besoin d'une vue index pour les afficher et les créer dans la liste bouton +
 
-
+* unnasign_field_type_users sert a rien ?
 * Faire le index#type_materials (voir index#fields_sellers)
 * Faire le index#spec_type_materials (voir index#fields_sellers)
 * resoudre bug user.tech_id dans new#material
@@ -25,7 +25,7 @@
         * Prends juste le nom et l'ip
       * Show :
         * Prends toutes les infos de l'agence
-    * Field_agencies, field_type_users, fields_sellers, sellers, specs_materials, specs_types_materials, type_materials, type_users :
+    * type_users :
       * index
         * Renvoi les champs présents
       * A supprimer
