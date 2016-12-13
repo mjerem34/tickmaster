@@ -1,27 +1,21 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Field Agencies</h1>
-
-<table>
-  <thead>
+<div class='table-responsive'>
+  <table class='table table-hover' id='table_field_type_users'>
+    <thead class='header'>
     <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
+      <th>Nom</th>
+      <th></th>
     </tr>
   </thead>
-
   <tbody>
+    <tr>
+      <td><input type='text' name='name' value='' placeholder='Nom du champ' class='form-control' id='name_new_field_agency'></td>
+      <td><button type='button' name='button' class='btn btn-success' id='create_new_field_agency'>+</button></td>
+    </tr>
     <% @field_agencies.each do |field_agency| %>
-      <tr>
-        <td><%= field_agency.name %></td>
-        <td><%= link_to 'Show', field_agency %></td>
-        <td><%= link_to 'Edit', edit_field_agency_path(field_agency) %></td>
-        <td><%= link_to 'Destroy', field_agency, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr id='<%= field_agency.id %>'>
+        <td><input type='text' name='name' value='<%= field_agency.name %>' class='form-control' id='input_field_agency'></td>
+        <td><button type='button' name='button' class='btn btn-danger' id='delete_field_agency'>-</button></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Field agency', new_field_agency_path %>

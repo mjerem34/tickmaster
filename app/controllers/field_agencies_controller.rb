@@ -27,6 +27,7 @@ class FieldAgenciesController < ApplicationController
       @field_agency = FieldAgency.new(field_agency_params)
       respond_to do |format|
         if @field_agency.save
+          format.js
           format.json { render json: @field_agency.id, status: :created }
         else
           format.json do
@@ -47,6 +48,7 @@ class FieldAgenciesController < ApplicationController
       @title = "Edition d'un champ d'agence"
       respond_to do |format|
         if @field_agency.update(field_agency_params)
+          format.js
           format.json { head :no_content }
         else
           format.json do
@@ -68,6 +70,7 @@ class FieldAgenciesController < ApplicationController
       respond_to do |format|
         if !@field_agency.field_agency_agencies.any?
           if @field_agency.destroy
+            format.js
             format.json { head :no_content }
           else
             format.json do
