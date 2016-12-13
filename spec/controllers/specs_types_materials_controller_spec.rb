@@ -18,10 +18,10 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe SpecsTypesMaterialsController, type: :controller do
+RSpec.describe SpecTypeMaterialsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # SpecsTypesMaterial. As you add validations to SpecsTypesMaterial, be sure to
+  # SpecTypeMaterial. As you add validations to SpecTypeMaterial, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -33,68 +33,68 @@ RSpec.describe SpecsTypesMaterialsController, type: :controller do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # SpecsTypesMaterialsController. Be sure to keep this updated too.
+  # SpecTypeMaterialsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all specs_types_materials as @specs_types_materials" do
-      specs_types_material = SpecsTypesMaterial.create! valid_attributes
+    it "assigns all spec_type_materials as @spec_type_materials" do
+      spec_type_material = SpecTypeMaterial.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:specs_types_materials)).to eq([specs_types_material])
+      expect(assigns(:spec_type_materials)).to eq([spec_type_material])
     end
   end
 
   describe "GET #show" do
-    it "assigns the requested specs_types_material as @specs_types_material" do
-      specs_types_material = SpecsTypesMaterial.create! valid_attributes
-      get :show, {:id => specs_types_material.to_param}, valid_session
-      expect(assigns(:specs_types_material)).to eq(specs_types_material)
+    it "assigns the requested spec_type_material as @spec_type_material" do
+      spec_type_material = SpecTypeMaterial.create! valid_attributes
+      get :show, {:id => spec_type_material.to_param}, valid_session
+      expect(assigns(:spec_type_material)).to eq(spec_type_material)
     end
   end
 
   describe "GET #new" do
-    it "assigns a new specs_types_material as @specs_types_material" do
+    it "assigns a new spec_type_material as @spec_type_material" do
       get :new, {}, valid_session
-      expect(assigns(:specs_types_material)).to be_a_new(SpecsTypesMaterial)
+      expect(assigns(:spec_type_material)).to be_a_new(SpecTypeMaterial)
     end
   end
 
   describe "GET #edit" do
-    it "assigns the requested specs_types_material as @specs_types_material" do
-      specs_types_material = SpecsTypesMaterial.create! valid_attributes
-      get :edit, {:id => specs_types_material.to_param}, valid_session
-      expect(assigns(:specs_types_material)).to eq(specs_types_material)
+    it "assigns the requested spec_type_material as @spec_type_material" do
+      spec_type_material = SpecTypeMaterial.create! valid_attributes
+      get :edit, {:id => spec_type_material.to_param}, valid_session
+      expect(assigns(:spec_type_material)).to eq(spec_type_material)
     end
   end
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new SpecsTypesMaterial" do
+      it "creates a new SpecTypeMaterial" do
         expect {
-          post :create, {:specs_types_material => valid_attributes}, valid_session
-        }.to change(SpecsTypesMaterial, :count).by(1)
+          post :create, {:spec_type_material => valid_attributes}, valid_session
+        }.to change(SpecTypeMaterial, :count).by(1)
       end
 
-      it "assigns a newly created specs_types_material as @specs_types_material" do
-        post :create, {:specs_types_material => valid_attributes}, valid_session
-        expect(assigns(:specs_types_material)).to be_a(SpecsTypesMaterial)
-        expect(assigns(:specs_types_material)).to be_persisted
+      it "assigns a newly created spec_type_material as @spec_type_material" do
+        post :create, {:spec_type_material => valid_attributes}, valid_session
+        expect(assigns(:spec_type_material)).to be_a(SpecTypeMaterial)
+        expect(assigns(:spec_type_material)).to be_persisted
       end
 
-      it "redirects to the created specs_types_material" do
-        post :create, {:specs_types_material => valid_attributes}, valid_session
-        expect(response).to redirect_to(SpecsTypesMaterial.last)
+      it "redirects to the created spec_type_material" do
+        post :create, {:spec_type_material => valid_attributes}, valid_session
+        expect(response).to redirect_to(SpecTypeMaterial.last)
       end
     end
 
     context "with invalid params" do
-      it "assigns a newly created but unsaved specs_types_material as @specs_types_material" do
-        post :create, {:specs_types_material => invalid_attributes}, valid_session
-        expect(assigns(:specs_types_material)).to be_a_new(SpecsTypesMaterial)
+      it "assigns a newly created but unsaved spec_type_material as @spec_type_material" do
+        post :create, {:spec_type_material => invalid_attributes}, valid_session
+        expect(assigns(:spec_type_material)).to be_a_new(SpecTypeMaterial)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:specs_types_material => invalid_attributes}, valid_session
+        post :create, {:spec_type_material => invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -106,53 +106,53 @@ RSpec.describe SpecsTypesMaterialsController, type: :controller do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested specs_types_material" do
-        specs_types_material = SpecsTypesMaterial.create! valid_attributes
-        put :update, {:id => specs_types_material.to_param, :specs_types_material => new_attributes}, valid_session
-        specs_types_material.reload
+      it "updates the requested spec_type_material" do
+        spec_type_material = SpecTypeMaterial.create! valid_attributes
+        put :update, {:id => spec_type_material.to_param, :spec_type_material => new_attributes}, valid_session
+        spec_type_material.reload
         skip("Add assertions for updated state")
       end
 
-      it "assigns the requested specs_types_material as @specs_types_material" do
-        specs_types_material = SpecsTypesMaterial.create! valid_attributes
-        put :update, {:id => specs_types_material.to_param, :specs_types_material => valid_attributes}, valid_session
-        expect(assigns(:specs_types_material)).to eq(specs_types_material)
+      it "assigns the requested spec_type_material as @spec_type_material" do
+        spec_type_material = SpecTypeMaterial.create! valid_attributes
+        put :update, {:id => spec_type_material.to_param, :spec_type_material => valid_attributes}, valid_session
+        expect(assigns(:spec_type_material)).to eq(spec_type_material)
       end
 
-      it "redirects to the specs_types_material" do
-        specs_types_material = SpecsTypesMaterial.create! valid_attributes
-        put :update, {:id => specs_types_material.to_param, :specs_types_material => valid_attributes}, valid_session
-        expect(response).to redirect_to(specs_types_material)
+      it "redirects to the spec_type_material" do
+        spec_type_material = SpecTypeMaterial.create! valid_attributes
+        put :update, {:id => spec_type_material.to_param, :spec_type_material => valid_attributes}, valid_session
+        expect(response).to redirect_to(spec_type_material)
       end
     end
 
     context "with invalid params" do
-      it "assigns the specs_types_material as @specs_types_material" do
-        specs_types_material = SpecsTypesMaterial.create! valid_attributes
-        put :update, {:id => specs_types_material.to_param, :specs_types_material => invalid_attributes}, valid_session
-        expect(assigns(:specs_types_material)).to eq(specs_types_material)
+      it "assigns the spec_type_material as @spec_type_material" do
+        spec_type_material = SpecTypeMaterial.create! valid_attributes
+        put :update, {:id => spec_type_material.to_param, :spec_type_material => invalid_attributes}, valid_session
+        expect(assigns(:spec_type_material)).to eq(spec_type_material)
       end
 
       it "re-renders the 'edit' template" do
-        specs_types_material = SpecsTypesMaterial.create! valid_attributes
-        put :update, {:id => specs_types_material.to_param, :specs_types_material => invalid_attributes}, valid_session
+        spec_type_material = SpecTypeMaterial.create! valid_attributes
+        put :update, {:id => spec_type_material.to_param, :spec_type_material => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested specs_types_material" do
-      specs_types_material = SpecsTypesMaterial.create! valid_attributes
+    it "destroys the requested spec_type_material" do
+      spec_type_material = SpecTypeMaterial.create! valid_attributes
       expect {
-        delete :destroy, {:id => specs_types_material.to_param}, valid_session
-      }.to change(SpecsTypesMaterial, :count).by(-1)
+        delete :destroy, {:id => spec_type_material.to_param}, valid_session
+      }.to change(SpecTypeMaterial, :count).by(-1)
     end
 
-    it "redirects to the specs_types_materials list" do
-      specs_types_material = SpecsTypesMaterial.create! valid_attributes
-      delete :destroy, {:id => specs_types_material.to_param}, valid_session
-      expect(response).to redirect_to(specs_types_materials_url)
+    it "redirects to the spec_type_materials list" do
+      spec_type_material = SpecTypeMaterial.create! valid_attributes
+      delete :destroy, {:id => spec_type_material.to_param}, valid_session
+      expect(response).to redirect_to(spec_type_materials_url)
     end
   end
 

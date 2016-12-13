@@ -19,16 +19,16 @@ class SellersController < ApplicationController
     end
   end
 
-  # GET /sellers/get_all_fields_sellers.json
-  def get_all_fields_sellers
+  # GET /sellers/get_all_field_sellers.json
+  def get_all_field_sellers
     fssFind = []
     @seller_id = params[:seller_id]
-    Seller.find(@seller_id).fields_seller_sellers.each do |fss|
+    Seller.find(@seller_id).field_seller_sellers.each do |fss|
       # Get all fields already defined to the seller to remove them
-      fssFind << fss.fields_seller.id
+      fssFind << fss.field_seller.id
     end
     # Select all fields except those already defined (fssFind)
-    @all_fields_sellers = FieldsSeller.where.not(id: fssFind)
+    @all_field_sellers = FieldSeller.where.not(id: fssFind)
     respond_to do |format|
       format.js
     end
@@ -48,7 +48,7 @@ class SellersController < ApplicationController
   def show
     respond_to do |format|
       format.json { render json: nil, status: 404 }
-      format.html { redirect_to fields_sellers_url }
+      format.html { redirect_to field_sellers_url }
     end
   end
 
@@ -56,7 +56,7 @@ class SellersController < ApplicationController
   def new
     respond_to do |format|
       format.json { render json: nil, status: 404 }
-      format.html { redirect_to fields_sellers_url }
+      format.html { redirect_to field_sellers_url }
     end
   end
 
@@ -64,7 +64,7 @@ class SellersController < ApplicationController
   def edit
     respond_to do |format|
       format.json { render json: nil, status: 404 }
-      format.html { redirect_to fields_sellers_url }
+      format.html { redirect_to field_sellers_url }
     end
   end
 
@@ -156,15 +156,15 @@ class SellersController < ApplicationController
   def add_field_seller
     @modify_sellers = verifRight('modify_sellers')
     if @modify_sellers
-      if !FieldsSeller.exists?(name: params[:field_seller_name])
-        @field_seller = FieldsSeller.new(name: params[:field_seller_name])
+      if !FieldSeller.exists?(name: params[:field_seller_name])
+        @field_seller = FieldSeller.new(name: params[:field_seller_name])
         @field_seller.save
-        @field_seller_seller = FieldsSellerSeller.new(fields_seller_id: @field_seller.id, seller_id: params[:id], content: params[:content])
+        @field_seller_seller = FieldSellerSeller.new(field_seller_id: @field_seller.id, seller_id: params[:id], content: params[:content])
       else
-        @field_seller_seller = FieldsSellerSeller.new(fields_seller_id: params[:field_seller_id], seller_id: params[:id], content: params[:content])
+        @field_seller_seller = FieldSellerSeller.new(field_seller_id: params[:field_seller_id], seller_id: params[:id], content: params[:content])
       end
       if @field_seller_seller.save
-        respond_to { |format| format.json { render json: @field_seller_seller.fields_seller_id, status: :ok } }
+        respond_to { |format| format.json { render json: @field_seller_seller.field_seller_id, status: :ok } }
       else
         respond_to { |format| format.json { render json: "Impossible de d'ajouter ce champ, contactez votre administrateur réseau", status: :unprocessable_entity } }
       end
@@ -177,7 +177,7 @@ class SellersController < ApplicationController
   def update_field_seller
     @modify_sellers = verifRight('modify_sellers')
     if @modify_sellers
-      @field_seller_seller = FieldsSellerSeller.where(fields_seller_id: params[:field_seller_id], seller_id: params[:id])
+      @field_seller_seller = FieldSellerSeller.where(field_seller_id: params[:field_seller_id], seller_id: params[:id])
       if @field_seller_seller.update_all(content: params[:content])
         respond_to { |format| format.json { head :no_content } }
       else
@@ -192,7 +192,7 @@ class SellersController < ApplicationController
   def delete_field_seller
     @modify_sellers = verifRight('modify_sellers')
     if @modify_sellers
-      @field_seller_seller = FieldsSellerSeller.where(fields_seller_id: params[:field_seller_id], seller_id: params[:id])
+      @field_seller_seller = FieldSellerSeller.where(field_seller_id: params[:field_seller_id], seller_id: params[:id])
       if @field_seller_seller.delete_all
         respond_to { |format| format.json { head :no_content } }
       else

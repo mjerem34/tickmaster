@@ -1,2 +1,2 @@
-module SpecsTypesMaterialsHelper
+module SpecTypeMaterialsHelper
 end

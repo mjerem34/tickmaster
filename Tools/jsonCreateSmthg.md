@@ -63,7 +63,7 @@ Créer DetentorTypesController :
 
 ---
 
-Créer FieldsSellers :
+Créer FieldSellers :
 
 {"name": "Test"}
 
@@ -81,12 +81,12 @@ Un vendeur n'a aucune valeur dans sa table, tout est présent dans une autre tab
 
 ---
 
-Créer SpecsMaterialsController :
-{"specs_types_material_id":"1"}
+Créer SpecMaterialsController :
+{"spec_type_material_id":"1"}
 
 ---
 
-Créer SpecsTypesMaterialsController :
+Créer SpecTypeMaterialsController :
 {"name":"Test"}
 
 

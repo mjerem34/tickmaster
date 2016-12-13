@@ -1,8 +1,8 @@
 class Seller < ActiveRecord::Base
-  has_many :fields_seller_sellers
-  has_many :fields_sellers, through: :fields_seller_sellers
-  has_many :types_materials_sellers
-  has_many :type_materials, through: :types_materials_sellers
+  has_many :field_seller_sellers
+  has_many :field_sellers, through: :field_seller_sellers
+  has_many :type_material_sellers
+  has_many :type_materials, through: :type_material_sellers
   has_many :materials
 
   validates :name, presence: true,

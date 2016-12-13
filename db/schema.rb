@@ -72,13 +72,13 @@ ActiveRecord::Schema.define(version: 20161102160133) do
     t.text    "content",            limit: 65535
   end
 
-  create_table "fields_seller_sellers", force: :cascade do |t|
-    t.integer "fields_seller_id", limit: 4
+  create_table "field_seller_sellers", force: :cascade do |t|
+    t.integer "field_seller_id", limit: 4
     t.integer "seller_id",        limit: 4
     t.string  "content",          limit: 255
   end
 
-  create_table "fields_sellers", force: :cascade do |t|
+  create_table "field_sellers", force: :cascade do |t|
     t.string "name", limit: 255
   end
 
@@ -232,12 +232,12 @@ ActiveRecord::Schema.define(version: 20161102160133) do
     t.integer "material_id",      limit: 4
   end
 
-  create_table "specs_materials", force: :cascade do |t|
-    t.integer "specs_types_material_id", limit: 4
+  create_table "spec_materials", force: :cascade do |t|
+    t.integer "spec_type_material_id", limit: 4
     t.string  "spec_value",            limit: 255
   end
 
-  create_table "specs_types_materials", force: :cascade do |t|
+  create_table "spec_type_materials", force: :cascade do |t|
     t.string "name", limit: 255
   end
 
@@ -245,9 +245,9 @@ ActiveRecord::Schema.define(version: 20161102160133) do
     t.string "name", limit: 255
   end
 
-  create_table "type_materials_specs_types_materials", force: :cascade do |t|
+  create_table "type_material_spec_type_materials", force: :cascade do |t|
     t.integer "type_material_id",      limit: 4
-    t.integer "specs_types_material_id", limit: 4
+    t.integer "spec_type_material_id", limit: 4
   end
 
   create_table "type_user_rights", force: :cascade do |t|
@@ -263,7 +263,7 @@ ActiveRecord::Schema.define(version: 20161102160133) do
     t.boolean "actif"
   end
 
-  create_table "types_materials_sellers", force: :cascade do |t|
+  create_table "type_material_sellers", force: :cascade do |t|
     t.integer "type_material_id", limit: 4
     t.integer "seller_id",        limit: 4
   end

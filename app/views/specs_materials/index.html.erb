@@ -1,5 +1,5 @@
 <div class='table-responsive'>
-  <table class='table table-hover' id='table_specs_materials'>
+  <table class='table table-hover' id='table_spec_materials'>
     <thead class='header'>
       <tr>
         <th>Type de caractéristique technique</th>
@@ -10,15 +10,15 @@
 
     <tbody>
       <tr>
-        <td><%= select_tag 'spec_type_new_specs_material', options_for_select(@specs_types_materials.collect{|stm| [stm.name, stm.id]}), class: 'dropdownSearchCreate form-control' %></td>
-        <td><input type='text' name='name' placeholder='Valeur' id='value_new_specs_material' class='form-control'></td>
-        <td><button type='button' name='button' class='btn btn-success' id='create_new_specs_material'>+</button></td>
+        <td><%= select_tag 'spec_type_new_spec_material', options_for_select(@spec_type_materials.collect{|stm| [stm.name, stm.id]}), class: 'dropdownSearchCreate form-control' %></td>
+        <td><input type='text' name='name' placeholder='Valeur' id='value_new_spec_material' class='form-control'></td>
+        <td><button type='button' name='button' class='btn btn-success' id='create_new_spec_material'>+</button></td>
       </tr>
-      <% @specs_materials.each do |specs_material| %>
-        <tr id='<%= specs_material.id %>'>
-          <td><%= select_tag 'spec_type_specs_material', options_for_select(@specs_types_materials.collect{|stm| [stm.name, stm.id]}, selected: specs_material.specs_types_material.id), class: 'dropdownSearchCreate form-control' %></td>
-          <td><input type='text' name='name' value='<%= specs_material.spec_value %>' class='form-control' id='input_spec_material'/></td>
-          <td><button type='button' name='button' class='btn btn-danger' id='delete_specs_materials'>-</button></td>
+      <% @spec_materials.each do |spec_material| %>
+        <tr id='<%= spec_material.id %>'>
+          <td><%= select_tag 'spec_type_spec_material', options_for_select(@spec_type_materials.collect{|stm| [stm.name, stm.id]}, selected: spec_material.spec_type_material.id), class: 'dropdownSearchCreate form-control' %></td>
+          <td><input type='text' name='name' value='<%= spec_material.spec_value %>' class='form-control' id='input_spec_material'/></td>
+          <td><button type='button' name='button' class='btn btn-danger' id='delete_spec_materials'>-</button></td>
         </tr>
       <% end %>
     </tbody>

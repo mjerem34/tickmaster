@@ -1,12 +1,11 @@
 class CreateMaterials < ActiveRecord::Migration
   def change
     create_table :materials do |t|
-      t.integer :type_material_id
-      t.integer :detentor_type_id
-      t.integer :detentor_id
-      t.integer :seller_id
-      t.datetime :date
-
+      t.references :type_material, index: true, foreign_key: true, null: false
+      t.references :detentor_type, index: true, foreign_key: true, null: false
+      t.references :detentor, index: true, foreign_key: true, null: false
+      t.references :seller, index: true, foreign_key: true, null: false
+      t.string :name, null: false
       t.timestamps null: false
     end
   end

@@ -1,4 +1,4 @@
-json.array!(@specs_types_materials) do |specs_types_material|
-  json.extract! specs_types_material, :id, :name
-  json.url specs_types_material_url(specs_types_material, format: :json)
+json.array!(@spec_type_materials) do |spec_type_material|
+  json.extract! spec_type_material, :id, :name
+  json.url spec_type_material_url(spec_type_material, format: :json)
 end

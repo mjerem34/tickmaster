@@ -12,7 +12,7 @@ $ ->
 
 $ ->
   $(document).on 'click', '#add_field_seller', (evt) ->
-    $.ajax '/sellers/get_all_fields_sellers',
+    $.ajax '/sellers/get_all_field_sellers',
       type: 'GET',
       dataType: 'script',
       data: {

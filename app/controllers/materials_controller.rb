@@ -5,7 +5,7 @@ class MaterialsController < ApplicationController
   before_action :set_detentor_type, only: [:new, :redefine_detentor_type]
   # GET /materials/get_all_specs_types
   def get_all_specs_types
-    @all_specs_types = SpecsTypesMaterial.all
+    @all_specs_types = SpecTypeMaterial.all
     respond_to do |format|
       format.json { render json: @all_specs_types }
     end
@@ -31,7 +31,7 @@ class MaterialsController < ApplicationController
     @material = Material.find(params[:material_id])
     @material_specs = {}
     @material.spec_material_materials.each do |smm|
-      @material_specs[smm.specs_material.specs_types_material.name] = smm.specs_material.spec_value
+      @material_specs[smm.spec_material.spec_type_material.name] = smm.spec_material.spec_value
     end
     respond_to do |format|
       format.js
@@ -63,7 +63,7 @@ class MaterialsController < ApplicationController
       @material = @materials.first
       @material_specs = {}
       @material.spec_material_materials.each do |smm|
-        @material_specs[smm.specs_material.specs_types_material.name] = smm.specs_material.spec_value
+        @material_specs[smm.spec_material.spec_type_material.name] = smm.spec_material.spec_value
       end
     end
     respond_to do |format|
@@ -105,7 +105,7 @@ class MaterialsController < ApplicationController
       @material = @materials.first
       @material_specs = {}
       @material.spec_material_materials.each do |smm|
-        @material_specs[smm.specs_material.specs_types_material.name] = smm.specs_material.spec_value
+        @material_specs[smm.spec_material.spec_type_material.name] = smm.spec_material.spec_value
         puts '---------------------------------'
         puts @material_specs.inspect
         puts '---------------------------------'
@@ -145,15 +145,15 @@ class MaterialsController < ApplicationController
         TypeMaterial.exists?(name: params[:material][:type_material_name]) ? @type_material = TypeMaterial.where(name: params[:material][:type_material_name]).first : @type_material = TypeMaterial.create(name: params[:material][:type_material_name])
         TypeMaterialSeller.create(type_material_id: @type_material.id, seller_id: @seller.id) unless TypeMaterialSeller.exists?(type_material_id: @type_material.id, seller_id: @seller.id)
         params[:seller_specs].keys.each do |key|
-          FieldsSeller.exists?(name: key) ? fields_seller = FieldsSeller.where(name: key).first : fields_seller = FieldsSeller.create!(name: key)
-          FieldsSellerSeller.exists?(seller_id: @seller.id, fields_seller_id: fields_seller.id) ? FieldsSellerSeller.where(seller_id: @seller.id).first.update(content: params[:seller_specs][key]) : FieldsSellerSeller.create(fields_seller_id: fields_seller.id, seller_id: @seller.id, content: params[:seller_specs][key])
+          FieldSeller.exists?(name: key) ? field_seller = FieldSeller.where(name: key).first : field_seller = FieldSeller.create!(name: key)
+          FieldSellerSeller.exists?(seller_id: @seller.id, field_seller_id: field_seller.id) ? FieldSellerSeller.where(seller_id: @seller.id).first.update(content: params[:seller_specs][key]) : FieldSellerSeller.create(field_seller_id: field_seller.id, seller_id: @seller.id, content: params[:seller_specs][key])
         end
         @material = Material.create(type_material_id: @type_material.id, name: params[:material][:material_name])
         MaterialsSeller.create(material_id: @material.id, seller_id: @seller.id)
         params[:specs_values].keys.each do |key|
-          SpecsTypesMaterial.exists?(name: key) ? specs_types_material = SpecsTypesMaterial.where(name: key).first : specs_types_material = SpecsTypesMaterial.create(name: key)
-          TypeMaterialsSpecsTypesMaterial.create(type_material_id: @type_material.id, specs_types_material_id: specs_types_material.id) unless TypeMaterialsSpecsTypesMaterial.exists?(type_material_id: @type_material.id, specs_types_material_id: specs_types_material.id)
-          SpecsMaterial.exists?(specs_types_material_id: specs_types_material.id, spec_value: params[:specs_values][key]) ? spec_material = SpecsMaterial.where(specs_types_material_id: specs_types_material.id, spec_value: params[:specs_values][key]).first : spec_material = SpecsMaterial.create(specs_types_material_id: specs_types_material.id, spec_value: params[:specs_values][key])
+          SpecTypeMaterial.exists?(name: key) ? spec_type_material = SpecTypeMaterial.where(name: key).first : spec_type_material = SpecTypeMaterial.create(name: key)
+          TypeMaterialsSpecTypeMaterial.create(type_material_id: @type_material.id, spec_type_material_id: spec_type_material.id) unless TypeMaterialsSpecTypeMaterial.exists?(type_material_id: @type_material.id, spec_type_material_id: spec_type_material.id)
+          SpecMaterial.exists?(spec_type_material_id: spec_type_material.id, spec_value: params[:specs_values][key]) ? spec_material = SpecMaterial.where(spec_type_material_id: spec_type_material.id, spec_value: params[:specs_values][key]).first : spec_material = SpecMaterial.create(spec_type_material_id: spec_type_material.id, spec_value: params[:specs_values][key])
           SpecMaterialMaterial.create(spec_material_id: spec_material.id, material_id: @material.id) unless SpecMaterialMaterial.exists?(spec_material_id: spec_material.id, material_id: @material.id)
         end
 

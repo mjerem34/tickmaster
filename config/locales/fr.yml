@@ -63,7 +63,7 @@ fr:
         secure: "Champ 'Sécurisé ?'"
         is_tech: "Champ 'Technicien ?'"
         actif: "Champ 'Actif ?'"
-      fields_seller:
+      field_seller:
         name: "Champ 'Nom'"
     errors:
       models:
@@ -187,7 +187,7 @@ fr:
               blank: "requis"
               invalid: "invalide"
               inclusion: "requis"
-        fields_seller:
+        field_seller:
           attributes:
             name:
               blank: "requis"

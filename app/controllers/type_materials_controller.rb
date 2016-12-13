@@ -82,9 +82,9 @@ class TypeMaterialsController < ApplicationController
       respond_to do |format|
         if @type_material.materials.any?
           format.json { render json: 'Impossible de supprimer ce type de matériel car il est en liaison avec des matériels', status: :unprocessable_entity }
-        elsif @type_material.types_materials_sellers.any?
+        elsif @type_material.type_material_sellers.any?
           format.json { render json: 'Impossible de supprimer ce type de matériel car il est en liaison avec des vendeurs', status: :unprocessable_entity }
-        elsif @type_material.type_materials_specs_types_materials.any?
+        elsif @type_material.type_material_spec_type_materials.any?
           format.json { render json: 'Impossible de supprimer ce type de matériel car il est en liaison avec des caractéristiques techniques', status: :unprocessable_entity }
         else
           if @type_material.destroy

@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe "specs_types_materials/index", type: :view do
+RSpec.describe "spec_type_materials/index", type: :view do
   before(:each) do
-    assign(:specs_types_materials, [
-      SpecsTypesMaterial.create!(
+    assign(:spec_type_materials, [
+      SpecTypeMaterial.create!(
         :name => "Name"
       ),
-      SpecsTypesMaterial.create!(
+      SpecTypeMaterial.create!(
         :name => "Name"
       )
     ])
   end
 
-  it "renders a list of specs_types_materials" do
+  it "renders a list of spec_type_materials" do
     render
     assert_select "tr>td", :text => "Name".to_s, :count => 2
   end

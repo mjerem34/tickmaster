@@ -1510,7 +1510,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (54,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (55,'create_fields_sellers','Autorisé à créer des champs de données pour les vendeurs');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (55,'create_field_sellers','Autorisé à créer des champs de données pour les vendeurs');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (55,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (55,2,1);
@@ -1538,7 +1538,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (55,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (56,'modify_fields_sellers','Autorisé à modifier des champs de données pour les vendeurs');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (56,'modify_field_sellers','Autorisé à modifier des champs de données pour les vendeurs');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (56,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (56,2,1);
@@ -1566,7 +1566,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (56,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (57,'delete_fields_sellers','Autorisé à supprimer des champs de données pour les vendeurs');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (57,'delete_field_sellers','Autorisé à supprimer des champs de données pour les vendeurs');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (57,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (57,2,1);
@@ -1594,7 +1594,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (57,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (58,'view_fields_sellers','Autorisé à voir les champs de données pour les vendeurs');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (58,'view_field_sellers','Autorisé à voir les champs de données pour les vendeurs');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (58,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (58,2,1);

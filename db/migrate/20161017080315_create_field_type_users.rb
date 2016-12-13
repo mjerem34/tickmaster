@@ -1,8 +1,7 @@
 class CreateFieldTypeUsers < ActiveRecord::Migration
   def change
     create_table :field_type_users do |t|
-      t.integer :type_user_id
-      t.string :name
+      t.string :name, unique: true, null: false
     end
   end
 end

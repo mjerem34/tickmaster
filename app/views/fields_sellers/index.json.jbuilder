@@ -1,4 +1,4 @@
-json.array!(@fields_sellers) do |fields_seller|
-  json.extract! fields_seller, :id, :name
-  json.url fields_seller_url(fields_seller, format: :json)
+json.array!(@field_sellers) do |field_seller|
+  json.extract! field_seller, :id, :name
+  json.url field_seller_url(field_seller, format: :json)
 end

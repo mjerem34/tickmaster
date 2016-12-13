@@ -170,10 +170,10 @@
             </div>
             <div id="fields-seller-with-btn-add">
               <div id="fields-sellers">
-                <% @seller.fields_seller_sellers.each do |fss| %>
+                <% @seller.field_seller_sellers.each do |fss| %>
                 <div class="row">
                   <div class="col-md-4" id="fields-sellers-titles">
-                    <input type="text" name="name" value="<%= fss.fields_seller.name %>" class="form-control" disabled><br>
+                    <input type="text" name="name" value="<%= fss.field_seller.name %>" class="form-control" disabled><br>
                   </div>
                   <div class="col-md-4" id="fields-sellers-values">
                     <input type="text" name="name" value="<%= fss.content %>" class="form-control"><br>
@@ -196,7 +196,7 @@
               $(document).on('click', '#add-fields-sellers', function(){
                 var dejaPresent = [];
                 $.ajax({
-                  url: '/sellers/get_all_fields_sellers',
+                  url: '/sellers/get_all_field_sellers',
                   type: 'GET',
                   dataType: 'json',
                   success: function(result){

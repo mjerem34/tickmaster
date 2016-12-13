@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "fields_sellers/show", type: :view do
+RSpec.describe "field_sellers/show", type: :view do
   before(:each) do
-    @fields_seller = assign(:fields_seller, FieldsSeller.create!(
+    @field_seller = assign(:field_seller, FieldSeller.create!(
       :name => "Name"
     ))
   end

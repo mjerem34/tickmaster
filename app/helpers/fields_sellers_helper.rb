@@ -1,2 +1,2 @@
-module FieldsSellersHelper
+module FieldSellersHelper
 end

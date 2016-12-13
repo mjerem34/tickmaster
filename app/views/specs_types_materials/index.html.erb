@@ -1,5 +1,5 @@
 <div class='table-responsive'>
-  <table class='table table-hover' id='table_specs_types_materials'>
+  <table class='table table-hover' id='table_spec_type_materials'>
     <thead class='header'>
     <tr>
       <th>Nom</th>
@@ -9,13 +9,13 @@
 
   <tbody>
     <tr>
-      <td><input type='text' name='name' value='' placeholder='Nom du champ' class='form-control' id='name_new_specs_types_material'/></td>
-      <td><button type='button' name='button' class='btn btn-success' id='create_new_specs_types_material'>+</button></td>
+      <td><input type='text' name='name' value='' placeholder='Nom du champ' class='form-control' id='name_new_spec_type_material'/></td>
+      <td><button type='button' name='button' class='btn btn-success' id='create_new_spec_type_material'>+</button></td>
     </tr>
-    <% @specs_types_materials.each do |specs_types_material| %>
-      <tr id='<%= specs_types_material.id %>'>
-        <td><input type='text' name='name' value='<%= specs_types_material.name %>' class='form-control' id='input_specs_types_material'></td>
-        <td><button type='button' name='button' class='btn btn-danger' id='delete_specs_types_material'>-</button></td>
+    <% @spec_type_materials.each do |spec_type_material| %>
+      <tr id='<%= spec_type_material.id %>'>
+        <td><input type='text' name='name' value='<%= spec_type_material.name %>' class='form-control' id='input_spec_type_material'></td>
+        <td><button type='button' name='button' class='btn btn-danger' id='delete_spec_type_material'>-</button></td>
       </tr>
     <% end %>
   </tbody>

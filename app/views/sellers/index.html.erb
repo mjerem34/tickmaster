@@ -37,7 +37,7 @@
         </div>
         <div class="modal-body">
           <caption class='modal-body-title'>Informations :</caption>
-          <table class="table table-hover" id="table_fields_sellers" data-seller_id='<%= seller.id %>'>
+          <table class="table table-hover" id="table_field_sellers" data-seller_id='<%= seller.id %>'>
             <thead>
               <tr>
                 <th>Champ</th>
@@ -46,10 +46,10 @@
               </tr>
             </thead>
             <tbody>
-              <% seller.fields_seller_sellers.each do |fss| %>
+              <% seller.field_seller_sellers.each do |fss| %>
               <tr>
-                <td><%= fss.fields_seller.name %></td>
-                <td><input data-seller="<%= seller.id %>" data-field_seller="<%= fss.fields_seller.id %>" name="<%= fss.fields_seller.name %>" value="<%=fss.content %>" class="form-control value-field-seller"/></td>
+                <td><%= fss.field_seller.name %></td>
+                <td><input data-seller="<%= seller.id %>" data-field_seller="<%= fss.field_seller.id %>" name="<%= fss.field_seller.name %>" value="<%=fss.content %>" class="form-control value-field-seller"/></td>
                 <td><button type="button" name="delete_field_seller" class="btn btn-danger" id="delete_field_seller">-</button></td>
               </tr>
               <% end %>
@@ -69,7 +69,7 @@
               </tr>
             </thead>
             <tbody data-sellerid="<%= seller.id %>">
-              <% seller.types_materials_sellers.each do |tms| %>
+              <% seller.type_material_sellers.each do |tms| %>
                 <tr>
                     <td><%= tms.type_material.name %></td>
                     <td><button type="button" class="delete_type_material btn btn-danger" data-seller='<%= seller.id %>' data-type_material="<%= tms.type_material.id %>">-</button></td>

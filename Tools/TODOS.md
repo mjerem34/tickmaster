@@ -15,10 +15,10 @@
 * Pouvoir faire un graphique a partir de chiffres
 
 * unnasign_field_type_users sert a rien ?
-* Faire le index#type_materials (voir index#fields_sellers)
-* Faire le index#spec_type_materials (voir index#fields_sellers)
+* Faire le index#type_materials (voir index#field_sellers)
+* Faire le index#spec_type_materials (voir index#field_sellers)
 * resoudre bug user.tech_id dans new#material
-* Faire le index#specs_materials (voir index#fields_sellers)
+* Faire le index#spec_materials (voir index#field_sellers)
 *
 * Controllers :
   * json :
@@ -28,4 +28,4 @@
       * Show :
         * Prends toutes les infos de l'agence
 
-* refaire fields_sellers avec .coffee (a voir)
+* refaire field_sellers avec .coffee (a voir)

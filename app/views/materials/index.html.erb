@@ -38,12 +38,12 @@
                 <p>Type du matériel : <%= material.type_material.name %></p>
                 <hr>
                 <% material.spec_material_materials.each do |smm| %>
-                <p><%= smm.specs_material.specs_types_material.name + ' : ' + smm.specs_material.spec_value %></p>
+                <p><%= smm.spec_material.spec_type_material.name + ' : ' + smm.spec_material.spec_value %></p>
                 <% end %>
                 <hr>
                 <p>Vendeur : <%= link_to "#{material.seller.name}", edit_seller_path(material.seller.id) %></p>
-                <% material.seller.fields_seller_sellers.each do |fss| %>
-                  <p><%= fss.fields_seller.name + ' : ' + fss.content %></p>
+                <% material.seller.field_seller_sellers.each do |fss| %>
+                  <p><%= fss.field_seller.name + ' : ' + fss.content %></p>
                 <% end %>
                 <hr>
                 <p>Type de détenteur : <%= material.detentor_type.name %></p>

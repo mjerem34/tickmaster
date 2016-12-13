@@ -91,10 +91,10 @@
           <li><%= link_to "Nouveau matériel", new_material_url, tabindex: -1, method: :get  %></li>
           <li><%= link_to "Liste des matériels", materials_url, tabindex: -1, method: :get  %></li>
           <li><%= link_to "Liste des vendeurs", sellers_url, tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Champs vendeurs", fields_sellers_url, tabindex: -1, method: :get  %></li>
+          <li><%= link_to "Champs vendeurs", field_sellers_url, tabindex: -1, method: :get  %></li>
           <li><%= link_to "Types de matériels", type_materials_url, tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Types de caractéristiques techniques", specs_types_materials_url, tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Caractéristiques techniques", specs_materials_url, tabindex: -1, method: :get  %></li>
+          <li><%= link_to "Types de caractéristiques techniques", spec_type_materials_url, tabindex: -1, method: :get  %></li>
+          <li><%= link_to "Caractéristiques techniques", spec_materials_url, tabindex: -1, method: :get  %></li>
         </ul>
       <% end %>
       <% if !current_user.nil? %>
@@ -229,8 +229,8 @@ $(document).ready(function () {
     case "sellers":
     case "field_sellers":
     case "type_materials":
-    case "specs_types_materials":
-    case "specs_materials":
+    case "spec_type_materials":
+    case "spec_materials":
       $(".active[data-target='#material']").removeClass('collapsed').attr('aria-expanded', true);
       $("#material").addClass('in').attr('aria-expanded', true);
       break;

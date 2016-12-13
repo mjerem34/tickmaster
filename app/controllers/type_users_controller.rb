@@ -26,7 +26,7 @@ class TypeUsersController < ApplicationController
   def show
     respond_to do |format|
       format.json { render json: nil, status: 404 }
-      format.html { redirect_to fields_sellers_url }
+      format.html { redirect_to field_sellers_url }
     end
   end
 
@@ -34,7 +34,7 @@ class TypeUsersController < ApplicationController
   def new
     respond_to do |format|
       format.json { render json: nil, status: 404 }
-      format.html { redirect_to fields_sellers_url }
+      format.html { redirect_to field_sellers_url }
     end
   end
 
@@ -42,7 +42,7 @@ class TypeUsersController < ApplicationController
   def edit
     respond_to do |format|
       format.json { render json: nil, status: 404 }
-      format.html { redirect_to fields_sellers_url }
+      format.html { redirect_to field_sellers_url }
     end
   end
 

@@ -13,11 +13,11 @@ Rails.application.routes.draw do
       post :rely_type_material_to_seller
     end
   end
-  resources :specs_types_materials
+  resources :spec_type_materials
   resources :sellers do
     collection do
       get :get_all_type_materials
-      get :get_all_fields_sellers
+      get :get_all_field_sellers
     end
     member do
       delete :delete_type_material
@@ -26,9 +26,9 @@ Rails.application.routes.draw do
       delete :delete_field_seller
     end
   end
-  resources :fields_sellers
+  resources :field_sellers
   resources :detentor_types
-  resources :specs_materials
+  resources :spec_materials
   resources :materials do
     collection do
       get :redefine_type_material
@@ -36,7 +36,7 @@ Rails.application.routes.draw do
       get :redefine_detentor_type
       get :redefine_material_selected
       get :get_all_specs_types
-      get :get_all_fields_sellers
+      get :get_all_field_sellers
     end
   end
   resources :procedures

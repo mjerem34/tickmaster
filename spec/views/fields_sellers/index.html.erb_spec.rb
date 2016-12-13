@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe "fields_sellers/index", type: :view do
+RSpec.describe "field_sellers/index", type: :view do
   before(:each) do
-    assign(:fields_sellers, [
-      FieldsSeller.create!(
+    assign(:field_sellers, [
+      FieldSeller.create!(
         :name => "Name"
       ),
-      FieldsSeller.create!(
+      FieldSeller.create!(
         :name => "Name"
       )
     ])
   end
 
-  it "renders a list of fields_sellers" do
+  it "renders a list of field_sellers" do
     render
     assert_select "tr>td", :text => "Name".to_s, :count => 2
   end

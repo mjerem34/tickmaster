@@ -1,2 +1,2 @@
-module SpecsMaterialsHelper
+module SpecMaterialsHelper
 end

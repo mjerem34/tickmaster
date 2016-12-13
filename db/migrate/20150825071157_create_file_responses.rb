@@ -1,12 +1,10 @@
 class CreateFileResponses < ActiveRecord::Migration
   def change
     create_table :file_responses do |t|
-      t.integer :response_id
+      t.references :response, index: true, foreign_key: true, null: false
       t.string :file
       t.integer :file_size
       t.string :content_type
-      
-      t.timestamps null: false
     end
   end
 end

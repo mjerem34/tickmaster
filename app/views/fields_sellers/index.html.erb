@@ -1,5 +1,5 @@
 <div class="table-responsive">
-  <table class="table table-hover" id="table_fields_sellers">
+  <table class="table table-hover" id="table_field_sellers">
     <thead class="header">
       <tr>
         <th>Nom</th>
@@ -7,11 +7,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr><td><input type="text" name="name_fields_seller" value="" placeholder="Nom du champ" class='form-control' id='name_fields_seller'/></td><td><button type="button" name="add_fields_seller" class='btn btn-success' id='add_fields_seller'>+</button></td></tr>
-      <% @fields_sellers.each do |fields_seller| %>
-        <tr data-fields_seller_id='<%= fields_seller.id %>'>
-          <td><input type='text' name='fields_seller_name' id='fields_seller_name' value='<%= fields_seller.name %>' class='form-control'/></td>
-          <td><button type="button" name="delete_fields_sellers" class='btn btn-danger' id='delete_fields_sellers'>-</button></td>
+      <tr><td><input type="text" name="name_field_seller" value="" placeholder="Nom du champ" class='form-control' id='name_field_seller'/></td><td><button type="button" name="add_field_seller" class='btn btn-success' id='add_field_seller'>+</button></td></tr>
+      <% @field_sellers.each do |field_seller| %>
+        <tr data-field_seller_id='<%= field_seller.id %>'>
+          <td><input type='text' name='field_seller_name' id='field_seller_name' value='<%= field_seller.name %>' class='form-control'/></td>
+          <td><button type="button" name="delete_field_sellers" class='btn btn-danger' id='delete_field_sellers'>-</button></td>
         </tr>
       <% end %>
     </tbody>
@@ -19,14 +19,14 @@
 </div>
 
 <script type="text/javascript">
-  $(document).on('keyup', 'input#fields_seller_name', function(e){
+  $(document).on('keyup', 'input#field_seller_name', function(e){
     if(e.keyCode == 13 && $(this).val() != ""){
       $.ajax({
-        url: '/fields_sellers/' + $(this).parent().parent().data('fields_seller_id'),
+        url: '/field_sellers/' + $(this).parent().parent().data('field_seller_id'),
         type: 'PUT',
         dataType: 'script',
         data: {
-          fields_seller: {
+          field_seller: {
             name: $(this).val()
           }
         },
@@ -37,10 +37,10 @@
     }
   });
 
-  $(document).on('click', '#delete_fields_sellers', function(){
+  $(document).on('click', '#delete_field_sellers', function(){
     $.this = $(this);
     $.ajax({
-      url: '/fields_sellers/' + $(this).parent().parent().data('fields_seller_id'),
+      url: '/field_sellers/' + $(this).parent().parent().data('field_seller_id'),
       type: 'DELETE',
       error: function(result){
         alert(result.responseText);
@@ -51,20 +51,20 @@
     });
   });
 
-  $(document).on('click', 'button#add_fields_seller', function(){
+  $(document).on('click', 'button#add_field_seller', function(){
     $.this = $(this);
     var name = $(this).parent().parent().children('td').children('input').val();
     $.ajax({
-      url: '/fields_sellers/',
+      url: '/field_sellers/',
       type: 'POST',
       dataType: 'script',
       data: {
-        fields_seller: {
+        field_seller: {
           name: name
         }
       },
       success: function(){
-        $('#table_fields_sellers > tbody').append('<tr><td><input type="text" value="' + name + '" name="fields_seller_name" id="fields_seller_name" class="form-control" /></td><td><button class="btn btn-danger" name="delete_fields_sellers" type="button" id="delete_fields_sellers">-</button></td></tr>')
+        $('#table_field_sellers > tbody').append('<tr><td><input type="text" value="' + name + '" name="field_seller_name" id="field_seller_name" class="form-control" /></td><td><button class="btn btn-danger" name="delete_field_sellers" type="button" id="delete_field_sellers">-</button></td></tr>')
         $.this.parent().parent().children('td').children('input').val("");
       },
       error: function(result){
@@ -72,21 +72,21 @@
       }
     });
   });
-  $(document).on('keyup', 'input#name_fields_seller', function(e){
+  $(document).on('keyup', 'input#name_field_seller', function(e){
     if(e.keyCode == 13 && $(this).val() != ""){
       $.this = $(this);
       var name = $(this).val();
       $.ajax({
-        url: '/fields_sellers/',
+        url: '/field_sellers/',
         type: 'POST',
         dataType: 'script',
         data: {
-          fields_seller: {
+          field_seller: {
             name: name
           }
         },
         success: function(){
-          $('#table_fields_sellers > tbody').append('<tr><td><input type="text" value="' + name + '" name="fields_seller_name" id="fields_seller_name" class="form-control" /></td><td><button class="btn btn-danger" name="delete_fields_sellers" type="button" id="delete_fields_sellers">-</button></td></tr>')
+          $('#table_field_sellers > tbody').append('<tr><td><input type="text" value="' + name + '" name="field_seller_name" id="field_seller_name" class="form-control" /></td><td><button class="btn btn-danger" name="delete_field_sellers" type="button" id="delete_field_sellers">-</button></td></tr>')
           $.this.val("");
         },
         error: function(result){

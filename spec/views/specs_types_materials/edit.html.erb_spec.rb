@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe "specs_types_materials/edit", type: :view do
+RSpec.describe "spec_type_materials/edit", type: :view do
   before(:each) do
-    @specs_types_material = assign(:specs_types_material, SpecsTypesMaterial.create!(
+    @spec_type_material = assign(:spec_type_material, SpecTypeMaterial.create!(
       :name => "MyString"
     ))
   end
 
-  it "renders the edit specs_types_material form" do
+  it "renders the edit spec_type_material form" do
     render
 
-    assert_select "form[action=?][method=?]", specs_types_material_path(@specs_types_material), "post" do
+    assert_select "form[action=?][method=?]", spec_type_material_path(@spec_type_material), "post" do
 
-      assert_select "input#specs_types_material_name[name=?]", "specs_types_material[name]"
+      assert_select "input#spec_type_material_name[name=?]", "spec_type_material[name]"
     end
   end
 end

@@ -1,4 +1,4 @@
-$('tr#<%= @specs_types_material.id %>').remove();
+$('tr#<%= @spec_type_material.id %>').remove();
 $("body").append("
 <div class='notifs-tempo notif-destroy'><p>Suppression réussie !</p></div>
 ");

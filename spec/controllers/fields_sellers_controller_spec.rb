@@ -18,10 +18,10 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe FieldsSellersController, type: :controller do
+RSpec.describe FieldSellersController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # FieldsSeller. As you add validations to FieldsSeller, be sure to
+  # FieldSeller. As you add validations to FieldSeller, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -33,68 +33,68 @@ RSpec.describe FieldsSellersController, type: :controller do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # FieldsSellersController. Be sure to keep this updated too.
+  # FieldSellersController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all fields_sellers as @fields_sellers" do
-      fields_seller = FieldsSeller.create! valid_attributes
+    it "assigns all field_sellers as @field_sellers" do
+      field_seller = FieldSeller.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:fields_sellers)).to eq([fields_seller])
+      expect(assigns(:field_sellers)).to eq([field_seller])
     end
   end
 
   describe "GET #show" do
-    it "assigns the requested fields_seller as @fields_seller" do
-      fields_seller = FieldsSeller.create! valid_attributes
-      get :show, {:id => fields_seller.to_param}, valid_session
-      expect(assigns(:fields_seller)).to eq(fields_seller)
+    it "assigns the requested field_seller as @field_seller" do
+      field_seller = FieldSeller.create! valid_attributes
+      get :show, {:id => field_seller.to_param}, valid_session
+      expect(assigns(:field_seller)).to eq(field_seller)
     end
   end
 
   describe "GET #new" do
-    it "assigns a new fields_seller as @fields_seller" do
+    it "assigns a new field_seller as @field_seller" do
       get :new, {}, valid_session
-      expect(assigns(:fields_seller)).to be_a_new(FieldsSeller)
+      expect(assigns(:field_seller)).to be_a_new(FieldSeller)
     end
   end
 
   describe "GET #edit" do
-    it "assigns the requested fields_seller as @fields_seller" do
-      fields_seller = FieldsSeller.create! valid_attributes
-      get :edit, {:id => fields_seller.to_param}, valid_session
-      expect(assigns(:fields_seller)).to eq(fields_seller)
+    it "assigns the requested field_seller as @field_seller" do
+      field_seller = FieldSeller.create! valid_attributes
+      get :edit, {:id => field_seller.to_param}, valid_session
+      expect(assigns(:field_seller)).to eq(field_seller)
     end
   end
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new FieldsSeller" do
+      it "creates a new FieldSeller" do
         expect {
-          post :create, {:fields_seller => valid_attributes}, valid_session
-        }.to change(FieldsSeller, :count).by(1)
+          post :create, {:field_seller => valid_attributes}, valid_session
+        }.to change(FieldSeller, :count).by(1)
       end
 
-      it "assigns a newly created fields_seller as @fields_seller" do
-        post :create, {:fields_seller => valid_attributes}, valid_session
-        expect(assigns(:fields_seller)).to be_a(FieldsSeller)
-        expect(assigns(:fields_seller)).to be_persisted
+      it "assigns a newly created field_seller as @field_seller" do
+        post :create, {:field_seller => valid_attributes}, valid_session
+        expect(assigns(:field_seller)).to be_a(FieldSeller)
+        expect(assigns(:field_seller)).to be_persisted
       end
 
-      it "redirects to the created fields_seller" do
-        post :create, {:fields_seller => valid_attributes}, valid_session
-        expect(response).to redirect_to(FieldsSeller.last)
+      it "redirects to the created field_seller" do
+        post :create, {:field_seller => valid_attributes}, valid_session
+        expect(response).to redirect_to(FieldSeller.last)
       end
     end
 
     context "with invalid params" do
-      it "assigns a newly created but unsaved fields_seller as @fields_seller" do
-        post :create, {:fields_seller => invalid_attributes}, valid_session
-        expect(assigns(:fields_seller)).to be_a_new(FieldsSeller)
+      it "assigns a newly created but unsaved field_seller as @field_seller" do
+        post :create, {:field_seller => invalid_attributes}, valid_session
+        expect(assigns(:field_seller)).to be_a_new(FieldSeller)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:fields_seller => invalid_attributes}, valid_session
+        post :create, {:field_seller => invalid_attributes}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -106,53 +106,53 @@ RSpec.describe FieldsSellersController, type: :controller do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested fields_seller" do
-        fields_seller = FieldsSeller.create! valid_attributes
-        put :update, {:id => fields_seller.to_param, :fields_seller => new_attributes}, valid_session
-        fields_seller.reload
+      it "updates the requested field_seller" do
+        field_seller = FieldSeller.create! valid_attributes
+        put :update, {:id => field_seller.to_param, :field_seller => new_attributes}, valid_session
+        field_seller.reload
         skip("Add assertions for updated state")
       end
 
-      it "assigns the requested fields_seller as @fields_seller" do
-        fields_seller = FieldsSeller.create! valid_attributes
-        put :update, {:id => fields_seller.to_param, :fields_seller => valid_attributes}, valid_session
-        expect(assigns(:fields_seller)).to eq(fields_seller)
+      it "assigns the requested field_seller as @field_seller" do
+        field_seller = FieldSeller.create! valid_attributes
+        put :update, {:id => field_seller.to_param, :field_seller => valid_attributes}, valid_session
+        expect(assigns(:field_seller)).to eq(field_seller)
       end
 
-      it "redirects to the fields_seller" do
-        fields_seller = FieldsSeller.create! valid_attributes
-        put :update, {:id => fields_seller.to_param, :fields_seller => valid_attributes}, valid_session
-        expect(response).to redirect_to(fields_seller)
+      it "redirects to the field_seller" do
+        field_seller = FieldSeller.create! valid_attributes
+        put :update, {:id => field_seller.to_param, :field_seller => valid_attributes}, valid_session
+        expect(response).to redirect_to(field_seller)
       end
     end
 
     context "with invalid params" do
-      it "assigns the fields_seller as @fields_seller" do
-        fields_seller = FieldsSeller.create! valid_attributes
-        put :update, {:id => fields_seller.to_param, :fields_seller => invalid_attributes}, valid_session
-        expect(assigns(:fields_seller)).to eq(fields_seller)
+      it "assigns the field_seller as @field_seller" do
+        field_seller = FieldSeller.create! valid_attributes
+        put :update, {:id => field_seller.to_param, :field_seller => invalid_attributes}, valid_session
+        expect(assigns(:field_seller)).to eq(field_seller)
       end
 
       it "re-renders the 'edit' template" do
-        fields_seller = FieldsSeller.create! valid_attributes
-        put :update, {:id => fields_seller.to_param, :fields_seller => invalid_attributes}, valid_session
+        field_seller = FieldSeller.create! valid_attributes
+        put :update, {:id => field_seller.to_param, :field_seller => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested fields_seller" do
-      fields_seller = FieldsSeller.create! valid_attributes
+    it "destroys the requested field_seller" do
+      field_seller = FieldSeller.create! valid_attributes
       expect {
-        delete :destroy, {:id => fields_seller.to_param}, valid_session
-      }.to change(FieldsSeller, :count).by(-1)
+        delete :destroy, {:id => field_seller.to_param}, valid_session
+      }.to change(FieldSeller, :count).by(-1)
     end
 
-    it "redirects to the fields_sellers list" do
-      fields_seller = FieldsSeller.create! valid_attributes
-      delete :destroy, {:id => fields_seller.to_param}, valid_session
-      expect(response).to redirect_to(fields_sellers_url)
+    it "redirects to the field_sellers list" do
+      field_seller = FieldSeller.create! valid_attributes
+      delete :destroy, {:id => field_seller.to_param}, valid_session
+      expect(response).to redirect_to(field_sellers_url)
     end
   end
 

@@ -218,13 +218,13 @@ INSERT INTO `detentor_types` VALUES (1,'Test','2016-08-01 09:10:48','2016-08-01 
 UNLOCK TABLES;
 
 --
--- Table structure for table `fields_seller_sellers`
+-- Table structure for table `field_seller_sellers`
 --
 
-DROP TABLE IF EXISTS `fields_seller_sellers`;
+DROP TABLE IF EXISTS `field_seller_sellers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `fields_seller_sellers` (
+CREATE TABLE `field_seller_sellers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `field_seller_id` int(11) DEFAULT NULL,
   `seller_id` int(11) DEFAULT NULL,
@@ -234,22 +234,22 @@ CREATE TABLE `fields_seller_sellers` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fields_seller_sellers`
+-- Dumping data for table `field_seller_sellers`
 --
 
-LOCK TABLES `fields_seller_sellers` WRITE;
-/*!40000 ALTER TABLE `fields_seller_sellers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fields_seller_sellers` ENABLE KEYS */;
+LOCK TABLES `field_seller_sellers` WRITE;
+/*!40000 ALTER TABLE `field_seller_sellers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `field_seller_sellers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `fields_sellers`
+-- Table structure for table `field_sellers`
 --
 
-DROP TABLE IF EXISTS `fields_sellers`;
+DROP TABLE IF EXISTS `field_sellers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `fields_sellers` (
+CREATE TABLE `field_sellers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
@@ -259,12 +259,12 @@ CREATE TABLE `fields_sellers` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fields_sellers`
+-- Dumping data for table `field_sellers`
 --
 
-LOCK TABLES `fields_sellers` WRITE;
-/*!40000 ALTER TABLE `fields_sellers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fields_sellers` ENABLE KEYS */;
+LOCK TABLES `field_sellers` WRITE;
+/*!40000 ALTER TABLE `field_sellers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `field_sellers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -676,7 +676,7 @@ CREATE TABLE `rights` (
 
 LOCK TABLES `rights` WRITE;
 /*!40000 ALTER TABLE `rights` DISABLE KEYS */;
-INSERT INTO `rights` VALUES (1,'view_index_users','Autorisé à voir la liste des utilisateurs',0,1,1,1,1,1,1,1),(2,'create_new_tech','Autorisé à créer un nouvel utilisateur, tech, supertech, admin',0,0,1,1,1,0,0,0),(3,'create_new_right','Autorisé à créer de nouveaux droits',0,0,0,0,0,0,0,0),(5,'create_new_category','Autorisé à créer de nouvelles catégories',0,1,1,1,1,0,0,0),(6,'view_index_all_of_incidents','Autorisé à voir les incidents de tous les membres',0,0,1,1,1,0,0,0),(7,'create_new_incidents','Autorisé à créer de nouveaux incidents',0,1,1,1,1,1,1,1),(8,'create_new_subcategory','Autorisé à créer de nouvelles sous catégories',0,1,1,1,1,0,0,0),(9,'view_index_categories','Autorisé à voir la liste des catégories',0,1,1,1,1,0,0,0),(10,'view_details_category','Autorisé à voir les détails d\'une catégorie',0,0,1,1,1,0,0,0),(11,'edit_category','Autorisé à éditer une categorie',0,0,1,1,1,0,0,0),(12,'delete_category','Autorisé à supprimer une catégorie',0,0,1,1,1,0,0,0),(13,'view_details_incident_of_other_member','Autorisé à voir les détails d\'un incident d\'un autre membre',0,0,1,1,1,1,0,0),(14,'edit_incidents','Autorisé à éditer un incident d\'un autre membre',0,0,0,1,0,0,0,0),(15,'delete_incident','Autorisé à supprimer un incident',0,0,0,1,0,0,0,0),(16,'edit_subcategories','Autorisé à éditer une sous catégorie',0,0,1,1,1,0,0,0),(17,'view_index_subcategories','Autorisé à voir la liste des sous categories',0,0,1,1,1,0,0,0),(18,'view_details_subcategories','Autorisé à voir le détail d\'une sous catégorie',0,0,1,1,1,0,0,0),(19,'delete_subcategories','Autorisé à supprimer les sous catégories',0,0,0,1,1,0,0,0),(20,'edit_rights','Autorisé à éditer un droit',0,0,1,1,1,0,0,0),(21,'view_index_rights','Autorisé à voir la liste des droits',0,1,1,1,1,0,0,0),(22,'delete_rights','Autorisé à supprimer des droits',0,0,0,0,0,0,0,0),(23,'dispatch_incidents','Autorisé à attribuer les incidents aux techniciens',0,0,0,1,1,0,0,0),(24,'view_index_fonctions','Autorisé à voir la liste des fonctions',0,1,1,1,1,0,0,0),(25,'create_new_fonctions','Autorisé à créer une nouvelle fonction',0,0,1,1,1,0,0,0),(26,'edit_fonctions','Autorisé à éditer une fonction',0,0,0,1,1,0,0,0),(27,'delete_fonctions','Autorisé à supprimer une fonction',0,0,0,0,0,0,0,0),(28,'view_users_pages','Autorisé à voir la page des autres membres',0,0,1,1,1,0,0,0),(29,'reject_incidents','Autorisé à rejeter un incident',0,0,1,1,1,0,0,0),(30,'cloture_incidents','Autorisé à cloturer les incidents ou à faire une demande de cloture',0,1,1,1,1,1,1,1),(31,'view_button_admin','Autorisé à voir le bouton administration',0,1,1,1,1,0,0,0),(32,'view_index_agencies','Autorisé à voir la page d\'index des agences',0,1,1,1,1,1,1,1),(33,'view_agency_details','Autorisé à voir les détails d\'une agence',0,1,1,1,1,0,0,0),(34,'create_new_agency','Autorisé à créer une nouvelle agence',0,0,0,1,1,0,0,0),(35,'edit_agency','Autorisé à editer une agence existante',0,0,0,1,1,0,0,0),(37,'edit_user','Autorisé à éditer ses informations personnelles',1,1,1,1,1,1,1,1),(38,'edit_other_user','Autorisé à editer le profil d\'autres utilisateurs',0,1,1,1,1,0,0,0),(39,'edit_all_user','Autorisé à modifier tous les champs d\'un utilisateur',0,0,1,1,1,0,0,0),(40,'edit_like_a_boss','Autorisé à modifier le type d\'utilisateur',0,0,0,1,1,0,0,0),(41,'view_detail_incident','Autorisé à voir le détail des incidents',0,1,1,1,1,1,1,1),(42,'ask_for_reaffect','Autorisé à demander une réaffectation de l\'incident',0,1,1,1,1,0,0,0),(43,'edit_categories_incidents','Autorisé à modifier la catégorie et sous catégorie d\'un incident',0,0,1,1,1,0,0,0),(44,'edit_lvl_incident','Autorisé à modifier le niveau d\'un incident',0,0,1,1,1,0,0,0),(45,'save_changes_of_edit','Autorisé à enregistrer les modifications d\'un incident',0,1,1,1,1,0,0,0),(46,'treat_incidents','Autorisé à traiter les incidents',0,1,1,1,1,0,0,0),(47,'create_procedure','Autorisé à créer une procedure',0,1,1,1,1,0,0,0),(48,'view_procedures','Autorisé à voir les procedures',0,1,1,1,1,1,1,1),(49,'edit_procedure','Autorisé à modifier les procedures',0,1,1,1,1,0,0,0),(50,'archive_procedure','Autorisé à archiver les procedures',0,1,1,1,1,0,0,0),(51,'delete_procedure','Autorisé à supprimer une procedure',0,0,0,1,0,0,0,0),(52,'ping_agencies','Autorisé à pinger les agences',0,1,1,1,1,0,0,0),(53,'create_sellers','Autorisé à ajouter des vendeurs de matériel',0,0,1,1,1,0,0,0),(54,'modify_sellers','Autorisé à modifier des vendeurs de matériel',0,0,1,1,1,0,0,0),(55,'delete_sellers','Autorisé à supprimer des vendeurs de matériel',0,0,0,1,1,0,0,0),(56,'view_sellers','Autorisé à voir les vendeurs de matériel',0,1,1,1,1,0,0,0),(57,'create_fields_sellers','Autorisé à créer des champs de données pour les vendeurs',0,0,0,1,1,0,0,0),(58,'modify_fields_sellers','Autorisé à modifier des champs de données pour les vendeurs',0,0,0,1,1,0,0,0),(59,'delete_fields_sellers','Autorisé à supprimer des champs de données pour les vendeurs',0,0,0,1,0,0,0,0),(60,'view_fields_sellers','Autorisé à voir les champs de données pour les vendeurs',0,1,1,1,1,0,0,0),(61,'create_detentor_type','Autorisé à créer des types de detenteur de matériel',0,0,0,1,1,0,0,0),(62,'modify_detentor_type','Autorisé à modifier des types de detenteur de matériel',0,0,0,1,1,0,0,0),(63,'delete_detentor_type','Autorisé à supprimer des types de detenteur de matériel',0,0,0,1,0,0,0,0),(64,'view_detentor_type','Autorisé à voir les types de détenteur de matériel',0,1,1,1,1,0,0,0),(65,'create_material','Autorisé à créer des matériels',0,1,1,1,1,0,0,0),(66,'modify_material','Autorisé à modifier des matériels',0,0,1,1,1,0,0,0),(67,'delete_material','Autorisé à supprimer des materiels',0,0,0,1,0,0,0,0),(68,'view_material','Autorisé à voir les matériels',0,1,1,1,1,0,0,0),(69,'create_spec_material','Autorisé à créer des specs pour les matériels',0,1,1,1,1,0,0,0),(70,'modify_spec_material','Autorisé à modifier des specs pour les matériels',0,0,1,1,1,0,0,0),(71,'delete_spec_material','Autorisé à supprimer les specs pour les matériels',0,0,0,1,0,0,0,0),(72,'view_spec_material','Autorisé à voir les spec pour les matériels',0,1,1,1,1,0,0,0),(73,'create_spec_type_material','Autorisé à créer des champs de spec pour les matériels',0,0,0,1,1,0,0,0),(74,'modify_spec_type_material','Autorisé à modifier des champs de spec pour les matériels',0,0,0,1,1,0,0,0),(75,'delete_spec_type_material','Autorisé à supprimer des champs de spec pour les matériels',0,0,0,1,0,0,0,0),(76,'view_spec_type_material','Autorisé à voir les champs de spec pour les matériels',0,1,1,1,1,0,0,0),(77,'create_type_material','Autorisé à créer des types de matériels',0,0,1,1,1,0,0,0),(78,'modify_type_material','Autorisé à modifier des types de matériels',0,0,0,1,1,0,0,0),(79,'delete_type_material','Autorisé à supprimer des types de matériels',0,0,0,1,0,0,0,0),(80,'view_type_material','Autorisé à voir les types de matériels',0,1,1,1,1,1,1,1),(81,'doPing','Autorisé à pinger',0,1,1,1,1,0,0,0),(82,'delete_agency','Autorisé à supprimer une agence',0,0,0,0,0,0,0,0),(83,'delete_user','Autorisé à supprimer un utilisateur',0,0,0,1,0,0,NULL,NULL),(84,'create_update','Autorisé à créer une mise à jour',0,0,0,1,0,0,0,0),(85,'modify_update','Autorisé à modifier une mise à jour',0,0,0,1,0,0,0,0),(86,'delete_update','Autorisé à supprimer un mise à jour',0,0,0,1,0,0,0,0),(87,'view_update','Autorisé à voir les mises à jour',0,0,0,1,0,0,0,0);
+INSERT INTO `rights` VALUES (1,'view_index_users','Autorisé à voir la liste des utilisateurs',0,1,1,1,1,1,1,1),(2,'create_new_tech','Autorisé à créer un nouvel utilisateur, tech, supertech, admin',0,0,1,1,1,0,0,0),(3,'create_new_right','Autorisé à créer de nouveaux droits',0,0,0,0,0,0,0,0),(5,'create_new_category','Autorisé à créer de nouvelles catégories',0,1,1,1,1,0,0,0),(6,'view_index_all_of_incidents','Autorisé à voir les incidents de tous les membres',0,0,1,1,1,0,0,0),(7,'create_new_incidents','Autorisé à créer de nouveaux incidents',0,1,1,1,1,1,1,1),(8,'create_new_subcategory','Autorisé à créer de nouvelles sous catégories',0,1,1,1,1,0,0,0),(9,'view_index_categories','Autorisé à voir la liste des catégories',0,1,1,1,1,0,0,0),(10,'view_details_category','Autorisé à voir les détails d\'une catégorie',0,0,1,1,1,0,0,0),(11,'edit_category','Autorisé à éditer une categorie',0,0,1,1,1,0,0,0),(12,'delete_category','Autorisé à supprimer une catégorie',0,0,1,1,1,0,0,0),(13,'view_details_incident_of_other_member','Autorisé à voir les détails d\'un incident d\'un autre membre',0,0,1,1,1,1,0,0),(14,'edit_incidents','Autorisé à éditer un incident d\'un autre membre',0,0,0,1,0,0,0,0),(15,'delete_incident','Autorisé à supprimer un incident',0,0,0,1,0,0,0,0),(16,'edit_subcategories','Autorisé à éditer une sous catégorie',0,0,1,1,1,0,0,0),(17,'view_index_subcategories','Autorisé à voir la liste des sous categories',0,0,1,1,1,0,0,0),(18,'view_details_subcategories','Autorisé à voir le détail d\'une sous catégorie',0,0,1,1,1,0,0,0),(19,'delete_subcategories','Autorisé à supprimer les sous catégories',0,0,0,1,1,0,0,0),(20,'edit_rights','Autorisé à éditer un droit',0,0,1,1,1,0,0,0),(21,'view_index_rights','Autorisé à voir la liste des droits',0,1,1,1,1,0,0,0),(22,'delete_rights','Autorisé à supprimer des droits',0,0,0,0,0,0,0,0),(23,'dispatch_incidents','Autorisé à attribuer les incidents aux techniciens',0,0,0,1,1,0,0,0),(24,'view_index_fonctions','Autorisé à voir la liste des fonctions',0,1,1,1,1,0,0,0),(25,'create_new_fonctions','Autorisé à créer une nouvelle fonction',0,0,1,1,1,0,0,0),(26,'edit_fonctions','Autorisé à éditer une fonction',0,0,0,1,1,0,0,0),(27,'delete_fonctions','Autorisé à supprimer une fonction',0,0,0,0,0,0,0,0),(28,'view_users_pages','Autorisé à voir la page des autres membres',0,0,1,1,1,0,0,0),(29,'reject_incidents','Autorisé à rejeter un incident',0,0,1,1,1,0,0,0),(30,'cloture_incidents','Autorisé à cloturer les incidents ou à faire une demande de cloture',0,1,1,1,1,1,1,1),(31,'view_button_admin','Autorisé à voir le bouton administration',0,1,1,1,1,0,0,0),(32,'view_index_agencies','Autorisé à voir la page d\'index des agences',0,1,1,1,1,1,1,1),(33,'view_agency_details','Autorisé à voir les détails d\'une agence',0,1,1,1,1,0,0,0),(34,'create_new_agency','Autorisé à créer une nouvelle agence',0,0,0,1,1,0,0,0),(35,'edit_agency','Autorisé à editer une agence existante',0,0,0,1,1,0,0,0),(37,'edit_user','Autorisé à éditer ses informations personnelles',1,1,1,1,1,1,1,1),(38,'edit_other_user','Autorisé à editer le profil d\'autres utilisateurs',0,1,1,1,1,0,0,0),(39,'edit_all_user','Autorisé à modifier tous les champs d\'un utilisateur',0,0,1,1,1,0,0,0),(40,'edit_like_a_boss','Autorisé à modifier le type d\'utilisateur',0,0,0,1,1,0,0,0),(41,'view_detail_incident','Autorisé à voir le détail des incidents',0,1,1,1,1,1,1,1),(42,'ask_for_reaffect','Autorisé à demander une réaffectation de l\'incident',0,1,1,1,1,0,0,0),(43,'edit_categories_incidents','Autorisé à modifier la catégorie et sous catégorie d\'un incident',0,0,1,1,1,0,0,0),(44,'edit_lvl_incident','Autorisé à modifier le niveau d\'un incident',0,0,1,1,1,0,0,0),(45,'save_changes_of_edit','Autorisé à enregistrer les modifications d\'un incident',0,1,1,1,1,0,0,0),(46,'treat_incidents','Autorisé à traiter les incidents',0,1,1,1,1,0,0,0),(47,'create_procedure','Autorisé à créer une procedure',0,1,1,1,1,0,0,0),(48,'view_procedures','Autorisé à voir les procedures',0,1,1,1,1,1,1,1),(49,'edit_procedure','Autorisé à modifier les procedures',0,1,1,1,1,0,0,0),(50,'archive_procedure','Autorisé à archiver les procedures',0,1,1,1,1,0,0,0),(51,'delete_procedure','Autorisé à supprimer une procedure',0,0,0,1,0,0,0,0),(52,'ping_agencies','Autorisé à pinger les agences',0,1,1,1,1,0,0,0),(53,'create_sellers','Autorisé à ajouter des vendeurs de matériel',0,0,1,1,1,0,0,0),(54,'modify_sellers','Autorisé à modifier des vendeurs de matériel',0,0,1,1,1,0,0,0),(55,'delete_sellers','Autorisé à supprimer des vendeurs de matériel',0,0,0,1,1,0,0,0),(56,'view_sellers','Autorisé à voir les vendeurs de matériel',0,1,1,1,1,0,0,0),(57,'create_field_sellers','Autorisé à créer des champs de données pour les vendeurs',0,0,0,1,1,0,0,0),(58,'modify_field_sellers','Autorisé à modifier des champs de données pour les vendeurs',0,0,0,1,1,0,0,0),(59,'delete_field_sellers','Autorisé à supprimer des champs de données pour les vendeurs',0,0,0,1,0,0,0,0),(60,'view_field_sellers','Autorisé à voir les champs de données pour les vendeurs',0,1,1,1,1,0,0,0),(61,'create_detentor_type','Autorisé à créer des types de detenteur de matériel',0,0,0,1,1,0,0,0),(62,'modify_detentor_type','Autorisé à modifier des types de detenteur de matériel',0,0,0,1,1,0,0,0),(63,'delete_detentor_type','Autorisé à supprimer des types de detenteur de matériel',0,0,0,1,0,0,0,0),(64,'view_detentor_type','Autorisé à voir les types de détenteur de matériel',0,1,1,1,1,0,0,0),(65,'create_material','Autorisé à créer des matériels',0,1,1,1,1,0,0,0),(66,'modify_material','Autorisé à modifier des matériels',0,0,1,1,1,0,0,0),(67,'delete_material','Autorisé à supprimer des materiels',0,0,0,1,0,0,0,0),(68,'view_material','Autorisé à voir les matériels',0,1,1,1,1,0,0,0),(69,'create_spec_material','Autorisé à créer des specs pour les matériels',0,1,1,1,1,0,0,0),(70,'modify_spec_material','Autorisé à modifier des specs pour les matériels',0,0,1,1,1,0,0,0),(71,'delete_spec_material','Autorisé à supprimer les specs pour les matériels',0,0,0,1,0,0,0,0),(72,'view_spec_material','Autorisé à voir les spec pour les matériels',0,1,1,1,1,0,0,0),(73,'create_spec_type_material','Autorisé à créer des champs de spec pour les matériels',0,0,0,1,1,0,0,0),(74,'modify_spec_type_material','Autorisé à modifier des champs de spec pour les matériels',0,0,0,1,1,0,0,0),(75,'delete_spec_type_material','Autorisé à supprimer des champs de spec pour les matériels',0,0,0,1,0,0,0,0),(76,'view_spec_type_material','Autorisé à voir les champs de spec pour les matériels',0,1,1,1,1,0,0,0),(77,'create_type_material','Autorisé à créer des types de matériels',0,0,1,1,1,0,0,0),(78,'modify_type_material','Autorisé à modifier des types de matériels',0,0,0,1,1,0,0,0),(79,'delete_type_material','Autorisé à supprimer des types de matériels',0,0,0,1,0,0,0,0),(80,'view_type_material','Autorisé à voir les types de matériels',0,1,1,1,1,1,1,1),(81,'doPing','Autorisé à pinger',0,1,1,1,1,0,0,0),(82,'delete_agency','Autorisé à supprimer une agence',0,0,0,0,0,0,0,0),(83,'delete_user','Autorisé à supprimer un utilisateur',0,0,0,1,0,0,NULL,NULL),(84,'create_update','Autorisé à créer une mise à jour',0,0,0,1,0,0,0,0),(85,'modify_update','Autorisé à modifier une mise à jour',0,0,0,1,0,0,0,0),(86,'delete_update','Autorisé à supprimer un mise à jour',0,0,0,1,0,0,0,0),(87,'view_update','Autorisé à voir les mises à jour',0,0,0,1,0,0,0,0);
 /*!40000 ALTER TABLE `rights` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -781,15 +781,15 @@ LOCK TABLES `spec_material_materials` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `specs_materials`
+-- Table structure for table `spec_materials`
 --
 
-DROP TABLE IF EXISTS `specs_materials`;
+DROP TABLE IF EXISTS `spec_materials`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `specs_materials` (
+CREATE TABLE `spec_materials` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `specs_types_material_id` int(11) DEFAULT NULL,
+  `spec_type_material_id` int(11) DEFAULT NULL,
   `spec_value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
@@ -798,22 +798,22 @@ CREATE TABLE `specs_materials` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `specs_materials`
+-- Dumping data for table `spec_materials`
 --
 
-LOCK TABLES `specs_materials` WRITE;
-/*!40000 ALTER TABLE `specs_materials` DISABLE KEYS */;
-/*!40000 ALTER TABLE `specs_materials` ENABLE KEYS */;
+LOCK TABLES `spec_materials` WRITE;
+/*!40000 ALTER TABLE `spec_materials` DISABLE KEYS */;
+/*!40000 ALTER TABLE `spec_materials` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `specs_types_materials`
+-- Table structure for table `spec_type_materials`
 --
 
-DROP TABLE IF EXISTS `specs_types_materials`;
+DROP TABLE IF EXISTS `spec_type_materials`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `specs_types_materials` (
+CREATE TABLE `spec_type_materials` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -821,12 +821,12 @@ CREATE TABLE `specs_types_materials` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `specs_types_materials`
+-- Dumping data for table `spec_type_materials`
 --
 
-LOCK TABLES `specs_types_materials` WRITE;
-/*!40000 ALTER TABLE `specs_types_materials` DISABLE KEYS */;
-/*!40000 ALTER TABLE `specs_types_materials` ENABLE KEYS */;
+LOCK TABLES `spec_type_materials` WRITE;
+/*!40000 ALTER TABLE `spec_type_materials` DISABLE KEYS */;
+/*!40000 ALTER TABLE `spec_type_materials` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -883,13 +883,13 @@ LOCK TABLES `type_materials` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `types_materials_sellers`
+-- Table structure for table `type_material_sellers`
 --
 
-DROP TABLE IF EXISTS `types_materials_sellers`;
+DROP TABLE IF EXISTS `type_material_sellers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `types_materials_sellers` (
+CREATE TABLE `type_material_sellers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type_material_id` int(11) DEFAULT NULL,
   `seller_id` int(11) DEFAULT NULL,
@@ -898,12 +898,12 @@ CREATE TABLE `types_materials_sellers` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `types_materials_sellers`
+-- Dumping data for table `type_material_sellers`
 --
 
-LOCK TABLES `types_materials_sellers` WRITE;
-/*!40000 ALTER TABLE `types_materials_sellers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `types_materials_sellers` ENABLE KEYS */;
+LOCK TABLES `type_material_sellers` WRITE;
+/*!40000 ALTER TABLE `type_material_sellers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `type_material_sellers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
