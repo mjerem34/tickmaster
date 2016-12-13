@@ -51,7 +51,7 @@ table tr th {
 }
 tbody td {
   word-wrap: break-word;
-  overflow: hidden;
+  // overflow: hidden;
 }
 thead {
   // background: $background-connected-black;
@@ -70,4 +70,7 @@ thead {
       table-layout: fixed;
     }
   }
+}
+.table-responsive{
+  overflow-x: visible;
 }

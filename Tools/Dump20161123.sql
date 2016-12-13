@@ -795,7 +795,7 @@ DROP TABLE IF EXISTS `specs_materials`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `specs_materials` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `spec_type_material_id` int(11) DEFAULT NULL,
+  `specs_types_material_id` int(11) DEFAULT NULL,
   `spec_value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -869,7 +869,7 @@ DROP TABLE IF EXISTS `type_materials_specs_types_materials`;
 CREATE TABLE `type_materials_specs_types_materials` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `type_material_id` int(11) DEFAULT NULL,
-  `spec_type_material_id` int(11) DEFAULT NULL,
+  `specs_types_material_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

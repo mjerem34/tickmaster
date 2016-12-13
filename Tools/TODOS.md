@@ -11,6 +11,8 @@
 * right_controller show doit renvoyer le nom et tous les types de user + affectations
 * index#agencies Faire comme les matériels, table avec les champs et pouvoir modifier direct
 * field_agencies_controller juste besoin d'une vue index pour les afficher et les créer dans la liste bouton +
+* Pour tous les champs dans tous les controllers n-n, pouvoir trier par exemple pour un type de caracteristique technique "Type d'immobilisation", pouvoir sortir tous les "Ordinateur" ou "Téléphone"
+* Pouvoir faire un graphique a partir de chiffres
 
 * unnasign_field_type_users sert a rien ?
 * Faire le index#type_materials (voir index#fields_sellers)
@@ -25,11 +27,5 @@
         * Prends juste le nom et l'ip
       * Show :
         * Prends toutes les infos de l'agence
-    * type_users :
-      * index
-        * Renvoi les champs présents
-      * A supprimer
-        * show
-        * edit
-        * new
-      *
+
+* refaire fields_sellers avec .coffee (a voir)

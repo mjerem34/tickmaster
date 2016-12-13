@@ -1,5 +1,5 @@
 class SpecsTypesMaterialsController < ApplicationController
-  before_action :set_spec_types_material, only: [:show, :edit, :update, :destroy]
+  before_action :set_spec_types_material, only: [:update, :destroy]
   before_action :set_expiration
   before_action :restrict_access
 
@@ -8,7 +8,7 @@ class SpecsTypesMaterialsController < ApplicationController
   def index
     @view_spec_type_material = verifRight('view_spec_type_material')
     if @view_spec_type_material
-      @title = 'Index'
+      @title = 'Types de caractéristiques techniques'
       @specs_types_materials = SpecsTypesMaterial.all
       respond_to do |format|
         format.json { render json: @specs_types_materials }
@@ -16,31 +16,6 @@ class SpecsTypesMaterialsController < ApplicationController
       end
     else
       renderUnauthorized
-    end
-  end
-
-  # GET /specs_types_materials/1
-  # GET /specs_types_materials/1.json
-  def show
-    respond_to do |format|
-      format.json { render json: nil, status: 404 }
-      format.html { redirect_to fields_sellers_url }
-    end
-  end
-
-  # GET /specs_types_materials/new
-  def new
-    respond_to do |format|
-      format.json { render json: nil, status: 404 }
-      format.html { redirect_to fields_sellers_url }
-    end
-  end
-
-  # GET /specs_types_materials/1/edit
-  def edit
-    respond_to do |format|
-      format.json { render json: nil, status: 404 }
-      format.html { redirect_to fields_sellers_url }
     end
   end
 
@@ -54,11 +29,10 @@ class SpecsTypesMaterialsController < ApplicationController
 
       respond_to do |format|
         if @specs_types_material.save
+          format.js
           format.json { render json: @specs_types_material.id }
-          format.html { redirect_to @specs_types_material, notice: 'Le SpecTypeMaterial a bien été créé.' }
         else
           format.json { render json: @specs_types_material.errors, status: :unprocessable_entity }
-          format.html { render :new, notice: 'Impossible de créer le SpecTypeMaterial.' }
         end
       end
     else
@@ -74,11 +48,10 @@ class SpecsTypesMaterialsController < ApplicationController
       @title = 'Edit'
       respond_to do |format|
         if @specs_types_material.update(specs_types_material_params)
+          format.js
           format.json { head :no_content }
-          format.html { redirect_to @specs_types_material, notice: 'Specs types material was successfully updated.' }
         else
           format.json { render json: @specs_types_material.errors, status: :unprocessable_entity }
-          format.html { render :edit, notice: 'Impossible de modifier le SpecTypeMaterial.' }
         end
       end
     else
@@ -93,12 +66,20 @@ class SpecsTypesMaterialsController < ApplicationController
     if @delete_spec_type_material
       @title = 'Delete'
       respond_to do |format|
-        if @specs_types_material.destroy
-          format.json { head :no_content }
-          format.html { redirect_to specs_types_materials_url, notice: 'Specs types material was successfully destroyed.' }
+        # Faire tests
+        if @specs_types_material.specs_materials.any?
+          format.json do
+            render json: 'Impossible de supprimer ce type de caractéristique technique '\
+            'car il contient des caractéristiques liées.',
+                   status: :unprocessable_entity
+          end
         else
-          format.json { render json: @specs_types_material.errors, status: :unprocessable_entity }
-          format.html { redirect_to @specs_types_material, notice: 'Impossible de supprimer le SpecTypeMaterial' }
+          if @specs_types_material.destroy
+            format.js
+            format.json { head :no_content }
+          else
+            format.json { render json: @specs_types_material.errors, status: :unprocessable_entity }
+          end
         end
       end
     else

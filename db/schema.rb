@@ -233,7 +233,7 @@ ActiveRecord::Schema.define(version: 20161102160133) do
   end
 
   create_table "specs_materials", force: :cascade do |t|
-    t.integer "spec_type_material_id", limit: 4
+    t.integer "specs_types_material_id", limit: 4
     t.string  "spec_value",            limit: 255
   end
 
@@ -247,7 +247,7 @@ ActiveRecord::Schema.define(version: 20161102160133) do
 
   create_table "type_materials_specs_types_materials", force: :cascade do |t|
     t.integer "type_material_id",      limit: 4
-    t.integer "spec_type_material_id", limit: 4
+    t.integer "specs_types_material_id", limit: 4
   end
 
   create_table "type_user_rights", force: :cascade do |t|

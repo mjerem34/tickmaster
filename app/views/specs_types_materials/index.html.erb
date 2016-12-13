@@ -1,27 +1,22 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Specs Types Materials</h1>
-
-<table>
-  <thead>
+<div class='table-responsive'>
+  <table class='table table-hover' id='table_specs_types_materials'>
+    <thead class='header'>
     <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
+      <th>Nom</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
+    <tr>
+      <td><input type='text' name='name' value='' placeholder='Nom du champ' class='form-control' id='name_new_specs_types_material'/></td>
+      <td><button type='button' name='button' class='btn btn-success' id='create_new_specs_types_material'>+</button></td>
+    </tr>
     <% @specs_types_materials.each do |specs_types_material| %>
-      <tr>
-        <td><%= specs_types_material.name %></td>
-        <td><%= link_to 'Show', specs_types_material %></td>
-        <td><%= link_to 'Edit', edit_specs_types_material_path(specs_types_material) %></td>
-        <td><%= link_to 'Destroy', specs_types_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr id='<%= specs_types_material.id %>'>
+        <td><input type='text' name='name' value='<%= specs_types_material.name %>' class='form-control' id='input_specs_types_material'></td>
+        <td><button type='button' name='button' class='btn btn-danger' id='delete_specs_types_material'>-</button></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Specs types material', new_specs_types_material_path %>

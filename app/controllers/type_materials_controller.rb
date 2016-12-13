@@ -1,5 +1,5 @@
 class TypeMaterialsController < ApplicationController
-  before_action :set_type_material, only: [:show, :edit, :update, :destroy]
+  before_action :set_type_material, only: [:update, :destroy]
   before_action :set_expiration
   before_action :restrict_access
 
@@ -22,40 +22,15 @@ class TypeMaterialsController < ApplicationController
   # POST /type_materials/rely_type_material_to_seller
   def rely_type_material_to_seller
     TypeMaterial.exists?(name: params[:type_material][:name]) ? @type_material = TypeMaterial.where(name: params[:type_material][:name]).first : @type_material = TypeMaterial.create(name: params[:type_material][:name])
-    if TypesMaterialsSeller.exists?(type_material_id: @type_material.id, seller_id: params[:type_material][:seller_id])
+    if TypeMaterialSeller.exists?(type_material_id: @type_material.id, seller_id: params[:type_material][:seller_id])
       respond_to do |format|
         format.json { render json: nil, status: :unprocessable_entity }
       end
     else
-      TypesMaterialsSeller.create(type_material_id: @type_material.id, seller_id: params[:type_material][:seller_id])
+      TypeMaterialSeller.create(type_material_id: @type_material.id, seller_id: params[:type_material][:seller_id])
       respond_to do |format|
         format.json { render json: @type_material.id, status: :ok }
       end
-    end
-  end
-
-  # GET /type_materials/1
-  # GET /type_materials/1.json
-  def show
-    respond_to do |format|
-      format.json { render json: nil, status: 404 }
-      format.html { redirect_to fields_sellers_url }
-    end
-  end
-
-  # GET /type_materials/new
-  def new
-    respond_to do |format|
-      format.json { render json: nil, status: 404 }
-      format.html { redirect_to fields_sellers_url }
-    end
-  end
-
-  # GET /type_materials/1/edit
-  def edit
-    respond_to do |format|
-      format.json { render json: nil, status: 404 }
-      format.html { redirect_to fields_sellers_url }
     end
   end
 
@@ -68,11 +43,10 @@ class TypeMaterialsController < ApplicationController
       @type_material = TypeMaterial.new(type_material_params)
       respond_to do |format|
         if @type_material.save
+          format.js
           format.json { render json: @type_material.id, status: :created }
-          format.html { redirect_to @type_material, notice: 'Le TypeMaterial a bien été créé.' }
         else
           format.json { render json: @type_material.errors, status: :unprocessable_entity }
-          format.html { render :new, notice: 'Impossible de créer le TypeMaterial.' }
         end
       end
     else
@@ -88,11 +62,10 @@ class TypeMaterialsController < ApplicationController
       @title = 'Editer TypeMaterial'
       respond_to do |format|
         if @type_material.update(type_material_params)
+          format.js
           format.json { head :no_content }
-          format.html { redirect_to @type_material, notice: 'Le TypeMaterial a bien été édité.' }
         else
           format.json { render json: @type_material.errors, status: :unprocessable_entity }
-          format.html { render :edit, "Impossible d'éditer le TypeMaterial." }
         end
       end
     else
@@ -107,12 +80,19 @@ class TypeMaterialsController < ApplicationController
     if @delete_type_material
       @title = 'Supprimer TypeMaterial'
       respond_to do |format|
-        if @type_material.destroy
-          format.json { head :no_content }
-          format.html { redirect_to type_materials_url, notice: 'Le TypeMaterial a bien été supprimé.' }
+        if @type_material.materials.any?
+          format.json { render json: 'Impossible de supprimer ce type de matériel car il est en liaison avec des matériels', status: :unprocessable_entity }
+        elsif @type_material.types_materials_sellers.any?
+          format.json { render json: 'Impossible de supprimer ce type de matériel car il est en liaison avec des vendeurs', status: :unprocessable_entity }
+        elsif @type_material.type_materials_specs_types_materials.any?
+          format.json { render json: 'Impossible de supprimer ce type de matériel car il est en liaison avec des caractéristiques techniques', status: :unprocessable_entity }
         else
-          format.json { render json: @type_material.errors, status: :unprocessable_entity }
-          format.html { redirect_to type_materials_url, notice: 'Impossible de supprimer le TypeMaterial.' }
+          if @type_material.destroy
+            format.js
+            format.json { head :no_content }
+          else
+            format.json { render json: @type_material.errors, status: :unprocessable_entity }
+          end
         end
       end
     else

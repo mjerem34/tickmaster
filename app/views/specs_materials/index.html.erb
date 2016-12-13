@@ -1,29 +1,26 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Specs Materials</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Spec type material</th>
-      <th>Spec value</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @specs_materials.each do |specs_material| %>
+<div class='table-responsive'>
+  <table class='table table-hover' id='table_specs_materials'>
+    <thead class='header'>
       <tr>
-        <td><%= specs_material.spec_type_material_id %></td>
-        <td><%= specs_material.spec_value %></td>
-        <td><%= link_to 'Show', specs_material %></td>
-        <td><%= link_to 'Edit', edit_specs_material_path(specs_material) %></td>
-        <td><%= link_to 'Destroy', specs_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Type de caractéristique technique</th>
+        <th>Valeur</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'New Specs material', new_specs_material_path %>
+    <tbody>
+      <tr>
+        <td><%= select_tag 'spec_type_new_specs_material', options_for_select(@specs_types_materials.collect{|stm| [stm.name, stm.id]}), class: 'dropdownSearchCreate form-control' %></td>
+        <td><input type='text' name='name' placeholder='Valeur' id='value_new_specs_material' class='form-control'></td>
+        <td><button type='button' name='button' class='btn btn-success' id='create_new_specs_material'>+</button></td>
+      </tr>
+      <% @specs_materials.each do |specs_material| %>
+        <tr id='<%= specs_material.id %>'>
+          <td><%= select_tag 'spec_type_specs_material', options_for_select(@specs_types_materials.collect{|stm| [stm.name, stm.id]}, selected: specs_material.specs_types_material.id), class: 'dropdownSearchCreate form-control' %></td>
+          <td><input type='text' name='name' value='<%= specs_material.spec_value %>' class='form-control' id='input_spec_material'/></td>
+          <td><button type='button' name='button' class='btn btn-danger' id='delete_specs_materials'>-</button></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

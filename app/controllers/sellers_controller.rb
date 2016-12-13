@@ -136,7 +136,7 @@ class SellersController < ApplicationController
     @delete_type_material_seller = verifRight('delete_type_material_seller')
     if @delete_type_material_seller
       respond_to do |format|
-        @type_material_seller = TypesMaterialsSeller.where(type_material_id: params[:type_material_id], seller_id: params[:id])
+        @type_material_seller = TypeMaterialSeller.where(type_material_id: params[:type_material_id], seller_id: params[:id])
         if @type_material_seller.nil?
           format.json { render json: 'Impossible de supprimer ce qui n\'existe pas...', status: 404 }
         else

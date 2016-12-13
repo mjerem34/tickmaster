@@ -82,7 +82,7 @@ Un vendeur n'a aucune valeur dans sa table, tout est présent dans une autre tab
 ---
 
 Créer SpecsMaterialsController :
-{"spec_type_material_id":"1"}
+{"specs_types_material_id":"1"}
 
 ---
 

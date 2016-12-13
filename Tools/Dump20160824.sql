@@ -789,7 +789,7 @@ DROP TABLE IF EXISTS `specs_materials`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `specs_materials` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `spec_type_material_id` int(11) DEFAULT NULL,
+  `specs_types_material_id` int(11) DEFAULT NULL,
   `spec_value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,

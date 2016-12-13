@@ -4,11 +4,11 @@ RSpec.describe "specs_materials/index", type: :view do
   before(:each) do
     assign(:specs_materials, [
       SpecsMaterial.create!(
-        :spec_type_material_id => 1,
+        :specs_types_material_id => 1,
         :spec_value => "Spec Value"
       ),
       SpecsMaterial.create!(
-        :spec_type_material_id => 1,
+        :specs_types_material_id => 1,
         :spec_value => "Spec Value"
       )
     ])
