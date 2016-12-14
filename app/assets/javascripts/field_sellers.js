@@ -1,19 +1,24 @@
 // This is for UPDATE on press enter in the input
 $(document).on('keyup', '#name_field_seller', function(e){
-  if(e.keyCode == 13 && $(this).val() != ""){
-    $.ajax({
-      url: '/field_sellers/' + $(this).parent('td').parent('tr').attr('id'),
-      type: 'PUT',
-      dataType: 'script',
-      data: {
-        field_seller: {
-          name: $(this).val()
+  if(e.keyCode == 13){
+    if($(this).val() == ""){
+      notifsTempo('Merci de remplir le champ', 4000, 'red');
+      $(this).css({"border-color":"red"});
+    }else{
+      $.ajax({
+        url: '/field_sellers/' + $(this).parent('td').parent('tr').attr('id'),
+        type: 'PUT',
+        dataType: 'script',
+        data: {
+          field_seller: {
+            name: $(this).val()
+          }
+        },
+        error: function(result){
+          notifsTempo(result.responseText, 4000, 'red');
         }
-      },
-      error: function(result){
-        notifsTempo(result.responseText, 4000, 'red');
-      }
-    });
+      });
+    }
   }
 });
 
@@ -32,7 +37,8 @@ $(document).on('click', '#delete_field_sellers', function(){
 $(document).on('click', 'button#add_field_seller', function(){
   var name = $('#name_new_field_seller').val();
   if(name == ""){
-    notifsTempo("Merci de remplir le champ 'Nom du champ'", 4000, 'red');
+    notifsTempo('Merci de remplir le champ', 4000, 'red');
+    $("#name_new_field_seller").css({"border-color":"red"});
   }else{
     $.ajax({
       url: '/field_sellers',
@@ -55,7 +61,8 @@ $(document).on('keyup', '#name_new_field_seller', function(e){
   if(e.keyCode == 13){
     var name = $(this).val();
     if(name == ""){
-      notifsTempo("Merci de remplir le champ 'Nom du champ'", 4000, 'red');
+      notifsTempo('Merci de remplir le champ', 4000, 'red');
+      $(this).css({"border-color":"red"});
     }else{
       $.ajax({
         url: '/field_sellers/',

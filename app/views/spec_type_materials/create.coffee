@@ -5,8 +5,4 @@ $('#table_spec_type_materials > tbody').append("
     <td><button type='button' name='button' class='btn btn-danger' id='delete_spec_type_material'>-</button></td>
   </tr>
 ");
-$("body").append("
-<div class='notifs-tempo notif-created-edited'><p>Création réussie !</p></div>
-");
-delay = (ms, func) -> setTimeout func, ms
-delay 3000, ->  $('.notifs-tempo').remove()
+notifsTempo('Création réussie', 4000, 'green');
