@@ -1,0 +1,19 @@
+<div id="page-cover">
+  <p>
+    <div class="circle"></div>
+    <div class="circle1"></div>
+  </p>
+</div>
+<script type="text/javascript">
+function showCover(){
+  $("#page-cover").show();
+}
+showCover();
+$(document).ready(function () {
+  $("#page-cover").hide();
+});
+$(window).bind('beforeunload', function(){
+  $("#page-cover").fadeIn(100);
+  $("#page-cover").delay(5000).fadeOut(100);
+});
+</script>

@@ -20,4 +20,6 @@
     <% end %>
   </tbody>
 </table>
-<%= render 'ajax.js' %>
+<% content_for(:js) do %>
+  <%= javascript_include_tag 'field_type_users' %>
+<% end %>

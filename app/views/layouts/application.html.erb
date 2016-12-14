@@ -1,226 +1,40 @@
 <!DOCTYPE html>
-
 <html data-no-turbolink="true">
-
   <head>
-    <title>
-      <%= strip_tags(@title + " - Tick{Master}") %>
-    </title>
+    <title><%= strip_tags(@title + " - Tick{Master}") %></title>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
+    <%= favicon_link_tag 'favicon.ico' %>
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
-    <%= favicon_link_tag 'favicon.ico' %>
   </head>
-
+  <%= render 'layouts/page_cover'%>
   <% unless current_user.nil? %>
-  <%= render 'layouts/k'%>
-  <% if @title == "Se connecter" || @title == "S'inscrire" || @title == "Accueil" || @title == "Identifiants oubliés"%>
-  <%= content_tag(:body, '', id: 'not-connected') %>
-  <% else %>
-  <%= content_tag(:body, '', id: 'connected') %>
-  <% end %>
-  <!--Header-->
-  <%= render 'layouts/header' %>
-  <!--Header-->
-  <% if @title == "Se connecter" || @title == "S'inscrire" || @title == "Accueil" || @title == "Identifiants oubliés"%>
-  <div class="isOpen" id="content">
+    <%= render 'layouts/k'%>
+    <% if @title == "Se connecter" || @title == "S'inscrire" || @title == "Accueil" || @title == "Identifiants oubliés"%>
+      <%= content_tag(:body, '', id: 'not-connected') %>
+      <%= render 'layouts/header' %>
+      <div class="isOpen" id="content">
     <% else %>
-    <div id="content">
-      <% end %>
-      <% end %>
-      <div id="page-cover">
-        <p>
-          <div class="circle"></div>
-          <div class="circle1"></div>
-        </p>
-      </div>
-      <script type="text/javascript">
-      (function($){
-        $("#page-cover").show();
-      }(jQuery));
-      $(document).ready(function () {
-        $("#page-cover").hide();
-        $(window).bind('beforeunload', function(){
-          $("#page-cover").fadeIn(100);
-          $("#page-cover").delay(5000).fadeOut(100);
-        });
-      });
-      </script>
-
-      <% @name_app = "Tick{Master}" %>
-      <% if current_user.nil? %>
-      <%= yield :form %>
-      <%= yield :accueil %>
-
-      <!--Contenu-->
-      <% else %>
-      <%= yield %>
-      <% end %>
-
-      <!--Footer-->
-      <%= render 'layouts/footer' %>
-      <!--Footer-->
-      <script>
-        var currentBoxNumber = 0;
-        $("#next").keypress(function (event) {
-          if (event.keyCode == 13) {
-            textboxes = $("input.next");
-            currentBoxNumber = textboxes.index(event.target);
-            if (textboxes[currentBoxNumber + 1] != null) {
-              nextBox = textboxes[currentBoxNumber + 1];
-              nextBox.focus();
-              nextBox.select();
-              event.preventDefault();
-              return false;
-            }
-          }
-        });
-      </script>
-
-      <script type="text/javascript">
-        $(document).on('click', 'tr[data-link]', function () {
-          window.location = $(this).data("link")
-        });
-      </script>
-
-      <script language='javascript' type='text/javascript'>
-        $(document).ready(function () {
-          $(".table-hover").tablesorter({
-            theme: 'blue',
-            widgets: ['filter']
-          });
-        });
-      </script>
-      <script language='javascript' type='text/javascript'>
-        $(document).ready(function () {
-          $('.table-hover').fixedHeader();
-        });
-      </script>
-
-      <% if @title != "Accueil" %>
-      <a class="updown-arrow" href="#">&#9650;</a>
-      <% end %>
-      <script type="text/javascript">
-        $(window).scroll(function () {
-          posScroll = $(document).scrollTop();
-          if (posScroll >= 100){
-            $('.updown-arrow').css({"visibility": "visible"});
-          }else{
-            $('.updown-arrow').css({"visibility": "hidden"});
-          }
-          });
-      </script>
-
-      <!--
-POUR DECALER LE PANNEAU VERS LA GAUCHE ET AFFICHER UNIQUEMENT LES ICONES DES BOUTONS
-<script type="text/javascript">
-$(document).ready(function() {
-  $('.openIt').on('click', function() {
-    $('#content').toggleClass('isOpen');
-    $('.openIt').toggleClass('isOpen');
-    $('.wrap').toggleClass('isOpen');
-    $('.header-fixed').toggleClass('isOpen');
-    $('.btn-response').toggleClass('isOpen');
-    $('.btn-cloture').toggleClass('isOpen');
-    $('.btn-reject').toggleClass('isOpen');
-    $('.btn-reaffect').toggleClass('isOpen');
-    $('.submitforms').toggleClass('isOpen');
-  });
-});
-</script>
--->
-      <script type="text/javascript">
-        $(document).ready(function () {
-          $("input.tablesorter-filter").addClass('form-control');
-        });
-      </script>
-    </div>
-    <!--
-
-FLECHE POUR DECALER LE PANNEAU VERS LA GAUCHE
-<div class="wrap">
-  <div class="triangle openIt"><%=image_tag("ICOMOON/16px/0313-arrow-left.png", :alt => "", :class => "arrowInTriangle")%></div>
-</div>
--->
-    <script type="text/javascript">
-      $("input:text:visible:first").focus();
-    </script>
-    <script type="text/javascript">
-      // $(document).ready(function () {
-      //   setTimeout(function () {
-      //     $(".click").get(0).click();
-      //   }, 1000);
-      //   $(window).resize(function () {
-      //     setTimeout(function () {
-      //       $(".click").get(0).click();
-      //     }, 0);
-      //   })
-      // });
-    </script>
-
-  </div>
-  <% if flash.now[:notice] %>
-  <div class="container-modal">
-    <!-- Modal -->
-    <div class="modal fade in" id="notice-modal" role="dialog" style="display:block !important;">
-      <div class="modal-dialog modal-sm">
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" style="color:#333;">&times;</button>
-            <h4 class="modal-title" style="color:#333;">Message : </h4>
-          </div>
-          <div class="modal-body" style="color:#333;">
-            <%= raw flash.now[:notice] %>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
-          </div>
-        </div>
-      </div>
-      </div>
-  </div>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $("#notice-modal").modal('show');
-      $(document).keypress(function(e){
-        if (e.which == 13){
-          $("#notice-modal").modal('hide');
-        }
-      });
-    });
-  </script>
-  <% elsif flash.now[:not_authorized] %>
-  <div id="erreur">
-    <p>
-      Message :
-    </p><br>
-    <p class="flash-notice">
-      <%= flash.now[:not_authorized] %>
-    </p>
-    <%= link_to 'Ok', '/', class: "closepopup btn btn-success", style: "margin-left: 40%; width: 20%; margin-top:30px;padding: 10px 20px 10px 20px;"%>
-  </div>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $(".closepopup").click(function () {
-        $("#erreur").hide(300);
-      });
-      $("#content").click(function () {
-        $("#erreur").hide(300);
-      });
-      $(".nav-side-menu").click(function () {
-        $("#erreur").hide(300);
-      });
-      $(document).keypress(function(event){
-        if (event.which == 13){
-          $(".closepopup").click();
-        }
-      });
-    });
-  </script>
+      <%= content_tag(:body, '', id: 'connected') %>
+      <%= render 'layouts/header' %>
+      <div id="content">
+    <% end %>
   <% end %>
+  <% @name_app = "Tick{Master}" %>
+  <% if current_user.nil? %>
+    <%= yield :form %>
+    <%= yield :accueil %>
+  <% else %>
+    <%= yield %>
+  <% end %>
+  <%= render 'layouts/footer' %>
+  <% if @title != "Accueil" %>
+    <a class="updown-arrow" href="#">&#9650;</a>
+  <% end %>
+  </div>
+  <%= render 'layouts/flash_notices' %>
+  <%= yield(:js) %>
 </body>
-
 </html>
