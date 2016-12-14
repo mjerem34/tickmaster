@@ -392,18 +392,18 @@ class ApplicationController < ActionController::Base
   # Bar needs to check rights to display only buttons current user can see.
   def set_default_rights
     unless current_user.nil?
-      Right.where(name: 'create_procedure').first.type_user_rights.each { |tur| @create_procedure = tur.value if tur.type_user_id == current_user.type_user_id }
-      Right.where(name: 'view_procedures').first.type_user_rights.each { |tur| @view_procedures = tur.value if tur.type_user_id == current_user.type_user_id }
-      Right.where(name: 'view_index_all_of_incidents').first.type_user_rights.each { |tur| @view_index_all_of_incidents = tur.value if tur.type_user_id == current_user.type_user_id }
-      Right.where(name: 'view_index_categories').first.type_user_rights.each { |tur| @view_index_categories = tur.value if tur.type_user_id == current_user.type_user_id }
-      Right.where(name: 'create_new_tech').first.type_user_rights.each { |tur| @create_new_tech = tur.value if tur.type_user_id == current_user.type_user_id }
-      Right.where(name: 'view_index_users').first.type_user_rights.each { |tur| @view_index_users = tur.value if tur.type_user_id == current_user.type_user_id }
-      Right.where(name: 'view_index_rights').first.type_user_rights.each { |tur| @view_index_rights = tur.value if tur.type_user_id == current_user.type_user_id }
-      Right.where(name: 'create_new_agency').first.type_user_rights.each { |tur| @create_new_agency = tur.value if tur.type_user_id == current_user.type_user_id }
-      Right.where(name: 'view_index_agencies').first.type_user_rights.each { |tur| @view_index_agencies = tur.value if tur.type_user_id == current_user.type_user_id }
-      Right.where(name: 'create_material').first.type_user_rights.each { |tur| @create_material = tur.value if tur.type_user_id == current_user.type_user_id }
-      Right.where(name: 'create_update').first.type_user_rights.each { |tur| @create_update = tur.value if tur.type_user_id == current_user.type_user_id }
-      Right.where(name: 'view_update').first.type_user_rights.each { |tur| @view_update = tur.value if tur.type_user_id == current_user.type_user_id }
+      @create_procedure = verifRight('create_procedure')
+      @view_procedures = verifRight('view_procedures')
+      @view_index_all_of_incidents = verifRight('view_index_all_of_incidents')
+      @view_index_categories = verifRight('view_index_categories')
+      @create_new_tech = verifRight('create_new_tech')
+      @view_index_users = verifRight('view_index_users')
+      @view_index_rights = verifRight('view_index_rights')
+      @create_new_agency = verifRight('create_new_agency')
+      @view_index_agencies = verifRight('view_index_agencies')
+      @create_material = verifRight('create_material')
+      @create_update = verifRight('create_update')
+      @view_update = verifRight('view_update')
     end
   end
 

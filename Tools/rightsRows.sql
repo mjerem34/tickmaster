@@ -2602,7 +2602,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (93,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (94,'create_field_type_user','Autorisé à supprimer un champ de type utilisateur');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (94,'delete_field_type_user','Autorisé à supprimer un champ de type utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (94,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (94,2,1);
