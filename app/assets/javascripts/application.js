@@ -27,3 +27,9 @@ $(function(){
   $('.dropdownSearch').selectize({selectOnTab: true, closeAfterSelect: true, placeholder: "Merci de sélectionner une valeur" });
   $('.dropdownSearchCreate').selectize({create: true, persist: false, createOnBlur: true, closeAfterSelect: true, placeholder: "Merci de sélectionner une valeur"});
 });
+function notifsTempo(msg, time, color){
+  $("body").append("<div class='notifs-tempo notif-" + color + "'><p>" + msg + "</p></div>");
+  setTimeout(function(){
+    $('.notifs-tempo').remove();
+  }, time);
+}
