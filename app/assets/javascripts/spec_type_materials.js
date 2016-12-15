@@ -15,7 +15,8 @@
             }
           },
           error: function(jqXHR){
-            notifsTempo(jqXHR.responseText, 4000, 'red');
+            var message = capitalizeFirstLetter(JSON.parse(jqXHR.responseText)[0]) + ' ' + JSON.parse(jqXHR.responseText)[1];
+            notifsTempo(message, 4000, 'red');
           }
         });
       }
@@ -39,7 +40,8 @@
           }
         },
         error: function(jqXHR){
-          notifsTempo(jqXHR.responseText, 4000, 'red');
+          var message = capitalizeFirstLetter(JSON.parse(jqXHR.responseText)[0]) + ' ' + JSON.parse(jqXHR.responseText)[1];
+          notifsTempo(message, 4000, 'red');
         }
       });
     }
@@ -73,7 +75,8 @@
             }
           },
           error: function(jqXHR){
-            notifsTempo(jqXHR.responseText, 4000, 'red');
+            var message = capitalizeFirstLetter(JSON.parse(jqXHR.responseText)[0]) + ' ' + JSON.parse(jqXHR.responseText)[1];
+            notifsTempo(message, 4000, 'red');
           }
 
         });

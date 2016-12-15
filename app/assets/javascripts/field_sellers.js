@@ -14,8 +14,9 @@ $(document).on('keyup', '#name_field_seller', function(e){
             name: $(this).val()
           }
         },
-        error: function(result){
-          notifsTempo(result.responseText, 4000, 'red');
+        error: function(jqXHR){
+          var message = capitalizeFirstLetter(JSON.parse(jqXHR.responseText)[0]) + ' ' + JSON.parse(jqXHR.responseText)[1];
+          notifsTempo(message, 4000, 'red');
         }
       });
     }
@@ -27,8 +28,8 @@ $(document).on('click', '#delete_field_sellers', function(){
   $.ajax({
     url: '/field_sellers/' + $(this).parent('td').parent('tr').attr('id'),
     type: 'DELETE',
-    error: function(result){
-      notifsTempo(result.responseText, 4000, 'red');
+    error: function(jqXHR){
+      notifsTempo(jqXHR.responseText, 4000, 'red');
     }
   });
 });
@@ -49,8 +50,9 @@ $(document).on('click', 'button#add_field_seller', function(){
           name: name
         }
       },
-      error: function(result){
-        notifsTempo(result.responseText, 4000, 'red');
+      error: function(jqXHR){
+        var message = capitalizeFirstLetter(JSON.parse(jqXHR.responseText)[0]) + ' ' + JSON.parse(jqXHR.responseText)[1];
+        notifsTempo(message, 4000, 'red');
       }
     });
   }
@@ -73,8 +75,9 @@ $(document).on('keyup', '#name_new_field_seller', function(e){
             name: name
           }
         },
-        error: function(result){
-          notifsTempo(result.responseText, 4000, 'red');
+        error: function(jqXHR){
+          var message = capitalizeFirstLetter(JSON.parse(jqXHR.responseText)[0]) + ' ' + JSON.parse(jqXHR.responseText)[1];
+          notifsTempo(message, 4000, 'red');
         }
       });
     }

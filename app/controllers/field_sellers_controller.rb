@@ -31,7 +31,7 @@ class FieldSellersController < ApplicationController
           format.js
           format.json { render json: @field_seller.id, status: :created }
         else
-          format.json { render json: @field_seller.errors, status: :unprocessable_entity }
+          format.json { render json: @field_seller.errors.first, status: :unprocessable_entity }
         end
       end
     else
@@ -48,7 +48,7 @@ class FieldSellersController < ApplicationController
           format.js
           format.json { head :no_content }
         else
-          format.json { render json: @field_seller.errors, status: :unprocessable_entity }
+          format.json { render json: @field_seller.errors.first, status: :unprocessable_entity }
         end
       end
     else

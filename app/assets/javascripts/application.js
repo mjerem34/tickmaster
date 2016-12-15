@@ -67,8 +67,12 @@ $(window).scroll(function () {
     $('.updown-arrow').css({"visibility": "hidden"});
   }
   });
-  $(document).ready(function () {
-    $("input.tablesorter-filter").addClass('form-control');
-  });
+$(document).ready(function () {
+  $("input.tablesorter-filter").addClass('form-control');
+});
 
-  $("input:text:visible:first").focus();
+$("input:text:visible:first").focus();
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

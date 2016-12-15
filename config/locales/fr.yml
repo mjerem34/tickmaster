@@ -1,27 +1,42 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than French, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 fr:
-  hello: "Hello world"
   activerecord:
+    models:
+      response:
+        one: "Réponse"
+        other: "Réponses"
+      category:
+        one: "Catégorie"
+        other: "Catégories"
+      sous_category:
+        one: "Sous catégorie"
+        other: "Sous categories"
+      right:
+        one: "Droit"
+        other: "Droits"
+      agency:
+        one: "Agence"
+        other: "Agences"
+      incident:
+        one: "Incident"
+        other: "Incidents"
+      user:
+        one: "Utilisateur"
+        other: "Utilisateurs"
+      type_user:
+        one: "Type d'utilisateur"
+        other: "Types d'utilisateur"
+      field_seller:
+        one: "Champs vendeur"
+        other: "Champs vendeur"
+      spec_material:
+        one: "Caractéristique"
+        other: "Caractéristiques"
+      spec_type_material:
+        one: "Type de caractéristique"
+        other: "Types de caractéristique"
+      field_user:
+        one: "Champ utilisateur"
+        other: "Champs utilisateur"
     attributes:
       response:
         content: "Champ 'Message'"
@@ -29,7 +44,7 @@ fr:
         name: "Champ 'Nom'"
       sous_category:
         name: "Champ 'Nom'"
-      rights:
+      right:
         name: "Champ 'Nom'"
         content: "Champ 'Description'"
       agency:
@@ -64,6 +79,12 @@ fr:
         is_tech: "Champ 'Technicien ?'"
         actif: "Champ 'Actif ?'"
       field_seller:
+        name: "Champ 'Nom'"
+      spec_material:
+        spec_value: "Champ 'Valeur'"
+      spec_type_material:
+        name: "Champ 'Nom'"
+      field_type_user:
         name: "Champ 'Nom'"
     errors:
       models:
@@ -188,6 +209,24 @@ fr:
               invalid: "invalide"
               inclusion: "requis"
         field_seller:
+          attributes:
+            name:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+        spec_material:
+          attributes:
+            spec_value:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+        spec_type_material:
+          attributes:
+            name:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+        field_type_user:
           attributes:
             name:
               blank: "requis"
