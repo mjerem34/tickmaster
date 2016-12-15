@@ -13,6 +13,7 @@
 * field_agencies_controller juste besoin d'une vue index pour les afficher et les créer dans la liste bouton +
 * Pour tous les champs dans tous les controllers n-n, pouvoir trier par exemple pour un type de caracteristique technique "Type d'immobilisation", pouvoir sortir tous les "Ordinateur" ou "Téléphone"
 * Pouvoir faire un graphique a partir de chiffres
+* Quand on clique sur les messages envoyés, il faut cliquer sur le contenu pour ouvrir le modal, changer pour que ça l'ouvre quand on clique sur toute la ligne
 
 * unnasign_field_type_users sert a rien ?
 * Faire le index#type_materials (voir index#field_sellers)
