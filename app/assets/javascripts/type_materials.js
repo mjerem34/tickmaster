@@ -78,3 +78,25 @@
       }
     }
   });
+
+
+// This is to ADD an spec_type_material to the type_material by click on the green btn
+$(document).on('click', '#new_spec_type_material', function(){
+  if($('#name_new_spec_type_material').find(":selected").html() == ""){
+    notifsTempo("Veuillez choisir un type de caracteristique technique avant de valider", 4000, 'red');
+  }else {
+    $.ajax({
+      url: '/type_materials/' + $(this).data('type-material-id') + '/append_spec_type_material',
+      type: 'POST',
+      dataType: 'script',
+      data: {
+        spec_type_material: {
+          name: $('#name_new_spec_type_material').find(":selected").html()
+        }
+      },
+      error: function(jqXHR){
+        notifsTempo(jqXHR.responseText, 4000, 'red');
+      }
+    });
+  }
+});

@@ -43,7 +43,7 @@ fr:
       type_material:
         one: "Type de matériel"
         other: "Types de matériel"
-      materials:
+      material:
         one: "Matériel"
         other: "Matériels"
     attributes:
@@ -100,7 +100,7 @@ fr:
         actif: "Champ 'Actif'"
       type_material:
         name: "Champ 'Nom'"
-      materials:
+      material:
         name: "Champ 'Nom'"
         type_material_id: "Champ 'Type de matériel'"
         seller_id: "Champ 'Vendeur'"

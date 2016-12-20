@@ -1,5 +1,5 @@
 class TypeMaterialsController < ApplicationController
-  before_action :set_type_material, only: [:update, :destroy]
+  before_action :set_type_material, only: [:append_spec_type_material, :update, :destroy]
   before_action :set_expiration
   before_action :restrict_access
 
@@ -8,8 +8,9 @@ class TypeMaterialsController < ApplicationController
   def index
     @view_type_material = verifRight('view_type_material')
     if @view_type_material
-      @title = 'Type material'
+      @title = 'Types de matériel'
       @type_materials = TypeMaterial.all
+      @spec_type_materials = SpecTypeMaterial.all
       respond_to do |format|
         format.json { render json: @type_materials }
         format.html { render :index }
@@ -24,7 +25,6 @@ class TypeMaterialsController < ApplicationController
   def create
     @create_type_material = verifRight('create_type_material')
     if @create_type_material
-      @title = 'Nouveau TypeMaterial'
       @type_material = TypeMaterial.new(type_material_params)
       respond_to do |format|
         if @type_material.save
@@ -44,7 +44,6 @@ class TypeMaterialsController < ApplicationController
   def update
     @modify_type_material = verifRight('modify_type_material')
     if @modify_type_material
-      @title = 'Editer TypeMaterial'
       respond_to do |format|
         if @type_material.update(type_material_params)
           format.js
@@ -63,21 +62,38 @@ class TypeMaterialsController < ApplicationController
   def destroy
     @delete_type_material = verifRight('delete_type_material')
     if @delete_type_material
-      @title = 'Supprimer TypeMaterial'
       respond_to do |format|
         if @type_material.materials.any?
           format.json { render json: 'Impossible de supprimer ce type de matériel car il est en liaison avec des matériels', status: :unprocessable_entity }
         elsif @type_material.type_material_sellers.any?
           format.json { render json: 'Impossible de supprimer ce type de matériel car il est en liaison avec des vendeurs', status: :unprocessable_entity }
-        elsif @type_material.type_material_spec_type_materials.any?
-          format.json { render json: 'Impossible de supprimer ce type de matériel car il est en liaison avec des caractéristiques techniques', status: :unprocessable_entity }
         else
           if @type_material.destroy
+            TypeMaterialSpecTypeMaterial.where(type_material_id: @type_material.id).delete_all
             format.js
             format.json { head :no_content }
           else
             format.json { render json: @type_material.errors.full_messages.first, status: :unprocessable_entity }
           end
+        end
+      end
+    else
+      renderUnauthorized
+    end
+  end
+
+  # POST /type_materials/1/append_spec_type_material.json
+  def append_spec_type_material
+    @modify_type_material = verifRight('modify_type_material')
+    if @modify_type_material
+      @spec_type_material = SpecTypeMaterial.find_or_create_by(name: params[:spec_type_material][:name])
+      respond_to do |format|
+        if TypeMaterialSpecTypeMaterial.where(spec_type_material_id: @spec_type_material.id, type_material_id: @type_material.id).any?
+          format.json { render json: "Impossible d'affecter ce type de caracteristique technique a ce type de matériel car il est déjà affecté.", status: :unprocessable_entity }
+        else
+          TypeMaterialSpecTypeMaterial.create(spec_type_material_id: @spec_type_material.id, type_material_id: @type_material.id)
+          format.js
+          format.json { head :no_content }
         end
       end
     else

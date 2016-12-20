@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   resources :field_type_users
   mount Ckeditor::Engine => '/ckeditor'
   resources :updates
-  resources :type_materials
+  resources :type_materials do
+    member do
+      post :append_spec_type_material
+    end
+  end
   resources :spec_type_materials
   resources :sellers do
     member do

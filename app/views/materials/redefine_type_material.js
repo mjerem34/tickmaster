@@ -1,4 +1,4 @@
-$(".modal-body-specs").empty().html("
+$(".modal-body-specs").empty().html(`
   <div class='row'>
     <div class='col-md-8' id='SelectMaterialDiv'>
     <%= j select_tag 'SelectMaterial', options_for_select(@materials.collect{|material| [material.name.titleize, material.id]}), {class: 'dropdownSearchCreate'} %><br><br>
@@ -31,4 +31,4 @@ $(".modal-body-specs").empty().html("
         <button type='button' name='button' class='btn btn-success' id='add-fields-specs-types' style='width:100%;'>+</button>
       </div>
     </div>
-");
+`);

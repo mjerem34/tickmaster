@@ -503,3 +503,7 @@ $(document).ready(function(){
   $('#new_material_btn').click();
 });
 </script>
+
+<% content_for(:js) do %>
+<%= javascript_include_tag 'materials'%>
+<% end %>

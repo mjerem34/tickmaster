@@ -58,17 +58,23 @@ class MaterialsController < ApplicationController
 
   def redefine_type_material
     @type_materials = TypeMaterial.where(name: params[:type_material_name])
-    unless @type_materials.first.nil?
-      @all_materials = Material.where(type_material_id: @type_materials.first.id)
-      @materials = @all_materials.select(:name).uniq.each { |mat| mat.id = @all_materials.where(name: mat.name).first.id }
-      @material = @materials.first
-      @material_specs = {}
-      @material.spec_material_materials.each do |smm|
-        @material_specs[smm.spec_material.spec_type_material.name] = smm.spec_material.spec_value
-      end
-    end
     respond_to do |format|
-      format.js
+      if @type_materials.first.nil?
+        format.json { render json: "Ce type de matériel n'existe pas, il sera créé.", status: :unprocessable_entity }
+      else
+        @all_materials = Material.where(type_material_id: @type_materials.first.id)
+        @materials = @all_materials.select(:name).uniq.each { |mat| mat.id = @all_materials.where(name: mat.name).first.id }
+        @material_specs = {}
+        if @materials.any?
+          @material = @materials.first
+          @material.spec_material_materials.each do |smm|
+            @material_specs[smm.spec_material.spec_type_material.name] = smm.spec_material.spec_value
+          end
+          format.js
+        else
+          format.json { render json: 'Ce type de matériel ne possède pas de modèle', status: :ok }
+        end
+      end
     end
   end
 
@@ -113,16 +119,6 @@ class MaterialsController < ApplicationController
       end
       @sellers = Seller.where(actif: true)
       @seller = @sellers.first
-    else
-      renderUnauthorized
-    end
-  end
-
-  # GET /materials/1/edit
-  def edit
-    @modify_material = verifRight('modify_material')
-    if @modify_material
-      @title = 'Editer matériel'
     else
       renderUnauthorized
     end
