@@ -19,21 +19,6 @@ class TypeMaterialsController < ApplicationController
     end
   end
 
-  # POST /type_materials/rely_type_material_to_seller
-  def rely_type_material_to_seller
-    TypeMaterial.exists?(name: params[:type_material][:name]) ? @type_material = TypeMaterial.where(name: params[:type_material][:name]).first : @type_material = TypeMaterial.create(name: params[:type_material][:name])
-    if TypeMaterialSeller.exists?(type_material_id: @type_material.id, seller_id: params[:type_material][:seller_id])
-      respond_to do |format|
-        format.json { render json: nil, status: :unprocessable_entity }
-      end
-    else
-      TypeMaterialSeller.create(type_material_id: @type_material.id, seller_id: params[:type_material][:seller_id])
-      respond_to do |format|
-        format.json { render json: @type_material.id, status: :ok }
-      end
-    end
-  end
-
   # POST /type_materials
   # POST /type_materials.json
   def create
@@ -46,7 +31,7 @@ class TypeMaterialsController < ApplicationController
           format.js
           format.json { render json: @type_material.id, status: :created }
         else
-          format.json { render json: @type_material.errors, status: :unprocessable_entity }
+          format.json { render json: @type_material.errors.full_messages.first, status: :unprocessable_entity }
         end
       end
     else
@@ -65,7 +50,7 @@ class TypeMaterialsController < ApplicationController
           format.js
           format.json { head :no_content }
         else
-          format.json { render json: @type_material.errors, status: :unprocessable_entity }
+          format.json { render json: @type_material.errors.full_messages.first, status: :unprocessable_entity }
         end
       end
     else
@@ -91,7 +76,7 @@ class TypeMaterialsController < ApplicationController
             format.js
             format.json { head :no_content }
           else
-            format.json { render json: @type_material.errors, status: :unprocessable_entity }
+            format.json { render json: @type_material.errors.full_messages.first, status: :unprocessable_entity }
           end
         end
       end

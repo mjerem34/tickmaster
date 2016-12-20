@@ -19,6 +19,7 @@ class MaterialsController < ApplicationController
       format.js
     end
   end
+
   # GET /materials/redefine_seller_selected
   def redefine_seller_selected
     @seller = Seller.find(params[:id_seller]) if Seller.exists?(params[:id_seller])
@@ -219,10 +220,10 @@ class MaterialsController < ApplicationController
       @possible_detentors = Agency.all.order(name: :asc)
     elsif [3].include?(@detentor_type_selected.id.to_i)
       # Alors c'est un technicien
-      @possible_detentors = User.where(tech_id: [2, 3, 4, 5]).order(name: :asc)
+      @possible_detentors = User.joins(:type_user).where('type_users.is_tech=1').order(name: :asc)
     else
       # Alors ce n'est pas un technicien
-      @possible_detentors = User.where.not(tech_id: [2, 3, 4, 5]).order(name: :asc)
+      @possible_detentors = User.joins(:type_user).where('type_users.is_tech=0').order(name: :asc)
     end
   end
 

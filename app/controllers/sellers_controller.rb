@@ -1,15 +1,16 @@
 class SellersController < ApplicationController
-  before_action :set_seller, only: [:show, :edit, :update, :destroy]
+  before_action :set_seller, only: [:add_field_seller, :delete_field_seller, :update, :destroy, :show]
   before_action :set_expiration
   before_action :restrict_access
 
-  # GET /sellers
   # GET /sellers.json
   def index
     @view_sellers = verifRight('view_sellers')
     if @view_sellers
       @title = 'Vendeurs'
       @sellers = Seller.all
+      @field_sellers = FieldSeller.all
+      @type_materials = TypeMaterial.all
       respond_to do |format|
         format.json { render json: @sellers }
         format.html { render :index }
@@ -19,69 +20,24 @@ class SellersController < ApplicationController
     end
   end
 
-  # GET /sellers/get_all_field_sellers.json
-  def get_all_field_sellers
-    fssFind = []
-    @seller_id = params[:seller_id]
-    Seller.find(@seller_id).field_seller_sellers.each do |fss|
-      # Get all fields already defined to the seller to remove them
-      fssFind << fss.field_seller.id
-    end
-    # Select all fields except those already defined (fssFind)
-    @all_field_sellers = FieldSeller.where.not(id: fssFind)
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  # GET /sellers/get_all_type_materials.json
-  def get_all_type_materials
-    @type_materials = TypeMaterial.all
-    @seller_id = params[:seller_id]
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  # GET /sellers/1
   # GET /sellers/1.json
   def show
     respond_to do |format|
-      format.json { render json: nil, status: 404 }
-      format.html { redirect_to field_sellers_url }
+      format.json { render json: @seller, status: :ok }
     end
   end
 
-  # GET /sellers/new
-  def new
-    respond_to do |format|
-      format.json { render json: nil, status: 404 }
-      format.html { redirect_to field_sellers_url }
-    end
-  end
-
-  # GET /sellers/1/edit
-  def edit
-    respond_to do |format|
-      format.json { render json: nil, status: 404 }
-      format.html { redirect_to field_sellers_url }
-    end
-  end
-
-  # POST /sellers
   # POST /sellers.json
   def create
     @create_sellers = verifRight('create_sellers')
     if @create_sellers
-      @title = 'Nouveau vendeur'
       @seller = Seller.new(seller_params)
       respond_to do |format|
         if @seller.save
+          format.js
           format.json { render json: @seller.id, status: :created }
-          format.html { redirect_to @seller, notice: 'Le vendeur a bien été créé.' }
         else
-          format.json { render json: @seller.errors, status: :unprocessable_entity }
-          format.html { render :new, notice: 'Impossible de créer le vendeur.' }
+          format.json { render json: @seller.errors.full_messages.first, status: :unprocessable_entity }
         end
       end
     else
@@ -89,19 +45,16 @@ class SellersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /sellers/1
   # PATCH/PUT /sellers/1.json
   def update
     @modify_sellers = verifRight('modify_sellers')
     if @modify_sellers
-      @title = "Editer vendeur n° #{@seller.id}"
       respond_to do |format|
         if @seller.update(seller_params)
+          format.js
           format.json { head :no_content }
-          format.html { redirect_to @seller, notice: 'Le vendeur a bien été edité.' }
         else
-          format.json { render json: @seller.errors, status: :unprocessable_entity }
-          format.html { render :edit, notice: "Impossible d'editer le vendeur." }
+          format.json { render json: @seller.errors.full_messages.first, status: :unprocessable_entity }
         end
       end
     else
@@ -109,21 +62,18 @@ class SellersController < ApplicationController
     end
   end
 
-  # DELETE /sellers/1
   # DELETE /sellers/1.json
   def destroy
     @delete_sellers = verifRight('delete_sellers')
     if @delete_sellers
-      @title = 'Désactivation/Activation vendeur'
       respond_to do |format|
         if @seller.actif
           @seller.update(actif: false)
+          format.js
           format.json { head :no_content }
-          format.html { redirect_to sellers_url, notice: 'Le vendeur a bien été désactivé ! <br> Il ne vendra plus jamais quoi que ce soit... Mouahahahahahaha !!!' }
         else
           @seller.update(actif: true)
           format.json { head :no_content }
-          format.html { redirect_to sellers_url, notice: 'Le vendeur a bien été activé !' }
         end
       end
     else
@@ -131,10 +81,42 @@ class SellersController < ApplicationController
     end
   end
 
-  # DELETE /sellers/1/delete_type_material
+  # DELETE /sellers/1/permanent_deletion
+  def permanent_deletion
+    @delete_sellers = verifRight('delete_sellers')
+    if @delete_sellers
+      respond_to do |format|
+        if @seller.materials.any?
+          format.json { render json: 'Impossible de supprimer ce vendeur car il contient des données associées', status: :unprocessable_entity }
+        else
+          @seller.destroy
+          format.json { head :no_content }
+        end
+      end
+    else
+      renderUnauthorized
+    end
+  end
+
+  # POST /sellers/1/add_type_material.json
+  def add_type_material
+    @modify_sellers = verifRight('modify_sellers')
+    @type_material = TypeMaterial.find_or_create_by(name: params[:type_material][:name])
+    respond_to do |format|
+      if TypeMaterialSeller.exists?(type_material_id: @type_material.id, seller_id: params[:type_material][:seller_id])
+        format.json { render json: 'Ce type de matériel a déjà été ajouté a ce vendeur', status: :unprocessable_entity }
+      else
+        TypeMaterialSeller.create(type_material_id: @type_material.id, seller_id: params[:type_material][:seller_id])
+        format.js
+        format.json { render json: @type_material.id, status: :ok }
+      end
+    end
+  end
+
+  # DELETE /sellers/1/delete_type_material.json
   def delete_type_material
-    @delete_type_material_seller = verifRight('delete_type_material_seller')
-    if @delete_type_material_seller
+    @modify_sellers = verifRight('modify_sellers')
+    if @modify_sellers
       respond_to do |format|
         @type_material_seller = TypeMaterialSeller.where(type_material_id: params[:type_material_id], seller_id: params[:id])
         if @type_material_seller.nil?
@@ -143,7 +125,7 @@ class SellersController < ApplicationController
           if @type_material_seller.delete_all
             format.json { head :no_content }
           else
-            format.json { render json: @seller.errors, status: :unprocessable_entity }
+            format.json { render json: @seller.errors.full_messages.first, status: :unprocessable_entity }
           end
         end
       end
@@ -152,43 +134,48 @@ class SellersController < ApplicationController
     end
   end
 
-  # POST /sellers/1/add_field_seller
+  # POST /sellers/1/add_field_seller.json
   def add_field_seller
     @modify_sellers = verifRight('modify_sellers')
     if @modify_sellers
-      if !FieldSeller.exists?(name: params[:field_seller_name])
-        @field_seller = FieldSeller.new(name: params[:field_seller_name])
-        @field_seller.save
-        @field_seller_seller = FieldSellerSeller.new(field_seller_id: @field_seller.id, seller_id: params[:id], content: params[:content])
-      else
-        @field_seller_seller = FieldSellerSeller.new(field_seller_id: params[:field_seller_id], seller_id: params[:id], content: params[:content])
-      end
-      if @field_seller_seller.save
-        respond_to { |format| format.json { render json: @field_seller_seller.field_seller_id, status: :ok } }
-      else
-        respond_to { |format| format.json { render json: "Impossible de d'ajouter ce champ, contactez votre administrateur réseau", status: :unprocessable_entity } }
+      @field_seller = FieldSeller.find_or_create_by(name: params[:field_seller][:name])
+      respond_to do |format|
+        if FieldSellerSeller.exists?(field_seller_id: @field_seller.id, seller_id: params[:id])
+          format.json { render json: 'Ce champ existe déjà.', status: :unprocessable_entity }
+        else
+          @field_seller_seller = FieldSellerSeller.new(field_seller_id: @field_seller.id, seller_id: params[:id], content: params[:content])
+          if @field_seller_seller.save
+            format.js
+            format.json { render json: @field_seller.id, status: :created }
+          else
+            format.json { render json: @field_seller.errors.full_messages.first, status: :unprocessable_entity }
+          end
+        end
       end
     else
       renderUnauthorized
     end
   end
 
-  # PUT /sellers/1/update_field_seller
+  # PUT /sellers/1/update_field_seller.json
   def update_field_seller
     @modify_sellers = verifRight('modify_sellers')
     if @modify_sellers
-      @field_seller_seller = FieldSellerSeller.where(field_seller_id: params[:field_seller_id], seller_id: params[:id])
-      if @field_seller_seller.update_all(content: params[:content])
-        respond_to { |format| format.json { head :no_content } }
-      else
-        respond_to { |format| format.json { render json: @field_seller_seller.errors, status: :unprocessable_entity } }
+      @field_seller_seller = FieldSellerSeller.where(field_seller_id: params[:field_seller][:id], seller_id: params[:id])
+      respond_to do |format|
+        if @field_seller_seller.update_all(content: params[:content])
+          format.js { render 'update' }
+          format.json { head :no_content }
+        else
+          format.json { render json: @field_seller_seller.errors.full_messages.first, status: :unprocessable_entity }
+        end
       end
     else
       renderUnauthorized
     end
   end
 
-  # DELETE /sellers/1/delete_field_seller
+  # DELETE /sellers/1/delete_field_seller.json
   def delete_field_seller
     @modify_sellers = verifRight('modify_sellers')
     if @modify_sellers
@@ -196,7 +183,7 @@ class SellersController < ApplicationController
       if @field_seller_seller.delete_all
         respond_to { |format| format.json { head :no_content } }
       else
-        respond_to { |format| format.json { render json: @field_seller_seller.errors, status: :unprocessable_entity } }
+        respond_to { |format| format.json { render json: @field_seller_seller.errors.full_messages.first, status: :unprocessable_entity } }
       end
     else
       renderUnauthorized

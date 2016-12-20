@@ -1,5 +1,5 @@
 class TypeUsersController < ApplicationController
-  before_action :set_type_user, only: [:show, :edit, :update, :destroy, :disable_type_users]
+  before_action :set_type_user, only: [:update, :destroy, :disable_type_users]
   before_action :set_expiration
   before_action :restrict_access
   # GET /type_users
@@ -18,31 +18,6 @@ class TypeUsersController < ApplicationController
 
     else
       renderUnauthorized
-    end
-  end
-
-  # GET /type_users/1
-  # GET /type_users/1.json
-  def show
-    respond_to do |format|
-      format.json { render json: nil, status: 404 }
-      format.html { redirect_to field_sellers_url }
-    end
-  end
-
-  # GET /type_users/new
-  def new
-    respond_to do |format|
-      format.json { render json: nil, status: 404 }
-      format.html { redirect_to field_sellers_url }
-    end
-  end
-
-  # GET /type_users/1/edit
-  def edit
-    respond_to do |format|
-      format.json { render json: nil, status: 404 }
-      format.html { redirect_to field_sellers_url }
     end
   end
 

@@ -12,11 +12,11 @@
       <td><button type="button" name="add_new_seller" class='btn btn-success' id='add_new_seller'>+</button></td>
     </tr>
     <% @sellers.each do |seller| %>
-      <tr>
-        <td data-dismiss="modal" data-toggle="modal" data-target="#<%= seller.id %>"><%= seller.name %></td>
+      <tr id="<%= seller.id %>">
+        <td data-toggle="modal" data-target="#modal_<%= seller.id %>"><%= seller.name %></td>
         <td>
           <div class="slideThree etatVendeur">
-            <%= seller.actif ? "<input class='form-control' type='checkbox' data-seller='#{seller.id}' value='actif' checked>".html_safe : "<input class='form-control' data-seller='#{seller.id}' type='checkbox' value='actif'>".html_safe %>
+            <%= seller.actif ? "<input class='form-control' type='checkbox' value='actif' checked>".html_safe : "<input class='form-control' type='checkbox' value='actif'>".html_safe %>
             <label for="checkbox-right"></label>
           </div>
         </td>
@@ -27,7 +27,7 @@
 </div>
 <% @sellers.each do |seller| %>
 <div class="container-modal modal-details-seller">
-  <div class="modal fade" id="<%= seller.id %>" role="dialog">
+  <div class="modal fade" id="modal_<%= seller.id %>" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -37,7 +37,7 @@
         </div>
         <div class="modal-body">
           <caption class='modal-body-title'>Informations :</caption>
-          <table class="table table-hover" id="table_field_sellers" data-seller_id='<%= seller.id %>'>
+          <table class="table table-hover" id="table_field_seller_<%= seller.id %>">
             <thead>
               <tr>
                 <th>Champ</th>
@@ -46,43 +46,45 @@
               </tr>
             </thead>
             <tbody>
+              <tr data-seller-id='<%= seller.id %>'>
+                <td><%= select_tag 'name_new_field_seller', options_for_select(@field_sellers.collect{|field_seller| [field_seller.name, field_seller.id]}), class: "dropdownSearchCreate" %></td>
+                <td><input type="text" name="name" value="" placeholder='Valeur' id='value_new_field_seller' class='form-control'></td>
+                <td><button type="button" name="button" class='btn btn-success' id='create_new_field_seller'>+</button></td>
+              </tr>
               <% seller.field_seller_sellers.each do |fss| %>
-              <tr>
+              <tr data-seller-id='<%= seller.id %>' data-field-seller-id="<%= fss.field_seller.id %>">
                 <td><%= fss.field_seller.name %></td>
-                <td><input data-seller="<%= seller.id %>" data-field_seller="<%= fss.field_seller.id %>" name="<%= fss.field_seller.name %>" value="<%=fss.content %>" class="form-control value-field-seller"/></td>
-                <td><button type="button" name="delete_field_seller" class="btn btn-danger" id="delete_field_seller">-</button></td>
+                <td><input name="name" value="<%= fss.content %>" class="form-control" id="value_field_seller"/></td>
+                <td><button type="button" name="button" class="btn btn-danger" id="delete_field_seller">-</button></td>
               </tr>
               <% end %>
-              <tr><td><button data-sellerid="<%= seller.id %>" type="button" name="button" class='btn btn-success' id='add_field_seller'>+</button></td><td></td></tr>
             </tbody>
           </table>
-
-          <script type="text/javascript">
-          </script>
           <hr>
           <caption class='modal-body-title'>Types de matériels vendus :</caption>
-          <table class="table table-hover" id="table_type_materials_sellers">
+          <table class="table table-hover" id="table_type_materials_sellers_<%= seller.id %>">
             <thead class="header">
               <tr>
                 <th>Nom</th>
                 <th></th>
               </tr>
             </thead>
-            <tbody data-sellerid="<%= seller.id %>">
+            <tbody>
+              <tr>
+                <td></td>
+                <td><button type="button" name="button" class='btn btn-success' id='add_type_material'>+</button></td>
+              </tr>
               <% seller.type_material_sellers.each do |tms| %>
-                <tr>
+                <tr id="<%= tms.type_material.id %>">
                     <td><%= tms.type_material.name %></td>
-                    <td><button type="button" class="delete_type_material btn btn-danger" data-seller='<%= seller.id %>' data-type_material="<%= tms.type_material.id %>">-</button></td>
+                    <td><button type="button" id="delete_type_material" class="btn btn-danger">-</button></td>
                 </tr>
               <% end %>
-                <tr class='row_add_type_material'>
-                  <td><button type="button" name="button" class='btn btn-success' id='add_type_material'>+</button></td>
-                  <td></td>
-                </tr>
             </tbody>
           </table>
         </div>
         <div class="modal-footer">
+          <button type="button" name="button" class="btn btn-default" id="delete_seller">Supprimer</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
         </div>
       </div>
@@ -90,8 +92,6 @@
   </div>
 </div>
 <% end %>
-<script type="text/javascript">
-</script>
 <% content_for(:js) do %>
   <%= javascript_include_tag 'sellers' %>
 <% end %>

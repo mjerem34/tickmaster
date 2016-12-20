@@ -34,7 +34,7 @@ class FieldTypeUsersController < ApplicationController
           end
         else
           format.json do
-            render json: @field_type_user.errors.first,
+            render json: @field_type_user.errors.full_messages.first,
                    status: :unprocessable_entity
           end
         end
@@ -55,7 +55,7 @@ class FieldTypeUsersController < ApplicationController
           format.json { head :no_content }
         else
           format.json do
-            render json: @field_type_user.errors.first,
+            render json: @field_type_user.errors.full_messages.first,
                    status: :unprocessable_entity
           end
         end
@@ -79,7 +79,7 @@ class FieldTypeUsersController < ApplicationController
             end
           else
             format.json do
-              render json: @field_type_user.errors,
+              render json: @field_type_user.errors.full_messages.first,
                      status: :unprocessable_entity
             end
           end

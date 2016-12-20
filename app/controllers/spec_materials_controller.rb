@@ -34,7 +34,7 @@ class SpecMaterialsController < ApplicationController
           format.js
           format.json { render json: @spec_material.id, status: :created }
         else
-          format.json { render json: @spec_material.errors.first, status: :unprocessable_entity }
+          format.json { render json: @spec_material.errors.full_messages.first, status: :unprocessable_entity }
         end
       end
     else
@@ -54,7 +54,7 @@ class SpecMaterialsController < ApplicationController
           format.js
           format.json { head :no_content }
         else
-          format.json { render json: @spec_material.errors.first, status: :unprocessable_entity }
+          format.json { render json: @spec_material.errors.full_messages.first, status: :unprocessable_entity }
         end
       end
     else
@@ -80,7 +80,7 @@ class SpecMaterialsController < ApplicationController
             format.js
             format.json { head :no_content }
           else
-            format.json { render json: @spec_material.errors }
+            format.json { render json: @spec_material.errors.full_messages.first }
           end
         end
       end

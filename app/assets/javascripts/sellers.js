@@ -1,44 +1,80 @@
-$(document).on('click', '#add_type_material',function(){
-  $.ajax({
-    url: '/sellers/get_all_type_materials',
-    type: 'GET',
-    dataType: 'script',
-    data: {
-      seller_id: $(this).parent().parent().parent().data('sellerid')
-    }
-  });
-});
-$(document).on('click', '#add_field_seller',function(){
-  $.ajax({
-    url: '/sellers/get_all_field_sellers',
-    type: 'GET',
-    dataType: 'script',
-    data: {
-      seller_id: $(this).data('sellerid')
-    }
-  });
-});
-$(document).on('click', '#save_type_material', function(){
-var name = $(this).parent().parent().children('td').children('select').children('option:selected').text();
-var seller_id = $(this).parent().parent().parent().data('sellerid');
-$.ajax({
-  url: '/type_materials/rely_type_material_to_seller',
-  type: 'POST',
-  dataType: 'script',
-  data: {
-    type_material: {
-      seller_id: seller_id,
-      name: name
-    }
-  },
-  success: function(result){
-    var typeMatId = $("tbody[data-sellerid='" + seller_id + "'] > tr > td > select option").filter(function(){ return $(this).html() == name;}).val();
-    var typeMatName = $("tbody[data-sellerid='" + seller_id + "'] > tr > td > select option").filter(function(){ return $(this).html() == name;}).text();
-    $('tbody[data-sellerid="' + seller_id + '"] > tr').last().remove();
-    $('tbody[data-sellerid="' + seller_id + '"]').append("<tr><td>" + typeMatName + "</td><td><button type='button' class='delete_type_material btn btn-danger' data-seller='" + seller_id + "' data-type_material='" + typeMatId + "'>-</button></td></tr><tr class='row_add_type_material'><td><button type='button' name='button' class='btn btn-success' id='add_type_material'>+</button></td><td></td></tr>");
+// This is to CREATE NEW SELLER by press enter with the input in focus
+$(document).on('keyup', 'input#new_seller_name', function(e){
+  if(e.keyCode == 13){
+    $(this).focusout();
+    var seller_name = $(this).val();
+    $.ajax({
+      url: '/sellers',
+      type: 'POST',
+      dataType: 'script',
+      data: {
+        seller: {
+          name: seller_name,
+          actif: true
+        }
+      },
+      error: function(jqXHR){
+        notifsTempo(jqXHR.responseText, 4000, 'red');
+      }
+    });
   }
 });
+
+// This is to ADD AN FIELD to the seller by press enter with the input in focus
+$(document).on('keyup', '#value_new_field_seller', function(e){
+  if(e.keyCode == 13){
+    if($(this).val() == ""){
+      notifsTempo("Merci de remplir les champs", 4000, 'red');
+      $(this).css({"border-color":"red"});
+    }else {
+      var field_seller_name = $("#name_new_field_seller").find(":selected").html();
+      var seller_id = $(this).parent().parent().data("seller-id");
+      var content = $(this).val();
+      $.ajax({
+        url: '/sellers/'+seller_id+'/add_field_seller',
+        type: 'POST',
+        dataType: 'script',
+        data: {
+          field_seller: {
+            name: field_seller_name
+          },
+          content: content
+        },
+        error: function(jqXHR){
+          notifsTempo(jqXHR.responseText, 4000, 'red');
+        }
+      });
+    }
+  }
 });
+
+// This is to ADD AN FIELD to the seller by click on the green button
+$(document).on('click', '#create_new_field_seller', function(){
+  var field_seller_name = $("#name_new_field_seller").find(":selected").html();
+  var seller_id = $(this).parent().parent().data("seller-id");
+  var content = $("#value_new_field_seller").parent().parent().children("td").children('input').val();
+  if($("#value_new_field_seller").val() == ""){
+    notifsTempo("Merci de remplir les champs", 4000, 'red');
+    $("#value_new_field_seller").css({"border-color":"red"});
+  }else {
+    $.ajax({
+      url: '/sellers/'+seller_id+'/add_field_seller',
+      type: "POST",
+      dataType: 'script',
+      data: {
+        field_seller: {
+          name: field_seller_name
+        },
+        content: content
+      },
+      error: function(jqXHR){
+        notifsTempo(jqXHR.responseText, 4000, 'red');
+      }
+    });
+  }
+});
+
+// This is to edit the state of the seller, active or inactive
 $(document).on("click", "div.etatVendeur", function(){
   $.clicked = $(this);
   var idSeller = $(this).children('input[type="checkbox"]').data("seller");
@@ -55,12 +91,13 @@ $(document).on("click", "div.etatVendeur", function(){
         $.clicked.children('input[type="checkbox"]').prop('checked', false);
       }
     },
-    error: function(result){
-      alert(result.responseText);
+    error: function(jqXHR){
+      notifsTempo(jqXHR.responseText, 4000, 'red');
     }
   });
 });
 
+// This is to show the input to edit the name of the seller
 $(document).on('click', '.seller_name', function(){
   $(this).removeClass('seller_name');
   $.dataSeller = $(this).children("h5").data("seller");
@@ -70,6 +107,7 @@ $(document).on('click', '.seller_name', function(){
   $("#seller_name_text").focus();
 });
 
+// This is to edit the seller's name once the input it is focused and we press enter
 $(document).on('keyup','#seller_name_text', function(e){
   if(e.keyCode == 13){
     $.this = $(this);
@@ -80,37 +118,44 @@ $(document).on('keyup','#seller_name_text', function(e){
       $('img.save').removeClass('save');
       $.this.replaceWith($.h5Text);
     }else{
-      $.ajax({
-        url: '/sellers/'+$.dataSeller,
-        type: 'PUT',
-        dataType: 'script',
-        data: {
-          seller: {
-            name: $.finalText
+      if($.finalText == ""){
+        notifsTempo("Merci de remplir le champ", 4000, 'red');
+        $("#seller_name_text").css({"border-color":"red"});
+      }else {
+        $.ajax({
+          url: '/sellers/'+$.dataSeller,
+          type: 'PUT',
+          dataType: 'script',
+          data: {
+            seller: {
+              name: $.finalText
+            }
+          },
+          success: function(jqXHR){
+            $.this.parent("h5").parent("span").children('img').removeClass('save');
+            $.this.parent("h5").replaceWith("<h5 class='modal-title' data-seller='" + $.dataSeller + "'>" + $.finalText + "</h5>");
+            $("td[data-target='#modal_" + $.dataSeller + "']").replaceWith("<td data-toggle='modal' data-target='#modal_" + $.dataSeller + "'>" + $.finalText + "</td>");
+          },
+          error: function(jqXHR){
+            $.this.parent("h5").parent("span").children('img').removeClass('save');
+            $.this.parent("h5").replaceWith($.h5Text);
+            $.this.parent("h5").parent("span").addClass('seller_name');
+            notifsTempo(jqXHR.responseText, 4000, 'red');
           }
-        },
-        success: function(result){
-          $.this.parent("h5").parent("span").children('img').removeClass('save');
-          $.this.parent("h5").replaceWith("<h5 class='modal-title' data-seller='" + $.dataSeller + "'>" + $.finalText + "</h5>");
-          // $("td").find("[data-target='#" + $.dataSeller + "']").replaceWith("<td data-toggle='modal' data-target='" + $.dataSeller + "'>" + $.finalText + "</td>");
-          $("td[data-target='#" + $.dataSeller + "']").replaceWith("<td data-toggle='modal' data-target='#" + $.dataSeller + "'>" + $.finalText + "</td>");
-        },
-        error: function(result){
-          $.this.parent("h5").parent("span").children('img').removeClass('save');
-          $.this.parent("h5").replaceWith($.h5Text);
-          $.this.parent("h5").parent("span").addClass('seller_name');
-          alert(result.responseText);
-        }
-      });
+        });
+      }
     }
   }
 });
+
+// Otherwise, if we focusout the input without press enter, the seller's name has been inchanged
 $(document).on('focusout', '#seller_name_text', function(){
   $(this).parent("h5").parent("span").addClass('seller_name');
   $(this).parent("h5").parent("span").children('img').removeClass('save');
   $(this).replaceWith($.h5Text)
 });
-$(document).on('click', 'button.delete_type_material', function(){
+
+$(document).on('click', '#delete_type_material', function(){
   $.this = $(this);
   var sellerId = $(this).data("seller");
   var type_material_id = $(this).data("type_material");
@@ -124,79 +169,38 @@ $(document).on('click', 'button.delete_type_material', function(){
     success: function(){
       $.this.parent().parent().remove();
     },
-    error: function(result){
-      alert(result.responseText);
+    error: function(jqXHR){
+      notifsTempo(jqXHR.responseText, 4000, 'red');
     }
   });
 });
 
-$(document).on('keyup', '#new_field_seller_input', function(e){
-  if(e.keyCode == 13){
-    $.this = $(this);
-    var field_seller_name = $(this).parent().parent().children("td").children('select').children("option:selected").html();
-    var seller_id = $(this).data("seller");
-    var field_seller_id = $(this).parent().parent().children("td").children('select').val();
-    var content = $(this).val();
-    $.ajax({
-      url: '/sellers/'+seller_id+'/add_field_seller',
-      type: "POST",
-      dataType: 'script',
-      data: {
-        field_seller_id: field_seller_id,
-        field_seller_name: field_seller_name,
-        content: content
-      },
-      success: function(result){
-        $.this.parent().parent().replaceWith("<tr><td>" + field_seller_name + "</td><td><input type='text' data-seller='" + seller_id + "' data-field_seller='" + result + "' name='valueFieldSeller' class='form-control value-field-seller' value='" + content + "'/></td><td><button type='button' name='delete_field_seller' class='btn btn-danger' id='delete_field_seller'>-</button></td></tr><tr><td><button data-sellerid='" + seller_id + "' type='button' name='button' class='btn btn-success' id='add_field_seller'>+</button><affic/td><td></td></tr>");
-      },
-      error: function(result){
-        alert(result.responseText);
-      }
-    });
-  }
-});
 
-$(document).on('click', 'button#save_field_seller', function(){
-  $.this = $(this);
-  var field_seller_name = $(this).parent().parent().children("td").children('select').children("option:selected").html();
-  var seller_id = $(this).parent().parent().children("td").children('input').data("seller");
-  var field_seller_id = $(this).parent().parent().children("td").children('select').val();
-  var content = $(this).parent().parent().children("td").children('input').val();
-  $.ajax({
-    url: '/sellers/'+seller_id+'/add_field_seller',
-    type: "POST",
-    dataType: 'script',
-    data: {
-      field_seller_id: field_seller_id,
-      field_seller_name: field_seller_name,
-      content: content
-    },
-    success: function(result){
-      $.this.parent().parent().replaceWith("<tr><td>" + field_seller_name + "</td><td><input type='text' data-seller='" + seller_id + "' data-field_seller='" + result + "' name='valueFieldSeller' class='form-control value-field-seller' value='" + content + "'/></td><td><button type='button' name='delete_field_seller' class='btn btn-danger' id='delete_field_seller'>-</button></td></tr><tr><td><button data-sellerid='" + seller_id + "' type='button' name='button' class='btn btn-success' id='add_field_seller'>+</button><affic/td><td></td></tr>");
-    },
-    error: function(result){
-      alert(result.responseText);
+// This is to UPDATE AN FIELD of the seller by press enter with the input in focus
+$(document).on('keyup', '#value_field_seller', function(e){
+  if(e.keyCode == 13){
+    var field_seller_id = $(this).parent().parent().data("field-seller-id");
+    var seller_id = $(this).parent().parent().data("seller-id");
+    var content = $(this).val();
+    if($(this).val() == ""){
+      notifsTempo("Merci de remplir le champ", 4000, 'red');
+      $(this).css({"border-color":"red"});
+    }else {
+      $.ajax({
+        url: '/sellers/' + seller_id + '/update_field_seller',
+        type: "PUT",
+        dataType: "script",
+        data: {
+          field_seller: {
+            id: field_seller_id
+          },
+          content: content
+        },
+        error: function(jqXHR){
+          notifsTempo(jqXHR.responseText, 4000, 'red');
+        }
+      });
     }
-  });
-});
-
-$(document).on('keyup', '.value-field-seller', function(e){
-  if(e.keyCode == 13){
-    var field_seller_id = $(this).data("field_seller");
-    var seller_id = $(this).data("seller");
-    var content = $(this).val();
-    $.ajax({
-      url: '/sellers/' + seller_id + '/update_field_seller',
-      type: "PUT",
-      dataType: "script",
-      data: {
-        field_seller_id: field_seller_id,
-        content: content
-      },
-      error: function(result){
-        alert(result.responseText);
-      }
-    });
   }
 });
 
@@ -213,9 +217,10 @@ $(document).on("click", "button#delete_field_seller", function(){
     },
     success: function(){
       $.this.parent().parent().remove();
+      notifsTempo("Suppression réussie", 4000, 'green');
     },
-    error: function(result){
-      alert(result.responseText);
+    error: function(jqXHR){
+      notifsTempo(jqXHR.responseText, 4000, 'red');
     }
   });
 });
@@ -233,40 +238,12 @@ $(document).on('click', 'button#add_new_seller', function(){
         actif: true
       }
     },
-    success: function(seller_id){
+    success: function(){
+      notifsTempo("Création réussie", 4000, 'green');
       location.reload();
-      // Ce qui suit est pour si pas besoin du reload, ça génère directement la ligne, mais pas le modal du vendeur donc vaut mieux faire un reload comme ça le modal est généré.
-      // $.this.parent().parent().replaceWith("<tr><td>" + seller_name + "</td><td><div class='slideThree etatVendeur'><input class='form-control' type='checkbox' data-seller='" + seller_id + "' value='actif' checked><label for='checkbox-right'></label></div></td></tr>");
     },
-    error: function(result){
-      alert(result.responseText);
+    error: function(jqXHR){
+      notifsTempo(jqXHR.responseText, 4000, 'red');
     }
   });
-});
-
-$(document).on('keyup', 'input#new_seller_name', function(e){
-  if(e.keyCode == 13){
-    $(this).focusout();
-    $.this = $(this);
-    var seller_name = $.this.val();
-    $.ajax({
-      url: '/sellers',
-      type: 'POST',
-      dataType: 'script',
-      data: {
-        seller: {
-          name: seller_name,
-          actif: true
-        }
-      },
-      success: function(seller_id){
-        location.reload();
-        // Ce qui suit est pour si pas besoin du reload, ça génère directement la ligne, mais pas le modal du vendeur donc vaut mieux faire un reload comme ça le modal est généré.
-        // $.this.parent().parent().replaceWith("<tr><td>" + seller_name + "</td><td><div class='slideThree etatVendeur'><input class='form-control' type='checkbox' data-seller='" + seller_id + "' value='actif' checked><label for='checkbox-right'></label></div></td></tr>");
-      },
-      error: function(result){
-        alert(result.responseText);
-      }
-    });
-  }
 });

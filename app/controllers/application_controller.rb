@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
       case params[:commit]
       when 'Valider' then
         if @response.receiver.nil?
-          User.where(tech_id: 5).each do |disp|
+          User.joins(:type_user).where('type_users.is_tech=1').each do |disp|
             unless disp.ip_addr.blank?
               sendNotif(disp.ip_addr, @response.sender.name + ' ' +
               @response.sender.surname + ' a envoyé un message !')
@@ -186,10 +186,10 @@ class ApplicationController < ActionController::Base
     rescue
       nil
     end
-    User.where(tech_id: 5).each do |disp|
+    User.joins(:type_user).where('type_users.is_tech=1').each do |disp|
       unless disp.ip_addr.blank?
         sendNotif(disp.ip_addr, "L'incident n°" + incident.id.to_s + ' a été rejeté !')
-      end
+    end
     end
     unless incident.user.ip_addr.blank?
       sendNotif(incident.user.ip_addr, 'Votre incident n°' + incident.id.to_s + ' a été rejeté !')
@@ -352,7 +352,7 @@ class ApplicationController < ActionController::Base
       nil
     end
     # Must find the dispatchors.
-    User.where(tech_id: 5).each do |disp|
+    User.joins(:type_user).where('type_users.is_tech=1').each do |disp|
       next if disp.ip_addr.blank?
       # Try to send the notification to his app.
       sendNotif(disp.ip_addr, "L'incident n°" + incident.id.to_s +

@@ -8,22 +8,16 @@ Rails.application.routes.draw do
   resources :field_type_users
   mount Ckeditor::Engine => '/ckeditor'
   resources :updates
-  resources :type_materials do
-    collection do
-      post :rely_type_material_to_seller
-    end
-  end
+  resources :type_materials
   resources :spec_type_materials
   resources :sellers do
-    collection do
-      get :get_all_type_materials
-      get :get_all_field_sellers
-    end
     member do
+      post :add_type_material
       delete :delete_type_material
       post :add_field_seller
       put :update_field_seller
       delete :delete_field_seller
+      delete :permanent_deletion
     end
   end
   resources :field_sellers

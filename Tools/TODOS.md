@@ -16,10 +16,8 @@
 * Quand on clique sur les messages envoyés, il faut cliquer sur le contenu pour ouvrir le modal, changer pour que ça l'ouvre quand on clique sur toute la ligne
 
 * unnasign_field_type_users sert a rien ?
-* Faire le index#type_materials (voir index#field_sellers)
-* Faire le index#spec_type_materials (voir index#field_sellers)
 * resoudre bug user.tech_id dans new#material
-* Faire le index#spec_materials (voir index#field_sellers)
+* Faire la methode delete de type_user pour supprimer le type, doit verif si pas de user
 *
 * Controllers :
   * json :
@@ -29,4 +27,10 @@
       * Show :
         * Prends toutes les infos de l'agence
 
-* refaire field_sellers avec .coffee (a voir)
+
+
+* Pour lundi :
+  * Continuer sur la page index#sellers
+    * Il faut encore pouvoir supprimer les champs, ajout et modif ok, meme en direct
+    * Faire les types de matériels
+    * Faire que le modal se charge directement à la création du vendeur sans reload la page (easy, copier coller)

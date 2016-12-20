@@ -167,10 +167,11 @@ class IncidentsController < ApplicationController
           rescue
             nil
           end
-          User.where(tech_id: 5).each do |disp|
+          User.joins(:type_user).where('type_users.is_tech=1').each do |disp|
             next if disp.ip_addr.blank?
-            # Try to send an notification to all of the dispatchor that
-            # Have installed the desktop app.
+            puts '------------------------------------------------'
+            puts disp.ip_addr
+            puts '------------------------------------------------'
             sendNotif(disp.ip_addr, @incident.user.name + ' ' + @incident.user.surname + ' a créé un incident !')
           end
         else

@@ -31,7 +31,7 @@ class FieldAgenciesController < ApplicationController
           format.json { render json: @field_agency.id, status: :created }
         else
           format.json do
-            render json: @field_agency.errors,
+            render json: @field_agency.errors.full_messages.first,
                    status: :unprocessable_entity
           end
         end
@@ -52,7 +52,7 @@ class FieldAgenciesController < ApplicationController
           format.json { head :no_content }
         else
           format.json do
-            render json: @field_agency.errors,
+            render json: @field_agency.errors.full_messages.first,
                    status: :unprocessable_entity
           end
         end
@@ -74,7 +74,7 @@ class FieldAgenciesController < ApplicationController
             format.json { head :no_content }
           else
             format.json do
-              render json: @field_agency.errors,
+              render json: @field_agency.errors.full_messages.first,
                      status: :unprocessable_entity
             end
           end

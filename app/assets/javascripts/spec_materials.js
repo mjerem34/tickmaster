@@ -17,8 +17,7 @@ $(document).on('keyup', '#value_new_spec_material', function(evt){
           }
         },
         error: function(jqXHR){
-          var message = capitalizeFirstLetter(JSON.parse(jqXHR.responseText)[0]) + ' ' + JSON.parse(jqXHR.responseText)[1];
-          notifsTempo(message, 4000, 'red');
+          notifsTempo(jqXHR.responseText, 4000, 'red');
         }
       });
     }
@@ -44,8 +43,7 @@ $(document).on('click', '#create_new_spec_material', function(){
           }
         },
         error: function(jqXHR){
-          var message = capitalizeFirstLetter(JSON.parse(jqXHR.responseText)[0]) + ' ' + JSON.parse(jqXHR.responseText)[1];
-          notifsTempo(message, 4000, 'red');
+          notifsTempo(jqXHR.responseText, 4000, 'red');
         }
       });
     }
@@ -81,8 +79,7 @@ $(document).on('keyup', 'input#input_spec_material', function(evt){
           }
         },
         error: function(jqXHR){
-          var message = capitalizeFirstLetter(JSON.parse(jqXHR.responseText)[0]) + ' ' + JSON.parse(jqXHR.responseText)[1];
-          notifsTempo(message, 4000, 'red');
+          notifsTempo(jqXHR.responseText, 4000, 'red');
         }
       });
     }

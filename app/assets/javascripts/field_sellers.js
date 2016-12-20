@@ -15,8 +15,7 @@ $(document).on('keyup', '#name_field_seller', function(e){
           }
         },
         error: function(jqXHR){
-          var message = capitalizeFirstLetter(JSON.parse(jqXHR.responseText)[0]) + ' ' + JSON.parse(jqXHR.responseText)[1];
-          notifsTempo(message, 4000, 'red');
+          notifsTempo(jqXHR.responseText, 4000, 'red');
         }
       });
     }
@@ -51,8 +50,7 @@ $(document).on('click', 'button#add_field_seller', function(){
         }
       },
       error: function(jqXHR){
-        var message = capitalizeFirstLetter(JSON.parse(jqXHR.responseText)[0]) + ' ' + JSON.parse(jqXHR.responseText)[1];
-        notifsTempo(message, 4000, 'red');
+        notifsTempo(jqXHR.responseText, 4000, 'red');
       }
     });
   }
@@ -76,8 +74,7 @@ $(document).on('keyup', '#name_new_field_seller', function(e){
           }
         },
         error: function(jqXHR){
-          var message = capitalizeFirstLetter(JSON.parse(jqXHR.responseText)[0]) + ' ' + JSON.parse(jqXHR.responseText)[1];
-          notifsTempo(message, 4000, 'red');
+          notifsTempo(jqXHR.responseText, 4000, 'red');
         }
       });
     }
