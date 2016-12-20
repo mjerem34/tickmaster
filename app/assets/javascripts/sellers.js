@@ -1,5 +1,5 @@
 // This is to CREATE NEW SELLER by press enter with the input in focus
-$(document).on('keyup', 'input#new_seller_name', function(e){
+$(document).on('keyup', '#new_seller_name', function(e){
   if(e.keyCode == 13){
     $(this).focusout();
     var seller_name = $(this).val();
@@ -27,8 +27,8 @@ $(document).on('keyup', '#value_new_field_seller', function(e){
       notifsTempo("Merci de remplir les champs", 4000, 'red');
       $(this).css({"border-color":"red"});
     }else {
-      var field_seller_name = $("#name_new_field_seller").find(":selected").html();
       var seller_id = $(this).parent().parent().data("seller-id");
+      var field_seller_name = $("#table_field_seller_" + seller_id).find("#name_new_field_seller").find(":selected").html();
       var content = $(this).val();
       $.ajax({
         url: '/sellers/'+seller_id+'/add_field_seller',
@@ -50,15 +50,15 @@ $(document).on('keyup', '#value_new_field_seller', function(e){
 
 // This is to ADD AN FIELD to the seller by click on the green button
 $(document).on('click', '#create_new_field_seller', function(){
-  var field_seller_name = $("#name_new_field_seller").find(":selected").html();
   var seller_id = $(this).parent().parent().data("seller-id");
-  var content = $("#value_new_field_seller").parent().parent().children("td").children('input').val();
-  if($("#value_new_field_seller").val() == ""){
+  var field_seller_name = $("#table_field_seller_" + seller_id).find("#name_new_field_seller").find(":selected").html();
+  var content = $("#table_field_seller_" + seller_id).find("#value_new_field_seller").val();
+  if($("#table_field_seller_" + seller_id).find("#value_new_field_seller").val() == ""){
     notifsTempo("Merci de remplir les champs", 4000, 'red');
-    $("#value_new_field_seller").css({"border-color":"red"});
+    $("#table_field_seller_" + seller_id).find("#value_new_field_seller").css({"border-color":"red"});
   }else {
     $.ajax({
-      url: '/sellers/'+seller_id+'/add_field_seller',
+      url: '/sellers/' + seller_id + '/add_field_seller',
       type: "POST",
       dataType: 'script',
       data: {
@@ -74,7 +74,7 @@ $(document).on('click', '#create_new_field_seller', function(){
   }
 });
 
-// This is to edit the state of the seller, active or inactive
+// This is to EDIT the state of the seller, active or inactive
 $(document).on("click", "div.etatVendeur", function(){
   $.clicked = $(this);
   var idSeller = $(this).children('input[type="checkbox"]').data("seller");
@@ -97,7 +97,7 @@ $(document).on("click", "div.etatVendeur", function(){
   });
 });
 
-// This is to show the input to edit the name of the seller
+// This is to SHOW the INPUT to EDIT the name of the seller
 $(document).on('click', '.seller_name', function(){
   $(this).removeClass('seller_name');
   $.dataSeller = $(this).children("h5").data("seller");
@@ -107,7 +107,7 @@ $(document).on('click', '.seller_name', function(){
   $("#seller_name_text").focus();
 });
 
-// This is to edit the seller's name once the input it is focused and we press enter
+// This is to EDIT the seller's name once the input it is focused and we press enter
 $(document).on('keyup','#seller_name_text', function(e){
   if(e.keyCode == 13){
     $.this = $(this);
@@ -148,26 +148,44 @@ $(document).on('keyup','#seller_name_text', function(e){
   }
 });
 
-// Otherwise, if we focusout the input without press enter, the seller's name has been inchanged
+// Otherwise, if we FOCUSOUT the input without press enter, the seller's name has been inchanged
 $(document).on('focusout', '#seller_name_text', function(){
   $(this).parent("h5").parent("span").addClass('seller_name');
   $(this).parent("h5").parent("span").children('img').removeClass('save');
   $(this).replaceWith($.h5Text)
 });
 
-$(document).on('click', '#delete_type_material', function(){
-  $.this = $(this);
-  var sellerId = $(this).data("seller");
-  var type_material_id = $(this).data("type_material");
+// This is to ADD an type_material to the seller by press on the green button
+$(document).on('click', '#add_type_material', function(){
+  var seller_id = $(this).parent().parent().data('seller-id');
+  var type_material_name = $("#table_type_materials_sellers_" + seller_id).find("#name_new_type_material").find(':selected').html();
   $.ajax({
-    url: "/sellers/"+sellerId+"/delete_type_material",
+    url: "/sellers/" + seller_id + "/add_type_material",
+    type: "POST",
+    dataType: 'script',
+    data: {
+      type_material: {
+        name: type_material_name
+      }
+    },
+    error: function(jqXHR){
+      notifsTempo(jqXHR.responseText, 4000, 'red');
+    }
+  });
+});
+
+// This is to DELETE an type_material of the seller by press on the red button
+$(document).on('click', '#delete_type_material', function(){
+  var seller_id = $(this).parent().parent().data("seller-id");
+  var type_material_id = $(this).parent().parent().data("type-material");
+  $.ajax({
+    url: "/sellers/" + seller_id + "/delete_type_material",
     type: "DELETE",
     dataType: 'script',
     data: {
-      type_material_id: type_material_id
-    },
-    success: function(){
-      $.this.parent().parent().remove();
+      type_material: {
+        id: type_material_id
+      }
     },
     error: function(jqXHR){
       notifsTempo(jqXHR.responseText, 4000, 'red');
@@ -204,20 +222,18 @@ $(document).on('keyup', '#value_field_seller', function(e){
   }
 });
 
-$(document).on("click", "button#delete_field_seller", function(){
-  $.this = $(this);
-  var seller_id = $.this.parent().parent().children("td").children('input').data("seller");
-  var field_seller_id = $.this.parent().parent().children("td").children('input').data("field_seller");
+// This is to DELETE an field_seller of the seller by press on the red button
+$(document).on("click", "#delete_field_seller", function(){
+  var seller_id = $(this).parent().parent().data("seller-id");
+  var field_seller_id = $(this).parent().parent().data("field-seller-id");
   $.ajax({
     url: '/sellers/' + seller_id + '/delete_field_seller',
     type: 'DELETE',
     dataType: 'script',
     data: {
-      field_seller_id: field_seller_id
-    },
-    success: function(){
-      $.this.parent().parent().remove();
-      notifsTempo("Suppression réussie", 4000, 'green');
+      field_seller: {
+        id: field_seller_id
+      }
     },
     error: function(jqXHR){
       notifsTempo(jqXHR.responseText, 4000, 'red');
@@ -225,7 +241,8 @@ $(document).on("click", "button#delete_field_seller", function(){
   });
 });
 
-$(document).on('click', 'button#add_new_seller', function(){
+
+$(document).on('click', '#add_new_seller', function(){
   $.this = $(this);
   var seller_name = $.this.parent().parent().children('td').children('input').val();
   $.ajax({
@@ -238,12 +255,24 @@ $(document).on('click', 'button#add_new_seller', function(){
         actif: true
       }
     },
-    success: function(){
-      notifsTempo("Création réussie", 4000, 'green');
-      location.reload();
-    },
     error: function(jqXHR){
       notifsTempo(jqXHR.responseText, 4000, 'red');
     }
   });
+});
+
+
+// This is of PERMANENT DELETION of the seller
+$(document).on('click', '#delete_seller', function(){
+  if(confirm('Êtes-vous sûr de vouloir supprimer ce vendeur ?')){
+    $.ajax({
+      url: "/sellers/" + $(this).data('seller-id') + "/permanent_deletion",
+      type: "DELETE",
+      error: function(jqXHR){
+        notifsTempo(jqXHR.responseText, 4000, 'red');
+      }
+    });
+  }else {
+    alert("Non ? Parce que personnellement, je ne l'aime pas trop celui là...");
+  }
 });

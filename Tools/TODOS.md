@@ -26,11 +26,3 @@
         * Prends juste le nom et l'ip
       * Show :
         * Prends toutes les infos de l'agence
-
-
-
-* Pour lundi :
-  * Continuer sur la page index#sellers
-    * Il faut encore pouvoir supprimer les champs, ajout et modif ok, meme en direct
-    * Faire les types de matériels
-    * Faire que le modal se charge directement à la création du vendeur sans reload la page (easy, copier coller)

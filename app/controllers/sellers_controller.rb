@@ -1,5 +1,5 @@
 class SellersController < ApplicationController
-  before_action :set_seller, only: [:add_field_seller, :delete_field_seller, :update, :destroy, :show]
+  before_action :set_seller, only: [:permanent_deletion, :add_type_material, :delete_type_material, :add_field_seller, :delete_field_seller, :update, :destroy, :show]
   before_action :set_expiration
   before_action :restrict_access
 
@@ -31,6 +31,8 @@ class SellersController < ApplicationController
   def create
     @create_sellers = verifRight('create_sellers')
     if @create_sellers
+      @field_sellers = FieldSeller.all
+      @type_materials = TypeMaterial.all
       @seller = Seller.new(seller_params)
       respond_to do |format|
         if @seller.save
@@ -89,8 +91,14 @@ class SellersController < ApplicationController
         if @seller.materials.any?
           format.json { render json: 'Impossible de supprimer ce vendeur car il contient des données associées', status: :unprocessable_entity }
         else
-          @seller.destroy
-          format.json { head :no_content }
+          if @seller.destroy
+            FieldSellerSeller.where(seller_id: @seller.id).delete_all
+            TypeMaterialSeller.where(seller_id: @seller.id).delete_all
+            format.js
+            format.json { head :no_content }
+          else
+            format.json { render json: @seller.errors.full_messages.first, status: :unprocessable_entity }
+          end
         end
       end
     else
@@ -101,15 +109,22 @@ class SellersController < ApplicationController
   # POST /sellers/1/add_type_material.json
   def add_type_material
     @modify_sellers = verifRight('modify_sellers')
-    @type_material = TypeMaterial.find_or_create_by(name: params[:type_material][:name])
-    respond_to do |format|
-      if TypeMaterialSeller.exists?(type_material_id: @type_material.id, seller_id: params[:type_material][:seller_id])
-        format.json { render json: 'Ce type de matériel a déjà été ajouté a ce vendeur', status: :unprocessable_entity }
-      else
-        TypeMaterialSeller.create(type_material_id: @type_material.id, seller_id: params[:type_material][:seller_id])
-        format.js
-        format.json { render json: @type_material.id, status: :ok }
+    if @modify_sellers
+      @type_material = TypeMaterial.find_or_create_by(name: params[:type_material][:name])
+      respond_to do |format|
+        if TypeMaterialSeller.exists?(type_material_id: @type_material.id, seller_id: params[:id])
+          format.json { render json: 'Ce type de matériel a déjà été ajouté a ce vendeur', status: :unprocessable_entity }
+        else
+          if TypeMaterialSeller.create(type_material_id: @type_material.id, seller_id: params[:id])
+            format.js
+            format.json { render json: @type_material.id, status: :ok }
+          else
+            format.json { render json: @type_material.errors.full_messages.first, status: :unprocessable_entity }
+          end
+        end
       end
+    else
+      renderUnauthorized
     end
   end
 
@@ -118,11 +133,13 @@ class SellersController < ApplicationController
     @modify_sellers = verifRight('modify_sellers')
     if @modify_sellers
       respond_to do |format|
-        @type_material_seller = TypeMaterialSeller.where(type_material_id: params[:type_material_id], seller_id: params[:id])
+        @type_material_id = params[:type_material][:id]
+        @type_material_seller = TypeMaterialSeller.where(type_material_id: params[:type_material][:id], seller_id: params[:id])
         if @type_material_seller.nil?
           format.json { render json: 'Impossible de supprimer ce qui n\'existe pas...', status: 404 }
         else
           if @type_material_seller.delete_all
+            format.js
             format.json { head :no_content }
           else
             format.json { render json: @seller.errors.full_messages.first, status: :unprocessable_entity }
@@ -179,11 +196,15 @@ class SellersController < ApplicationController
   def delete_field_seller
     @modify_sellers = verifRight('modify_sellers')
     if @modify_sellers
-      @field_seller_seller = FieldSellerSeller.where(field_seller_id: params[:field_seller_id], seller_id: params[:id])
-      if @field_seller_seller.delete_all
-        respond_to { |format| format.json { head :no_content } }
-      else
-        respond_to { |format| format.json { render json: @field_seller_seller.errors.full_messages.first, status: :unprocessable_entity } }
+      @field_seller_id = params[:field_seller][:id]
+      @field_seller_seller = FieldSellerSeller.where(field_seller_id: params[:field_seller][:id], seller_id: params[:id])
+      respond_to do |format|
+        if @field_seller_seller.delete_all
+          format.js
+          format.json { head :no_content }
+        else
+          format.json { render json: @field_seller_seller.errors.full_messages.first, status: :unprocessable_entity }
+        end
       end
     else
       renderUnauthorized

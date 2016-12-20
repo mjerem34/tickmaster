@@ -6,4 +6,4 @@ $("table#table_field_seller_<%= @seller.id %> > tbody").append(`
   </tr>
   `);
 notifsTempo("Création réussie", 4000, "green");
-$("#value_new_field_seller").val("");
+$("#table_field_seller_<%= @seller.id %>").find("#value_new_field_seller").val("");

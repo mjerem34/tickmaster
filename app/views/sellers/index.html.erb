@@ -70,12 +70,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
+              <tr data-seller-id="<%= seller.id %>">
+                <td><%= select_tag 'name_new_type_material', options_for_select(@type_materials.collect{|type_material| [type_material.name, type_material.id]}), class: "dropdownSearchCreate" %></td>
                 <td><button type="button" name="button" class='btn btn-success' id='add_type_material'>+</button></td>
               </tr>
               <% seller.type_material_sellers.each do |tms| %>
-                <tr id="<%= tms.type_material.id %>">
+                <tr data-seller-id="<%= seller.id %>" data-type-material="<%= tms.type_material.id %>">
                     <td><%= tms.type_material.name %></td>
                     <td><button type="button" id="delete_type_material" class="btn btn-danger">-</button></td>
                 </tr>
@@ -84,8 +84,8 @@
           </table>
         </div>
         <div class="modal-footer">
-          <button type="button" name="button" class="btn btn-default" id="delete_seller">Supprimer</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+          <button type="button" name="button" class="btn btn-default" id="delete_seller" data-seller-id="<%= seller.id %>">Supprimer</button>
+          <button type="button" class="btn btn-danger close-modal" data-dismiss="modal">Fermer</button>
         </div>
       </div>
     </div>

@@ -37,6 +37,15 @@ fr:
       field_user:
         one: "Champ utilisateur"
         other: "Champs utilisateur"
+      seller:
+        one: "Vendeur"
+        other: "Vendeurs"
+      type_material:
+        one: "Type de matériel"
+        other: "Types de matériel"
+      materials:
+        one: "Matériel"
+        other: "Matériels"
     attributes:
       response:
         content: "Champ 'Message'"
@@ -86,6 +95,17 @@ fr:
         name: "Champ 'Nom'"
       field_type_user:
         name: "Champ 'Nom'"
+      seller:
+        name: "Champ 'Nom'"
+        actif: "Champ 'Actif'"
+      type_material:
+        name: "Champ 'Nom'"
+      materials:
+        name: "Champ 'Nom'"
+        type_material_id: "Champ 'Type de matériel'"
+        seller_id: "Champ 'Vendeur'"
+        detentor_type_id: "Champ 'Type de détenteur'"
+        detentor_id: "Champ 'Détenteur'"
     errors:
       models:
         incident:
@@ -229,6 +249,40 @@ fr:
         field_type_user:
           attributes:
             name:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+        seller:
+          attributes:
+            name:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+        type_material:
+          attributes:
+            name:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+        material:
+          attributes:
+            name: "Champ 'Nom'"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            type_material_id: "Champ 'Type de matériel'"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            seller_id: "Champ 'Vendeur'"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            detentor_type_id: "Champ 'Type de détenteur'"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            detentor_id: "Champ 'Détenteur'"
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"
