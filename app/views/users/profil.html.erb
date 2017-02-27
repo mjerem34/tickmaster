@@ -1,7 +1,6 @@
 <br><br>
 <div class="row">
-  <div class="col-md-4"></div>
-  <div class="col-md-4">
+  <div class="col-sm-12 col-md-4 col-md-offset-4 col-lg-6 col-lg-offset-3">
     <form class="profile_form">
       <label for="user_pseudo">Pseudonyme</label>
       <input type="text" name="user_pseudo" value="<%= @user.pseudo %>" class="form-control">
@@ -38,14 +37,10 @@
       <% end %>
       <br>
       <div class="row">
-        <div class="col-md-6">
-          <input type="button" name="valid_changes" value="Enregistrer" class="form-control btn btn-success">
-        </div>
-        <div class="col-md-6">
-          <input type="button" name="cancel_button" value="Annuler" class="btn btn-danger form-control">
+        <div class="col-md-12">
+          <input type="button" name="valid_changes" value="Valider" class="form-control btn btn-success">
         </div>
       </div>
     </form>
   </div>
-  <div class="col-md-4"></div>
 </div>

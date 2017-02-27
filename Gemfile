@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # gem 'select2-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.3'
+gem 'rails', '5.0.1'
 # Use mysql as the database for Active Record
 gem 'mysql2', '0.3.19'
 # Use SCSS for stylesheets
@@ -14,7 +14,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
-gem 'simple_form', '~> 3.1.1'
+gem 'simple_form'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'selectize-rails'
@@ -59,12 +59,12 @@ end
 group :development, :test do
   gem 'rubocop', require: false
 
-  gem 'annotate', '~> 2.6.10'
+  gem 'annotate'
   gem 'guard-livereload', '~> 2.4', require: false
   gem 'capybara'
   gem 'thin'
   gem 'factory_girl_rails'
-  gem 'spork-rails'
+  # gem 'spork-rails'
   gem 'rspec-rails'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

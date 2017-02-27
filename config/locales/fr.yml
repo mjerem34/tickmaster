@@ -266,23 +266,23 @@ fr:
               taken: "déjà enregistré"
         material:
           attributes:
-            name: "Champ 'Nom'"
+            name:
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"
-            type_material_id: "Champ 'Type de matériel'"
+            type_material_id:
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"
-            seller_id: "Champ 'Vendeur'"
+            seller_id:
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"
-            detentor_type_id: "Champ 'Type de détenteur'"
+            detentor_type_id:
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"
-            detentor_id: "Champ 'Détenteur'"
+            detentor_id:
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"

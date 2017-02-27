@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  module Usermod
+  module UserMod
     attr_accessor :pseudo, :type_user_id, :password, :ip_addr, :email, :tel, :salt, :sys_msg, :actif, :mode, :agency_id
   end
 
@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
     user = find_by_pseudo(pseudo)
     unless user.nil?
       if user.type_user.secure
-        password == user.password ? user : nil
+        user if password == user.password
       else
         user
       end
