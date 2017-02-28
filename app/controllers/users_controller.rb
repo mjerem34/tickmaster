@@ -140,6 +140,7 @@ class UsersController < ApplicationController
     if current_user == @user || verifRight('edit_other_user')
       @title = "Profil d'utilisateur #{@user.surname} #{@user.name}"
       @edit_like_a_boss = verifRight('edit_like_a_boss')
+      @delete_user = verifRight('delete_user')
       @type_users = TypeUser.all.order('name asc')
       @agencies = Agency.all.order('name ASC')
       respond_to do |format|
