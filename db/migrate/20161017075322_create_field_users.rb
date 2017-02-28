@@ -1,6 +1,6 @@
 class CreateFieldUsers < ActiveRecord::Migration
   def change
-    create_table :field_users, index: false do |t|
+    create_table :field_users do |t|
       t.references :field_type_user, index: true, foreign_key: true
       t.references :user, index: true, foreign_key: true
       t.text :content
