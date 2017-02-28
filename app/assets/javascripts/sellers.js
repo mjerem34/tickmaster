@@ -75,11 +75,13 @@ $(document).on('click', '#create_new_field_seller', function(){
 });
 
 // This is to EDIT the state of the seller, active or inactive
+// Using the DELETE method
 $(document).on("click", "div.etatVendeur", function(){
   $.clicked = $(this);
-  var idSeller = $(this).children('input[type="checkbox"]').data("seller");
+  $.idSeller = $(this).parent().parent().attr("id");
+  console.log($.idSeller);
   $.ajax({
-    url: '/sellers/' + idSeller,
+    url: '/sellers/' + $.idSeller,
     type: "DELETE",
     dataType: 'script',
     success: function(){

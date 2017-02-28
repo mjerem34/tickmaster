@@ -65,13 +65,13 @@ class SellersController < ApplicationController
   end
 
   # DELETE /sellers/1.json
+  # Just disable/enable the seller
   def destroy
-    @delete_sellers = verifRight('delete_sellers')
-    if @delete_sellers
+    @modify_sellers = verifRight('modify_sellers')
+    if @modify_sellers
       respond_to do |format|
         if @seller.actif
           @seller.update(actif: false)
-          format.js
           format.json { head :no_content }
         else
           @seller.update(actif: true)
