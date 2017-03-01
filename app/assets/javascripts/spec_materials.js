@@ -85,3 +85,20 @@ $(document).on('keyup', 'input#input_spec_material', function(evt){
     }
   }
 });
+// Mise a jour du type quand on change la valeur de l'input
+$(document).on('change', '#spec_type_spec_material', function(){
+  $.ajax({
+    url: '/spec_materials/'+ $(this).parent().parent().attr('id'),
+    type: 'PUT',
+    dataType: 'script',
+    data: {
+      spec_material: {
+        spec_value: $(this).parent().parent().children('td').children('#input_spec_material').val(),
+        spec_type_material_name: $(this).find(':selected').text()
+      }
+    },
+    error: function(jqXHR){
+      notifsTempo(jqXHR.responseText, 4000, 'red');
+    }
+  });
+});
