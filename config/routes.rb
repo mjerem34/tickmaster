@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :type_users do
     member do
       delete :disable_type_users
+      post :add_field_type_user
     end
   end
   resources :field_type_users
@@ -87,13 +88,13 @@ Rails.application.routes.draw do
       post :forget_identifiers
     end
   end
-  get '/', to: 'pages#home'
+  get '/', to: 'pages#home', as: :root
   get '/categories', to: 'categories#index'
   get '/sous_categories', to: 'sous_categories#index'
   get '/incidents', to: 'incidents#index'
   get '/signup', to: 'users#new_user'
   get '/signin', to: 'sessions#new'
-  get '/signout', to: 'sessions#destroy'
+  delete '/signout', to: 'sessions#destroy'
   delete '/sessions', to: 'sessions#destroy'
   get '/rights', to: 'rights#index'
   get '/agencies', to: 'agencies#index'

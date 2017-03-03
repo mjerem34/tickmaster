@@ -1,0 +1,7 @@
+$("table#table_field_type_user > tbody").append(`
+  <tr>
+    <td><%= @field_type_user.name %></td>
+    <td><button type="button" class="btn btn-danger" id="remove_ftutu">-</button></td>
+  </tr>
+`);
+sweetAlert("Bravo! :)", "Le champ a bien été ajouté !", "success");

@@ -12,28 +12,16 @@
   <%= render 'layouts/page_cover'%>
   <% unless current_user.nil? %>
     <%= render 'layouts/k'%>
-    <% if @title == "Se connecter" || @title == "S'inscrire" || @title == "Accueil" || @title == "Identifiants oubliés"%>
-      <%= content_tag(:body, '', id: 'not-connected') %>
+      <%= content_tag(:body, '', id: 'connected', class: "hold-transition skin-green sidebar-mini fixed") %>
       <%= render 'layouts/header' %>
-      <div class="isOpen" id="content">
-    <% else %>
-      <%= content_tag(:body, '', id: 'connected') %>
-      <%= render 'layouts/header' %>
-      <div id="content">
-    <% end %>
   <% end %>
-  <% @name_app = "Tick{Master}" %>
+  <% @name_app = "tick'master" %>
   <% if current_user.nil? %>
     <%= yield :form %>
     <%= yield :accueil %>
   <% else %>
     <%= yield %>
   <% end %>
-  <%= render 'layouts/footer' %>
-  <% if @title != "Accueil" %>
-    <a class="updown-arrow" href="#">&#9650;</a>
-  <% end %>
-  </div>
   <%= render 'layouts/flash_notices' %>
   <%= yield :js %>
 </body>

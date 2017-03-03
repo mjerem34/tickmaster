@@ -392,16 +392,33 @@ class ApplicationController < ActionController::Base
   # Bar needs to check rights to display only buttons current user can see.
   def set_default_rights
     unless current_user.nil?
-      @create_procedure = verifRight('create_procedure')
       @view_procedures = verifRight('view_procedures')
+      @create_procedure = verifRight('create_procedure')
+
+      @dispatch_incidents = verifRight('dispatch_incidents')
       @view_index_all_of_incidents = verifRight('view_index_all_of_incidents')
+
       @view_index_categories = verifRight('view_index_categories')
-      @create_new_tech = verifRight('create_new_tech')
+
       @view_index_users = verifRight('view_index_users')
+      @create_new_tech = verifRight('create_new_tech')
+      @view_field_type_users = verifRight('view_field_type_users')
+
       @view_index_rights = verifRight('view_index_rights')
-      @create_new_agency = verifRight('create_new_agency')
+      @view_type_users = verifRight('view_type_users')
+
       @view_index_agencies = verifRight('view_index_agencies')
+      @create_new_agency = verifRight('create_new_agency')
+      @view_field_agencies = verifRight('view_field_agencies')
+
       @create_material = verifRight('create_material')
+      @view_material = verifRight('view_material')
+      @view_sellers = verifRight('view_sellers')
+      @view_field_sellers = verifRight('view_field_sellers')
+      @view_type_material = verifRight('view_type_material')
+      @view_spec_type_material = verifRight('view_spec_type_material')
+      @view_spec_material = verifRight('view_spec_material')
+
       @create_update = verifRight('create_update')
       @view_update = verifRight('view_update')
     end

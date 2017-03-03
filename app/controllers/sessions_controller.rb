@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
         if @user.nil?
           @title = "S'identifier"
           format.json { render json: 'Pseudonyme et/ou mot de passe invalide', status: :unprocessable_entity }
-          format.html { redirect_to '/sessions', notice: 'Pseudonyme et/ou mot de passe invalide' }
+          format.html { redirect_to '/sessions', alert: 'Pseudonyme et/ou mot de passe invalide' }
         else
           if @user.actif == false || @user.type_user.actif == false
             @title = "S'identifier"

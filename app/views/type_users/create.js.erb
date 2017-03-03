@@ -1,0 +1,25 @@
+$("input[name='new_type_user']").val('');
+$("table > tbody").append(`
+  <tr role="row">
+    <td data-toggle="modal" data-target="#<%= @type_user.id %>"><%= @type_user.name %></td>
+    <td>
+      <div class="slideThree tableRight">
+        <input class="form-control" data-type_user="1" value="secure" checked="" type="checkbox">
+        <label for="checkbox-right"></label>
+      </div>
+    </td>
+    <td>
+      <div class="slideThree tableRight">
+        <input class="form-control" data-type_user="1" value="secure" checked="" type="checkbox">
+        <label for="checkbox-right"></label>
+      </div>
+    </td>
+    <td>
+      <div class="slideThree tableRight">
+        <input class="form-control" data-type_user="1" value="secure" checked="" type="checkbox">
+        <label for="checkbox-right"></label>
+      </div>
+    </td>
+  </tr>
+`);
+sweetAlert("Bravo ! :)", "Création réussie !" ,"success");

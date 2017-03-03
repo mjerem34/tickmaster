@@ -1,171 +1,292 @@
-<% %>
-<div class="nav-side-menu">
-  <a class="brand">TickMaster</a>
-  <i class=" fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-  <div class="menu-list">
-    <ul id="menu-content" class="menu-content collapse out">
-      <% if !current_user.nil? %>
-        <% if @create_procedure %>
-          <li data-toggle="collapse" data-target="#procedures" class="collapsed active"><%= image_tag("ICONS/262.png", size: "26x26", alt: "", class: "fa-img") %>
-            <a href="#"><i class="fa fa-gift fa-lg"></i>Procédures</a>
-          </li>
-          <ul class="sub-menu collapse" id="procedures">
-            <li><%= link_to 'Liste procedures', procedures_url, method: :get %></li>
-            <li><%= link_to "Créer procédure", new_procedure_url, method: :get %></li>
-        <% else %>
-          <% if @view_procedures %>
-              <li><%= image_tag("ICONS/262.png", size: "26x26", alt: "", class: "fa-img")%>
-            <i class="fa fa-gift fa-lg"></i>
-            <%= link_to "Procedures", procedures_url, method: :get %></li>
-          <% end %>
-        <% end %>
-          </ul>
+<header class="main-header">
 
-        <li data-toggle="collapse" data-target="#incidents" class="collapsed active"><%= image_tag("ICONS/153.png", size: "26x26", alt: "", class: "fa-img") %>
-          <a href="#"><i class="fa fa-gift fa-lg"></i>Incidents</a>
+  <!-- Logo -->
+  <%= link_to root_path, class: 'logo' do %>
+  <!-- mini logo for sidebar mini 50x50 pixels -->
+    <span class="logo-mini"><b>t</b>m</span>
+    <!-- logo for regular state and mobile devices -->
+    <span class="logo-lg"><b>tick'</b>master</span>
+  <% end %>
+
+  <!-- Header Navbar -->
+  <nav class="navbar navbar-static-top" role="navigation">
+    <!-- Sidebar toggle button-->
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only">Toggle navigation</span>
+    </a>
+    <!-- Navbar Right Menu -->
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <!-- Messages: style can be found in dropdown.less-->
+        <li class="dropdown messages-menu">
+          <!-- Menu toggle button -->
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-envelope-o"></i>
+            <span class="label label-success">4</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="header">You have 4 messages</li>
+            <li>
+              <!-- inner menu: contains the messages -->
+              <ul class="menu">
+                <li><!-- start message -->
+                  <a href="#">
+                    <div class="pull-left">
+                      <!-- User Image -->
+                      <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    </div>
+                    <!-- Message title and timestamp -->
+                    <h4>
+                      Support Team
+                      <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                    </h4>
+                    <!-- The message -->
+                    <p>Why not buy a new awesome theme?</p>
+                  </a>
+                </li>
+                <!-- end message -->
+              </ul>
+              <!-- /.menu -->
+            </li>
+            <li class="footer"><a href="#">See All Messages</a></li>
+          </ul>
         </li>
-        <ul class="sub-menu collapse" id="incidents">
-          <% my_incidents = current_user.user_incidents.where(incident_state_id_for_user: [4, 8]).count %>
-          <li><%= link_to "Mes incidents (#{my_incidents})", current_user, method: :get %></li>
-          <% if !current_user.type_user.is_tech %>
-            <% to_treat = current_user.tech_incidents.where(incident_state_id_for_tech: [2, 3, 5, 6]).count %>
-            <li><%= link_to "A traiter (#{to_treat})", to_treat_user_url(current_user), method: :get %></li>
-            <% without_tech = Incident.where(tech_id: nil).where.not(incident_state_id_for_tech: [7, 10]).count %>
-            <li><%= link_to "Non attribués (#{without_tech})", incidents_without_tech_incident_url(current_user), method: :get%></li>
-            <% if @view_index_all_of_incidents%>
-            <% all_incidents = Incident.all.count %>
-              <li><%= link_to "Tous les incidents (#{all_incidents})", incidents_url, method: :get%></li>
-            <% end %>
-          <% end %>
-          <li><%= link_to 'Cloturés/Rejetés', allincidents_user_url(current_user), method: :get %></li>
-        </ul>
-      <% end %>
-      <% if !current_user.nil? && @view_index_categories %>
-        <li data-toggle="collapse" data-target="#categ" class="collapsed active"><%= image_tag("ICONS/572.png", size: "26x26", alt: "", class: "fa-img") %>
-          <a href="#"><i class="fa fa-gift fa-lg"></i>Categories</a>
+        <!-- /.messages-menu -->
+
+        <!-- Notifications Menu -->
+        <li class="dropdown notifications-menu">
+          <!-- Menu toggle button -->
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-bell-o"></i>
+            <span class="label label-warning">10</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="header">You have 10 notifications</li>
+            <li>
+              <!-- Inner Menu: contains the notifications -->
+              <ul class="menu">
+                <li><!-- start notification -->
+                  <a href="#">
+                    <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                  </a>
+                </li>
+                <!-- end notification -->
+              </ul>
+            </li>
+            <li class="footer"><a href="#">View all</a></li>
+          </ul>
         </li>
-        <ul class="sub-menu collapse" id="categ">
-          <li><%= link_to "Categories", categories_url, tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Sous-categories", sous_categories_url, tabindex: -1, method: :get  %></li>
-        </ul>
-      <% end %>
-      <% if !current_user.nil? && @view_index_users %>
-        <li data-toggle="collapse" data-target="#users" class="collapsed active"><%= image_tag("ICONS/349.png", size: "26x26", alt: "", class: "fa-img") %>
-          <a href="#"><i class="fa fa-gift fa-lg"></i>Utilisateurs</a>
+        <%= "
+        <!-- Tasks Menu -->
+
+        <li class='dropdown tasks-menu'>
+          <!-- Menu Toggle Button -->
+          <a href='#' class='dropdown-toggle' data-toggle='dropdown'>
+            <i class='fa fa-cloud-upload'></i>
+          </a>
+          <ul class='dropdown-menu'>
+            <li class='header'>Historique des mises à jour</li>
+            <li>
+              <ul class='menu'>
+                <li>#{link_to(Update.last.changesMade.html_safe, update_url(Update.last))}</li>
+              </ul>
+            </li>
+            <li class='footer'>
+            #{link_to("Nouvelle mise à jour", new_update_url) if @create_update }
+            </li>
+          </ul>
         </li>
-        <ul class="sub-menu collapse" id="users">
-          <li><%= link_to "Tous les utilisateurs", users_url, tabindex: -1, method: :get  %></li>
-          <% if !current_user.nil? && @create_new_tech %>
-            <li><%= link_to "Créer un utilisateur", new_tech_users_url, tabindex: -1, method: :get  %></li>
-            <li><%= link_to "Champs utilisateurs", field_type_users_url, tabindex: -1, method: :get  %></li>
-          <% end %>
-        </ul>
-      <%end%>
-      <% if !current_user.nil? && @view_index_rights %>
-        <li data-toggle="collapse" data-target="#rights" class="collapsed active"><%= image_tag("ICONS/236.png", size: "26x26", alt: "", class: "fa-img") %>
-          <a href="#"><i class="fa fa-gift fa-lg"></i>Droits</a>
+        ".html_safe if @view_update %>
+        <!-- User Account Menu -->
+        <li class="dropdown user user-menu">
+          <!-- Menu Toggle Button -->
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <!-- The user image in the navbar-->
+            <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
+            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+            <span class="hidden-xs"><%= "#{current_user.surname} #{current_user.name}" %></span>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- The user image in the menu -->
+            <li class="user-header">
+              <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
+              <p>
+                <%= "#{current_user.surname} #{current_user.name}" %> - <%= "#{current_user.type_user.name}"%>
+                <small>Membre depuis <%= "#{current_user.created_at.strftime("%b. %Y")}" %></small>
+              </p>
+            </li>
+            <!-- Menu Body -->
+            <!-- <li class="user-body">
+              <div class="row">
+                <div class="col-xs-4 text-center">
+                  <a href="#">Followers</a>
+                </div>
+                <div class="col-xs-4 text-center">
+                  <a href="#">Sales</a>
+                </div>
+                <div class="col-xs-4 text-center">
+                  <a href="#">Friends</a>
+                </div>
+              </div>
+            </li> -->
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <div class="pull-left">
+                <%= link_to "Profil", profil_user_url(current_user), class: "btn btn-default btn-flat" %>
+              </div>
+              <div class="pull-right">
+                <%= link_to "Déconnexion", signout_url, class: "btn btn-default btn-flat", method: :delete %>
+              </div>
+            </li>
+          </ul>
         </li>
-        <ul class="sub-menu collapse" id="rights">
-          <li><%= link_to "Liste des droits", rights_url, tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Profils utilisateurs", type_users_url, tabindex: -1, method: :get  %></li>
-        </ul>
-      <% end %>
-      <% if !current_user.nil? &&  @view_index_agencies %>
-        <li data-toggle="collapse" data-target="#agencies" class="collapsed active"><%= image_tag("ICONS/604.png", size: "26x26", alt: "", class: "fa-img") %>
-          <a href="#"><i class="fa fa-gift fa-lg"></i>Agences</a>
+        <!-- Control Sidebar Toggle Button -->
+        <li>
+          <%= link_to "", new_incident_url, class: "fa fa-ticket" %>
+          <!-- <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a> -->
         </li>
-        <ul class="sub-menu collapse" id="agencies">
-          <li><%= link_to "Liste des agences", agencies_url, tabindex: -1, method: :get  %></li>
-          <% if !current_user.nil? && @create_new_agency %>
-          <li><%= link_to "Nouvelle agence", new_agency_url, tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Champs agences", field_agencies_url, tabindex: -1, method: :get %></li>
-          <% end %>
-        </ul>
-        <% end %>
-      <% if !current_user.nil? && @create_material %>
-        <li data-toggle="collapse" data-target="#material" class="collapsed active"><%= image_tag("ICONS/1001.png", size: "24x24", alt: "", class: "fa-img") %>
-          <a href="#">
-          <i class="fa fa-gift fa-lg"></i>Matériel</a>
-        </li>
-        <ul class="sub-menu collapse" id="material">
-          <li><%= link_to "Nouveau matériel", new_material_url, tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Liste des matériels", materials_url, tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Liste des vendeurs", sellers_url, tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Champs vendeurs", field_sellers_url, tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Types de matériels", type_materials_url, tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Types de caractéristiques techniques", spec_type_materials_url, tabindex: -1, method: :get  %></li>
-          <li><%= link_to "Caractéristiques techniques", spec_materials_url, tabindex: -1, method: :get  %></li>
-        </ul>
-      <% end %>
-      <% if !current_user.nil? %>
-      <li data-toggle="collapse" data-target="#aide" class="collapsed active"><%= image_tag("ICONS/522.png", size: "26x26", alt: "", class: "fa-img")%>
-        <a href="#"><i class="fa fa-gift fa-lg"></i>Aide</a>
-      </li>
-      <ul class="sub-menu collapse" id="aide">
-        <li><%= link_to "Faq", pages_help_url,tabindex:- 1, method: :get %></li>
-        <li><%= mail_to "jeremy.montesinos@cle-expertises.fr", "Bug/Suggestion", cc: "jerome.guillot@cle-expertises.fr", subject: "Bug ou suggestion à propos de TickMaster", tabindex: -1 %>
       </ul>
-      <% end %>
-    </ul>
-  </div>
-</div>
-
-<header>
-  <nav class="navbar navbar-default nav-collapse navbar-fixed-top navbar-right">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="title-site navbar-brand openIt" href='/'>TickMaster</a>
-        <a class="title-site navbar-brand by-cle openIt click">by<%= image_tag("cle.png", size: "60x20", alt: "Cle Expertises")%></a>
-      </div>
-      <h3 class="title-on-page"><%= @title.html_safe %></h3>
-      <% if !current_user.nil? %>
-      <div class="whoisconnected">
-        <li class="dropdown-search">
-          <a href="#" class="dropdown-toggle search-icon" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag "ICONS/013 MagnifyingGlass.png", size: "24x24" %><span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <form>
-              <div class="row">
-                <div class="col-md-12">
-                  <li class="field"><input type="text" class="form-control" name="name" placeholder="Rechercher..."></li>
-                  <li class="img"><%= image_tag "ICONS/013 MagnifyingGlass.png", size: "24x24"%></li>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <li class="li-radio"><input type="radio" class="form-control" name="user_incident_procedure_seller" value="user"></li><li class="li-text-input">Utilisateur</li>
-                  <li class="li-radio"><input type="radio" class="form-control" name="user_incident_procedure_seller" value="user"></li><li class="li-text-input">Incident</li>
-                  <li class="li-radio"><input type="radio" class="form-control" name="user_incident_procedure_seller" value="user"></li><li class="li-text-input">Procedure</li>
-                  <li class="li-radio"><input type="radio" class="form-control" name="user_incident_procedure_seller" value="user"></li><li class="li-text-input">Vendeur</li>
-                </div>
-              </div>
-            </form>
-          </ul>
-      </li>
-          <li class="dropdown-notif">
-            <a href="#" class="dropdown-toggle bell-icon" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag "ICONS/569.png", size: "32x32" %><span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li>Notifications à venir !</li>
-            </ul>
-          </li>
-        <li class="dropdown-user">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag "ICONS/#{Random.new.rand(901..920)}.png", size: "32x32" %><span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><%= link_to"#{current_user.name} #{current_user.surname}", profil_user_url(current_user)%></li>
-            <li><%= link_to "Se déconnecter", signout_url, method: :get %></li>
-            <% if @create_update %>
-              <li><%= link_to "Créer une mise à jour", new_update_url %></li>
-            <% end %>
-            <% if @view_update %>
-              <li><%= link_to "Liste des mise à jour", updates_url %></li>
-            <% end %>
-          </ul>
-            <a href="<%= new_incident_url %>" id="btn_new_incident_top_right">+</a>
-          </li>
-        </div>
-        </li>
-
-      <% end %>
     </div>
   </nav>
-  <!-- /.container-fluid -->
 </header>
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel">
+      <div class="pull-left image">
+        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" style="color:transparent;">
+      </div>
+      <div class="pull-left info">
+        <p>Bonjour <%= current_user.name%></p>
+        <!-- Status -->
+        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+      </div>
+    </div>
+
+    <!-- search form (Optional) -->
+    <form action="#" method="get" class="sidebar-form">
+      <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Rechercher...">
+            <span class="input-group-btn">
+              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+              </button>
+            </span>
+      </div>
+    </form>
+    <!-- /.search form -->
+
+    <!-- Sidebar Menu -->
+    <ul class="sidebar-menu">
+      <!-- <li class="header">HEADER</li> -->
+      <!-- Optionally, you can add icons to the links -->
+      <!-- <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Procedures</span></a></li> -->
+      <!-- <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li> -->
+      <!-- Procedures links -->
+      <li class="treeview">
+        <a href="#"><i class="fa fa-bookmark"></i> <span>Procedures</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <%= "<li>".html_safe + link_to('Liste des procedures', procedures_url) + "</li>".html_safe if @view_procedures %>
+          <%= "<li>".html_safe + link_to('Créer procedures', new_procedure_url) + "</li>".html_safe if @create_procedure %>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-ticket"></i> <span>Incidents</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <%= "<li>".html_safe + link_to("Mes incidents", current_user) + "</li>".html_safe %>
+          <%= "<li>".html_safe + link_to("A traiter", to_treat_user_url(current_user)) + "</li>".html_safe if @dispatch_incidents %>
+          <%= "<li>".html_safe + link_to("Non attribués", incidents_without_tech_incident_url(current_user)) + "</li>".html_safe if @dispatch_incidents %>
+          <%= "<li>".html_safe + link_to("Tous les incidents", incidents_url) + "</li>".html_safe if @view_index_all_of_incidents %>
+          <%= "<li>".html_safe + link_to("Cloturés/Rejetés", allincidents_user_url(current_user)) + "</li>".html_safe %>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-sitemap"></i> <span>Catégories</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <%= "<li>".html_safe + link_to("Catégories", categories_url) + "</li>".html_safe if @view_index_categories %>
+          <%= "<li>".html_safe + link_to("Sous-Catégories", sous_categories_url) + "</li>".html_safe if @view_index_categories %>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-users"></i> <span>Utilisateurs</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <%= "<li>".html_safe + link_to("Tous les utilisateurs", users_url) + "</li>".html_safe if @view_index_users %>
+          <%= "<li>".html_safe + link_to("Créer un utilisateur", new_tech_users_url) + "</li>".html_safe if @create_new_tech %>
+          <%= "<li>".html_safe + link_to("Champs utilisateurs", field_type_users_url) + "</li>".html_safe if @view_field_type_users %>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-sliders"></i> <span>Droits</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <%= "<li>".html_safe + link_to("Liste des droits", rights_url) + "</li>".html_safe if @view_index_rights %>
+          <%= "<li>".html_safe + link_to("Profils utilisateurs", type_users_url) + "</li>".html_safe if @view_type_users %>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-building"></i> <span>Agences</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <%= "<li>".html_safe + link_to("Liste des agences", agencies_url) + "</li>".html_safe if @view_index_agencies %>
+          <%= "<li>".html_safe + link_to("Nouvelle agence", new_agency_url) + "</li>".html_safe if @create_new_agency %>
+          <%= "<li>".html_safe + link_to("Champs agences", field_agencies_url) + "</li>".html_safe if @view_field_agencies %>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-wrench"></i> <span>Matériel</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <%= "<li>".html_safe + link_to("Nouveau matériel", new_material_url) + "</li>".html_safe if @create_material %>
+          <%= "<li>".html_safe + link_to("Liste des matériels", materials_url) + "</li>".html_safe if @view_material %>
+          <%= "<li>".html_safe + link_to("Liste des vendeurs", sellers_url) + "</li>".html_safe if @view_sellers %>
+          <%= "<li>".html_safe + link_to("Champs vendeurs", field_sellers_url) + "</li>".html_safe if @view_field_sellers %>
+          <%= "<li>".html_safe + link_to("Types de matériels", type_materials_url) + "</li>".html_safe if @view_type_materials %>
+          <%= "<li>".html_safe + link_to("Types de caractéristiques techniques", spec_type_materials_url) + "</li>".html_safe if @view_spec_type_materials %>
+          <%= "<li>".html_safe + link_to("Caractéristiques techniques", spec_materials_url) + "</li>".html_safe if @view_spec_materials %>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-question"></i> <span>Aide</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <%= "<li>".html_safe + link_to("FAQ", pages_help_url) + "</li>".html_safe %>
+          <%= "<li>".html_safe + mail_to("jeremy.montesinos@cle-expertises.fr", "Bug/Suggestion", cc: "jerome.guillot@cle-expertises.fr", subject: "Bug ou suggestion à propos de tick'master") + "</li>".html_safe %>
+        </ul>
+      </li>
+
+    </ul>
+    <!-- /.sidebar-menu -->
+  </section>
+  <!-- /.sidebar -->
+</aside>

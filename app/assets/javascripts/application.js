@@ -14,11 +14,11 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require highcharts
+//= require adminlte
 //= require chartkick
 //= require ckeditor/init
 //= require selectize
 //= require bootstrap-slider
-//= require fixedheadertable
 //= require incidents
 //= require jquery-ui.min
 //= require jquery.tablesorter.min
@@ -28,6 +28,7 @@
 //= require header
 //= require mySelectize
 //= require notifsTempo
+//= require sweetalert
 
 
 
