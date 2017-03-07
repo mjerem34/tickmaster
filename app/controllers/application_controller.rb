@@ -383,7 +383,7 @@ class ApplicationController < ActionController::Base
       end
       format.html do
         redirect_to '/',
-                    not_authorized: "Vous n'êtes pas autorisé à faire cela."
+                    alert: "Vous n'êtes pas autorisé à faire cela."
       end
     end
   end
@@ -434,7 +434,7 @@ class ApplicationController < ActionController::Base
         end
         format.html do
           redirect_to '/',
-                      not_authorized: 'Vous devez être connecté pour accéder à'\
+                      alert: 'Vous devez être connecté pour accéder à'\
                       ' cette page'
         end
       end

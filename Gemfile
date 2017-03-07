@@ -47,6 +47,7 @@ gem 'passenger'
 # Let's see a great slider
 gem 'bootstrap-slider-rails'
 # To make charts in ping
+gem 'slim-rails'
 gem 'highcharts-rails'
 # Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser
 gem 'nokogiri'

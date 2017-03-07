@@ -81,5 +81,5 @@ $(document).ready(function(){
 
 <% else %>
 <% @title = "Accès non autorisé"%>
-<%= flash.now[:not_authorized] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
+<%= flash.now[:alert] = "Vous n'avez pas l'autorisation d'accéder à cette page" %>
 <% end %>

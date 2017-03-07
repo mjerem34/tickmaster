@@ -16,20 +16,18 @@
 //= require highcharts
 //= require adminlte
 //= require chartkick
+//= require jquery.slimscroll.min
 //= require ckeditor/init
 //= require selectize
 //= require bootstrap-slider
 //= require incidents
 //= require jquery-ui.min
-//= require jquery.tablesorter.min
-//= require jquery.tablesorter.widgets.min
-//= require nprogress
 //= require procedures
 //= require header
 //= require mySelectize
 //= require notifsTempo
 //= require sweetalert
-
+//= require jquery.dataTables.min
 
 
 
@@ -51,29 +49,14 @@ $(document).on('click', 'tr[data-link]', function () {
   window.location = $(this).data("link")
 });
 
-$(document).ready(function () {
-  $(".table-hover").tablesorter({
-    theme: 'blue',
-    widgets: ['filter']
-  });
-});
-$(document).ready(function () {
-  $('.table-hover').fixedHeader();
-});
-$(window).scroll(function () {
-  posScroll = $(document).scrollTop();
-  if (posScroll >= 100){
-    $('.updown-arrow').css({"visibility": "visible"});
-  }else{
-    $('.updown-arrow').css({"visibility": "hidden"});
-  }
-  });
-$(document).ready(function () {
-  $("input.tablesorter-filter").addClass('form-control');
-});
 
 $("input:text:visible:first").focus();
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+$('.datatable').DataTable({
+  dom: "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+  pagingType: "bootstrap",
+  responsive: true
+});

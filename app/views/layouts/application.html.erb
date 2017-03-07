@@ -12,17 +12,25 @@
   <%= render 'layouts/page_cover'%>
   <% unless current_user.nil? %>
     <%= render 'layouts/k'%>
-      <%= content_tag(:body, '', id: 'connected', class: "hold-transition skin-green sidebar-mini fixed") %>
-      <%= render 'layouts/header' %>
-  <% end %>
-  <% @name_app = "tick'master" %>
-  <% if current_user.nil? %>
-    <%= yield :form %>
-    <%= yield :accueil %>
+    <%= content_tag(:body, '', id: 'connected', class: "hold-transition skin-green sidebar-mini fixed") %>
+    <div class="wrapper">
+    <%= render 'layouts/header' %>
   <% else %>
-    <%= yield %>
+    <div class="wrapper">
   <% end %>
-  <%= render 'layouts/flash_notices' %>
-  <%= yield :js %>
-</body>
+      <div class="content-wrapper">
+        <section class="content">
+          <% @name_app = "tick'master" %>
+          <% if current_user.nil? %>
+          <%= yield :form %>
+          <%= yield :accueil %>
+          <% else %>
+          <%= yield %>
+          <% end %>
+        </section>
+      </div>
+      <%= render 'layouts/flash_notices' %>
+      <%= yield :js %>
+    </div>
+  </body>
 </html>

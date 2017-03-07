@@ -1,20 +1,17 @@
-<% if @incidents.count > 0 %>
 <div class="table-responsive">
-
-  <table class="table table-hover">
+  <table class="table table-bordered table-hover dataTable">
     <thead class="header">
       <tr>
-        <th>Objet</th>
-        <th>Technicien</th>
-        <th>Catégorie</th>
-        <th>Date</th>
-        <th>Etat</th>
-
+        <th class="sorting">Objet</th>
+        <th class="sorting">Technicien</th>
+        <th class="sorting">Catégorie</th>
+        <th class="sorting">Date</th>
+        <th class="sorting">Etat</th>
       </tr>
     </thead>
     <tbody>
       <% @incidents.order(["created_at desc"]).each do |incident| %>
-      <tr style="background: #2c3e50; " data-toggle="modal" data-target="#<%= incident.id %>">
+      <tr data-toggle="modal" data-target="#<%= incident.id %>">
         <td><%= incident.title %></td>
 
         <% if incident.tech_id != nil %>
@@ -27,9 +24,9 @@
         <td><%= incident.category.name %></td>
         <td><%= incident.created_at.strftime("%d %b %Y") %></td>
         <% if current_user.type_user.is_tech == true %>
-        <td><%= incident.incident_state_id_for_user.shortcut %></td>
+        <td><span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.shortcut %></span></td>
       <% else %>
-        <td><%= incident.incident_state_id_for_tech.shortcut %></td>
+        <td><span class="label label-<%= incident.incident_state_id_for_tech.tech_color%>"><%= incident.incident_state_id_for_tech.shortcut %></span></td>
         <% end %>
       </tr>
       <div class="container-modal">
@@ -66,12 +63,13 @@
                   <%= incident.sous_category.name %></p>
                 <p>Créé à :
                   <%= incident.created_at.strftime("%d %b %Y %H:%M") %></p>
-                <p>Etat :
-                  <% if current_user.type_user.is_tech == true %>
-                  <%= incident.incident_state_id_for_user.shortcut %>
-                <% else %>
-                  <%= incident.incident_state_id_for_tech.shortcut %>
-                  <% end %></p>
+                  <p>Etat :
+                    <% if current_user.type_user.is_tech == true %>
+                    <span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.shortcut %></span>
+                  <% else %>
+                    <span class="label label-<%= incident.incident_state_id_for_tech.tech_color%>"><%= incident.incident_state_id_for_tech.shortcut %></span>
+                    <% end %>
+                  </p>
               </div>
               <div class="modal-footer">
                 <%= link_to "Détails", edit_incident_path(incident), class: "btn btn-primary"%>
@@ -86,16 +84,14 @@
 
       <% end %>
     </tbody>
+    <thead class="header">
+      <tr>
+        <th class="sorting">Objet</th>
+        <th class="sorting">Technicien</th>
+        <th class="sorting">Catégorie</th>
+        <th class="sorting">Date</th>
+        <th class="sorting">Etat</th>
+      </tr>
+    </thead>
   </table>
-
 </div>
-<% else %>
-<div class="row">
-  <div class="col-md-12 aucun-incident-div">
-    <h1>
-      Vous n'avez aucun incident actif pour le moment.
-    </h1>
-  </div>
-</div>
-<% end %>
-<% else %>

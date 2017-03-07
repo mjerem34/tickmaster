@@ -63,9 +63,11 @@ Rails.application.routes.draw do
     member do
       get :update_subcats
       get :update_maxvalue_lvl_urgence
-      get :incidents_without_tech
       get :send_tech_form
       get :order_by
+    end
+    collection do
+      get :incidents_without_tech
     end
     resources :responses
   end

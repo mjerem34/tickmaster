@@ -1,14 +1,13 @@
 <div class="table-responsive">
-  <table class="table table-hover">
+  <table class="table table-hover table-bordered dataTable">
     <thead class="header">
       <tr>
-        <th>Nom</th>
-        <th>Contenu</th>
-        <th>Categorie</th>
-        <th>SousCategorie</th>
+        <th class="sorting">Nom</th>
+        <th class="sorting">Contenu</th>
+        <th class="sorting">Categorie</th>
+        <th class="sorting">SousCategorie</th>
       </tr>
     </thead>
-
     <tbody>
       <% @procedures.each do |procedure| %>
       <tr>
@@ -32,21 +31,25 @@
               </div>
               <div class="modal-footer">
                 <% if @edit_procedure%>
-
-                <%= link_to "Editer", edit_procedure_path(procedure), class: "btn btn-primary"%>
+                  <%= link_to "Editer", edit_procedure_path(procedure), class: "btn btn-primary"%>
                 <% end %>
                 <%= link_to "Détails", procedure, class: "btn btn-success"%>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
-
       <% end %>
     </tbody>
+    <thead class="header">
+      <tr>
+        <th class="sorting">Nom</th>
+        <th class="sorting">Contenu</th>
+        <th class="sorting">Categorie</th>
+        <th class="sorting">SousCategorie</th>
+      </tr>
+    </thead>
   </table>
 </div>
 

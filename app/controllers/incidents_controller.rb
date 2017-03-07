@@ -13,7 +13,7 @@ class IncidentsController < ApplicationController
     @view_index_all_of_incidents = verifRight('view_index_all_of_incidents')
     if @view_index_all_of_incidents
       @title = 'Liste de tous les incidents'
-      @techs = @users.joins(:tech).where('teches.simple_user = false').collect { |p| [[p.surname, p.name].join(' '), p.id] }
+      @techs = @users.joins(:type_user).where('type_users.is_tech = true').collect { |p| [[p.surname, p.name].join(' '), p.id] }
       @incidents = Incident.includes(:user, :category, :sous_category).order('created_at desc')
       respond_to do |format|
         format.json { render json: @incidents }
@@ -32,11 +32,11 @@ class IncidentsController < ApplicationController
     @dispatch_incidents = verifRight('dispatch_incidents')
     if @dispatch_incidents
       @title = 'Incidents non attribués'
-      @techs = @users.joins(:tech).where('teches.simple_user = false').collect { |p| [[p.surname, p.name].join(' '), p.id] }
+      @techs = @users.joins(:type_user).where('type_users.is_tech = true').collect { |p| [[p.surname, p.name].join(' '), p.id] }
       @incidents = Incident.where(tech_id: nil).where.not(incident_state_id_for_tech: [7, 10]).includes(:user, :category, :sous_category).order('created_at desc')
       respond_to do |format|
         format.json { render json: @incidents }
-        format.html { render :index }
+        format.html { render :incidents_without_tech }
       end
     else
       renderUnauthorized

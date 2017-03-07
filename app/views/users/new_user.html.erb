@@ -306,6 +306,6 @@
   <% end %>
 <% else %>
   <% @title = "Accès non autorisé"%>
-  <%= flash.now[:not_authorized] = "Vous êtes déjà connecté" %>
+  <%= flash.now[:alert] = "Vous êtes déjà connecté" %>
 
 <% end %>
