@@ -20,6 +20,7 @@
 *= require selectize
 *= require selectize.bootstrap3
 *= require sweetalert
+*= require rights
 */
 
 @import "bootstrap-sprockets";
@@ -43,3 +44,11 @@ table{
   }
 }
 // Tables -- End
+
+// notifsTempo -- Begin
+.notifs-tempo{
+  position: fixed;
+  top: 60px;
+  right: 10px;
+}
+// notifsTempo -- End

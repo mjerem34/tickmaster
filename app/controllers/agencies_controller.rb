@@ -1,4 +1,3 @@
-# Defines the agencies, ping, delete, create, show and delete them.
 class AgenciesController < ApplicationController
   before_action :set_agency, only: [:show, :edit, :update, :destroy]
   before_action :set_expiration

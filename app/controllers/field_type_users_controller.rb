@@ -27,6 +27,11 @@ class FieldTypeUsersController < ApplicationController
       @field_type_user = FieldTypeUser.new(field_type_user_params)
       respond_to do |format|
         if @field_type_user.save
+          if params[:field_type_user][:all] == 'true'
+            TypeUser.all.each do |type_user|
+              FieldTypeUserTypeUser.find_or_create_by(type_user_id: type_user.id, field_type_user_id: @field_type_user.id)
+            end
+          end
           format.js
           format.json do
             render json: @field_type_user.id,
@@ -106,6 +111,6 @@ class FieldTypeUsersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white
   # list through.
   def field_type_user_params
-    params.require(:field_type_user).permit(:name)
+    params.require(:field_type_user).permit(:name, :all)
   end
 end

@@ -55,7 +55,7 @@ $("input:text:visible:first").focus();
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
-$('.datatable').DataTable({
+$('.dataTable').DataTable({
   dom: "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
   pagingType: "bootstrap",
   responsive: true
