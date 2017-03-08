@@ -19,56 +19,25 @@ $(document).ready(function(){
     }
   });
 
-  // Récupère les informations du type utilisateur pour permettre le changement
-  $(document).on('click', '.type_user_name', function(){
-    $(this).removeClass('type_user_name');
-    // Prend l'id du type utilisateur
-    $.dataTypeUser = $(this).children("h5").data("type_user");
-    // Prend l'ancien nom du type utilisateur
-    $.h5Text = $(this).children("h5").html();
-    $(this).children('img').addClass('save');
-    $(this).children("h5").replaceWith('<h5 class="modal-title" data-type_user=' + $.dataTypeUser + '><input class="form-control" id="type_user_name_text"  type="text" value="' + $.h5Text + '"></h5>');
-    $("#type_user_name_text").focus();
-  });
-
   // Valide les changements quand on clique sur 'Entrée'
   // Récupère la variable $.dataTypeUser de la fonction au dessus
   // Ne pas séparer ces deux fonctions
-  $(document).on('keyup','#type_user_name_text', function(e){
+  $(document).on('keyup','input[name="type_user_name_modal"]', function(e){
     if(e.keyCode == 13){
-      $.this = $(this);
-      $.finalText = $.this.val();
-      $.this.parent("h5").parent("span").addClass('type_user_name');
-
-      if($.finalText == $.h5Text){
-        $('img.save').removeClass('save');
-        $.this.replaceWith($.h5Text);
-      }else{
         $.ajax({
-          url: '/type_users/'+$.dataTypeUser,
+          url: '/type_users/' + $(this).data('type-user'),
           type: 'PUT',
           dataType: 'script',
           data: {
             type_user: {
-              name: $.finalText
+              name: $(this).val()
             }
           },
           error: function(result){
-            $.this.parent("h5").parent("span").children('img').removeClass('save');
-            $.this.parent("h5").replaceWith($.h5Text);
-            alert(result.responseText);
+            notifError(result.responseText);
           }
         });
-      }
-
     }
-  });
-
-  // Annule les changements quand on quitte l'input pour changer le nom du type utilisateur
-  $(document).on('focusout', '#type_user_name_text', function(){
-    $(this).parent("h5").parent("span").addClass('type_user_name');
-    $(this).parent("h5").parent("span").children('img').removeClass('save');
-    $(this).replaceWith($.h5Text)
   });
 
   // Mise a jour des champs quand on clique sur le bouton oui/non
@@ -165,5 +134,30 @@ $(document).ready(function(){
       $(this).children('label').css("left", "3px");
       $(this).children('input[type="checkbox"]').prop('checked', false);
     }
+  });
+});
+
+
+$(document).on('click', '#delete_type_user', function(){
+  var typeUserId = $(this).data('type-user');
+  swal({
+    title: "Attention !",
+    text: "Êtes vous sûr de vouloir supprimer ce type utilisateur ?",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Oui",
+    cancelButtonText: "Non",
+    closeOnConfirm: true,
+    closeOnCancel: true
+  },
+  function(){
+    $.ajax({
+      url: '/type_users/' + typeUserId,
+      type: 'delete',
+      error: function(result){
+        notifError(result.responseText);
+      }
+    });
   });
 });

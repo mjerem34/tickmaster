@@ -50,5 +50,22 @@ table{
   position: fixed;
   top: 60px;
   right: 10px;
+  z-index: 1;
 }
 // notifsTempo -- End
+
+
+// Texts -- Begin
+h1.home{
+  text-align: center;
+}
+// Texts -- End
+
+// Blocks -- Begin
+section.content{
+  min-height: 100vh;
+}
+div.login-page, div.signup-page{
+  min-height: 95vh;
+}
+// Blocks -- End

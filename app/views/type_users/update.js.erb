@@ -1,4 +1,2 @@
-$("div#<%= @type_user.id %> > .modal-dialog > .modal-content > .modal-header > span.type_user_name > img").removeClass('save');
-$("div#<%= @type_user.id %> > .modal-dialog > .modal-content > .modal-header > span.type_user_name > h5").replaceWith("<h5 class='modal-title' data-type_user='" + $.dataTypeUser + "'>" + $.finalText + "</h5>");
-$("td[data-target='#<%= @type_user.id%>']").replaceWith("<td data-toggle='modal' data-target='#" + $.dataTypeUser + "'>" + $.finalText + "</td>");
-sweetAlert("Bravo ! :)", "Modification réussie !", "success");
+$("td[data-target='#<%= @type_user.id%>']").replaceWith("<td data-toggle='modal' data-target='#<%= @type_user.id %>'><%= @type_user.name %></td>");
+notifSuccess("Le type utilisateur a bien été modifié !");

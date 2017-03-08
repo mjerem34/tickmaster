@@ -1,30 +1,36 @@
 <% if current_user == nil %>
   <% content_for :form do %>
 
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-8 col-lg-offset-2">
+    <h1 class="home">Bienvenue sur la page d'accueil de TickMaster.</h1><br><br><br><br><br><br><br>
+  </div>
+</div>
   <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-      <h1 class="home">Bienvenue sur la page d'accueil de TickMaster.</h1><br><br><br><br><br><br><br>
+    <div class="col-sm-12 col-md-12 col-lg-4 col-lg-offset-4">
       <%= form_tag @user, class: "connect-user" do %>
         <div class="field form-group">
           <%= email_field_tag :email, params[:email], class: "form-control pseudo-entry", placeholder: "Adresse email", required: true %>
         </div>
         <div class="actions form-group">
-          <%= submit_tag "Valider", class:"btn btn-success btn-validate" %>
+          <%= submit_tag "Valider", class:"btn btn-success btn-flat btn-block" %>
         </div>
         <div class="row">
           <div class="col-md-6">
-            <%= link_to "S'inscrire", signup_path, class: "btn btn-inscription"%>
+            <%= link_to "S'inscrire", signup_path, class: "btn btn-flat btn-block btn-primary"%>
           </div>
           <div class="col-md-6">
-            <%= link_to 'Se connecter', signin_path, class: "btn btn-pseudo" %>
+            <%= link_to 'Se connecter', signin_path, class: "btn btn-danger btn-block btn-flat" %>
           </div>
         </div>
       <% end %>
-
     </div>
-    <div class="col-md-4"></div>
   </div>
+  <style media="screen">
+    .content-wrapper{
+      margin-left: 0 !important;
+    }
+  </style>
   <% end %>
   <% else %>
   <%= flash.now[:alert] = "Vous êtes déjà connecté, pour voir votre pseudonyme, rendez vous sur la page 'Mon profil'." %>

@@ -136,11 +136,15 @@ class TypeUsersController < ApplicationController
     @destroy_type_users = verifRight('destroy_type_users')
     if @destroy_type_users
       respond_to do |format|
-        if @type_user.destroy
-          @type_user.users.each { |user| !@type_user.actif ? user.update(actif: false) : user.update(actif: true) }
-          format.json { head :no_content }
+        if @type_user.users.any?
+          format.json { render json: 'Vous ne pouvez pas supprimer ce type utilisateur car il contient des utilisateurs', status: :unprocessable_entity }
         else
-          format.json { render json: @type_user.errors, status: :unprocessable_entity }
+          if @type_user.destroy
+            format.js
+            format.json { head :no_content }
+          else
+            format.json { render json: @type_user.errors, status: :unprocessable_entity }
+          end
         end
       end
     else

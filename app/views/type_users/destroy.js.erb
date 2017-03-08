@@ -1,0 +1,3 @@
+$("tr[data-type-user='<%= @type_user.id %>']").remove();
+$(".modal#<%= @type_user.id%>").parent().remove();
+notifSuccess("Le type utilisateur a bien été supprimé !");

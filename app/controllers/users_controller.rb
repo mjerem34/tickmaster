@@ -121,6 +121,7 @@ class UsersController < ApplicationController
 
   # GET /users/new_user
   def new_user
+    @title = "S'inscrire"
     @user = User.new
     @type_users = TypeUser.where(is_tech: false, actif: true)
   end

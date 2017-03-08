@@ -29,7 +29,7 @@
         </td>
       </tr>
       <% @type_users.each do |type_user| %>
-        <tr>
+        <tr data-type-user="<%= type_user.id %>">
           <td data-toggle="modal" data-target="#<%= type_user.id %>"><%= type_user.name %></td>
           <td>
             <div class="slideThree tableRight">
@@ -62,7 +62,8 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">Type utilisateur :</h4>
-            <span class="type_user_name"><h5 class="modal-title" data-type_user="<%= type_user.id%>" ><%= type_user.name%></h5><%= image_tag 'ICONS/1004.png', size: "20x20", class: "edit_img" %></span>
+            <i>Appuyez sur Entrée pour confirmer la modification</i>
+            <input type="text" name="type_user_name_modal" data-type-user="<%= type_user.id%>" value="<%= type_user.name %>" class="form-control">
           </div>
           <div class="modal-body">
             <div class="table-responsive">
@@ -88,7 +89,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger btn-modal" data-dismiss="modal">Fermer</button>
+            <button type="button" id="delete_type_user" data-type-user='<%= type_user.id %>' class="btn btn-danger btn-modal" data-dismiss="modal">Supprimer</button>
+            <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Fermer</button>
           </div>
         </div>
       </div>
@@ -104,6 +106,7 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Attribution des droits au type utilisateur</h4>
+          <i>C'est ici que vous attribuez les droits a ce nouveau type d'utilisateur</i>
         </div>
         <div class="modal-body">
           <div class="row">
@@ -144,21 +147,25 @@
             </div>
           </div>
           <hr>
-          <% @rights.each do |right| %>
-          <div class="list-rights">
-            <div class="row">
-              <div class="col-md-6">
-                <p><%= right.content %></p>
-              </div>
-                <div class="col-md-6">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <th>Droit concerné</th>
+              <th>Accès</th>
+            </thead>
+            <tbody>
+              <% @rights.each do |right| %>
+              <tr>
+                <td><%= right.content %></td>
+                <td>
                   <div class="slideThree">
                     <input class="form-control" type="checkbox" name="new_type_user_rights_checkbox" value="<%= right.id %>">
                     <label for="checkbox-right"></label>
                   </div>
-                </div>
-              </div>
-            </div>
-          <% end %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
         <div class="modal-footer">
           <button id="save_new_type_user" name="save_new_type_user" type="button" class="btn btn-success" data-dismiss="modal">Enregistrer</button>
