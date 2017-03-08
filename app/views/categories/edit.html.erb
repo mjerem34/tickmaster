@@ -7,7 +7,7 @@
     <%= f.text_field :name, class: "form-control ", placeholder: "Nom(champ requis)", "data-id": "#{@category.id}" %>
   </div>
   <div class="col-md-4">
-    <%= f.submit "", id: "sendButton", class: "btn btn-success btn-edit-category ", data: { confirm: 'Êtes vous sûr de vouloir editer cette catégorie ?' } %>
+    <%= f.submit "", id: "sendButton", class: "btn btn-flat btn-success btn-edit-category ", data: { confirm: 'Êtes vous sûr de vouloir editer cette catégorie ?' } %>
   </div>
 </div>
     <% if @category.errors[:name].first != nil %>
@@ -54,7 +54,7 @@
             <tr class="formsnewsubcats">
             <td class='newsubcat'><input type="text" id="sous_category_name" class="form-control" placeholder="Nom(Requis)" style="margin-left:0px;"></td>
             <td class='newsubcat'><%= select_tag "sous_category[lvl_urgence_max]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10" selected="selected">10</option>'.html_safe, class: 'form-control ', style: "margin-left:0px;" %></td>
-            <td class='newsubcat'><button class="btn btn-success > submit" id="sendSubCatButton">+</button></td>
+            <td class='newsubcat'><button class="btn btn-flat btn-success > submit" id="sendSubCatButton">+</button></td>
             <td></td>
           </tr>
       </tbody>
@@ -100,4 +100,4 @@ $(document).ready(function(){
 });
 </script>
 <br>
-<%= link_to 'Annuler', categories_path, class: "btn btn-danger btn-align " %>
+<%= link_to 'Annuler', categories_path, class: "btn btn-flat btn-danger btn-align " %>

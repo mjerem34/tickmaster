@@ -10,12 +10,12 @@
   <tbody>
     <tr>
       <td><input type='text' name='name' value='' placeholder='Nom du champ' class='form-control' id='name_new_spec_type_material'/></td>
-      <td><button type='button' name='button' class='btn btn-success' id='create_new_spec_type_material'>+</button></td>
+      <td><button type='button' name='button' class='btn btn-flat btn-success' id='create_new_spec_type_material'>+</button></td>
     </tr>
     <% @spec_type_materials.each do |spec_type_material| %>
       <tr id='<%= spec_type_material.id %>'>
         <td><input type='text' name='name' value='<%= spec_type_material.name %>' class='form-control' id='input_spec_type_material'></td>
-        <td><button type='button' name='button' class='btn btn-danger' id='delete_spec_type_material'>-</button></td>
+        <td><button type='button' name='button' class='btn btn-flat btn-danger' id='delete_spec_type_material'>-</button></td>
       </tr>
     <% end %>
   </tbody>

@@ -13,14 +13,14 @@
           <%= email_field_tag :email, params[:email], class: "form-control pseudo-entry", placeholder: "Adresse email", required: true %>
         </div>
         <div class="actions form-group">
-          <%= submit_tag "Valider", class:"btn btn-success btn-flat btn-block" %>
+          <%= submit_tag "Valider", class:"btn btn-flat btn-success btn-flat btn-block" %>
         </div>
         <div class="row">
           <div class="col-md-6">
-            <%= link_to "S'inscrire", signup_path, class: "btn btn-flat btn-block btn-primary"%>
+            <%= link_to "S'inscrire", signup_path, class: "btn btn-flat btn-flat btn-block btn-primary"%>
           </div>
           <div class="col-md-6">
-            <%= link_to 'Se connecter', signin_path, class: "btn btn-danger btn-block btn-flat" %>
+            <%= link_to 'Se connecter', signin_path, class: "btn btn-flat btn-danger btn-block btn-flat" %>
           </div>
         </div>
       <% end %>

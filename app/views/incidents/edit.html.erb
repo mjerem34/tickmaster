@@ -24,7 +24,7 @@
         <td>
           <ol>
             <% response.file_responses.each do |file| %>
-            <li><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-default btn-link-pj')%></li>
+            <li><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-flat btn-default btn-link-pj')%></li>
             <% end %>
           </ol>
         </td>
@@ -53,7 +53,7 @@
                 <p><%= strip_tags(response.content) %></p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-flat btn-default btn-modal" data-dismiss="modal">Fermer</button>
               </div>
             </div>
 
@@ -93,7 +93,7 @@
         <td>
           <ol>
             <% file_responses.each do |file| %>
-            <li><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-default btn-link-pj')%></li>
+            <li><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-flat btn-default btn-link-pj')%></li>
             <% end %>
           </ol>
         </td>
@@ -122,7 +122,7 @@
                 <p><%= strip_tags(response.content) %></p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-flat btn-default btn-modal" data-dismiss="modal">Fermer</button>
               </div>
             </div>
 
@@ -141,7 +141,7 @@
 </div>
 <ul class="buttons-edit-incident-right buttons">
   <li>
-    <button class="btn btn-response" name="button" type="button">Message</button>
+    <button class="btn btn-flat btn-response" name="button" type="button">Message</button>
   </li>
 
   <script>
@@ -205,17 +205,17 @@
   </script>
   <% if @incident.incident_state_id_for_tech != 12 && @ask_for_reaffect && @incident.tech_id == current_user.id && !clotured_or_rejected?(@incident)%>
   <li>
-    <button class="btn btn-reaffect " name="button" type="button">Réaffecter</button>
+    <button class="btn btn-flat btn-reaffect " name="button" type="button">Réaffecter</button>
   </li>
   <% end %>
   <% if @cloture_incidents %>
   <li>
-    <button class="btn btn-cloture " name="button" type="button">Cloturer</button>
+    <button class="btn btn-flat btn-cloture " name="button" type="button">Cloturer</button>
   </li>
   <% end %>
   <% if @reject_incidents %>
   <li>
-    <button class="btn btn-reject " name="button" type="button">Rejeter</button>
+    <button class="btn btn-flat btn-reject " name="button" type="button">Rejeter</button>
   </li>
   <% end %>
   <% if @create_procedure %>
@@ -225,7 +225,7 @@
   <% end %>
   <li><%= link_to "Procedure", new_procedure_path(nom: @incident.title,
 contenu: @incident.content, category_id: @incident.category_id,
-sous_category_id: @incident.sous_category_id, messages: @reps), class: "btn btn-default btn-procedure " %></li>
+sous_category_id: @incident.sous_category_id, messages: @reps), class: "btn btn-flat btn-default btn-procedure " %></li>
   <% end %>
 </ul>
 <% end %>
@@ -239,7 +239,7 @@ sous_category_id: @incident.sous_category_id, messages: @reps), class: "btn btn-
   <% end %>
   <li><%= link_to "Procedure", new_procedure_path(nom: @incident.title,
     contenu: @incident.content, category_id: @incident.category_id,
-    sous_category_id: @incident.sous_category_id, messages: @reps), class: "btn btn-procedure " %></li>
+    sous_category_id: @incident.sous_category_id, messages: @reps), class: "btn btn-flat btn-procedure " %></li>
 </ul>
 <% end %>
 <% end %>

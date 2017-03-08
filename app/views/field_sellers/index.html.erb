@@ -9,12 +9,12 @@
     <tbody>
       <tr>
         <td><input type="text" name="name_field_seller" value="" placeholder="Nom du champ" class='form-control' id='name_new_field_seller'/></td>
-        <td><button type="button" name="add_field_seller" class='btn btn-success' id='add_field_seller'>+</button></td>
+        <td><button type="button" name="add_field_seller" class='btn btn-flat btn-success' id='add_field_seller'>+</button></td>
       </tr>
       <% @field_sellers.each do |field_seller| %>
         <tr id='<%= field_seller.id %>'>
           <td><input type='text' name='field_seller_name' id='name_field_seller' value='<%= field_seller.name %>' class='form-control'/></td>
-          <td><button type="button" name="delete_field_sellers" class='btn btn-danger' id='delete_field_sellers'>-</button></td>
+          <td><button type="button" name="delete_field_sellers" class='btn btn-flat btn-danger' id='delete_field_sellers'>-</button></td>
         </tr>
       <% end %>
     </tbody>

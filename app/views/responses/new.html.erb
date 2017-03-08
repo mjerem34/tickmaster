@@ -12,7 +12,7 @@
     <% end %>
   </div><br>
   <div class="actions">
-    <%= f.submit "Valider", id: "sendButton", class: "btn btn-success btn-align  " %><br>
+    <%= f.submit "Valider", id: "sendButton", class: "btn btn-flat btn-success btn-align  " %><br>
   </div>
   <% else %>
   <p>
@@ -21,4 +21,4 @@
   <% end %>
 <% end %>
 <br>
-<%= link_to 'Annuler', edit_incident_path(@incident), class: "btn btn-danger btn-align " %>
+<%= link_to 'Annuler', edit_incident_path(@incident), class: "btn btn-flat btn-danger btn-align " %>

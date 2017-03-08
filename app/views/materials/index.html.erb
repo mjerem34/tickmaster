@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr><td colspan='4'><%= link_to "Nouveau matériel", new_material_url, class: 'btn btn-success btn-block', id: 'create_new_material'%><td></tr>
+    <tr><td colspan='4'><%= link_to "Nouveau matériel", new_material_url, class: 'btn btn-flat btn-success btn-block', id: 'create_new_material'%><td></tr>
     <% @materials.each do |material| %>
       <tr data-dismiss="modal" data-toggle="modal" data-target="#<%= material.id %>">
         <td><%= material.type_material.name %></td>
@@ -56,9 +56,9 @@
                 <% end %>
               </div>
               <div class="modal-footer">
-                <%= link_to 'Editer', edit_material_path(material), class: 'btn btn-success' %>
-                <%= link_to 'Supprimer', material, method: :delete, data: { confirm: 'Êtes vous sûr de vouloir supprimer ce matériel ?' }, class: 'btn btn-primary' %>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                <%= link_to 'Editer', edit_material_path(material), class: 'btn btn-flat btn-success' %>
+                <%= link_to 'Supprimer', material, method: :delete, data: { confirm: 'Êtes vous sûr de vouloir supprimer ce matériel ?' }, class: 'btn btn-flat btn-primary' %>
+                <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Fermer</button>
               </div>
             </div>
           </div>

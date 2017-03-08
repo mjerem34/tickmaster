@@ -1,8 +1,8 @@
 <br>
 <% if @ping_agencies then %>
-<button type="button" name="button" class="btn btn-success" id="agencies_ping">Pinger toutes les agences</button>
-<button type="button" name="button" class="btn btn-danger" id="agencies_ping_cancel">Stopper</button>
-<button type="button" data-toggle="modal" data-target="#modalCreateGraphics" name="button" id="btn-do-graphic" class="btn btn-default btn-do-graphic">Faire le graphique</button>
+<button type="button" name="button" class="btn btn-flat btn-success" id="agencies_ping">Pinger toutes les agences</button>
+<button type="button" name="button" class="btn btn-flat btn-danger" id="agencies_ping_cancel">Stopper</button>
+<button type="button" data-toggle="modal" data-target="#modalCreateGraphics" name="button" id="btn-do-graphic" class="btn btn-flat btn-default btn-do-graphic">Faire le graphique</button>
 <%= render 'agenciesJavascript'%>
 <%= render 'modalCreateGraphics'%>
 <% end %>
@@ -32,10 +32,10 @@
           <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.ip_adress == "NULL" ? "" : agency.ip_adress %></td>
           <% if agency.ip_adress != "NULL" %>
           <td id="agencyTd<%= agency.id %>" class="hover-cellule <%= agency.id %>">
-            <button type="button" name="button" data-id="<%= agency.id %>" data-ip="<%= agency.ip_adress%>" data-name="<%= agency.name %>" class="btn btn-default button_ping_agency">Ping</button>
+            <button type="button" name="button" data-id="<%= agency.id %>" data-ip="<%= agency.ip_adress%>" data-name="<%= agency.name %>" class="btn btn-flat btn-default button_ping_agency">Ping</button>
           </td>
           <td id="agencyTd<%= agency.id %>" class="hover-cellule <%= agency.id %>">
-            <button type="button" name="button" data-id="<%= agency.id %>" data-ip="<%= agency.ip_adress%>" data-name="<%= agency.name %>" class="btn btn-default button_ping_stop_agency">Stop</button>
+            <button type="button" name="button" data-id="<%= agency.id %>" data-ip="<%= agency.ip_adress%>" data-name="<%= agency.name %>" class="btn btn-flat btn-default button_ping_stop_agency">Stop</button>
           </td>
         <% else %>
           <td></td>
@@ -63,9 +63,9 @@
                         <%= agency.ip_adress == "NULL" ? "" : agency.ip_adress %></p>
                     </div>
                     <div class="modal-footer">
-                      <%= link_to "Editer", edit_agency_path(agency), class: "btn btn-primary"%>
-                      <%= link_to "Liste des incidents", agency, class: "btn btn-success"%>
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                      <%= link_to "Editer", edit_agency_path(agency), class: "btn btn-flat btn-primary"%>
+                      <%= link_to "Liste des incidents", agency, class: "btn btn-flat btn-success"%>
+                      <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Fermer</button>
                     </div>
                   </div>
 
@@ -87,7 +87,7 @@
                     <div class="modal-body">
                       <!-- Contenu -->
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Fermer</button>
                       </div>
                     </div>
 
@@ -120,7 +120,7 @@
                             <%= agency.name %></p>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Fermer</button>
+                              <button type="button" class="btn btn-flat btn-default btn-modal" data-dismiss="modal">Fermer</button>
                             </div>
                           </div>
 

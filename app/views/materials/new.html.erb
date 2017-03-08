@@ -6,7 +6,7 @@
       <h3>Vous devez être ici pour ajouter un matériel, dans ce cas, cliquez ci-dessous :</h3>
     </div>
     <div class="col-md-8 col-md-offset-2">
-      <button type="button" name="button" class="btn btn-success btn-add-new-material" data-dismiss="modal" data-toggle="modal" data-target="#NewMaterial" id='new_material_btn'>Ajouter un matériel</button>
+      <button type="button" name="button" class="btn btn-flat btn-success btn-add-new-material" data-dismiss="modal" data-toggle="modal" data-target="#NewMaterial" id='new_material_btn'>Ajouter un matériel</button>
     </div>
   </div>
 </div>
@@ -27,8 +27,8 @@
           </div>
           <div class="modal-footer">
             <p>1/6</p>
-            <button id="TypeMaterialNext" type="button" class="btn btn-success btn-next1" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSpecs">Suivant</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+            <button id="TypeMaterialNext" type="button" class="btn btn-flat btn-success btn-next1" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSpecs">Suivant</button>
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
                   <br>
                 </div>
                 <div class='col-md-4' id='div-btns-delete-row'>
-                    <button class='btn btn-danger' id='btn-delete-row'>&#8211;</button>
+                    <button class='btn btn-flat btn-danger' id='btn-delete-row'>&#8211;</button>
                     <br><br>
                 </div>
               </div>
@@ -72,16 +72,16 @@
             </div>
               <div class="row">
                 <div class="col-md-8">
-                  <button type="button" name="button" class="btn btn-success" id="add-fields-specs-types" style="width:100%;">+</button>
+                  <button type="button" name="button" class="btn btn-flat btn-success" id="add-fields-specs-types" style="width:100%;">+</button>
                 </div>
               </div>
           </div>
           <div class="modal-footer">
             <p>2/6</p>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#NewMaterial">Précédent</button>
-            <button type="button" class="btn btn-success btn-next" id="ChoiceSellerTest">Suivant</button>
-            <button type="button" class="btn btn-success" id="ChoiceSellerOk" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSeller" style="display:none;"></button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-flat btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#NewMaterial">Précédent</button>
+            <button type="button" class="btn btn-flat btn-success btn-next" id="ChoiceSellerTest">Suivant</button>
+            <button type="button" class="btn btn-flat btn-success" id="ChoiceSellerOk" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSeller" style="display:none;"></button>
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@
             }
               $('#fields-specs-types-materials > .row:last > #fields-specs-types-titles > select[name="all-specs-types"]').selectize({create: true, persist: false});
           $('#fields-specs-types-materials > .row:last > #fields-specs-types-values').append("<input type='text' class='form-control'><br>");
-          $('#fields-specs-types-materials > .row:last > #div-btns-delete-row').append("<button class='btn btn-danger' id='btn-delete-row'>&#8211;</button><br><br>");
+          $('#fields-specs-types-materials > .row:last > #div-btns-delete-row').append("<button class='btn btn-flat btn-danger' id='btn-delete-row'>&#8211;</button><br><br>");
         }
       });
     });
@@ -179,14 +179,14 @@
                     <input type="text" name="name" value="<%= fss.content %>" class="form-control"><br>
                   </div>
                   <div class="col-md-4" id="div-btns-delete-row">
-                    <button type="button" name="button" class='btn btn-danger' id="btn-delete-row">&#8211;</button>
+                    <button type="button" name="button" class='btn btn-flat btn-danger' id="btn-delete-row">&#8211;</button>
                   </div>
                 </div>
               <% end %>
               </div>
               <div class="row">
                 <div class="col-md-8">
-                  <button type="button" name="button" class="btn btn-success" id="add-fields-sellers" style="width:100%;">+</button>
+                  <button type="button" name="button" class="btn btn-flat btn-success" id="add-fields-sellers" style="width:100%;">+</button>
                 </div>
               </div>
             </div>
@@ -221,7 +221,7 @@
                       }
                         $('#fields-sellers > .row:last > #fields-sellers-titles > select[name="all-fields-sellers"]:last').selectize({create: true, persist: false});
                     $('#fields-sellers > .row:last > #fields-sellers-values').append("<input type='text' class='form-control'><br>");
-                    $('#fields-sellers > .row:last > #div-btns-delete-row').append("<button class='btn btn-danger' id='btn-delete-row'>&#8211;</button><br><br>");
+                    $('#fields-sellers > .row:last > #div-btns-delete-row').append("<button class='btn btn-flat btn-danger' id='btn-delete-row'>&#8211;</button><br><br>");
                   }
                 });
               });
@@ -255,10 +255,10 @@
           </script>
           <div class="modal-footer">
             <p>3/6</p>
-            <button type="button" id="ChoiceSpecsReturn" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSpecs">Précédent</button>
-            <button type="button" class="btn btn-success btn-next" id="ChoiceTypeDetentorTestBtn">Suivant</button>
+            <button type="button" id="ChoiceSpecsReturn" class="btn btn-flat btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSpecs">Précédent</button>
+            <button type="button" class="btn btn-flat btn-success btn-next" id="ChoiceTypeDetentorTestBtn">Suivant</button>
             <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceTypeDetentor" style="display:none;" id="ChoiceTypeDetentorOkBtn"></button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
       </div>
@@ -284,9 +284,9 @@
           </div>
           <div class="modal-footer">
             <p>4/6</p>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSeller">Précédent</button>
-            <button type="button" class="btn btn-success btn-next" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceDetentor">Suivant</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-flat btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceSeller">Précédent</button>
+            <button type="button" class="btn btn-flat btn-success btn-next" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceDetentor">Suivant</button>
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
       </div>
@@ -313,9 +313,9 @@
           </div>
           <div class="modal-footer">
             <p>5/6</p>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceTypeDetentor">Précédent</button>
-            <button id="VerifAndValidBtn" type="button" class="btn btn-success btn-next" data-dismiss="modal" data-toggle="modal" data-target="#VerifAndValid">Suivant</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-flat btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceTypeDetentor">Précédent</button>
+            <button id="VerifAndValidBtn" type="button" class="btn btn-flat btn-success btn-next" data-dismiss="modal" data-toggle="modal" data-target="#VerifAndValid">Suivant</button>
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
       </div>
@@ -407,9 +407,9 @@
           </script>
           <div class="modal-footer">
             <p>6/6</p>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceDetentor">Précédent</button>
-            <button type="button" class="btn btn-success btn-next" id="createMaterialOk" data-dismiss="modal">Créer</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-flat btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#ChoiceDetentor">Précédent</button>
+            <button type="button" class="btn btn-flat btn-success btn-next" id="createMaterialOk" data-dismiss="modal">Créer</button>
+            <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
       </div>

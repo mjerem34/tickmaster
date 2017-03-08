@@ -25,7 +25,7 @@
           </div>
         </td>
         <td>
-            <input id="choose_rights_new_type_user" class="btn btn-success" type="button" name="choose_rights_new_type_user" value="+" data-target='#new_type_user_modal' data-toggle="modal">
+            <input id="choose_rights_new_type_user" class="btn btn-flat btn-success" type="button" name="choose_rights_new_type_user" value="+" data-target='#new_type_user_modal' data-toggle="modal">
         </td>
       </tr>
       <% @type_users.each do |type_user| %>
@@ -76,12 +76,12 @@
                 <tbody>
                   <tr>
                     <td><%= select_tag 'new_field_type_user', options_for_select(@field_type_users.collect{|ftu| [ftu.name, ftu.id]}), class: "dropdownSearchCreate form-control" %></td>
-                    <td><button type="button" class="btn btn-success" id="add_field_type_user" data-id-type-user="<%= type_user.id %>">+</button></td>
+                    <td><button type="button" class="btn btn-flat btn-success" id="add_field_type_user" data-id-type-user="<%= type_user.id %>">+</button></td>
                   </tr>
                   <% type_user.field_type_user_type_users.each do |ftutu| %>
                   <tr>
                     <td><%= ftutu.field_type_user.name %></td>
-                    <td><button type="button" class="btn btn-danger" id="remove_ftutu">-</button></td>
+                    <td><button type="button" class="btn btn-flat btn-danger" id="remove_ftutu">-</button></td>
                   </tr>
                   <% end %>
                 </tbody>
@@ -89,8 +89,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" id="delete_type_user" data-type-user='<%= type_user.id %>' class="btn btn-danger btn-modal" data-dismiss="modal">Supprimer</button>
-            <button type="button" class="btn btn-default btn-modal" data-dismiss="modal">Fermer</button>
+            <button type="button" id="delete_type_user" data-type-user='<%= type_user.id %>' class="btn btn-flat btn-danger btn-modal" data-dismiss="modal">Supprimer</button>
+            <button type="button" class="btn btn-flat btn-default btn-modal" data-dismiss="modal">Fermer</button>
           </div>
         </div>
       </div>
@@ -168,8 +168,8 @@
           </table>
         </div>
         <div class="modal-footer">
-          <button id="save_new_type_user" name="save_new_type_user" type="button" class="btn btn-success" data-dismiss="modal">Enregistrer</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+          <button id="save_new_type_user" name="save_new_type_user" type="button" class="btn btn-flat btn-success" data-dismiss="modal">Enregistrer</button>
+          <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Fermer</button>
         </div>
       </div>
     </div>

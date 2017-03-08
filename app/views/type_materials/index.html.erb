@@ -10,12 +10,12 @@
     <tbody>
       <tr>
         <td><input type="text" name="name" value="" placeholder="Nom du champ" class="form-control" id='name_new_type_material'></td>
-        <td><button type='button' name='button' class='btn btn-success' id='create_new_type_material'>+</button></td>
+        <td><button type='button' name='button' class='btn btn-flat btn-success' id='create_new_type_material'>+</button></td>
       </tr>
       <% @type_materials.each do |type_material| %>
         <tr id='<%= type_material.id %>' data-dismiss="modal" data-toggle="modal" data-target="#modal_type_material_<%= type_material.id %>">
           <td><%= type_material.name %></td>
-          <td><button type="button" name="button" class="btn btn-danger" id='delete_type_material'>-</button></td>
+          <td><button type="button" name="button" class="btn btn-flat btn-danger" id='delete_type_material'>-</button></td>
         </tr>
       <% end %>
     </tbody>
@@ -43,12 +43,12 @@
                 <tbody>
                   <tr>
                     <td><%= select_tag 'name_new_spec_type_material', options_for_select(@spec_type_materials.collect{|spec_type_material| [spec_type_material.name, spec_type_material.id]}), class: "dropdownSearchCreate" %></td>
-                    <td><button type="button" name="button" class="btn btn-success" data-type-material-id="<%= type_material.id %>" id="new_spec_type_material">+</button></td>
+                    <td><button type="button" name="button" class="btn btn-flat btn-success" data-type-material-id="<%= type_material.id %>" id="new_spec_type_material">+</button></td>
                   </tr>
                   <% type_material.type_material_spec_type_materials.each do |type_material_spec_type_material| %>
                   <tr data-spec-type-material-id="<%= type_material_spec_type_material.spec_type_material.id %>" data-type-material-id="<%= type_material.id %>">
                     <td><%= type_material_spec_type_material.spec_type_material.name  %></td>
-                    <td><button type="button" name="button" class="btn btn-danger" id="delete_spec_type_material">-</button></td>
+                    <td><button type="button" name="button" class="btn btn-flat btn-danger" id="delete_spec_type_material">-</button></td>
                   </tr>
                   <% end %>
                 </tbody>
@@ -56,7 +56,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger btn-modal" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-flat btn-danger btn-modal" data-dismiss="modal">Fermer</button>
           </div>
         </div>
       </div>
