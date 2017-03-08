@@ -2823,3 +2823,28 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (101,2
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (101,21,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (101,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (101,23,1);
+
+INSERT INTO `Tickets_development`.`rights` (`id`, `name`, `content`) VALUES ('102', 'force_destroy_field_type_user', 'Autorisé à supprimer un champ de type utilisateur même si un utilisateur l\'a déjà renseigné');
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,1,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,2,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,3,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,4,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,5,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,6,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,7,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,8,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,9,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,10,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,11,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,12,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,13,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,14,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,15,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,16,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,17,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,18,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,19,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,20,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,21,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,22,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,23,1);

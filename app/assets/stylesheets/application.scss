@@ -43,6 +43,10 @@ table{
     }
   }
 }
+// Tables dans les modals, pour rendre visible les select en bas de modal
+div.modal-body > div.table-responsive{
+  overflow-x: visible;
+}
 // Tables -- End
 
 // notifsTempo -- Begin
@@ -50,7 +54,7 @@ table{
   position: fixed;
   top: 60px;
   right: 10px;
-  z-index: 1;
+  z-index: 9999;
 }
 // notifsTempo -- End
 

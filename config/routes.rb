@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     member do
       delete :disable_type_users
       post :add_field_type_user
+      delete :delete_field_type_user
     end
   end
   resources :field_type_users

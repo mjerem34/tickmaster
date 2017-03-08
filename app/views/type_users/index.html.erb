@@ -1,5 +1,5 @@
 <div class="table-responsive">
-  <table class="table table-hover">
+  <table class="table table-hover table-bordered table-type-users">
     <thead class="header">
       <tr>
         <th>Nom</th>
@@ -81,7 +81,7 @@
                   <% type_user.field_type_user_type_users.each do |ftutu| %>
                   <tr>
                     <td><%= ftutu.field_type_user.name %></td>
-                    <td><button type="button" class="btn btn-flat btn-danger" id="remove_ftutu">-</button></td>
+                    <td><button type="button" class="btn btn-flat btn-danger" id="remove_ftutu" data-type-user-id="<%= type_user.id %>" data-field-type-user-id="<%= ftutu.field_type_user.id %>">-</button></td>
                   </tr>
                   <% end %>
                 </tbody>
@@ -158,7 +158,7 @@
                 <td><%= right.content %></td>
                 <td>
                   <div class="slideThree">
-                    <input class="form-control" type="checkbox" name="new_type_user_rights_checkbox" value="<%= right.id %>">
+                    <input class="form-control right_access" type="checkbox" name="new_type_user_rights_checkbox" value="<%= right.id %>">
                     <label for="checkbox-right"></label>
                   </div>
                 </td>

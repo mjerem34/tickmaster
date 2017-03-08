@@ -11,12 +11,65 @@ $(document).ready(function(){
           name: $.newFieldUser
         },
         error: function(result){
-          sweetAlert("Oups...", result.responseText, "error");
+          notifError(result.responseText);
         }
       });
     }else{
-      sweetAlert("Oups... :(", "Merci de remplir tous les champs", "error");
+      notifAlert("Merci de remplir tous les champs");
     }
+  });
+
+  // Supprimer Field type user liaison
+  $(document).on('click', '#remove_ftutu', function(){
+    $.this = $(this);
+    $.ajax({
+      url: '/type_users/' + $.this.data('type-user-id') + '/delete_field_type_user',
+      type: 'DELETE',
+      dataType: 'script',
+      data: {
+        field_type_user: {
+          id: $.this.data('field-type-user-id')
+        },
+        force: false
+      },
+      error: function(result){
+        if (result.status == 401) {
+          swal({
+            title: "Attention !",
+            text: "Ce champ ne peut pas être supprimé car un ou plusieurs utilisateurs ont renseigné ce champ dans leur profil. Voulez-vous forcer cette suppression et supprimer les données de l'utilisateur ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Oui",
+            cancelButtonText: "Non",
+            closeOnConfirm: true,
+            closeOnCancel: true
+          },
+          function(isConfirm){
+            if (isConfirm) {
+              $.ajax({
+                url: '/type_users/' + $.this.data('type-user-id') + '/delete_field_type_user',
+                type: 'DELETE',
+                dataType: 'script',
+                data: {
+                  field_type_user: {
+                    id: $.this.data('field-type-user-id')
+                  },
+                  force: true
+                },
+                error: function(result){
+                  notifError(result.responseText);
+                }
+              });
+            } else {
+              notifError("Impossible de supprimer le champ de type utilisateur car il contient des données associées.");
+            }
+          });
+        }else{
+          notifError(result.responseText);
+        }
+      }
+    });
   });
 
   // Valide les changements quand on clique sur 'Entrée'
@@ -103,7 +156,8 @@ $(document).ready(function(){
     secure = $('input[name="new_type_user_secure"]').is(":checked");
     tech = $('input[name="new_type_user_tech"]').is(":checked");
     actif = $('input[name="new_type_user_actif_modal"]').is(":checked");
-    $("div.list-rights > div.row > div.col-md-6 > div.slideThree > input[name='new_type_user_rights_checkbox']").each(function(){
+    $(".right_access").each(function(){
+      console.log($(this).val + " = " + $(this).is(":checked"));
       rights[$(this).val()] = $(this).is(":checked");
     });
     $.ajax({
@@ -118,9 +172,7 @@ $(document).ready(function(){
         rights: rights
       },
       error: function(result){
-        for(var key in JSON.parse(result.responseText)){
-          alert(key + " : " + JSON.parse(result.responseText)[key]);
-        }
+          notifError(result.responseText);
       }
     });
   });

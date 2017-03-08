@@ -8,7 +8,7 @@ class TypeUsersController < ApplicationController
     @view_type_users = verifRight('view_type_users')
     if @view_type_users
       @title = 'Liste des types utilisateurs'
-      @type_users = TypeUser.all
+      @type_users = TypeUser.all.order('name')
       @rights = Right.all
       @field_type_users = FieldTypeUser.all
       respond_to do |format|
@@ -26,6 +26,7 @@ class TypeUsersController < ApplicationController
   def create
     @add_type_users = verifRight('add_type_users')
     if @add_type_users
+      @field_type_users = FieldTypeUser.all
       respond_to do |format|
         if !params[:secure].blank? && !params[:is_tech].blank? && !params[:actif].blank?
           @type_user = TypeUser.new(name: params[:type_user_name], secure: params[:secure], is_tech: params[:is_tech], actif: params[:actif])
@@ -38,7 +39,7 @@ class TypeUsersController < ApplicationController
             format.js
             format.json { render json: @type_user.id, status: :created }
           else
-            format.json { render json: @type_user.errors, status: :unprocessable_entity }
+            format.json { render json: @type_user.errors.full_messages.first, status: :unprocessable_entity }
           end
         else
           format.json { render json: 'Merci de remplir tous les champs', status: :unprocessable_entity }
@@ -57,12 +58,16 @@ class TypeUsersController < ApplicationController
         if !params[:name].blank? && !params[:id].blank?
           @type_user = TypeUser.find(params[:id])
           @field_type_user = FieldTypeUser.find_or_create_by(name: params[:name])
-          @field_type_user_type_user = FieldTypeUserTypeUser.find_or_create_by(type_user_id: @type_user.id, field_type_user_id: @field_type_user.id)
-          if @field_type_user_type_user.save
-            format.js
-            format.json { head :no_content }
+          if !FieldTypeUserTypeUser.exists?(type_user_id: @type_user.id, field_type_user_id: @field_type_user.id)
+            @field_type_user_type_user = FieldTypeUserTypeUser.find_or_create_by(type_user_id: @type_user.id, field_type_user_id: @field_type_user.id)
+            if @field_type_user_type_user.save
+              format.js
+              format.json { head :no_content }
+            else
+              format.json { render json: @field_type_user_type_user.errors.full_messages.first }
+            end
           else
-            format.json { render json: @field_type_user_type_user.errors.full_messages.first }
+            format.json { render json: 'Ce champ est déjà renseigné !' }
           end
         else
           format.json { render json: 'Veuillez remplir tous les champs', status: :unprocessable_entity }
@@ -78,14 +83,48 @@ class TypeUsersController < ApplicationController
     @edit_type_users = verifRight('edit_type_users')
     if @edit_type_users
       respond_to do |format|
-        if !params[:field_type_user_id].blank? && !params[:type_user_id].blank?
-          @type_user = TypeUser.find(params[:type_user_id])
-          @field_type_user = FieldTypeUser.find(params[:field_type_user_id])
-          @fields_user = FieldUser.where(field_type_user_id: params[:field_type_user_id])
-          @users = User.where(type_user_id: params[:type_user_id])
-          @users.each { |chr|  }
-          @fields_user.each do |field_user|
-            # field_user.
+        if !params[:field_type_user][:id].blank? && !params[:id].blank? && !params[:force].blank?
+          if params[:force] == 'true' && verifRight('force_destroy_field_type_user')
+            User.where(type_user_id: params[:id]).each do |user|
+              FieldUser.where(field_type_user_id: params[:field_type_user][:id], user_id: user.id).delete_all
+            end
+            @field_type_user_type_user = FieldTypeUserTypeUser.where(field_type_user_id: params[:field_type_user][:id], type_user_id: params[:id]).first
+            if @field_type_user_type_user.destroy
+              format.js
+              format.json { head :no_content }
+            else
+              format.json { render json: @field_type_user_type_user.errors.full_messages.first, status: :unprocessable_entity }
+            end
+          else
+            if User.where(type_user_id: params[:id]).any?
+              User.where(type_user_id: params[:id]).each do |user|
+                if FieldUser.where(field_type_user_id: params[:field_type_user][:id], user_id: user.id).any?
+                  if params[:force] == 'true' && !verifRight('force_destroy_field_type_user')
+                    format.json { render json: 'Impossible de supprimer le champ de type utilisateur car vous n\'avez pas les droits nécéssaires.', status: :unauthorized }
+                  else
+                    format.json { render json: 'Impossible de supprimer le champ de type utilisateur car il contient des données associées.', status: :unauthorized }
+                  end
+                  break
+                else
+                  @field_type_user_type_user = FieldTypeUserTypeUser.where(field_type_user_id: params[:field_type_user][:id], type_user_id: params[:id]).first
+                  if @field_type_user_type_user.destroy
+                    format.js
+                    format.json { head :no_content }
+                  else
+                    format.json { render json: @field_type_user_type_user.errors.full_messages.first, status: :unprocessable_entity }
+                  end
+                  break
+                end
+              end
+            else
+              @field_type_user_type_user = FieldTypeUserTypeUser.where(field_type_user_id: params[:field_type_user][:id], type_user_id: params[:id]).first
+              if @field_type_user_type_user.destroy
+                format.js
+                format.json { head :no_content }
+              else
+                format.json { render json: @field_type_user_type_user.errors.full_messages.first, status: :unprocessable_entity }
+              end
+            end
           end
         else
           format.json { render json: 'Veuillez remplir tous les champs', status: :unprocessable_entity }

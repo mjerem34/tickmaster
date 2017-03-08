@@ -1,25 +1,69 @@
 $("input[name='new_type_user']").val('');
-$("table > tbody").append(`
-  <tr role="row">
+$("table.table-type-users > tbody").append(`
+  <tr role="row" data-type-user='<%= @type_user.id %>'>
     <td data-toggle="modal" data-target="#<%= @type_user.id %>"><%= @type_user.name %></td>
     <td>
       <div class="slideThree tableRight">
-        <input class="form-control" data-type_user="1" value="secure" checked="" type="checkbox">
+      <%= @type_user.secure ? "<input class='form-control' data-type_user='#{@type_user.id}' type='checkbox' value='secure' checked>".html_safe : "<input class='form-control' data-type_user='#{@type_user.id}' type='checkbox' value='secure'>".html_safe %>
         <label for="checkbox-right"></label>
       </div>
     </td>
     <td>
       <div class="slideThree tableRight">
-        <input class="form-control" data-type_user="1" value="secure" checked="" type="checkbox">
+      <%= @type_user.is_tech ? "<input class='form-control' data-type_user='#{@type_user.id}' type='checkbox' value='is_tech' checked>".html_safe : "<input class='form-control' data-type_user='#{@type_user.id}' type='checkbox' value='is_tech'>".html_safe %>
         <label for="checkbox-right"></label>
       </div>
     </td>
     <td>
       <div class="slideThree tableRight">
-        <input class="form-control" data-type_user="1" value="secure" checked="" type="checkbox">
+      <%= @type_user.actif ? "<input class='form-control' data-type_user='#{@type_user.id}' type='checkbox' value='actif' checked>".html_safe : "<input class='form-control' data-type_user='#{@type_user.id}' type='checkbox' value='actif'>".html_safe %>
         <label for="checkbox-right"></label>
       </div>
     </td>
   </tr>
 `);
-notifSuccess("Le type utilisateur a bien été créé !"");
+notifSuccess("Le type utilisateur a bien été créé !");
+$("div.table-responsive").after(`
+  <div class="container-modal modal-details-type-user">
+    <div class="modal fade" id="<%= @type_user.id%>" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Type utilisateur :</h4>
+            <i>Appuyez sur Entrée pour confirmer la modification</i>
+            <input type="text" name="type_user_name_modal" data-type-user="<%= @type_user.id%>" value="<%= @type_user.name %>" class="form-control">
+          </div>
+          <div class="modal-body">
+            <div class="table-responsive">
+              <table class="table table-hover" id="table_field_type_user">
+                <caption>Champs type utilisateur : </caption>
+                <thead>
+                  <th>Nom : </th>
+                  <th colspan="2"></th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><%= select_tag 'new_field_type_user', options_for_select(@field_type_users.collect{|ftu| [ftu.name, ftu.id]}), class: "dropdownSearchCreate#{ @type_user.id } form-control" %></td>
+                    <td><button type="button" class="btn btn-flat btn-success" id="add_field_type_user" data-id-type-user="<%= @type_user.id %>">+</button></td>
+                  </tr>
+                  <% @type_user.field_type_user_type_users.each do |ftutu| %>
+                  <tr>
+                    <td><%= ftutu.field_type_user.name %></td>
+                    <td><button type="button" class="btn btn-flat btn-danger" id="remove_ftutu" data-type-user-id="<%= @type_user.id %>" data-field-type-user-id="<%= ftutu.field_type_user.id %>">-</button></td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="delete_type_user" data-type-user='<%= @type_user.id %>' class="btn btn-flat btn-danger btn-modal" data-dismiss="modal">Supprimer</button>
+            <button type="button" class="btn btn-flat btn-default btn-modal" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  `);
+  $('.dropdownSearchCreate<%= @type_user.id %>').selectize({create: true, persist: false, createOnBlur: true, closeAfterSelect: true, placeholder: "Merci de sélectionner une valeur"});
