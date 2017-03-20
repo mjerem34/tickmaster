@@ -40,7 +40,11 @@ Rails.application.routes.draw do
     end
   end
   resources :procedures
-  resources :agencies
+  resources :agencies do
+    collection do
+      get :ping
+    end
+  end
   resources :categories do
     member do
       get :create_cats

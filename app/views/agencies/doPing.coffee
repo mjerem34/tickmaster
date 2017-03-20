@@ -1,1 +1,0 @@
-$(".agency_ping_<%= @agency.id %>").replaceWith("<button class='showGraphicButton' data-toggle='modal' data-target='#showGraphic<%= @agency.id %>'>Afficher le graphique</p>")

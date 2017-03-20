@@ -1,16 +1,16 @@
 <br><br>
 <%= form_for(@agency) do |f| %>
-  <div id="next ">
+<div id="next ">
   <div class="field form-group">
     <%= f.label "Nom" %>
     <%= f.text_field :name, class: "form-control next ", placeholder: "Nom(champ requis)"%>
     <% if @agency.errors[:name].first != nil %>
     <div class="alert alert-danger ">
-    <%= "Nom " + @agency.errors[:name].first%><br>
+      <%= "Nom " + @agency.errors[:name].first%><br>
       <% if @agency.errors[:name].second != nil %>
-        <%= "Nom " + @agency.errors[:name].second%><br>
+      <%= "Nom " + @agency.errors[:name].second%><br>
       <% end %>
-  </div><!-- DIV ERROR -->
+    </div><!-- DIV ERROR -->
     <% end %>
 
   </div>
@@ -19,19 +19,19 @@
     <%= f.text_field :ip_adress, class: "form-control next ", placeholder: "Adresse IP" %>
     <% if @agency.errors[:ip_adress].first != nil %>
     <div class="alert alert-danger ">
-    <%= "Adresse IP " + @agency.errors[:ip_adress].first%><br>
+      <%= "Adresse IP " + @agency.errors[:ip_adress].first%><br>
       <% if @agency.errors[:ip_adress].second != nil %>
-        <%= "Adresse IP " + @agency.errors[:ip_adress].second%><br>
+      <%= "Adresse IP " + @agency.errors[:ip_adress].second%><br>
       <% end %>
-  </div><!-- DIV ERROR -->
+    </div><!-- DIV ERROR -->
     <% end %>
 
   </div>
-  </div>
+</div>
 
-  <div class="actions form-group">
-    <%= f.submit "Valider", id: "sendButton", class: "btn btn-flat btn-success " %><br><br>
-    <%= link_to 'Annuler', agencies_path, class: "btn btn-flat btn-danger", data: { confirm: 'Êtes vous sûr de vouloir annuler (les modifications seront perdues) ?'}  %>
+<div class="actions form-group">
+  <%= f.submit "Valider", id: "sendButton", class: "btn btn-flat btn-success " %><br><br>
+  <%= link_to 'Annuler', agencies_path, class: "btn btn-flat btn-danger", data: { confirm: 'Êtes vous sûr de vouloir annuler (les modifications seront perdues) ?'}  %>
 
-  </div>
+</div>
 <% end %>

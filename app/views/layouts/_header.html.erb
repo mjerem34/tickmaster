@@ -256,6 +256,7 @@
             <%= "<li>".html_safe + link_to("Liste des agences", agencies_url) + "</li>".html_safe if @view_index_agencies %>
             <%= "<li>".html_safe + link_to("Nouvelle agence", new_agency_url) + "</li>".html_safe if @create_new_agency %>
             <%= "<li>".html_safe + link_to("Champs agences", field_agencies_url) + "</li>".html_safe if @view_field_agencies %>
+            <%= "<li>".html_safe + link_to("Pinger les agences", ping_agencies_url) + "</li>".html_safe if @ping_agencies %>
           </ul>
         </li>
         <li class="treeview">

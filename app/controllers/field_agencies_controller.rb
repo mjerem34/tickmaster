@@ -24,8 +24,8 @@ class FieldAgenciesController < ApplicationController
     @create_field_agencies = verifRight('create_field_agencies')
     if @create_field_agencies
       @title = "Création d'un champ d'agence"
-      @field_agency = FieldAgency.new(field_agency_params)
       respond_to do |format|
+        @field_agency = FieldAgency.new(field_agency_params)
         if @field_agency.save
           format.js
           format.json { render json: @field_agency.id, status: :created }
@@ -36,8 +36,6 @@ class FieldAgenciesController < ApplicationController
           end
         end
       end
-    else
-      renderUnauthorized
     end
   end
 

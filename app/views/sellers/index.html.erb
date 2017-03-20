@@ -1,9 +1,9 @@
 <div class="table-responsive">
-  <table class="table table-hover" id="table_sellers">
-    <thead class="header">
+  <table class="table table-bordered table-hover dataTable">
+    <thead>
     <tr>
-      <th>Nom</th>
-      <th>Actif</th>
+      <th class="sorting">Nom</th>
+      <th class="sorting">Actif</th>
     </tr>
   </thead>
   <tbody>
@@ -37,8 +37,9 @@
         </div>
         <div class="modal-body">
           <caption class='modal-body-title'>Informations :</caption>
-          <table class="table table-hover" id="table_field_seller_<%= seller.id %>">
-            <thead>
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover dataTable" id="table_field_seller_<%= seller.id %>">
+                <thead>
               <tr>
                 <th>Champ</th>
                 <th>Valeur</th>
@@ -60,10 +61,12 @@
               <% end %>
             </tbody>
           </table>
+          </div>
           <hr>
           <caption class='modal-body-title'>Types de matériels vendus :</caption>
-          <table class="table table-hover" id="table_type_materials_sellers_<%= seller.id %>">
-            <thead class="header">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover dataTable" id="table_type_materials_sellers_<%= seller.id %>">
+              <thead>
               <tr>
                 <th>Nom</th>
                 <th></th>

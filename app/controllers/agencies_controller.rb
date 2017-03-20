@@ -22,9 +22,14 @@ class AgenciesController < ApplicationController
     end
   end
 
+  def ping
+    @title = 'Ping'
+    @agencies = Agency.all
+  end
+
   # Must exec the method to do the ping and get the result to return it.
   def doPing
-    if verifRight('doPing')
+    if verifRight('ping_agencies')
       # Execution of the method for ping with the ip passed
       value = pingDef(params[:host])
       render json: value

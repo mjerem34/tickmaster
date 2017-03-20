@@ -2182,34 +2182,6 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (78,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (79,'doPing','Autorisé à pinger');
-
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,1,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,2,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,3,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,4,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,5,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,6,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,7,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,8,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,9,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,10,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,11,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,12,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,13,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,14,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,15,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,16,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,17,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,18,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,19,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,20,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,21,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,22,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,23,1);
-
---
-
 INSERT INTO `rights` (`id`,`name`,`content`) VALUES (80,'delete_agency','Autorisé à supprimer une agence');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (80,1,1);

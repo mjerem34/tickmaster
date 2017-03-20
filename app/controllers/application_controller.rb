@@ -410,6 +410,7 @@ class ApplicationController < ActionController::Base
       @view_index_agencies = verifRight('view_index_agencies')
       @create_new_agency = verifRight('create_new_agency')
       @view_field_agencies = verifRight('view_field_agencies')
+      @ping_agencies = verifRight('ping_agencies')
 
       @create_material = verifRight('create_material')
       @view_material = verifRight('view_material')

@@ -1,5 +1,3 @@
-<script type="text/javascript">
-
   // This is for CREATE an new field_agency by press enter touch with input in focus
   $(document).on('keyup', '#name_new_field_agency', function(evt){
     if (evt.keyCode == 13){
@@ -13,12 +11,11 @@
           }
         },
         error: function(result){
-          notifsTempo(result.responseText, 4000, 'red');
+          notifError(result.responseText);
         }
       });
     }
   });
-
 
   // This is for CREATE an new field_agency by click on green button
   $(document).on('click', '#create_new_field_agency', function(){
@@ -32,7 +29,7 @@
         }
       },
       error: function(result){
-        notifsTempo(result.responseText, 4000, 'red');
+        notifError(result.responseText);
       }
     });
   });
@@ -43,7 +40,7 @@
       url: '/field_agencies/' + $(this).parent().parent().attr('id'),
       type: 'DELETE',
       error: function(result){
-        notifsTempo(result.responseText, 4000, 'red');
+        notifError(result.responseText);
       }
     });
   });
@@ -61,10 +58,8 @@
           }
         },
         error: function(result){
-          notifsTempo(result.responseText, 4000, 'red');
+          notifError(result.responseText);
         }
       });
     }
   });
-
-</script>

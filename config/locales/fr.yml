@@ -46,6 +46,9 @@ fr:
       material:
         one: "Matériel"
         other: "Matériels"
+      field_agency:
+        one: "Champ d'agence"
+        other: "Champs d'agences"
     attributes:
       response:
         content: "Champ 'Message'"
@@ -106,6 +109,8 @@ fr:
         seller_id: "Champ 'Vendeur'"
         detentor_type_id: "Champ 'Type de détenteur'"
         detentor_id: "Champ 'Détenteur'"
+      field_agency:
+        name: "Champ 'Nom'"
     errors:
       models:
         incident:
@@ -283,6 +288,12 @@ fr:
               invalid: "invalide"
               taken: "déjà enregistré"
             detentor_id:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+        field_agency:
+          attributes:
+            name:
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"

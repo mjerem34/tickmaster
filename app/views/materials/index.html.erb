@@ -1,16 +1,15 @@
-<br>
 <div class="table-responsive">
-  <table class="table table-hover" id="table_materials">
-    <thead class="header">
-    <tr>
-      <th>Type</th>
-      <th>Vendeur</th>
-      <th>Détenteur</th>
-      <th>Dénomination</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td colspan='4'><%= link_to "Nouveau matériel", new_material_url, class: 'btn btn-flat btn-success btn-block', id: 'create_new_material'%><td></tr>
+  <table class="table table-bordered table-hover dataTable">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Vendeur</th>
+        <th>Détenteur</th>
+        <th>Dénomination</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr><td colspan='4'><%= link_to "Nouveau matériel", new_material_url, class: 'btn btn-flat btn-success btn-block', id: 'create_new_material'%></td></tr>
     <% @materials.each do |material| %>
       <tr data-dismiss="modal" data-toggle="modal" data-target="#<%= material.id %>">
         <td><%= material.type_material.name %></td>
