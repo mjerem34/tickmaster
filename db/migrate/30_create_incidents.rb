@@ -4,7 +4,7 @@ class CreateIncidents < ActiveRecord::Migration
       t.string :title, limit: 200, null: false
       t.text :content, null: false
       t.references :user, index: true, foreign_key: true, null: false
-      t.references :tech, index: true, foreign_key: true, null: false
+      t.references :tech, index: true, null: false
       t.references :category, index: true, foreign_key: true, null: false
       t.references :sous_category, index: true, foreign_key: true, null: false
       t.integer :lvl_urgence_user, limit: 1, null: false
@@ -17,8 +17,8 @@ class CreateIncidents < ActiveRecord::Migration
       t.text :solution
       t.string :keywords
       t.string :link_faq
-      t.references :incident_state_id_for_user, index: true, foreign_key: true
-      t.references :incident_state_id_for_tech, index: true, foreign_key: true
+      t.references :incident_state_id_for_user, index: true
+      t.references :incident_state_id_for_tech, index: true
       t.datetime :archived_at
       t.datetime :resolved_at
       t.timestamps null: false

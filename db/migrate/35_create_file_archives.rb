@@ -5,5 +5,6 @@ class CreateFileArchives < ActiveRecord::Migration
       t.string :file
       t.integer :file_size
       t.string :content_type
+    end
   end
 end
