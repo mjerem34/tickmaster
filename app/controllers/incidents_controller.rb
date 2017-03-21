@@ -169,9 +169,6 @@ class IncidentsController < ApplicationController
           end
           User.joins(:type_user).where('type_users.is_tech=1').each do |disp|
             next if disp.ip_addr.blank?
-            puts '------------------------------------------------'
-            puts disp.ip_addr
-            puts '------------------------------------------------'
             sendNotif(disp.ip_addr, @incident.user.name + ' ' + @incident.user.surname + ' a créé un incident !')
           end
         else

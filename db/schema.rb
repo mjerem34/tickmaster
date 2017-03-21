@@ -159,8 +159,10 @@ ActiveRecord::Schema.define(version: 35) do
   end
 
   create_table "incidents_states", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name",     null: false
-    t.string "shortcut", null: false
+    t.string "name",       null: false
+    t.string "shortcut",   null: false
+    t.string "user_color", null: false
+    t.string "tech_color", null: false
   end
 
   create_table "materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
