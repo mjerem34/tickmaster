@@ -19,7 +19,6 @@ $(document).ready(function () {
       $.donnees.push({"name": valueAgency, "data": $.tampon});
     });
     new Chartkick.LineChart("chart-1", $.donnees);
-
   });
   $(".button_ping_stop_agency").click(function(){
     var nameOfAgency = $(this).data("name"); // Va chercher ce qui a dans data-name="CLE LATTES"
@@ -89,8 +88,54 @@ $(document).ready(function () {
   $("#agencies_ping_cancel").click(function () { // demande d'anulation de l'utilisateur
   $.each($.workers, function (index, worker) {
     // alert(worker);
-    worker.terminate(); // Arrête e worker immédiatement
+    worker.terminate(); // Arrête le worker immédiatement
   });
 });
 
-});
+// INDEX PAGE
+
+
+
+
+// PAGE FORM (UPDATE, CREATE)
+  $(document).on('click', "button[name='send-form']", function(){
+    var dataAgence = {};
+    var dataAgenceComp = {};
+    $.each($(".field_agency_value"), function (index, input) {
+      dataAgenceComp[input.name] = input.value;
+    });
+    if ($(this).data("id") != "0") {
+      $.ajax({
+        url: '/agencies/'+ $(this).data("id"),
+        type: 'PUT',
+        dataType: 'script',
+        data: {
+          agency: {
+            name: $("#agency_name").val(),
+            ip_adress: $("#agency_ip_adress").val()
+          },
+          dataAgenceComp: dataAgenceComp
+        },
+        error: function(result){
+          notifError(result.responseText);
+        }
+      });
+    } else {
+      $.ajax({
+        url: '/agencies',
+        type: 'POST',
+        dataType: 'script',
+        data: {
+          agency: {
+            name: $("#agency_name").val(),
+            ip_adress: $("#agency_ip_adress").val()
+          },
+          dataAgenceComp: dataAgenceComp
+        },
+        error: function(result){
+          notifError(result.responseText);
+        }
+      });
+    }
+  });
+}); //DOCUMENT READY BLOCK

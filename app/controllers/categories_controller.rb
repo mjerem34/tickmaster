@@ -83,8 +83,6 @@ class CategoriesController < ApplicationController
           format.json { render json: @category.id, status: :created }
           format.html { redirect_to :back, notice: 'Catégorie crée avec succès.' }
           # Create an new subcategory for the category created.
-          @sous_category = SousCategory.new(name: 'Autre', category_id: @category.id, lvl_urgence_max: '10')
-          @sous_category.save
         else
           format.json { render json: @category.errors, status: :unprocessable_entity }
           format.html { redirect_to :back, notice: 'Impossible de créer la catégorie ...' }

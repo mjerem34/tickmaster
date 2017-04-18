@@ -1,33 +1,37 @@
 class SessionsController < ApplicationController
-  # before_action :set_expiration
-
+  # GET /sessions/new
   def new
-    @title = "S'identifier"
+    if !current_user.nil?
+      @title = "Vous êtes déjà connecté !"
+      redirect_to root_path
+    else
+      @title = "S'identifier"
+      render :new
+    end
   end
-
   # POST /sessions
   # POST /sessions.json
   def create
     respond_to do |format|
       if !current_user.nil?
-        format.json { render json: 'Vous êtes déjà connecté !' }
+        format.json { render json: 'Vous êtes déjà connecté !', status: 202 }
         format.html { redirect_to '/', notice: 'Vous êtes déjà connecté !' }
       else
-        @user = User.authenticate(params[:session][:pseudo],
-                                  params[:session][:password])
+        @user = User.authenticate(params[:session][:pseudo],            params[:session][:password])
         if @user.nil?
           @title = "S'identifier"
-          format.json { render json: 'Pseudonyme et/ou mot de passe invalide', status: :unprocessable_entity }
+          format.json { render json: 'Pseudonyme et/ou mot de passe invalide', status: 404 }
           format.html { redirect_to '/sessions', alert: 'Pseudonyme et/ou mot de passe invalide' }
         else
           if @user.actif == false || @user.type_user.actif == false
             @title = "S'identifier"
-            format.json { render json: 'Votre compte a été désactivé, veuillez contacter votre administrateur réseau.', status: :unprocessable_entity }
+            format.json { render json: 'Votre compte a été désactivé, veuillez contacter votre administrateur réseau.', status: 403 }
             format.html { redirect_to '/sessions', notice: 'Votre compte a été désactivé, veuillez contacter votre administrateur réseau.' }
           else
             sign_in @user
-            format.json { render json: 'Connexion réussie', status: :ok }
-            format.html { redirect_to '/', notice: 'Connexion réussie' }
+            puts "current_user in session : #{current_user.inspect}"
+            format.json { render json: 'Connexion réussie', status: 200 }
+            format.html { redirect_to root_path , notice: 'Connexion réussie' }
           end
         end
       end
@@ -38,13 +42,12 @@ class SessionsController < ApplicationController
   def destroy
     respond_to do |format|
       if current_user.nil?
-        format.json { render json: 'Vous êtes déjà déconnecté !' }
-        format.html { redirect_to '/', notice: 'Vous êtes déjà déconnecté !' }
+        format.json { render json: 'Vous êtes déjà déconnecté !', status: :unprocessable_entity }
+        format.html { redirect_to root_path, notice: 'Vous êtes déjà déconnecté !' }
       else
         sign_out
         format.json { render json: 'Déconnexion réussie', status: :ok }
-        format.html { redirect_to '/', notice: 'Déconnexion réussie' }
-
+        format.html { redirect_to root_path, notice: 'Déconnexion réussie' }
       end
     end
   end

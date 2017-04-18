@@ -2,14 +2,51 @@
   <table class="table table-hover table-bordered dataTable" id='table_agencies'>
     <thead class="header">
       <tr>
+        <th>N°</th>
         <th>Nom</th>
       </tr>
     </thead>
     <tbody>
       <% @agencies.each do |agency| %>
       <tr>
+        <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.id %></td>
         <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.name %></td>
       </tr>
+      <!-- MODAL POUR CHAQUE AGENCE -->
+      <div class="container-modal">
+        <div class="modal fade" id="<%= agency.id %>" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- HEADER DU MODAL -->
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Agence <%= agency.name%></h4>
+                <i>Vous pouvez voir ici les détails de l'agence</i>
+              </div>
+              <!-- HEADER DU MODAL -->
+              <!-- BODY DU MODAL -->
+              <div class="modal-body">
+                <% agency.field_agencies.each do |field_agency| %>
+                <p><strong><%= field_agency.name %> : </strong><%= field_agency.field_agency_agencies.where(agency_id: agency.id).first.content %></p>
+                <% end %>
+              </div>
+              <!-- BODY DU MODAL -->
+              <!-- FOOTER DU MODAL -->
+              <div class="modal-footer">
+                <% if @delete_agency %>
+                <button type="button" name="button" data-redirect="<%= agencies_url %>" data-method="delete" data-href="<%= agency_path(agency.id) %>" class="btn btn-flat btn-default btn-modal ask_for_confirm">Supprimer</button>
+                <% end %>
+                <% if @edit_agency %>
+                <%= link_to "Editer", edit_agency_url(agency), class: 'btn btn-flat btn-info btn-modal'%>
+                <% end %>
+                <button type="button" class="btn btn-flat btn-danger btn-modal" data-dismiss="modal">Fermer</button>
+              </div>
+              <!-- FOOTER DU MODAL -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- MODAL POUR CHAQUE AGENCE -->
       <% end %>
     </tbody>
   </table>

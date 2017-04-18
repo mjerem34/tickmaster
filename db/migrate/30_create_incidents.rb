@@ -12,11 +12,7 @@ class CreateIncidents < ActiveRecord::Migration
       t.integer :lvl_of_incident
       t.boolean :cloture_user, null: false
       t.boolean :cloture_tech, null: false
-      t.references :pc, index: true, foreign_key: true, null: false
       t.string :ip_adress, null: false
-      t.text :solution
-      t.string :keywords
-      t.string :link_faq
       t.references :incident_state_id_for_user, index: true
       t.references :incident_state_id_for_tech, index: true
       t.datetime :archived_at
@@ -24,6 +20,10 @@ class CreateIncidents < ActiveRecord::Migration
       t.timestamps null: false
       t.boolean :notify_for_tech
       t.boolean :notify_for_user
+      # t.references :pc, index: true, foreign_key: true, null: false
+      # t.text :solution
+      # t.string :keywords
+      # t.string :link_faq
     end
   end
 end

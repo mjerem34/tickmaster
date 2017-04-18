@@ -11,9 +11,7 @@ class CreateUsers < ActiveRecord::Migration
       t.references :type_user, index: true, foreign_key: true, null: false
       t.references :agency, index: true, foreign_key: true, null: false
       t.string :ip_addr, null: false
-      t.datetime :sys_msg, null: false
-      t.boolean :actif, null: false
-      t.datetime :maj, null: false
+      t.boolean :actif, null: false, default: 1
       t.timestamps null: false
     end
   end

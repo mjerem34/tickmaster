@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 35) do
     t.integer "agency_id"
     t.integer "field_agency_id"
     t.text    "content",         limit: 65535, null: false
-    t.index ["agency_id", "field_agency_id"], name: "index_field_agency_agencies_on_agency_id_and_field_agency_id", unique: true, using: :btree
     t.index ["agency_id"], name: "index_field_agency_agencies_on_agency_id", using: :btree
     t.index ["field_agency_id"], name: "index_field_agency_agencies_on_field_agency_id", using: :btree
   end
@@ -55,7 +54,6 @@ ActiveRecord::Schema.define(version: 35) do
     t.integer "field_seller_id"
     t.integer "seller_id"
     t.text    "content",         limit: 65535, null: false
-    t.index ["field_seller_id", "seller_id"], name: "index_field_seller_sellers_on_field_seller_id_and_seller_id", unique: true, using: :btree
     t.index ["field_seller_id"], name: "index_field_seller_sellers_on_field_seller_id", using: :btree
     t.index ["seller_id"], name: "index_field_seller_sellers_on_seller_id", using: :btree
   end
@@ -79,7 +77,6 @@ ActiveRecord::Schema.define(version: 35) do
     t.integer "field_type_user_id"
     t.integer "user_id"
     t.text    "content",            limit: 65535
-    t.index ["field_type_user_id", "user_id"], name: "index_field_users_on_field_type_user_id_and_user_id", unique: true, using: :btree
     t.index ["field_type_user_id"], name: "index_field_users_on_field_type_user_id", using: :btree
     t.index ["user_id"], name: "index_field_users_on_user_id", using: :btree
   end
@@ -136,11 +133,11 @@ ActiveRecord::Schema.define(version: 35) do
     t.integer  "lvl_of_incident"
     t.boolean  "cloture_user",                                null: false
     t.boolean  "cloture_tech",                                null: false
-    t.integer  "pc_id",                                       null: false
+    # t.integer  "pc_id",                                       null: false
     t.string   "ip_adress",                                   null: false
-    t.text     "solution",                      limit: 65535
-    t.string   "keywords"
-    t.string   "link_faq"
+    # t.text     "solution",                      limit: 65535
+    # t.string   "keywords"
+    # t.string   "link_faq"
     t.integer  "incident_state_id_for_user_id"
     t.integer  "incident_state_id_for_tech_id"
     t.datetime "archived_at"
@@ -177,14 +174,6 @@ ActiveRecord::Schema.define(version: 35) do
     t.index ["detentor_type_id"], name: "index_materials_on_detentor_type_id", using: :btree
     t.index ["seller_id"], name: "index_materials_on_seller_id", using: :btree
     t.index ["type_material_id"], name: "index_materials_on_type_material_id", using: :btree
-  end
-
-  create_table "pcs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text    "name", limit: 65535
-    t.text    "ip",   limit: 65535
-    t.text    "mac",  limit: 65535
-    t.integer "user"
-    t.index ["user"], name: "index_pcs_on_user", using: :btree
   end
 
   create_table "procedures", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -247,11 +236,10 @@ ActiveRecord::Schema.define(version: 35) do
     t.string "name", null: false
   end
 
-  create_table "type_material_sellers", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "type_material_sellers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "type_material_id"
     t.integer "seller_id"
     t.index ["seller_id"], name: "index_type_material_sellers_on_seller_id", using: :btree
-    t.index ["type_material_id", "seller_id"], name: "index_type_material_sellers_on_type_material_id_and_seller_id", unique: true, using: :btree
     t.index ["type_material_id"], name: "index_type_material_sellers_on_type_material_id", using: :btree
   end
 
@@ -287,21 +275,19 @@ ActiveRecord::Schema.define(version: 35) do
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "pseudo",       null: false
-    t.string   "email",        null: false
-    t.string   "tel",          null: false
-    t.string   "password",     null: false
-    t.string   "salt",         null: false
-    t.string   "name",         null: false
-    t.string   "surname",      null: false
-    t.integer  "type_user_id", null: false
-    t.integer  "agency_id",    null: false
-    t.string   "ip_addr",      null: false
-    t.datetime "sys_msg",      null: false
-    t.boolean  "actif",        null: false
-    t.datetime "maj",          null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "pseudo",                      null: false
+    t.string   "email",                       null: false
+    t.string   "tel",                         null: false
+    t.string   "password",                    null: false
+    t.string   "salt",                        null: false
+    t.string   "name",                        null: false
+    t.string   "surname",                     null: false
+    t.integer  "type_user_id",                null: false
+    t.integer  "agency_id",                   null: false
+    t.string   "ip_addr",                     null: false
+    t.boolean  "actif",        default: true, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.index ["agency_id"], name: "index_users_on_agency_id", using: :btree
     t.index ["type_user_id"], name: "index_users_on_type_user_id", using: :btree
   end

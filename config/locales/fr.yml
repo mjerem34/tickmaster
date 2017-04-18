@@ -56,6 +56,7 @@ fr:
         name: "Champ 'Nom'"
       sous_category:
         name: "Champ 'Nom'"
+        category_id: "Champ 'category_id'"
       right:
         name: "Champ 'Nom'"
         content: "Champ 'Description'"
@@ -76,15 +77,24 @@ fr:
         tech_id: "Champ 'Nom du technicien'"
         lvl_urgence_user: "Champ 'Niveau d'urgence'"
         lvl_urgence_tech: "Champ 'Niveau d'urgence technicien'"
+        cloture_tech: "Champ 'cloture_tech'"
+        cloture_user: "Champ 'cloture_user'"
+        notify_for_user: "Champ 'notify_for_user'"
+        notify_for_tech: "Champ 'notify_for_tech'"
+        incident_state_id_for_tech: "Champ 'incident_state_id_for_tech'"
+        incident_state_id_for_user: "Champ 'incident_state_id_for_user'"
+
       user:
-        email: "Champ 'Adresse email'"
-        pseudo: "Champ 'Pseudonyme'"
-        tel: "Champ 'Numéro de téléphone'"
-        mobile: "Champ 'Numéro de mobile'"
-        name: "Champ 'Nom'"
-        surname: "Champ 'Prénom'"
-        tech_id: "Champ 'Type d'utilisateur'"
-        agency_id: "Champ 'Agence'"
+        email: "Adresse email"
+        pseudo: "Pseudonyme"
+        tel: "Numéro de téléphone"
+        mobile: "Numéro de mobile"
+        name: "Nom"
+        surname: "Prénom"
+        type_user: "Type d'utilisateur"
+        agency: "Agence"
+        type_user_id: "Type d'utilisateur"
+        agency_id: "Agence"
       type_user:
         name: "Champ 'Nom'"
         secure: "Champ 'Sécurisé ?'"
@@ -112,6 +122,8 @@ fr:
       field_agency:
         name: "Champ 'Nom'"
     errors:
+      messages:
+        record_invalid: "Enregistrement invalide"
       models:
         incident:
           attributes:
@@ -128,6 +140,26 @@ fr:
             lvl_urgence_user:
               blank: "requis"
               invalid: "invalide"
+            lvl_urgence_tech:
+              blank: "requis"
+              invalid: "invalide"
+            cloture_user:
+              blank: "requis"
+              invalid: "invalide"
+              inclusion: "[true,false]"
+            cloture_tech:
+              blank: "requis"
+              invalid: "invalide"
+              inclusion: "[true,false]"
+            notify_for_user:
+              blank: "requis"
+              invalid: "invalide"
+              inclusion: "[true,false]"
+            notify_for_tech:
+              blank: "requis"
+              invalid: "invalide"
+              inclusion: "[true,false]"
+
         user:
           attributes:
             pseudo:
@@ -136,13 +168,13 @@ fr:
               taken: "déjà enregistré"
             name:
               blank: "requis"
+              taken: "déjà enregistré"
+              invalid: "invalide"
             surname:
+              taken: "déjà enregistré"
+              invalid: "invalide"
               blank: "requis"
             tel:
-              blank: "requis"
-              invalid: "invalide"
-              taken: "déjà enregistré"
-            mobile:
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"
@@ -150,11 +182,23 @@ fr:
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"
-            tech_id:
+            type_user:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            agency:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            type_user_id:
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"
             agency_id:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            password:
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"
@@ -205,6 +249,10 @@ fr:
         sous_category:
           attributes:
             name:
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            category_id:
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"

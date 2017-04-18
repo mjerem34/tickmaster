@@ -1,0 +1,57 @@
+<div class="register-box">
+  <div class="register-logo">
+    <%= link_to "tick'<strong>master</strong>".html_safe, '/' %>
+  </div>
+  <div class="register-box-body">
+    <p class="login-box-msg">Créer un nouvel utilisateur</p>
+    <%= form_for(@user) do |f| %>
+    <% if @user.errors.first != nil  %>
+    <div class="alert alert-danger">
+      <%= "Prénom " + @user.errors[:surname].first%><br>
+    </div><!-- DIV ERROR -->
+    <% end %>
+    <div id="next">
+      <div class="form-group">
+        <%= f.label :surname %>
+        <%= f.text_field :surname, class: "form-control next", placeholder: "Prénom", required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: "form-control next", placeholder: "Nom", required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.label :pseudo %>
+        <%= f.text_field :pseudo, class: "form-control next", placeholder: "Pseudonyme", required: true %>
+      </div>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email, class: "email form-control next", placeholder: "Adresse email", required: true %>
+      </div>
+      <div class="field form-group form-tel">
+        <%= f.label :tel %>
+        <%= f.phone_field :tel, class: "form-control next", placeholder: "N° de téléphone 1", onkeyup: "verif_nombre(this);", maxlength: "10" %>
+      </div>
+      <div class="form-group select_tech">
+        <%= f.label :type_user %>
+        <%= select_tag "user[type_user_id]", options_for_select(@type_users.map{ |type_user| [type_user.name, type_user.id, {'data-secure'=> type_user.secure}]}), class: "form-control text-uppercase", include_blank: "Type d'utilisateur :", required: true %>
+        <%= f.password_field :password, class: "form-control", placeholder: "Mot de passe" %>
+      </div>
+      <div class="form-group select_tech">
+        <%= f.label :agency %>
+        <%= select_tag "user[agency_id]", options_for_select(Agency.all.pluck(:name, :id).sort), class: "form-control text-uppercase", include_blank: "Agence :", required: true %>
+      </div>
+    </div>
+    <div class="actions form-group">
+      <button type="button" name="signup" class="btn btn-success btn-flat form-control">Valider</button>
+    </div>
+    <% end %>
+    <div class="social-auth-links text-center">
+      <p>- Un problème ? -</p>
+      <%= link_to "J'ai déjà un compte", signin_url, class: 'btn btn-flat btn-info btn-block' %>
+      <%= link_to "J'ai oublié mes identifiants", forget_identifiers_users_url, class: 'btn btn-flat btn-danger btn-block' %>
+    </div>
+  </div>
+</div>
+<% content_for :js do %>
+<%= javascript_include_tag 'users' %>
+<% end %>

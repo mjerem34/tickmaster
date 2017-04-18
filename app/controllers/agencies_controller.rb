@@ -10,6 +10,7 @@ class AgenciesController < ApplicationController
     @view_index_agencies = verifRight('view_index_agencies')
     if @view_index_agencies
       @ping_agencies = verifRight('ping_agencies')
+      @delete_agency = verifRight('delete_agency')
       @edit_agency = verifRight('edit_agency')
       @title = 'Agences'
       @agencies = Agency.order('name asc')
@@ -61,7 +62,7 @@ class AgenciesController < ApplicationController
       @title = "Incidents de l'agence : " + @agency.name
       respond_to do |format|
         format.json { render json: @agency }
-        format.html { render :show }
+        format.html { redirect_to edit_agency_url(@agency) }
       end
 
     else
@@ -76,6 +77,7 @@ class AgenciesController < ApplicationController
     if @create_new_agency
       @agency = Agency.new
       @title = 'Nouvelle agence'
+      @field_agencies = FieldAgency.all
     else
       renderUnauthorized
     end
@@ -86,6 +88,7 @@ class AgenciesController < ApplicationController
   def edit
     if verifRight('edit_agency')
       @title = 'Editer agence'
+      @field_agencies = FieldAgency.all
     else
       renderUnauthorized
     end
@@ -96,14 +99,20 @@ class AgenciesController < ApplicationController
   # Should create a new agency, it used for the rest service.
   def create
     if verifRight('create_new_agency')
-      @title = 'Nouvelle agence'
       @agency = Agency.new(agency_params)
       respond_to do |format|
         if @agency.save
+          params[:dataAgenceComp].each do |param, val|
+            field_agency = FieldAgency.find_by(name: param.to_s)
+            field_agency_selected = @agency.field_agency_agencies.find_or_initialize_by(agency_id: @agency.id, field_agency_id: field_agency.id)
+            field_agency_selected.content = val
+            field_agency_selected.save
+          end
+          format.js
           format.json { render json: @agency.id, status: :created }
           format.html { redirect_to @agency, notice: "Vous venez de créer une agence. Merci d'avoir contribué à la baisse du chômage." }
         else
-          format.json { render json: @agency.errors, status: :unprocessable_entity }
+          format.json { render json: @agency.errors.full_messages.first, status: :unprocessable_entity }
           format.html { render :new }
         end
       end
@@ -119,13 +128,17 @@ class AgenciesController < ApplicationController
   def update
     if verifRight('edit_agency')
       respond_to do |format|
-        if @agency.update(agency_params)
-          format.json { head :no_content }
-          format.html { redirect_to @agency, notice: 'Les paramètres de cette agence ont bien été actualisés.' }
-        else
-          format.json { render json: @agency.errors, status: :unprocessable_entity }
-          format.html { render :edit, notice: 'Impossible de modifier cette agence ...' }
+        @agency.update(agency_params)
+        params[:dataAgenceComp].each do |param, val|
+          field_agency = FieldAgency.find_by(name: param.to_s)
+          field_agency_selected = @agency.field_agency_agencies.find_or_initialize_by(agency_id: @agency.id, field_agency_id: field_agency.id)
+          if field_agency_selected.content.nil? || field_agency_selected.content != val
+            field_agency_selected.content = val
+            field_agency_selected.save
+          end
         end
+        format.js
+        format.json { head :no_content }
       end
     else
       renderUnauthorized
@@ -142,14 +155,14 @@ class AgenciesController < ApplicationController
         if User.where(agency_id: @agency.id).empty?
           if @agency.destroy
             format.json { head :no_content }
-            format.html { redirect_to agencies_url, notice: "Vous venez d'arracher plusieurs vies innocentes en supprimant cette agence ..." }
+            format.html { redirect_to agencies_url, notice: "C'est vous le chef ! Et c'est vous qui décidez de qui doit vivre !" }
           else
             format.json { render json: @agency.errors, status: :unprocessable_entity }
-            format.html { render :edit, notice: 'Impossible de supprimer cette agence, allez savoir pourquoi ...' }
+            format.html { render :edit, notice: 'Impossible de supprimer cette agence, allez savoir pourquoi ... Peut être que les employés y sont pour quelque chose ...' }
           end
         else
           format.json { render json: 'Vous ne pouvez pas supprimer cette agence car elle contient des utilisateurs.', status: :unprocessable_entity }
-          format.html { render :edit, notice: 'Vous ne pouvez pas supprimer cette agence car elle contient des utilisateurs.' }
+          format.html { redirect_to agencies_url, alert: 'Vous ne pouvez pas supprimer cette agence car elle contient des utilisateurs.' }
         end
       end
     else

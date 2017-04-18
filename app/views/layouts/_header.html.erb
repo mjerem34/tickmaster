@@ -132,7 +132,7 @@
             <!-- Menu Footer-->
             <li class="user-footer">
               <div class="pull-left">
-                <%= link_to "Profil", profil_user_url(current_user), class: "btn btn-flat btn-default btn-flat" %>
+                <%= link_to "Profil", edit_user_url(current_user), class: "btn btn-flat btn-default btn-flat" %>
               </div>
               <div class="pull-right">
                 <%= link_to "Déconnexion", signout_url, class: "btn btn-flat btn-default btn-flat", method: :delete %>
@@ -231,7 +231,7 @@
           </a>
           <ul class="treeview-menu">
             <%= "<li>".html_safe + link_to("Tous les utilisateurs", users_url) + "</li>".html_safe if @view_index_users %>
-            <%= "<li>".html_safe + link_to("Créer un utilisateur", new_tech_users_url) + "</li>".html_safe if @create_new_tech %>
+            <%= "<li>".html_safe + link_to("Créer un utilisateur", new_type_user_url) + "</li>".html_safe if @create_new_tech %>
             <%= "<li>".html_safe + link_to("Champs utilisateurs", field_type_users_url) + "</li>".html_safe if @view_field_type_users %>
           </ul>
         </li>

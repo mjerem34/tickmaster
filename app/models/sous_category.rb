@@ -1,19 +1,8 @@
-# == Schema Information
-#
-# Table name: sous_categories
-#
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  category_id :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#
-
 class SousCategory < ActiveRecord::Base
   has_many :incidents
-  belongs_to :categorie
+  belongs_to :category
 
-  validates :name, :presence => true, length: { in: 0..29}
-
-
+  validates :name, presence: true, length: { in: 0..254 }
+  validates :lvl_urgence_max, presence: true
+  validates :category_id, presence: true
 end

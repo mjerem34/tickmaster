@@ -5,5 +5,10 @@ $("table#table_field_seller_<%= @seller.id %> > tbody").append(`
     <td><button type="button" name="button" class="btn btn-flat btn-danger" id="delete_field_seller">-</button></td>
   </tr>
   `);
-notifsTempo("Création réussie", 4000, "green");
+// $.dataTable.row.add([
+//   "<%= @field_seller.name %>",
+//   "<input name='name' value='<%= @field_seller_seller.content %>' class='form-control' id='value_field_seller'/>",
+//   "<button type='button' name='button' class='btn btn-flat btn-danger' id='delete_field_seller'>-</button>"
+// ]).draw('page');
+notifSuccess("Création réussie");
 $("#table_field_seller_<%= @seller.id %>").find("#value_new_field_seller").val("");

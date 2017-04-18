@@ -83,14 +83,11 @@ Rails.application.routes.draw do
     member do
       get :allincidents
       get :to_treat
-      get :profil
       get :download
       get :change_ip
       put :enable_disable
     end
     collection do
-      get :new_user
-      get :new_tech
       get :forget_identifiers
       post :forget_identifiers
     end
@@ -99,14 +96,15 @@ Rails.application.routes.draw do
   get '/categories', to: 'categories#index'
   get '/sous_categories', to: 'sous_categories#index'
   get '/incidents', to: 'incidents#index'
-  get '/signup', to: 'users#new_user'
-  get '/signin', to: 'sessions#new'
-  delete '/signout', to: 'sessions#destroy'
-  delete '/sessions', to: 'sessions#destroy'
+  get '/signup', to: 'users#new', as: :signup
+  get '/signin', to: 'sessions#new', as: :signin
+  delete '/signout', to: 'sessions#destroy', as: :signout
+  delete '/sessions', to: 'sessions#destroy', as: :sign_out
   get '/rights', to: 'rights#index'
   get '/agencies', to: 'agencies#index'
   get '/agencies_doPing', to: 'agencies#doPing'
   get '/sessions', to: redirect('/sessions/new')
+  get '/api-docs', to: redirect('/swagger/dist/index.html?url=/api-docs/api-docs.json')
 
   # get '/test_exception', to: 'application#test_exception'
 

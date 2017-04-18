@@ -5,6 +5,5 @@ class CreateFieldAgencyAgencies < ActiveRecord::Migration
       t.references :field_agency, index: true, foreign_key: true
       t.text :content, unique: true, null: false
     end
-    add_index :field_agency_agencies, [:agency_id, :field_agency_id], unique: true
   end
 end

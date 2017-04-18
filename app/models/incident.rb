@@ -5,21 +5,75 @@ class Incident < ActiveRecord::Base
   belongs_to :incident_state_id_for_user, class_name: 'IncidentsState', foreign_key: 'incident_state_id_for_user_id'
   belongs_to :sous_category
   belongs_to :category
+
+
   has_many :responses, dependent: :destroy
   has_many :archives, dependent: :destroy
   has_many :file_incidents, dependent: :destroy
+
   accepts_nested_attributes_for :file_incidents
-  module Incidentmod
-    attr_accessor :name, :content, :tech_id, :incident_state_id_for_user, :incident_state_id_for_tech, :lvl_urgence_user, :lvl_urgence_tech, :file
-  end
+
   validates :title, presence: true, length: { in: 0..199 }
   validates :content, presence: true
   validates :category_id, presence: true
   validates :sous_category_id, presence: true
+  validates :lvl_urgence_user, presence: true
+  validates :lvl_urgence_tech, presence: true
+  validates :cloture_user, presence: true, inclusion: { in: [true, false] }
+  validates :cloture_tech, presence: true, inclusion: { in: [true, false] }
+  validates :notify_for_user, presence: true, inclusion: { in: [true, false] }
+  validates :notify_for_tech, presence: true, inclusion: { in: [true, false] }
+  validates :incident_state_id_for_user_id, presence: true
+  validates :incident_state_id_for_tech_id, presence: true
+  validates :lvl_of_incident, presence: true
 
   before_update :verify_if_incident_is_reaffected
-  before_create :set_multiples_fields_defaults_values
 
+  before_validation :set_lvl_of_incidents_to_default
+  before_validation :set_cloture_tech_to_default
+  before_validation :set_cloture_user_to_default
+  before_validation :set_notify_for_user_to_default
+  before_validation :set_notify_for_tech_to_default
+  before_validation :set_lvl_urgence_tech_to_default
+  before_validation :set_incident_state_id_for_user_id
+  before_validation :set_incident_state_id_for_tech_id
+  before_validation :set_lvl_urgence_user_to_max
+
+  def set_lvl_urgence_user_to_max
+    self.lvl_urgence_user = sous_category.lvl_urgence_max if lvl_urgence_user > sous_category.lvl_urgence_max
+  end
+
+  def set_incident_state_id_for_user_id
+    self.incident_state_id_for_user_id = 1
+  end
+
+  def set_incident_state_id_for_tech_id
+    self.incident_state_id_for_tech_id = 1
+  end
+
+  def set_lvl_urgence_tech_to_default
+    self.lvl_urgence_tech = 1
+  end
+
+  def set_notify_for_user_to_default
+    self.notify_for_user = 0
+  end
+
+  def set_notify_for_tech_to_default
+    self.notify_for_tech = 1
+  end
+
+  def set_lvl_of_incidents_to_default
+    self.lvl_of_incident = 1
+  end
+
+  def set_cloture_tech_to_default
+    self.cloture_tech = 0
+  end
+
+  def set_cloture_user_to_default
+    self.cloture_user = 0
+  end
   # This appenned every time an incident have params updated.
   # It verify if the tech have changed.
   def verify_if_incident_is_reaffected
@@ -60,11 +114,7 @@ class Incident < ActiveRecord::Base
       @response.save!
       @responses = Response.all.where(incident_id: incident.id)
       @responses.each do |response|
-        # if !response.attach_updated_at.nil?
-        # @archive = Archive.new(content: response.content, incident_id: response.incident_id, sender_id: response.sender_id, receiver_id: response.receiver_id, ip_adress_sender: response.ip_adress_sender, pc_id: response.pc_id, attach_updated_at: response.attach_updated_at, attach_content_type: response.attach_content_type, attach_file_name: response.attach_file_name, attach_file_size: response.attach_file_size)
-        # else
         @archive = Archive.new(content: response.content, incident_id: response.incident_id, sender_id: response.sender_id, receiver_id: response.receiver_id, ip_adress_sender: response.ip_adress_sender, pc_id: response.pc_id)
-        # end
         response.destroy if @archive.save!
         begin
           AppMailer.incident_clotured_for_creator_if_is_creator_clotured(incident, @users, @responses).deliver_now
@@ -85,17 +135,5 @@ class Incident < ActiveRecord::Base
         end
       end
     end
-  end
-
-  # Only if the fields have no values at the creation.
-  def set_multiples_fields_defaults_values
-    self.incident_state_id_for_user_id ||= 1
-    self.incident_state_id_for_tech_id ||= 1
-    self.lvl_urgence_tech = 1
-    self.lvl_of_incident = 1
-    self.notify_for_user = false
-    self.notify_for_tech = true
-    # self.lvl_urgence_user = '1' if lvl_urgence_user == '50'
-    self.lvl_urgence_user = sous_category.lvl_urgence_max if lvl_urgence_user > sous_category.lvl_urgence_max
   end
 end

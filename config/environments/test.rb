@@ -6,19 +6,30 @@ Rails.application.configure do
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs. Don't rely on the data there!
   config.cache_classes = true
-
+  ActiveSupport::Deprecation.silenced = true
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
   # preloads Rails for running tests, you may have to set it to true.
   config.eager_load = false
-
   # Configure static file server for tests with Cache-Control for performance.
-  config.serve_static_files   = true
-  config.static_cache_control = 'public, max-age=3600'
+  config.public_file_server.enabled = true
+  config.public_file_server.headers = { 'Cache-Control' => 'public, max-age=3600' }
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+    address: 'auth.smtp.1and1.fr',
+    port: '587',
+    user_name: 'ticket@cle-expertises.fr',
+    password: 'sonya88',
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
+  config.action_mailer.raise_delivery_errors = true
 
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false

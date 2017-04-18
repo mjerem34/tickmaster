@@ -2,7 +2,6 @@ class SousCategoriesController < ApplicationController
   # Globally, this controller is used only for the future Windows app
   # Because for web, all it is managed by the CategoriesController.
   before_action :set_sous_category, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :verify_authenticity_token
   before_action :set_expiration
   before_action :restrict_access
 

@@ -41,7 +41,7 @@ gem 'premailer-rails', '~> 1.8', '>= 1.8.2'
 # File Validators gem adds file size and content type validations to ActiveModel.
 gem 'file_validators'
 # Standalone sdoc generator
-gem 'sdoc', '~> 0.4.0', group: :doc
+# gem 'sdoc'
 # feature-rich web app server that integrates with Apache and Nginx
 gem 'passenger'
 # Let's see a great slider
@@ -84,19 +84,17 @@ group :production do
 end
 group :development, :test do
   gem 'rubocop', require: false
-
   gem 'annotate'
   gem 'guard-livereload', '~> 2.4', require: false
-  gem 'capybara'
   gem 'thin'
   gem 'factory_girl_rails'
-  # gem 'spork-rails'
   gem 'rspec-rails'
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'faker'
-  # Access an IRB console on exception pages or by using <%= console %> in views
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'guard-rspec'
+  gem 'launchy'
   gem 'spring'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'rails-controller-testing'
 end

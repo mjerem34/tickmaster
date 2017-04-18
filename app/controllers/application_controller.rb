@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
   before_action :set_default_rights
 
   include SessionsHelper
@@ -155,6 +155,9 @@ class ApplicationController < ActionController::Base
           rescue Errno::EISCONN
             # Good news everybody, the socket is connected!
             socket.puts(msg)
+          rescue Errno::ENETUNREACH
+            # No internet access
+            nil
           rescue
             # An unexpected exception was raised - the connection is no good.
             socket.close
@@ -165,6 +168,8 @@ class ApplicationController < ActionController::Base
           socket.close
           # raise "Connection timeout"
         end
+      rescue Errno::ENETUNREACH
+        nil
       end
     end
   end
@@ -449,10 +454,5 @@ class ApplicationController < ActionController::Base
     else
       redirect_to default
     end
-  end
-
-  # TODO: Know how to use this obscure method.
-  def send_mails_delayed
-    @mails = Mail.all
   end
 end

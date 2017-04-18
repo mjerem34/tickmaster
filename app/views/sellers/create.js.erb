@@ -78,4 +78,4 @@ $("#table_sellers").after(`
 `);
 $("#modal_<%= @seller.id %>").find("select").selectize({create: true, persist: false, createOnBlur: true, closeAfterSelect: true, placeholder: "Merci de sélectionner une valeur"});
 $("#new_seller_name").val("");
-notifsTempo("Création réussie", 4000, 'green');
+notifSuccess("Création réussie");

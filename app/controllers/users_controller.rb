@@ -1,11 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy, :profil, :download]
+  before_action :set_user, only: [:show, :update, :destroy, :edit, :download]
   before_action :set_expiration
-  before_action :restrict_access, except: [:new_user, :create, :forget_identifiers, :change_ip]
-  skip_before_action :set_default_rights, only: [:new_user]
+  before_action :restrict_access, except: [:new, :create, :forget_identifiers, :change_ip]
+  skip_before_action :set_default_rights, only: [:new]
+
   # GET /users
-  # GET /users.json
-  # Should render all users.
   def index
     @view_index_users = verifRight('view_index_users')
     if @view_index_users
@@ -73,22 +72,21 @@ class UsersController < ApplicationController
   # And on reload (when user has completed field) it send an email.
   def forget_identifiers
     @title = 'Identifiants oubliés'
-    @user = User.find_by_email(params[:email])
     # This appenned if the user has completed the email field.
     unless params[:email].nil?
-      if !@user.nil?
-        begin
-          respond_to do |format|
+      @user = User.find_by_email(params[:email])
+      respond_to do |format|
+        unless @user.nil?
+          begin
             AppMailer.pseudonyme_forgeted(@user).deliver_now
             format.json { render json: 'Un email contenant votre pseudonyme vient de vous être envoyé.', status: :ok }
             format.html { redirect_to signin_path, notice: 'Un email contenant votre pseudonyme vient de vous être envoyé.' }
+          rescue Exception => e
+            format.json { render json: "Impossible d'envoyer le mail car l'accès internet est inexistant ou votre adresse email est invalide, veuillez vous addresser à votre administrateur réseau", status: :unprocessable_entity }
+            format.html { redirect_to signin_path, notice: "Impossible d'envoyer le mail car l'accès internet est inexistant ou votre adresse email est invalide, veuillez vous addresser à votre administrateur réseau" }
           end
-        rescue
-          nil
-        end
-      else
-        respond_to do |format|
-          format.json { render json: "L'adresse email est incorrecte, peut être n'êtes vous pas encore inscrit ?", status: :unprocessable_entity }
+        else
+          format.json { render json: "L'adresse email est incorrecte, peut être n'êtes vous pas encore inscrit ?", status: 404 }
           format.html { redirect_to signup_path, notice: "L'adresse email est incorrecte, peut être n'êtes vous pas encore inscrit ?" }
         end
       end
@@ -107,46 +105,36 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/new_tech
-  def new_tech
-    @create_new_tech = verifRight('create_new_tech')
-    if @create_new_tech
-      @user = User.new
-      @title = 'Créer un utilisateur'
-      @type_users = TypeUser.where(actif: true)
+  # GET /users/new_user
+  def new
+    @title = "S'inscrire"
+    @user = User.new
+    @type_users = if current_user && verifRight('create_new_tech')
+      TypeUser.where(actif: true)
     else
-      renderUnauthorized
+      TypeUser.where(is_tech: false, actif: true)
     end
   end
 
-  # GET /users/new_user
-  def new_user
-    @title = "S'inscrire"
-    @user = User.new
-    @type_users = TypeUser.where(is_tech: false, actif: true)
-  end
-
-  # GET /user/:id/profil
-  # GET /user/:id/profil.json
+  # GET /user/:id/edit
+  # GET /user/:id/edit.json
   # Should render the form for edit his profile.
-  # TODO: Maybe re-use the edit mthd for that ...
-  def profil
+  def edit
     if @user.nil?
       respond_to do |format|
         format.json { render json: "Cet utilisateur n'existe pas !", status: 404 }
         format.html { redirect_to '/', notice: "Cet utilisateur n'existe pas !" }
       end
-      return false
-    end
-    if current_user == @user || verifRight('edit_other_user')
+    elsif current_user == @user || verifRight('edit_other_user')
       @title = "Profil d'utilisateur #{@user.surname} #{@user.name}"
-      @edit_like_a_boss = verifRight('edit_like_a_boss')
+      @edit_all_user = verifRight('edit_all_user')
       @delete_user = verifRight('delete_user')
       @type_users = TypeUser.all.order('name asc')
       @agencies = Agency.all.order('name ASC')
+      @field_type_users = @user.type_user.field_type_users
       respond_to do |format|
         format.json { render json: @user }
-        format.html { render :profil }
+        format.html { render :edit }
       end
     else
       renderUnauthorized
@@ -187,43 +175,19 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
-  # Should be used for create an user.
-  # It signin the user when created.
   def create
     @user = User.new(user_params)
-    @user.password = '' unless @user.type_user.secure
-    respond_to do |format|
-      if User.exists?(pseudo: @user.pseudo)
-        format.json { render json: "Nom d'utilisateur déjà enregistré", status: 409 }
-        format.html do
-          flash[:notice] = "Nom d'utilisateur déjà enregistré"
-          if current_user.nil?
-            redirect_to :back
-          else
-            redirect_to :back
-          end
-        end
+    if !current_user.nil?
+      if verifRight('create_new_tech')
+        create_user
       else
-        if @user.save
-          # If it is new user and if there are no user currently signed in
-          # It signed in automatically.
-          if current_user.nil?
-            sign_in @user
-            format.json { render json: @user.id, status: :created }
-            format.html { redirect_to pages_help_path, notice: 'Bienvenue, votre inscription a bien été prise en compte.' }
-            User.joins(:type_user).where('type_users.is_tech=1').each do |tech|
-              next if tech.ip_addr.blank?
-              sendNotif(tech.ip_addr, @user.name + ' ' + @user.surname + " vient de s'inscrire !")
-            end
-          else
-            # It render only the id in json.
-            format.json { render json: @user.id, status: :created }
-            format.html { redirect_to :back, notice: "L'utilisateur a bien été créé." }
-          end
-        else
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-          format.html { redirect_to :back, notice: "Impossible  de procéder à l'inscription, veuillez contacter votre administrateur réseau." }
-        end
+        renderUnauthorized
+      end
+    else
+      if !@user.type_user.is_tech
+        create_user
+      else
+        renderUnauthorized
       end
     end
   end
@@ -271,12 +235,28 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:id])
-  rescue
-    @user = nil
+    begin
+      @user = User.find(params[:id])
+    rescue
+      @user = nil
+    end
   end
 
   def user_params
-    params.require(:user).permit(:type_user_id, :pseudo, :password, :email, :tel, :salt, :agency_id, :mode, :ip_addr, :sys_msg, :actif, :name, :surname, file_users_attributes: [:id, :user_id, :file, :content_type, :file_size])
+    params.require(:user).permit(:surname, :name, :pseudo, :email, :tel, :type_user_id, :agency_id, :password, :ip_addr)
+  end
+  def create_user
+    respond_to do |format|
+      if @user.save
+        sign_in @user if current_user.nil?
+        format.json { render json: @user.id, status: :created }
+        User.joins(:type_user).where('type_users.is_tech=1').each do |tech|
+          next if tech.ip_addr.blank?
+          sendNotif(tech.ip_addr, @user.name + ' ' + @user.surname + " vient de s'inscrire !")
+        end
+      else
+        format.json { render json: @user.errors.full_messages.first, status: :unprocessable_entity }
+      end
+    end
   end
 end
