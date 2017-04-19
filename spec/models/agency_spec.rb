@@ -4,14 +4,14 @@ RSpec.describe Agency, type: :model do
     expect(build(:agency)).to be_valid
   end
   it "should fail if name is missing" do
-    expect(build(:agency, name: nil)).to_not be_valid
+    expect(build(:agency, name: nil)).not_to be_valid
   end
   it "should fail if ip_adress is missing" do
-    expect(build(:agency, ip_adress: nil)).to_not be_valid
+    expect(build(:agency, ip_adress: nil)).not_to be_valid
   end
   it "should fail if there is a double name in db" do
     agency = create(:agency)
-    expect(build(:agency, name: agency.name)).to_not be_valid
+    expect(build(:agency, name: agency.name)).not_to be_valid
   end
   it "should show users" do
     agency = create(:agency)

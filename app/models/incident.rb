@@ -15,65 +15,19 @@ class Incident < ActiveRecord::Base
 
   validates :title, presence: true, length: { in: 0..199 }
   validates :content, presence: true
+  validates :user_id, presence: true
+  validates :tech_id, presence: true
   validates :category_id, presence: true
   validates :sous_category_id, presence: true
   validates :lvl_urgence_user, presence: true
-  validates :lvl_urgence_tech, presence: true
-  validates :cloture_user, presence: true, inclusion: { in: [true, false] }
-  validates :cloture_tech, presence: true, inclusion: { in: [true, false] }
-  validates :notify_for_user, presence: true, inclusion: { in: [true, false] }
-  validates :notify_for_tech, presence: true, inclusion: { in: [true, false] }
-  validates :incident_state_id_for_user_id, presence: true
-  validates :incident_state_id_for_tech_id, presence: true
-  validates :lvl_of_incident, presence: true
 
   before_update :verify_if_incident_is_reaffected
-
-  before_validation :set_lvl_of_incidents_to_default
-  before_validation :set_cloture_tech_to_default
-  before_validation :set_cloture_user_to_default
-  before_validation :set_notify_for_user_to_default
-  before_validation :set_notify_for_tech_to_default
-  before_validation :set_lvl_urgence_tech_to_default
-  before_validation :set_incident_state_id_for_user_id
-  before_validation :set_incident_state_id_for_tech_id
-  before_validation :set_lvl_urgence_user_to_max
+  before_create :set_lvl_urgence_user_to_max
 
   def set_lvl_urgence_user_to_max
     self.lvl_urgence_user = sous_category.lvl_urgence_max if lvl_urgence_user > sous_category.lvl_urgence_max
   end
 
-  def set_incident_state_id_for_user_id
-    self.incident_state_id_for_user_id = 1
-  end
-
-  def set_incident_state_id_for_tech_id
-    self.incident_state_id_for_tech_id = 1
-  end
-
-  def set_lvl_urgence_tech_to_default
-    self.lvl_urgence_tech = 1
-  end
-
-  def set_notify_for_user_to_default
-    self.notify_for_user = 0
-  end
-
-  def set_notify_for_tech_to_default
-    self.notify_for_tech = 1
-  end
-
-  def set_lvl_of_incidents_to_default
-    self.lvl_of_incident = 1
-  end
-
-  def set_cloture_tech_to_default
-    self.cloture_tech = 0
-  end
-
-  def set_cloture_user_to_default
-    self.cloture_user = 0
-  end
   # This appenned every time an incident have params updated.
   # It verify if the tech have changed.
   def verify_if_incident_is_reaffected

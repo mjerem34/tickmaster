@@ -20,7 +20,7 @@ RSpec.describe UsersController, type: :controller do
       end
       describe "#show" do
         it "should redirect to root path" do
-          user = FactoryGirl.create(:user)
+          user = create(:user)
 
           get :show, id: user.id
 
@@ -36,7 +36,7 @@ RSpec.describe UsersController, type: :controller do
       end
       describe "#edit" do
         it "should redirect to root path" do
-          user = FactoryGirl.create(:user)
+          user = create(:user)
 
           get :edit, id: user.id
 
@@ -45,7 +45,7 @@ RSpec.describe UsersController, type: :controller do
       end
       describe "#to_treat" do
         it "should redirect to root path" do
-          user = FactoryGirl.create(:user)
+          user = create(:user)
 
           get :edit, id: user.id
 
@@ -54,7 +54,7 @@ RSpec.describe UsersController, type: :controller do
       end
       describe "#allincidents" do
         it "should redirect to root_path" do
-          user = FactoryGirl.create(:user)
+          user = create(:user)
 
           get :allincidents, id: user.id
 
@@ -65,7 +65,7 @@ RSpec.describe UsersController, type: :controller do
     context "connected" do
       context "have the right" do
         before do
-          @user = FactoryGirl.create(:admin)
+          @user = create(:admin)
 
           sign_in @user
         end
@@ -90,7 +90,7 @@ RSpec.describe UsersController, type: :controller do
             expect(response).to render_template(:edit)
           end
           it "should render the form if it's not his profile" do
-            user = FactoryGirl.create(:user)
+            user = create(:user)
 
             get :edit, id: user.id
 
@@ -119,7 +119,7 @@ RSpec.describe UsersController, type: :controller do
       end
       context "does not have the right" do
         before do
-          @user = FactoryGirl.create(:user)
+          @user = create(:user)
 
           sign_in @user
         end
@@ -132,7 +132,7 @@ RSpec.describe UsersController, type: :controller do
         end
         describe '#edit' do
           it "should redirect to root path if it's not his profile" do
-            user = FactoryGirl.create(:user)
+            user = create(:user)
 
             get :edit, id: user.id
 
@@ -184,7 +184,7 @@ RSpec.describe UsersController, type: :controller do
       end
       describe "#show" do
         it "should render status unauthorized" do
-          user = FactoryGirl.create(:user)
+          user = create(:user)
 
           get :show, id: user.id
 
@@ -193,7 +193,7 @@ RSpec.describe UsersController, type: :controller do
       end
       describe "#to_treat" do
         it "should render status unauthorized" do
-          user = FactoryGirl.create(:user)
+          user = create(:user)
 
           get :to_treat, id: user.id
 
@@ -202,7 +202,7 @@ RSpec.describe UsersController, type: :controller do
       end
       describe "#allincidents" do
         it "should render status unauthorized" do
-          user = FactoryGirl.create(:user)
+          user = create(:user)
 
           get :allincidents, id: user.id
 
@@ -233,7 +233,7 @@ RSpec.describe UsersController, type: :controller do
       end
       describe "#update" do
         it "should render status unauthorized" do
-          user = FactoryGirl.create(:user)
+          user = create(:user)
 
           put :update, id: user.id, user: attributes_for(:user)
 
@@ -242,14 +242,14 @@ RSpec.describe UsersController, type: :controller do
       end
       describe "#destroy" do
         it "should render status unauthorized" do
-          user = FactoryGirl.create(:user)
+          user = create(:user)
 
           delete :destroy, id: user.id
 
           expect(response.status).to eq(401)
         end
         it "should not delete the user" do
-          user = FactoryGirl.create(:user)
+          user = create(:user)
 
           delete :destroy, id: user.id
 
@@ -260,7 +260,7 @@ RSpec.describe UsersController, type: :controller do
     context "when is connected" do
       context "when user have not the authorization to do" do
         before do
-          @user = FactoryGirl.create(:user)
+          @user = create(:user)
 
           sign_in(@user)
         end
@@ -321,7 +321,7 @@ RSpec.describe UsersController, type: :controller do
             expect(response.status).to eq(204)
           end
           it "should render status unauthorized if is not his profile" do
-            new_user = FactoryGirl.create(:user)
+            new_user = create(:user)
 
             put :update, id: new_user.id, user: attributes_for(:user)
 
@@ -333,7 +333,7 @@ RSpec.describe UsersController, type: :controller do
             expect(User.find(@user.id).name).to eq("nijhioj")
           end
           it "should not edit the user if it's not his profile" do
-            new_user = FactoryGirl.create(:user)
+            new_user = create(:user)
             before = new_user.name
 
             put :update, id: new_user.id, user: attributes_for(:user)
@@ -343,14 +343,14 @@ RSpec.describe UsersController, type: :controller do
         end
         describe "#destroy" do
           it "should render status unauthorized" do
-            new_user = FactoryGirl.create(:user)
+            new_user = create(:user)
 
             delete :destroy, id: new_user.id
 
             expect(response.status).to eq 403
           end
           it "should not destroy the user" do
-            new_user = FactoryGirl.create(:user)
+            new_user = create(:user)
 
             delete :destroy, id: new_user.id
 
@@ -360,7 +360,7 @@ RSpec.describe UsersController, type: :controller do
       end
       context "when user have the authorization to do" do
         before do
-          @user = FactoryGirl.create(:admin)
+          @user = create(:admin)
 
           sign_in(@user)
         end
@@ -392,14 +392,14 @@ RSpec.describe UsersController, type: :controller do
         end
         describe "#destroy" do
           it "should respond with success" do
-            new_user = FactoryGirl.create(:user)
+            new_user = create(:user)
 
             delete :destroy, id: new_user.id
 
             expect(response.status).to eq(204)
           end
           it "should destroy the user" do
-            new_user = FactoryGirl.create(:user)
+            new_user = create(:user)
 
             delete :destroy, id: new_user.id
 
@@ -432,14 +432,14 @@ RSpec.describe UsersController, type: :controller do
             expect(User.find(@user.id).name).to eq("nijhioj")
           end
           it "should edit an part of other user" do
-            new_user = FactoryGirl.create(:user)
+            new_user = create(:user)
 
             put :update, id: new_user.id, user: { name: "nijhioj" }
 
             expect(User.find(new_user.id).name).to eq("nijhioj")
           end
           it "should render status ok" do
-            new_user = FactoryGirl.create(:user)
+            new_user = create(:user)
 
             put :update, id: new_user.id, user: { name: "nijhioj" }
 

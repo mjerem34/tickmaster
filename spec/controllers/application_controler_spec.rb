@@ -17,11 +17,11 @@ RSpec.describe ApplicationController, type: :controller do
   context 'general tests' do
     # describe 'ApplicationController#verifRight' do
     #   it "should return true if the current_user have the right" do
-    #     current_user = FactoryGirl.create(:admin)
+    #     current_user = create(:admin)
     #     expect(verifRight("view_index_users")).to eq(true)
     #   end
     #   it "should return false if the current_user have not the right" do
-    #     @user = FactoryGirl.create(:user)
+    #     @user = create(:user)
     #     sign_in @user
     #     expect(verifRight("view_index_users")).to eq(false)
     #   end

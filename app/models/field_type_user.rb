@@ -1,5 +1,4 @@
 class FieldTypeUser < ActiveRecord::Base
-  attr_accessor :all
   has_many :field_users, dependent: :destroy
   has_many :users, through: :field_users
 

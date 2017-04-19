@@ -1,20 +1,4 @@
-# == Schema Information
-#
-# Table name: responses
-#
-#  id          :integer          not null, primary key
-#  title       :string(255)
-#  content     :text(65535)
-#  incident_id :integer
-#  user_id     :integer
-#  tech_id     :integer
-#  created_at  :datetime
-#  updated_at  :datetime
-#
-
 class Response < ActiveRecord::Base
-  has_many :users
-  belongs_to :user
   belongs_to :incident
   belongs_to :sender, class_name: 'User', foreign_key: 'sender_id'
   belongs_to :receiver, class_name: 'User', foreign_key: 'receiver_id'
@@ -23,11 +7,14 @@ class Response < ActiveRecord::Base
   has_many :file_archives
   accepts_nested_attributes_for :file_archives, allow_destroy: true
 
-  module ResponseMod
-    attr_accessor :content
-  end
+  IP_REGEXP = /\A(?:(?:[1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}(?:[1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\z/
 
-  validates :content, presence: true
+  validates :content, presence: true, length: { in: 0..65_534 }
+  validates :ip_adress_sender, presence: true, format: { with: IP_REGEXP }
+  validates :sender_id, presence: true
+  validates :receiver_id, presence: true
+  validates :incident_id, presence: true
+
   def downloadable?(user)
     user != :guest
   end

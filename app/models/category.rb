@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
   has_many :sous_categories
 
   validates :name, :presence => true,
-  :uniqueness => {:case_sensitive => false}, length: { in: 0..29}
+  uniqueness: {:case_sensitive => false}, length: { in: 0..254}
 
   def create_new_sous_category_called_test
     SousCategory.create(name: 'Autre', category_id: self.id, lvl_urgence_max: 10)

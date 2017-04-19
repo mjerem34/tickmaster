@@ -206,6 +206,7 @@ fr:
           attributes:
             content:
               blank: "requis"
+              too_long: "trop long"
         agency:
           attributes:
             name:

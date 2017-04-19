@@ -26,7 +26,7 @@ RSpec.describe SousCategory, type: :model do
     admin = create(:admin, agency_id: agency.id)
     c = create(:category)
     sc = create(:sous_category, category_id: c.id)
-    incident = create(:incident, category_id: c.id, sous_category_id: sc.id, user_id: user.id, tech_id: admin.id)
+    incident = create(:incident, lvl_urgence_user: 10, category_id: c.id, sous_category_id: sc.id, user_id: user.id, tech_id: admin.id)
 
     expect(sc.incidents).to eq [incident]
   end

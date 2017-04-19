@@ -19,15 +19,11 @@ FactoryGirl.define do
 
   factory :archive, class: Archive do |f|
     # An archive is an copy of an answer
-    # f.content { Faker::Lorem.words(12).join(' ') }
-    # TODO: Complete this factory
-    # t.text     "content"
     # t.integer  "incident_id"
     # t.integer  "sender_id"
     # t.integer  "receiver_id"
-    # t.string   "ip_adress_sender"
-    # t.datetime "created_at"
-    # t.datetime "updated_at"
+    f.content { Faker::Lorem.words(12).join(' ') }
+    f.ip_adress_sender { Faker::Internet.ip_v4_address }
   end
 
   factory :category, class: Category do |f|

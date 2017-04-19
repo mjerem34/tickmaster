@@ -1,9 +1,6 @@
 require 'securerandom'
 require 'digest'
 class User < ActiveRecord::Base
-  module UserMod
-    attr_accessor :pseudo, :type_user_id, :password, :ip_addr, :email, :tel, :salt, :sys_msg, :actif, :mode, :agency_id
-  end
   before_save :set_pseudo_downcase
   before_save :set_email_downcase
   before_save :set_user_actif
@@ -21,22 +18,22 @@ class User < ActiveRecord::Base
   has_many :field_type_users, through: :field_users
   belongs_to :type_user, foreign_key: :type_user_id
 
-  email_regexp = /\A[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,4}$\z/
-  pseudo_regexp = /\A([a-zA-Z0-9._-]{2,36})\z/
-  phone_regexp = /\A^0[0-9]([ .-]?[0-9]{2}){4}\z/
+  EMAIL_REGEXP = /\A[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-zA-Z]{2,4}$\z/
+  PSEUDO_REGEXP = /\A([a-zA-Z0-9._-]{2,36})\z/
+  PHONE_REGEXP = /\A^0[0-9]([ .-]?[0-9]{2}){4}\z/
 
   # Validations
-  validates :pseudo, presence: true, format: { with: pseudo_regexp }, uniqueness: { case_sensitive: false }, length: { in: 0..49 }
+  validates :pseudo, presence: true, format: { with: PSEUDO_REGEXP }, uniqueness: { case_sensitive: false }, length: { in: 0..49 }
   validates :type_user_id, presence: true
   validates :surname, presence: true
   validates :name, presence: true
   # validates :password, presence: true
   validates :agency_id, presence: true
   validates :tel, presence: true,
-  format: { with: phone_regexp }, length: { in: 0..30 }
+  format: { with: PHONE_REGEXP }, length: { in: 0..30 }
 
   validates :email, presence: true,
-  format: { with: email_regexp }, length: { in: 0..254 }
+  format: { with: EMAIL_REGEXP }, length: { in: 0..254 }
 
   # Methods
   def self.authenticate(pseudo, password)
