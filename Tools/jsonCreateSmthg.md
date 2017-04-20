@@ -141,13 +141,10 @@ Créer un matériel (avec tout ce qu'on a besoin) :
 
 
 Se connecter :
-
-{
-  "session":{
-    "pseudo":"jm",
-    "password":""
-  }
-}
+Admin :
+{"session": {"pseudo": "jm", "password": "pass"}}
+Aucun droit :
+{"session": {"pseudo": "ecureuil", "password": " "}}
 
 
 ---
