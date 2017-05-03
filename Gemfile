@@ -79,6 +79,7 @@ gem 'groupdate'
 # A ruby web server built for concurrency
 gem 'puma', '~> 3.4.0'
 gem 'web-console', '~> 2.0'
+gem 'responders'
 group :production do
   gem 'exception_notification'
 end

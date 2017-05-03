@@ -112,7 +112,8 @@ RSpec.describe AgenciesController, type: :controller do
               expect(Agency.count).to eq 2
             end
             it 'should return the id of agency created' do
-              expect(response.body).to eq Agency.last.id.to_s
+              agency = Agency.find_by_name('fef')
+              expect(response.body).to eq agency.to_json
             end
             it 'should create the field_agency if not exists' do
               expect(FieldAgency.count).to eq 1

@@ -3,6 +3,8 @@ class AgenciesController < ApplicationController
   before_action :set_agency, only: %i(show edit destroy)
   before_action :set_expiration
   before_action :restrict_access
+  before_action :agency_empty?, only: :destroy
+  respond_to :js, :json
 
   # GET /agencies
   # GET /agencies.json
@@ -54,16 +56,7 @@ class AgenciesController < ApplicationController
   # POST /agencies.json
   def create
     @agency = CreateAgency.new(params: params).create
-    respond_to do |format|
-      if @agency.valid?
-        format.js
-        format.json { render json: @agency.id, status: :created }
-      else
-        format.json { render json: @agency.errors.full_messages.first,
-                             status: :unprocessable_entity }
-        format.html { render :new }
-      end
-    end
+    respond_with(@agency, location: -> { agency_path(@agency) })
   end
 
   # PATCH/PUT /agencies/1
@@ -83,22 +76,19 @@ class AgenciesController < ApplicationController
   # DELETE /agencies/1.json
   def destroy
     respond_to do |format|
-      if User.where(agency_id: @agency.id).empty?
-        if @agency.destroy
-          format.json { head :no_content }
-          format.html { redirect_to agencies_url, notice: 'Opération réussie' }
-        else
-          format.json { render json: @agency.errors, status: :unprocessable_entity }
-          format.html { render :edit, notice: 'Impossible de supprimer cette agence, allez savoir pourquoi ... Peut être que les employés y sont pour quelque chose ...' }
-        end
-      else
-        format.json { render json: 'Vous ne pouvez pas supprimer cette agence car elle contient des utilisateurs.', status: :unprocessable_entity }
-        format.html { redirect_to agencies_url, alert: 'Vous ne pouvez pas supprimer cette agence car elle contient des utilisateurs.' }
-      end
+      @agency.destroy
+      format.json { head :no_content }
+      format.html { redirect_to agencies_url, notice: 'Opération réussie' }
     end
   end
 
   private
+
+  def agency_empty?
+    respond_with "L'agence contient des utilisateurs" unless @agency
+                                                             .users
+                                                             .exists?
+  end
 
   def set_agency
     @agency = Agency.find(params[:id])
