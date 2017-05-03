@@ -36,17 +36,17 @@
       <tbody class="principal_body">
         <% @category.sous_categories.each do |sous_category| %>
         <tr>
-          <% if !current_user.nil? && @view_details_subcategories %>
+          <% if !current_user.nil? && @show_sous_categories %>
           <td onClick="document.location.href='<%=sous_category_path(sous_category)%>'"><%= sous_category.name %></td>
           <% else %>
           <td onClick="document.location.href='<%=sous_category_path(sous_category)%>'"><%= sous_category.name %></td>
           <% end %>
           <td onClick="document.location.href='<%=sous_category_path(sous_category)%>'"><%= sous_category.lvl_urgence_max %></td>
 
-          <% if @edit_subcategories %>
+          <% if @edit_sous_categories %>
             <td><%= link_to 'Editer', edit_sous_category_path(sous_category) %></td>
           <% end %>
-          <% if @delete_subcategories %>
+          <% if @destroy_sous_categories %>
             <td class="delete_subcat_btn" data-id="<%= sous_category.id %>">Supprimer</td>
           <% end %>
         </tr>

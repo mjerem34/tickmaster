@@ -4,7 +4,7 @@ RSpec.describe SpecMaterial, type: :model do
 
   it { expect(build(:spec_material, spec_type_material_id: @stm.id)).to be_valid }
 
-  it { expect(build(:spec_material, spec_value: nil, spec_type_material_id: @stm.id )).not_to be_valid }
+  it { expect(build(:spec_material, spec_value: nil, spec_type_material_id: @stm.id)).not_to be_valid }
 
   it { expect(build(:spec_material, spec_type_material_id: nil)).not_to be_valid }
 
@@ -12,19 +12,19 @@ RSpec.describe SpecMaterial, type: :model do
 
   it { expect(build(:spec_material, spec_value: SecureRandom.hex(128), spec_type_material_id: @stm.id)).not_to be_valid }
 
-  it "should not be valid if double #spec_value" do
+  it 'should not be valid if double #spec_value' do
     spec_material = create(:spec_material, spec_type_material_id: @stm.id)
 
     expect(build(:spec_material, spec_value: spec_material.spec_value)).not_to be_valid
   end
 
-  it "should render spec_type_material" do
+  it 'should render spec_type_material' do
     spec_material = create(:spec_material, spec_type_material_id: @stm.id)
 
     expect(spec_material.spec_type_material)
   end
 
-  it "should render materials" do
+  it 'should render materials' do
     spec_material = create(:spec_material, spec_type_material_id: @stm.id)
     type_material = create(:type_material)
     detentor_type = create(:detentor_type)

@@ -3,7 +3,7 @@ class ResponsesController < ApplicationController
   before_action :restrict_access
   # GET /responses/new
   def new
-    @title = "Nouvelle réponse"
+    @title = 'Nouvelle réponse'
     @incident = Incident.find(params[:incident_id])
     @response = Response.new
   end
@@ -22,6 +22,6 @@ class ResponsesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def response_params
-    params.require(:response).permit(:content, file_responses_attributes: [:id, :response_id, :file, :content_type, :file_size])
+    params.require(:response).permit(:content, file_responses_attributes: %i[id response_id file content_type file_size])
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 RSpec.describe Category, type: :model do
-  it { expect(build(:category, name: "New category")).to be_valid }
+  it { expect(build(:category, name: 'New category')).to be_valid }
 
   it { expect(build(:category, name: nil)).not_to be_valid }
 
@@ -8,12 +8,12 @@ RSpec.describe Category, type: :model do
 
   it { expect(build(:category, name: SecureRandom.hex(127))).to be_valid }
 
-  context "if categ is created" do
+  context 'if categ is created' do
     before { @category = create(:category) }
 
     it { expect(build(:category, name: @category.name)).not_to be_valid }
 
-    it "return sous_categ" do
+    it 'return sous_categ' do
       create(:sous_category, category_id: @category.id)
 
       sous_category = SousCategory.where(category_id: @category.id)
@@ -24,10 +24,10 @@ RSpec.describe Category, type: :model do
     it "create an sous_category called 'Autre' on save" do
       @category = create(:category)
 
-      expect(@category.sous_categories.first.name).to eq "Autre"
+      expect(@category.sous_categories.first.name).to eq 'Autre'
     end
 
-    it "return the incidents" do
+    it 'return the incidents' do
       agency = create(:agency)
       user = create(:user, agency_id: agency.id)
       admin = create(:admin, agency_id: agency.id)

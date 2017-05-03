@@ -24,7 +24,7 @@ RSpec.describe Incident, type: :model do
 
   it { expect(build(:incident, user_id: @user.id, tech_id: @admin.id, category_id: @category.id, sous_category_id: @sous_category.id, lvl_urgence_user: nil)).not_to be_valid }
 
-  it "set lvl urgence to max of sous_category max urgence if it is higher" do
+  it 'set lvl urgence to max of sous_category max urgence if it is higher' do
     incident = create(:incident, user_id: @user.id, tech_id: @admin.id, category_id: @category.id, sous_category_id: @sous_category.id, lvl_urgence_user: 20)
 
     expect(incident.lvl_urgence_user).to eq @sous_category.lvl_urgence_max
@@ -34,15 +34,15 @@ RSpec.describe Incident, type: :model do
 
     expect(incident.lvl_urgence_user).not_to eq @sous_category.lvl_urgence_max
   end
-  context "with incident created" do
+  context 'with incident created' do
     before { @incident = create(:incident, user_id: @user.id, tech_id: @admin.id, category_id: @category.id, sous_category_id: @sous_category.id, lvl_urgence_user: 5) }
 
-    it "render responses of the incident" do
+    it 'render responses of the incident' do
       response = create(:response, incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)
 
       expect(@incident.responses).to eq [response]
     end
-    it "render archives of the incident" do
+    it 'render archives of the incident' do
       archive = create(:archive, incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)
 
       expect(@incident.archives).to eq [archive]
@@ -61,6 +61,5 @@ RSpec.describe Incident, type: :model do
     it { expect(@incident.incident_state_id_for_tech.name).to eq IncidentsState.find(@incident.incident_state_id_for_tech.id).name }
 
     it { expect(@incident.incident_state_id_for_user.name).to eq IncidentsState.find(@incident.incident_state_id_for_user.id).name }
-
   end
 end

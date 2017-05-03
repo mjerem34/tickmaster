@@ -4,9 +4,9 @@ RSpec.describe DetentorType, type: :model do
 
   it { expect(build(:detentor_type, name: nil)).not_to be_valid }
 
-  it "not valid if there is a double" do
+  it 'not valid if there is a double' do
     detentor_type = create(:detentor_type)
-      expect(build(:detentor_type, name: detentor_type.name)).not_to be_valid
+    expect(build(:detentor_type, name: detentor_type.name)).not_to be_valid
   end
-  it "return materials"
+  it 'return materials'
 end

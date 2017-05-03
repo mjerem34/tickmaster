@@ -1,7 +1,7 @@
 $("#table_field_sellers > tbody").append(`
   <tr id='<%= @field_seller.id %>'>
     <td><input type='text' name='field_seller_name' id='name_field_seller' value='<%= @field_seller.name %>' class='form-control'/></td>
-    <td><button type="button" name="delete_field_sellers" class='btn btn-flat btn-danger' id='delete_field_sellers'>-</button></td>
+    <td><button type="button" name="destroy_field_sellers" class='btn btn-flat btn-danger' id='destroy_field_sellers'>-</button></td>
   </tr>
 `);
 $("#name_new_field_seller").val('');

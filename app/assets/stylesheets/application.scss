@@ -11,8 +11,6 @@
 // .skin-yellow-light
 // .skin-purple
 // .skin-purple-light
-
-
 /*
 *= require adminlte
 *= require all-skins.min
@@ -22,57 +20,53 @@
 *= require sweetalert
 *= require rights
 */
-
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
-
-
 // Lateral Bar -- Begin
-div.pull-left.image{
+div.pull-left.image {
   padding-bottom: 15px;
 }
 // Lateral Bar -- End
-
 // Tables -- Begin
-table{
-  tbody{
-    tr{
+table {
+  tbody {
+    tr {
       cursor: pointer;
     }
   }
 }
 // Tables dans les modals, pour rendre visible les select en bas de modal
-div.modal-body > div.table-responsive{
+
+div.modal-body > div.table-responsive {
   overflow-x: visible;
 }
-table.dataTable{
-  width:99%;
+
+table.dataTable {
+  width: 99%;
 }
 // Tables -- End
-
 // notifsTempo -- Begin
-.notifs-tempo{
+.notifs-tempo {
   position: fixed;
   top: 60px;
   right: 10px;
   z-index: 9999;
 }
 // notifsTempo -- End
-
-
 // Texts -- Begin
-h1.home{
+h1.home {
   text-align: center;
 }
 // Texts -- End
-
 // Blocks -- Begin
-section.content{
+section.content {
   min-height: 100vh;
 }
-div.login-page, div.signup-page{
+
+div.login-page,
+div.signup-page {
   min-height: 95vh;
 }
 // Blocks -- End

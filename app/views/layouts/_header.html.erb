@@ -206,9 +206,9 @@
           </a>
           <ul class="treeview-menu">
             <%= "<li>".html_safe + link_to("Mes incidents", current_user) + "</li>".html_safe %>
-            <%= "<li>".html_safe + link_to("A traiter", to_treat_user_url(current_user)) + "</li>".html_safe if @dispatch_incidents %>
-            <%= "<li>".html_safe + link_to("Non attribués", incidents_without_tech_incidents_url) + "</li>".html_safe if @dispatch_incidents %>
-            <%= "<li>".html_safe + link_to("Tous les incidents", incidents_url) + "</li>".html_safe if @view_index_all_of_incidents %>
+            <%= "<li>".html_safe + link_to("A traiter", to_treat_user_url(current_user)) + "</li>".html_safe if @without_tech_incidents %>
+            <%= "<li>".html_safe + link_to("Non attribués", without_tech_incidents_url) + "</li>".html_safe if @without_tech_incidents %>
+            <%= "<li>".html_safe + link_to("Tous les incidents", incidents_url) + "</li>".html_safe if @index_incidents %>
             <%= "<li>".html_safe + link_to("Cloturés/Rejetés", allincidents_user_url(current_user)) + "</li>".html_safe %>
           </ul>
         </li>
@@ -219,8 +219,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <%= "<li>".html_safe + link_to("Catégories", categories_url) + "</li>".html_safe if @view_index_categories %>
-            <%= "<li>".html_safe + link_to("Sous-Catégories", sous_categories_url) + "</li>".html_safe if @view_index_categories %>
+            <%= "<li>".html_safe + link_to("Catégories", categories_url) + "</li>".html_safe if @index_categories %>
+            <%= "<li>".html_safe + link_to("Sous-Catégories", sous_categories_url) + "</li>".html_safe if @index_categories %>
           </ul>
         </li>
         <li class="treeview">
@@ -230,9 +230,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <%= "<li>".html_safe + link_to("Tous les utilisateurs", users_url) + "</li>".html_safe if @view_index_users %>
+            <%= "<li>".html_safe + link_to("Tous les utilisateurs", users_url) + "</li>".html_safe if @index_users %>
             <%= "<li>".html_safe + link_to("Créer un utilisateur", new_type_user_url) + "</li>".html_safe if @create_new_tech %>
-            <%= "<li>".html_safe + link_to("Champs utilisateurs", field_type_users_url) + "</li>".html_safe if @view_field_type_users %>
+            <%= "<li>".html_safe + link_to("Champs utilisateurs", field_type_users_url) + "</li>".html_safe if @index_field_type_users %>
           </ul>
         </li>
         <li class="treeview">
@@ -253,9 +253,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <%= "<li>".html_safe + link_to("Liste des agences", agencies_url) + "</li>".html_safe if @view_index_agencies %>
-            <%= "<li>".html_safe + link_to("Nouvelle agence", new_agency_url) + "</li>".html_safe if @create_new_agency %>
-            <%= "<li>".html_safe + link_to("Champs agences", field_agencies_url) + "</li>".html_safe if @view_field_agencies %>
+            <%= "<li>".html_safe + link_to("Liste des agences", agencies_url) + "</li>".html_safe if @index_agencies %>
+            <%= "<li>".html_safe + link_to("Nouvelle agence", new_agency_url) + "</li>".html_safe if @new_agencies %>
+            <%= "<li>".html_safe + link_to("Champs agences", field_agencies_url) + "</li>".html_safe if @index_field_agencies %>
             <%= "<li>".html_safe + link_to("Pinger les agences", ping_agencies_url) + "</li>".html_safe if @ping_agencies %>
           </ul>
         </li>
@@ -269,7 +269,7 @@
             <%= "<li>".html_safe + link_to("Nouveau matériel", new_material_url) + "</li>".html_safe if @create_material %>
             <%= "<li>".html_safe + link_to("Liste des matériels", materials_url) + "</li>".html_safe if @view_material %>
             <%= "<li>".html_safe + link_to("Liste des vendeurs", sellers_url) + "</li>".html_safe if @view_sellers %>
-            <%= "<li>".html_safe + link_to("Champs vendeurs", field_sellers_url) + "</li>".html_safe if @view_field_sellers %>
+            <%= "<li>".html_safe + link_to("Champs vendeurs", field_sellers_url) + "</li>".html_safe if @index_field_sellers %>
             <%= "<li>".html_safe + link_to("Types de matériels", type_materials_url) + "</li>".html_safe if @view_type_material %>
             <%= "<li>".html_safe + link_to("Types de caractéristiques techniques", spec_type_materials_url) + "</li>".html_safe if @view_spec_type_material %>
             <%= "<li>".html_safe + link_to("Caractéristiques techniques", spec_materials_url) + "</li>".html_safe if @view_spec_material %>

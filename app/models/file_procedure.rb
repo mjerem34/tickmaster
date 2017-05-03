@@ -10,5 +10,4 @@ class FileProcedure < ActiveRecord::Base
       self.file_size = file.file.size
     end
   end
-
 end

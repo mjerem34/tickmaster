@@ -20,11 +20,11 @@ Rails.application.configure do
   # NGINX, varnish or squid.
   # config.action_dispatch.rack_cache = true
   config.middleware.use ExceptionNotification::Rack,
-  email: {
-    email_prefix: '[Website Error] ',
-    sender_address: 'ticket@cle-expertises.fr',
-    exception_recipients: ['jeremy.montesinos@cle-expertises.fr']
-  }
+                        email: {
+                          email_prefix: '[Website Error] ',
+                          sender_address: 'ticket@cle-expertises.fr',
+                          exception_recipients: ['jeremy.montesinos@cle-expertises.fr']
+                        }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = false

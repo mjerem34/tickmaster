@@ -8,7 +8,7 @@ class TypeUser < ActiveRecord::Base
   has_many :rights, through: :type_user_rights
 
   validates :name, presence: true,
-  uniqueness: { case_sensitive: false }, length: { in: 0..254 }
+                   uniqueness: { case_sensitive: false }, length: { in: 0..254 }
   validates :secure, :is_tech, :actif, inclusion: { in: [true, false] }
 
   def set_actif_to_true

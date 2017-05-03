@@ -1,17 +1,18 @@
 class IncidentsController < ApplicationController
-  before_action :set_incident, only: [:show, :edit, :update, :destroy, :reply, :download]
-  before_action :set_categories_all, only: [:index, :show, :edit, :new, :create]
-  before_action :set_users_all, only: [:create, :index, :incidents_without_tech]
+  before_action :set_incident, only: %i[show edit update destroy reply download]
+  before_action :set_categories_all, only: %i[index show edit new create]
+  before_action :set_users_all, only: %i[create index without_tech]
   before_action :set_expiration
   before_action :restrict_access
+  before_action { verify_right("#{action_name}_#{controller_name}") }
 
   # GET /incidents
   # GET /incidents.json
   # Should render all the incidents.
   # @techs var is for dispatch the incidents with json and ajax.
   def index
-    @view_index_all_of_incidents = verifRight('view_index_all_of_incidents')
-    if @view_index_all_of_incidents
+    @index_incidents = verify_right('index_incidents')
+    if @index_incidents
       @title = 'Liste de tous les incidents'
       @techs = @users.joins(:type_user).where('type_users.is_tech = true').collect { |p| [[p.surname, p.name].join(' '), p.id] }
       @incidents = Incident.includes(:user, :category, :sous_category).order('created_at desc')
@@ -20,26 +21,26 @@ class IncidentsController < ApplicationController
         format.html { render :index }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
-  # GET /incidents/1/incidents_without_tech
-  # GET /incidents/1/incidents_without_tech.json
+  # GET /incidents/1/without_tech
+  # GET /incidents/1/without_tech.json
   # Should render all the incidents that does not have a tech.
   # @techs var is for dispatch the incidents with json and ajax.
-  def incidents_without_tech
-    @dispatch_incidents = verifRight('dispatch_incidents')
-    if @dispatch_incidents
+  def without_tech
+    @without_tech_incidents = verify_right('without_tech_incidents')
+    if @without_tech_incidents
       @title = 'Incidents non attribués'
       @techs = @users.joins(:type_user).where('type_users.is_tech = true').collect { |p| [[p.surname, p.name].join(' '), p.id] }
       @incidents = Incident.where(tech_id: nil).where.not(incident_state_id_for_tech: [7, 10]).includes(:user, :category, :sous_category).order('created_at desc')
       respond_to do |format|
         format.json { render json: @incidents }
-        format.html { render :incidents_without_tech }
+        format.html { render :without_tech }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -58,13 +59,13 @@ class IncidentsController < ApplicationController
   # @sous_categories should be use for the list and it reloaded when
   # the user select an another category (see the update_subcats mthd).
   def new
-    @create_new_incidents = verifRight('create_new_incidents')
-    if @create_new_incidents
+    @new_incidents = verify_right('new_incidents')
+    if @new_incidents
       @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
       @incident = Incident.new
       @title = 'Créer un incident'
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -72,22 +73,22 @@ class IncidentsController < ApplicationController
   # Should render the edit form, this is the default view for any incident
   # Nobody can edit an incident except the field 'technician'.
   def edit
-    @view_detail_incident = verifRight('view_detail_incident')
+    @view_detail_incident = verify_right('view_detail_incident')
     if @view_detail_incident
-      @create_procedure = verifRight('create_procedure')
-      @cloture_incidents = verifRight('cloture_incidents')
-      @reject_incidents = verifRight('reject_incidents')
-      @ask_for_reaffect = verifRight('ask_for_reaffect')
-      @edit_incidents = verifRight('edit_incidents')
-      @edit_categories_incidents = verifRight('edit_categories_incidents')
-      @edit_lvl_incident = verifRight('edit_lvl_incident')
-      @dispatch_incidents = verifRight('dispatch_incidents')
-      @save_changes_of_edit = verifRight('save_changes_of_edit')
+      @create_procedure = verify_right('create_procedure')
+      @cloture_incidents = verify_right('cloture_incidents')
+      @reject_incidents = verify_right('reject_incidents')
+      @ask_for_reaffect = verify_right('ask_for_reaffect')
+      @edit_incidents = verify_right('edit_incidents')
+      @edit_categories_incidents = verify_right('edit_categories_incidents')
+      @edit_lvl_incident = verify_right('edit_lvl_incident')
+      @without_tech_incidents = verify_right('without_tech_incidents')
+      @save_changes_of_edit = verify_right('save_changes_of_edit')
       @response = Response.new
       @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
       @title = "Incident n°#{@incident.id} de #{@incident.user.name} #{@incident.user.surname}"
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -105,8 +106,8 @@ class IncidentsController < ApplicationController
   # Should dispatch the incident passed in params to the tech passed in params.
   # Do the job in ajax, it send a notif.
   def send_tech_form
-    @dispatch_incidents = verifRight('dispatch_incidents')
-    if @dispatch_incidents
+    @without_tech_incidents = verify_right('without_tech_incidents')
+    if @without_tech_incidents
       @incident = Incident.find(params[:incident_id])
       @incident.update(tech_id: params[:tech_id])
       unless @incident.tech.ip_addr.blank?
@@ -120,7 +121,7 @@ class IncidentsController < ApplicationController
         format.js
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -128,8 +129,8 @@ class IncidentsController < ApplicationController
   # POST /incidents.json
   # Should create an incident
   def create
-    @create_new_incidents = verifRight('create_new_incidents')
-    if @create_new_incidents
+    @new_incidents = verify_right('new_incidents')
+    if @new_incidents
       @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
       @incident = Incident.new(incident_params)
       @incident.user_id ||= current_user.id
@@ -177,7 +178,7 @@ class IncidentsController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -188,7 +189,7 @@ class IncidentsController < ApplicationController
   # Even God...
   # And even Chuck Norris.
   def update
-    @edit_incidents = verifRight('edit_incidents')
+    @edit_incidents = verify_right('edit_incidents')
     if @edit_incidents
       respond_to do |format|
         if @incident.update(incident_params)
@@ -199,7 +200,7 @@ class IncidentsController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -210,16 +211,24 @@ class IncidentsController < ApplicationController
   # It depends on the value of params[:commit].
   # The incident is determined by the params[:id].
   def destroy
-    @delete_incident = verifRight('delete_incident')
+    @delete_incident = verify_right('delete_incident')
     if @delete_incident
       traitResponse(params[:commit], params[:id])
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
-  private
+  def reject
+    # TODO : Integrate !
+  end
 
+  def cloture
+    # TODO : Integrate !
+  end
+
+
+  private
   def set_categories_all
     @categories = Category.all
   end
@@ -236,7 +245,7 @@ class IncidentsController < ApplicationController
     params.require(:incident).permit(
       :content, :title, :user_id, :tech_id,
       :category_id, :sous_category_id, :lvl_urgence_user,
-      :lvl_urgence_tech, file_incidents_attributes: [:id, :incident_id, :file, :content_type, :file_size]
+      :lvl_urgence_tech, file_incidents_attributes: %i[id incident_id file content_type file_size]
     )
   end
 end

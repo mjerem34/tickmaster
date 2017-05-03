@@ -11,9 +11,11 @@
           <% if @agency.errors[:name].second != nil %>
           <%= "Nom " + @agency.errors[:name].second%><br>
           <% end %>
-        </div><!-- DIV ERROR -->
+        </div>
+        <!-- DIV ERROR -->
         <% end %>
-      </div><!-- #field#form-group -->
+      </div>
+      <!-- #field#form-group -->
       <div class="field form-group">
         <%= f.label "Adresse IP" %>
         <%= f.text_field :ip_adress, class: "form-control next", placeholder: "Adresse IP" %>
@@ -23,23 +25,32 @@
           <% if @agency.errors[:ip_adress].second != nil %>
           <%= "Adresse IP" + @agency.errors[:ip_adress].second%><br>
           <% end %>
-        </div><!-- DIV ERROR -->
+        </div>
+        <!-- DIV ERROR -->
         <% end %>
-      </div><!-- #field#form-group -->
-      <strong>Informations supplémentaires : </strong>
+      </div>
+      <!-- #field#form-group -->
+      <strong>Informations supplémentaires :
+      </strong>
       <!-- INFORMATIONS COMPLÉMENTAIRES -->
       <% @field_agencies.each do |field_agency| %>
       <div class="field form-group" id="infos-comp">
         <strong><%= f.label "#{field_agency.name}" %></strong>
-        <input type="text" name="<%= field_agency.name %>" value="<%= field_agency.field_agency_agencies.where(agency_id: @agency.id).first.content unless field_agency.field_agency_agencies.where(agency_id: @agency.id).first.nil? %>" class="form-control next field_agency_value" placeholder="<%= field_agency.name%>">
+        <input
+          type="text"
+          name="<%= field_agency.name %>"
+          value="<%= field_agency.field_agency_agencies.where(agency_id: @agency.id).first.content unless field_agency.field_agency_agencies.where(agency_id: @agency.id).first.nil? %>"
+          class="form-control next field_agency_value"
+          placeholder="<%= field_agency.name%>">
       </div>
       <% end %>
-    </div><!-- #next -->
+    </div>
+    <!-- #next -->
     <!-- BUTTONS -->
     <div class="actions form-group">
       <% unless @agency.id.nil? %>
       <button type="button" name="send-form" class="btn btn-flat btn-success form-control" data-id="<%= @agency.id %>">Valider</button><br><br>
-      <% else %>
+    <% else %>
       <button type="button" name="send-form" class="btn btn-flat btn-success form-control" data-id="0">Valider</button><br><br>
       <% end %>
       <!-- <%= f.submit "Valider", id: "sendButton", class: "btn btn-flat btn-success form-control" %><br><br> -->
@@ -47,7 +58,8 @@
     </div>
   </div>
 </div>
-<% end %><!-- form_for -->
+<% end %>
+<!-- form_for -->
 <% content_for :js do %>
 <%= javascript_include_tag "agencies" %>
 <% end %>

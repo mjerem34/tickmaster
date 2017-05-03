@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "ticket@cle-expertises.fr"
+  default from: 'ticket@cle-expertises.fr'
   layout 'mailer'
 end

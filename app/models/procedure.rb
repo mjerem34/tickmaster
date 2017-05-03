@@ -8,9 +8,8 @@ class Procedure < ActiveRecord::Base
   has_many :file_procedures
   accepts_nested_attributes_for :file_procedures
   validates :nom, presence: true, length: { in: 0..254 }
-  validates :contenu, presence: true, length: { in: 0..65535 }
-  validates :resolution, presence: true, length: { in: 0..65535 }
+  validates :contenu, presence: true, length: { in: 0..65_535 }
+  validates :resolution, presence: true, length: { in: 0..65_535 }
   validates :category_id, presence: true
   validates :sous_category_id, presence: true
-
 end

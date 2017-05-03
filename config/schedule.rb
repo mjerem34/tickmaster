@@ -19,8 +19,8 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, at: "12:59pm" do
-  runner 'Incident.cloture_automaticaly', environment: "production"
+every 1.day, at: '12:59pm' do
+  runner 'Incident.cloture_automaticaly', environment: 'production'
 end
 # every 1.day, at: "3:28pm" do
 #   runner 'Incident.cloture_automaticaly', environment: "development"

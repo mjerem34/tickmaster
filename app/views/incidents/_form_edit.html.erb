@@ -67,7 +67,7 @@
 
     <div class="field tech_name">
       <%= f.label "Nom du technicien", class: ""  %>
-      <% if @dispatch_incidents %>
+      <% if @without_tech_incidents %>
       <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10%>
       <%= select_tag "incident[tech_id]", options_for_select(User.joins(:type_user).where("type_users.is_tech = ?", true).collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), disabled: 'disabled', class: "form-control ", data_name: @incident.id  %>

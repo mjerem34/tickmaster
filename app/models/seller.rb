@@ -7,7 +7,7 @@ class Seller < ActiveRecord::Base
   has_many :materials
 
   validates :name, presence: true,
-  uniqueness: { case_sensitive: false }, length: { in: 0..254 }
+                   uniqueness: { case_sensitive: false }, length: { in: 0..254 }
   validates :actif, presence: true, inclusion: { in: [true, false] }
 
   def set_actif_to_true

@@ -4,8 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
   before_action :set_default_rights
-
-  include SessionsHelper
+  include ApplicationHelper
 
   private
 
@@ -143,7 +142,6 @@ class ApplicationController < ActionController::Base
         # immediatelyit will raise an IO::WaitWritable (Errno::EINPROGRESS)
         # indicating the connection is in progress.
         socket.connect_nonblock(sockaddr)
-
       rescue IO::WaitWritable
         # IO.select will block until the socket is writable or the timeout
         # is exceeded - whichever comes first.
@@ -172,11 +170,6 @@ class ApplicationController < ActionController::Base
         nil
       end
     end
-  end
-
-  # Verify if the current_user have the right passed in params.
-  def verifRight(right)
-    Right.where(name: right).first.type_user_rights.each { |tur| return tur.value if tur.type_user_id == current_user.type_user_id }
   end
 
   # Must reject the incident and send emails.
@@ -377,82 +370,39 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Must render an error page or json if the current_user does not have the right.
-  # To visit the current page.
-  def renderUnauthorized
-    @title = 'Accès non autorisé'
-    respond_to do |format|
-      format.json do
-        render json: "Vous n'êtes pas autorisé à faire cela.",
-               status: 403
-      end
-      format.html do
-        redirect_to '/',
-                    alert: "Vous n'êtes pas autorisé à faire cela."
-      end
-    end
-  end
-
   # Must check rights to display the lateral bar.
   # Bar needs to check rights to display only buttons current user can see.
   def set_default_rights
-    unless current_user.nil?
-      @view_procedures = verifRight('view_procedures')
-      @create_procedure = verifRight('create_procedure')
+    return false if current_user.nil?
+    verify_right('view_procedures')
+    verify_right('create_procedure')
 
-      @dispatch_incidents = verifRight('dispatch_incidents')
-      @view_index_all_of_incidents = verifRight('view_index_all_of_incidents')
+    verify_right('without_tech_incidents')
+    verify_right('index_incidents')
 
-      @view_index_categories = verifRight('view_index_categories')
+    verify_right('index_categories')
 
-      @view_index_users = verifRight('view_index_users')
-      @create_new_tech = verifRight('create_new_tech')
-      @view_field_type_users = verifRight('view_field_type_users')
+    verify_right('index_users')
+    verify_right('create_new_tech')
+    verify_right('index_field_type_users')
 
-      @view_index_rights = verifRight('view_index_rights')
-      @view_type_users = verifRight('view_type_users')
+    verify_right('view_index_rights')
+    verify_right('view_type_users')
 
-      @view_index_agencies = verifRight('view_index_agencies')
-      @create_new_agency = verifRight('create_new_agency')
-      @view_field_agencies = verifRight('view_field_agencies')
-      @ping_agencies = verifRight('ping_agencies')
+    verify_right('index_agencies')
+    verify_right('new_agencies')
+    verify_right('index_field_agencies')
+    verify_right('ping_agencies')
 
-      @create_material = verifRight('create_material')
-      @view_material = verifRight('view_material')
-      @view_sellers = verifRight('view_sellers')
-      @view_field_sellers = verifRight('view_field_sellers')
-      @view_type_material = verifRight('view_type_material')
-      @view_spec_type_material = verifRight('view_spec_type_material')
-      @view_spec_material = verifRight('view_spec_material')
+    verify_right('create_material')
+    verify_right('view_material')
+    verify_right('view_sellers')
+    verify_right('index_field_sellers')
+    verify_right('view_type_material')
+    verify_right('view_spec_type_material')
+    verify_right('view_spec_material')
 
-      @create_update = verifRight('create_update')
-      @view_update = verifRight('view_update')
-    end
-  end
-
-  # Must check if current_user exists, if it is signed in.
-  def restrict_access
-    if current_user.nil?
-      respond_to do |format|
-        format.json do
-          render json: 'Vous devez être connecté pour accéder à cette page',
-                 status: 401
-        end
-        format.html do
-          redirect_to '/',
-                      alert: 'Vous devez être connecté pour accéder à'\
-                      ' cette page'
-        end
-      end
-    end
-  end
-
-  # Must redirect to back, with verifications of the HTTP_REFERER
-  def redirect_to_back(default = '/')
-    if !request.env['HTTP_REFERER'].blank? && request.env['HTTP_REFERER'] != request.env['REQUEST_URI']
-      redirect_to :back
-    else
-      redirect_to default
-    end
+    verify_right('create_update')
+    verify_right('view_update')
   end
 end

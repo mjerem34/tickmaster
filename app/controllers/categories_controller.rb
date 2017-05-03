@@ -1,20 +1,7 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: %i[show edit update destroy]
   before_action :set_expiration
   before_action :restrict_access
-
-  # GET /index_by_category/:id.json
-  def subcats
-    if verifRight('view_details_category')
-      @title = "Sous categories de la categorie n° #{params[:id]}"
-      @sous_categories = SousCategory.where(category_id: params[:id])
-      respond_to do |format|
-        format.json { render json: @sous_categories }
-      end
-    else
-      renderUnauthorized
-    end
-  end
 
   # GET /categories
   # GET /categories.json
@@ -22,10 +9,10 @@ class CategoriesController < ApplicationController
   # If html, it render the index page.
   # If rest, it render json with all categories details.
   def index
-    @view_index_categories = verifRight('view_index_categories')
-    if @view_index_categories
-      @view_details_category = verifRight('view_details_category')
-      @delete_category = verifRight('delete_category')
+    @index_categories = verify_right('index_categories')
+    if @index_categories
+      @show_categories = verify_right('show_categories')
+      @destroy_categories = verify_right('destroy_categories')
       @categories = Category.all
       @category = Category.new
       @title = 'Catégories'
@@ -34,7 +21,7 @@ class CategoriesController < ApplicationController
         format.html { render :index }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -44,29 +31,29 @@ class CategoriesController < ApplicationController
   # If html, it render the edit category page, where there are the subcategories
   # listed by name.
   def show
-    if verifRight('view_details_category')
+    if verify_right('show_categories')
       @title = 'Catégorie : ' + @category.name
       respond_to do |format|
         format.json { render json: @category }
         format.html { redirect_to :edit_category }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # GET /categories/1/edit
   # Should render the edit form for edit an category, only for web.
   def edit
-    @edit_category = verifRight('edit_category')
-    if @edit_category
+    @edit_categories = verify_right('edit_categories')
+    if @edit_categories
       @title = "Editer catégorie : #{@category.name}"
-      @view_details_subcategories = verifRight('view_details_subcategories')
-      @edit_subcategories = verifRight('edit_subcategories')
-      @delete_subcategories = verifRight('delete_subcategories')
+      @show_sous_categories = verify_right('show_sous_categories')
+      @edit_sous_categories = verify_right('edit_sous_categories')
+      @destroy_sous_categories = verify_right('destroy_sous_categories')
       @sous_category = SousCategory.new
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -75,7 +62,7 @@ class CategoriesController < ApplicationController
   # Should do the job for create the category.
   # The mthd create also an subcategory called 'Autre' because we need it.
   def create
-    if verifRight('create_new_category')
+    if verify_right('create_categories')
       @title = 'Nouvelle catégorie'
       @category = Category.new(category_params)
       respond_to do |format|
@@ -89,7 +76,7 @@ class CategoriesController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -97,7 +84,7 @@ class CategoriesController < ApplicationController
   # PATCH/PUT /categories/1.json
   # Should update the params of the category selected (passed in params).
   def update
-    if verifRight('edit_category')
+    if verify_right('edit_categories')
       respond_to do |format|
         if @category.update(category_params)
           format.json { head :no_content }
@@ -108,7 +95,7 @@ class CategoriesController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -118,7 +105,7 @@ class CategoriesController < ApplicationController
   # But only if it does not contains incidents.
   # Because if not, an thermo-nuclear war begin...
   def destroy
-    if verifRight('delete_category')
+    if verify_right('destroy_categories')
       if Incident.where(category_id: @category.id).empty?
         @category.destroy!
         respond_to do |format|
@@ -132,7 +119,7 @@ class CategoriesController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 

@@ -12,12 +12,12 @@
       <% @categories.each do |category| %>
       <tr>
         <td onClick="document.location.href='<%=edit_category_path(category)%>'"><%= category.id %></td>
-        <% if @view_details_category then %>
+        <% if @show_categories then %>
         <td onClick="document.location.href='<%=edit_category_path(category)%>'"><%= category.name %></td>
       <% else %>
         <td><%= category.name %></td>
         <% end %>
-        <% if @delete_category then %>
+        <% if @destroy_categories then %>
         <td><%= link_to 'Supprimer', category, method: :delete, data: { confirm: 'Êtes vous VRAIMENT sûr de vouloir supprimer cette catégorie ? Non, je dis ça parce que si vous la supprimez le monde entier va exploser ! Je vous aurais prévenu !' }%></td>
         <% end %>
         <td>

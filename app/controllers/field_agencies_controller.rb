@@ -1,13 +1,13 @@
 class FieldAgenciesController < ApplicationController
-  before_action :set_field_agency, only: [:update, :destroy]
+  before_action :set_field_agency, only: %i[update destroy]
   before_action :set_expiration
   before_action :restrict_access
 
   # GET /field_agencies
   # GET /field_agencies.json
   def index
-    @view_field_agencies = verifRight('view_field_agencies')
-    if @view_field_agencies
+    @index_field_agencies = verify_right('index_field_agencies')
+    if @index_field_agencies
       @title = 'Champs agences'
       @field_agencies = FieldAgency.all
       respond_to do |format|
@@ -15,13 +15,13 @@ class FieldAgenciesController < ApplicationController
         format.html { render :index }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # POST /field_agencies.json
   def create
-    @create_field_agencies = verifRight('create_field_agencies')
+    @create_field_agencies = verify_right('create_field_agencies')
     if @create_field_agencies
       @title = "Création d'un champ d'agence"
       respond_to do |format|
@@ -39,9 +39,9 @@ class FieldAgenciesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /field_agencies/1.json
+  # PUT /field_agencies/1.json
   def update
-    @update_field_agencies = verifRight('update_field_agencies')
+    @update_field_agencies = verify_right('update_field_agencies')
     if @update_field_agencies
       @title = "Edition d'un champ d'agence"
       respond_to do |format|
@@ -56,17 +56,17 @@ class FieldAgenciesController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # DELETE /field_agencies/1.json
   def destroy
-    @delete_field_agencies = verifRight('delete_field_agencies')
-    if @delete_field_agencies
+    @destroy_field_agencies = verify_right('destroy_field_agencies')
+    if @destroy_field_agencies
       @title = "Suppression d'un champ d'agence"
       respond_to do |format|
-        if !@field_agency.field_agency_agencies.any?
+        if @field_agency.field_agency_agencies.none?
           if @field_agency.destroy
             format.js
             format.json { head :no_content }
@@ -85,7 +85,7 @@ class FieldAgenciesController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 

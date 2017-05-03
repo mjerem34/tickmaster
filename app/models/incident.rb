@@ -6,7 +6,6 @@ class Incident < ActiveRecord::Base
   belongs_to :sous_category
   belongs_to :category
 
-
   has_many :responses, dependent: :destroy
   has_many :archives, dependent: :destroy
   has_many :file_incidents, dependent: :destroy

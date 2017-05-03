@@ -1,12 +1,12 @@
 class SpecTypeMaterialsController < ApplicationController
-  before_action :set_spec_types_material, only: [:update, :destroy]
+  before_action :set_spec_types_material, only: %i[update destroy]
   before_action :set_expiration
   before_action :restrict_access
 
   # GET /spec_type_materials
   # GET /spec_type_materials.json
   def index
-    @view_spec_type_material = verifRight('view_spec_type_material')
+    @view_spec_type_material = verify_right('view_spec_type_material')
     if @view_spec_type_material
       @title = 'Types de caractéristiques techniques'
       @spec_type_materials = SpecTypeMaterial.all
@@ -15,14 +15,14 @@ class SpecTypeMaterialsController < ApplicationController
         format.html { render :index }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # POST /spec_type_materials
   # POST /spec_type_materials.json
   def create
-    @create_spec_type_material = verifRight('create_spec_type_material')
+    @create_spec_type_material = verify_right('create_spec_type_material')
     if @create_spec_type_material
       @title = 'Create'
       @spec_type_material = SpecTypeMaterial.new(spec_type_material_params)
@@ -36,14 +36,14 @@ class SpecTypeMaterialsController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # PATCH/PUT /spec_type_materials/1
   # PATCH/PUT /spec_type_materials/1.json
   def update
-    @modify_spec_type_material = verifRight('modify_spec_type_material')
+    @modify_spec_type_material = verify_right('modify_spec_type_material')
     if @modify_spec_type_material
       @title = 'Edit'
       respond_to do |format|
@@ -55,14 +55,14 @@ class SpecTypeMaterialsController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # DELETE /spec_type_materials/1
   # DELETE /spec_type_materials/1.json
   def destroy
-    @delete_spec_type_material = verifRight('delete_spec_type_material')
+    @delete_spec_type_material = verify_right('delete_spec_type_material')
     if @delete_spec_type_material
       @title = 'Delete'
       respond_to do |format|
@@ -83,7 +83,7 @@ class SpecTypeMaterialsController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 

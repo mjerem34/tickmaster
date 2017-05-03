@@ -18,15 +18,15 @@ RSpec.describe Archive, type: :model do
 
   it { expect(build(:archive, content: nil, incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)).not_to be_valid }
 
-  it { expect(build(:archive, content: SecureRandom.hex(32769), incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)).not_to be_valid }
+  it { expect(build(:archive, content: SecureRandom.hex(32_769), incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)).not_to be_valid }
 
-  it { expect(build(:archive, content: SecureRandom.hex(32767), incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)).to be_valid }
+  it { expect(build(:archive, content: SecureRandom.hex(32_767), incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)).to be_valid }
 
   it { expect(build(:archive, ip_adress_sender: nil, incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)).not_to be_valid }
 
   it { expect(build(:archive, ip_adress_sender: SecureRandom.hex(3), incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)).not_to be_valid }
 
-  context "with archive created" do
+  context 'with archive created' do
     before { @archive = create(:archive, incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id) }
 
     it { expect(@archive.sender).to eq @user }

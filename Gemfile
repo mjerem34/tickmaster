@@ -47,8 +47,8 @@ gem 'passenger'
 # Let's see a great slider
 gem 'bootstrap-slider-rails'
 # To make charts in ping
-gem 'slim-rails'
 gem 'highcharts-rails'
+gem 'slim-rails'
 # Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser
 gem 'nokogiri'
 # Slim progress bars for Ajax'y applications
@@ -83,18 +83,15 @@ group :production do
   gem 'exception_notification'
 end
 group :development, :test do
-  gem 'rubocop', require: false
   gem 'annotate'
-  gem 'guard-livereload', '~> 2.4', require: false
-  gem 'thin'
-  gem 'factory_girl_rails'
-  gem 'rspec-rails'
   gem 'byebug'
+  gem 'capybara'
+  gem 'factory_girl_rails'
   gem 'faker'
   gem 'guard-rspec'
-  gem 'launchy'
-  gem 'spring'
-  gem 'capybara'
-  gem 'selenium-webdriver'
   gem 'rails-controller-testing'
+  gem 'rspec-rails'
+  gem 'selenium-webdriver'
+  gem 'spring'
+  gem 'thin'
 end

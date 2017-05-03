@@ -1,11 +1,11 @@
 class TypeUsersController < ApplicationController
-  before_action :set_type_user, only: [:update, :destroy, :disable_type_users]
+  before_action :set_type_user, only: %i[update destroy disable]
   before_action :set_expiration
   before_action :restrict_access
   # GET /type_users
   # GET /type_users.json
   def index
-    @view_type_users = verifRight('view_type_users')
+    @view_type_users = verify_right('view_type_users')
     if @view_type_users
       @title = 'Liste des types utilisateurs'
       @type_users = TypeUser.all.order('name')
@@ -17,14 +17,14 @@ class TypeUsersController < ApplicationController
       end
 
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # POST /type_users
   # POST /type_users.json
   def create
-    @add_type_users = verifRight('add_type_users')
+    @add_type_users = verify_right('add_type_users')
     if @add_type_users
       @field_type_users = FieldTypeUser.all
       respond_to do |format|
@@ -46,13 +46,14 @@ class TypeUsersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # POST /type_user/1/add_field_type_user
+  # TODO : Créer un controller field_type_user_type_user et mettre ça
   def add_field_type_user
-    @edit_type_users = verifRight('edit_type_users')
+    @edit_type_users = verify_right('edit_type_users')
     if @edit_type_users
       respond_to do |format|
         if !params[:name].blank? && !params[:id].blank?
@@ -74,17 +75,18 @@ class TypeUsersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # DELETE /type_users/1/delete_field_type_user
+  # TODO : Et ça :
   def delete_field_type_user
-    @edit_type_users = verifRight('edit_type_users')
+    @edit_type_users = verify_right('edit_type_users')
     if @edit_type_users
       respond_to do |format|
         if !params[:field_type_user][:id].blank? && !params[:id].blank? && !params[:force].blank?
-          if params[:force] == 'true' && verifRight('force_destroy_field_type_user')
+          if params[:force] == 'true' && verify_right('force_destroy_field_type_user')
             User.where(type_user_id: params[:id]).each do |user|
               FieldUser.where(field_type_user_id: params[:field_type_user][:id], user_id: user.id).delete_all
             end
@@ -99,7 +101,7 @@ class TypeUsersController < ApplicationController
             if User.where(type_user_id: params[:id]).any?
               User.where(type_user_id: params[:id]).each do |user|
                 if FieldUser.where(field_type_user_id: params[:field_type_user][:id], user_id: user.id).any?
-                  if params[:force] == 'true' && !verifRight('force_destroy_field_type_user')
+                  if params[:force] == 'true' && !verify_right('force_destroy_field_type_user')
                     format.json { render json: 'Impossible de supprimer le champ de type utilisateur car vous n\'avez pas les droits nécéssaires.', status: :unauthorized }
                   else
                     format.json { render json: 'Impossible de supprimer le champ de type utilisateur car il contient des données associées.', status: :unauthorized }
@@ -131,14 +133,14 @@ class TypeUsersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # PATCH/PUT /type_users/1
   # PATCH/PUT /type_users/1.json
   def update
-    @edit_type_users = verifRight('edit_type_users')
+    @edit_type_users = verify_right('edit_type_users')
     if @edit_type_users
       respond_to do |format|
         if @type_user.update(type_user_params)
@@ -149,30 +151,25 @@ class TypeUsersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
-  # DELETE /type_users/1/disable_type_users.json
-  def disable_type_users
-    @disable_type_users = verifRight('disable_type_users')
-    if @disable_type_users
-      respond_to do |format|
-        if @type_user.update(actif: !@type_user.actif)
-          @type_user.users.each { |user| !@type_user.actif ? user.update(actif: false) : user.update(actif: true) }
-          format.json { head :no_content }
-        else
-          format.json { render json: @type_user.errors, status: :unprocessable_entity }
-        end
+  # DELETE /type_users/1/disable.json
+  def disable
+    respond_to do |format|
+      if @type_user.update(actif: !@type_user.actif)
+        @type_user.users.each { |user| !@type_user.actif ? user.update(actif: false) : user.update(actif: true) }
+        format.json { head :no_content }
+      else
+        format.json { render json: @type_user.errors, status: :unprocessable_entity }
       end
-    else
-      renderUnauthorized
     end
   end
 
   # DELETE /type_users/1.json
   def destroy
-    @destroy_type_users = verifRight('destroy_type_users')
+    @destroy_type_users = verify_right('destroy_type_users')
     if @destroy_type_users
       respond_to do |format|
         if @type_user.users.any?
@@ -187,7 +184,7 @@ class TypeUsersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 

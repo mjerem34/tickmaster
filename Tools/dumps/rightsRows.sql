@@ -1,4 +1,6 @@
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (1,'view_index_users','Autorisé à voir la liste des utilisateurs');
+-- Agencies
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (1,'index_agencies','Autorisé à voir les agences');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (1,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (1,2,1);
@@ -26,7 +28,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (1,23,
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (2,'create_new_tech','Autorisé à créer un nouvel utilisateur, tech, supertech, admin');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (2,'ping_agencies','Autorisé à voir la page pour pinger les agences');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (2,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (2,2,1);
@@ -54,7 +56,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (2,23,
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (3,'create_new_right','Autorisé à créer de nouveaux droits');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (3,'do_ping_agencies','Autorisé à pinger les agences');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (3,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (3,2,1);
@@ -82,7 +84,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (3,23,
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (4,'create_new_category','Autorisé à créer de nouvelles catégories');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (4,'show_agencies','Autorisé à voir les détails d\'une agence');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (4,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (4,2,1);
@@ -110,7 +112,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (4,23,
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (5,'view_index_all_of_incidents','Autorisé à voir les incidents de tous les membres');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (5,'new_agencies','Autorisé à voir la page de nouvelle agence');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (5,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (5,2,1);
@@ -138,7 +140,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (5,23,
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (6,'create_new_incidents','Autorisé à créer de nouveaux incidents');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (6,'edit_agencies','Autorisé à voir la page editer une agence');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (6,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (6,2,1);
@@ -166,7 +168,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (6,23,
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (7,'create_new_subcategory','Autorisé à créer de nouvelles sous catégories');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (7,'create_agencies','Autorisé à créer une agence');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (7,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (7,2,1);
@@ -194,7 +196,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (7,23,
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (8,'view_index_categories','Autorisé à voir la liste des catégories');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (8,'update_agencies','Autorisé à editer une agence');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (8,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (8,2,1);
@@ -222,7 +224,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (8,23,
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (9,'view_details_category','Autorisé à voir les détails d\'une catégorie');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (9,'destroy_agencies','Autorisé à supprimer une agence');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (9,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (9,2,1);
@@ -248,9 +250,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (9,21,
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (9,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (9,23,1);
 
---
+-- agencies END
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (10,'edit_category','Autorisé à éditer une categorie');
+
+-- field_agencies
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (10,'index_field_agencies','Autorisé à voir les champs agences');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (10,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (10,2,1);
@@ -276,9 +281,9 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (10,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (10,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (10,23,1);
 
---
+---
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (11,'delete_category','Autorisé à supprimer une catégorie');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (11,'create_field_agencies','Autorisé à créer les champs agences');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (11,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (11,2,1);
@@ -304,9 +309,9 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (11,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (11,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (11,23,1);
 
---
+---
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (12,'view_details_incident_of_other_member','Autorisé à voir les détails d\'un incident d\'un autre membre');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (12,'update_field_agencies','Autorisé à editer les champs agences');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (12,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (12,2,1);
@@ -332,9 +337,9 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (12,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (12,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (12,23,1);
 
---
+---
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (13,'edit_incidents','Autorisé à éditer un incident d\'un autre membre');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (13,'destroy_field_agencies','Autorisé à supprimer les champs agences');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (13,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (13,2,1);
@@ -360,9 +365,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (13,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (13,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (13,23,1);
 
---
+-- End FieldAgencies
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (14,'delete_incident','Autorisé à supprimer un incident');
+
+-- Categories
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (14,'index_categories','Autorisé à voir la liste des catégories');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (14,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (14,2,1);
@@ -390,7 +398,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (14,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (15,'edit_subcategories','Autorisé à éditer une sous catégorie');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (15,'show_categories','Autorisé à voir les détails d\'une catégorie');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (15,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (15,2,1);
@@ -418,7 +426,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (15,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (16,'view_index_subcategories','Autorisé à voir la liste des sous categories');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (16,'edit_categories','Autorisé à éditer une categorie');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (16,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (16,2,1);
@@ -446,8 +454,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (16,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (17,'view_details_subcategories','Autorisé à voir le détail d\'une sous catégorie');
-
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (17,'create_categories','Autorisé à créer de nouvelles catégories');
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (17,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (17,2,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (17,3,1);
@@ -474,7 +481,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (17,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (18,'delete_subcategories','Autorisé à supprimer les sous catégories');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (18,'update_categories','Autorisé à éditer une categorie');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (18,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (18,2,1);
@@ -502,7 +509,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (18,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (19,'edit_rights','Autorisé à éditer un droit');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (19,'destroy_categories','Autorisé à supprimer une catégorie');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (19,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (19,2,1);
@@ -528,9 +535,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (19,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (19,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (19,23,1);
 
---
+-- End Categories
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (20,'view_index_rights','Autorisé à voir la liste des droits');
+
+-- SousCategories
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (20,'index_sous_categories','Autorisé à voir la liste des sous categories');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (20,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (20,2,1);
@@ -558,7 +568,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (20,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (21,'delete_rights','Autorisé à supprimer des droits');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (21,'show_sous_categories','Autorisé à voir le détail d\'une sous catégorie');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (21,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (21,2,1);
@@ -586,7 +596,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (21,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (22,'dispatch_incidents','Autorisé à attribuer les incidents aux techniciens');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (22,'new_sous_categories','Autorisé à créer de nouvelles sous catégories');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (22,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (22,2,1);
@@ -614,7 +624,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (22,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (23,'view_index_fonctions','Autorisé à voir la liste des fonctions');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (23,'edit_sous_categories','Autorisé à éditer une sous catégorie');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (23,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (23,2,1);
@@ -642,7 +652,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (23,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (24,'create_new_fonctions','Autorisé à créer une nouvelle fonction');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (24,'create_sous_categories','Autorisé à créer de nouvelles sous catégories');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (24,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (24,2,1);
@@ -670,7 +680,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (24,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (25,'edit_fonctions','Autorisé à éditer une fonction');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (25,'update_sous_categories','Autorisé à éditer une sous catégorie');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (25,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (25,2,1);
@@ -698,7 +708,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (25,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (26,'delete_fonctions','Autorisé à supprimer une fonction');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (26,'destroy_sous_categories','Autorisé à supprimer les sous catégories');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (26,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (26,2,1);
@@ -724,9 +734,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (26,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (26,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (26,23,1);
 
---
+-- End SousCategories
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (27,'view_users_pages','Autorisé à voir la page des autres membres');
+
+-- Detentor Type
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (27,'index_detentor_types','Autorisé à voir les types de détenteur de matériel');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (27,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (27,2,1);
@@ -752,9 +765,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (27,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (27,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (27,23,1);
 
---
+-- End Detentor Type
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (28,'reject_incidents','Autorisé à rejeter un incident');
+
+-- Field Sellers
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (28,'index_field_sellers','Autorisé à voir les champs de données pour les vendeurs');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (28,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (28,2,1);
@@ -782,7 +798,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (28,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (29,'cloture_incidents','Autorisé à cloturer les incidents ou à faire une demande de cloture');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (29,'create_field_sellers','Autorisé à créer des champs de données pour les vendeurs');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (29,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (29,2,1);
@@ -810,7 +826,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (29,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (30,'view_button_admin','Autorisé à voir le bouton administration');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (30,'update_field_sellers','Autorisé à éditer des champs de données pour les vendeurs');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (30,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (30,2,1);
@@ -838,7 +854,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (30,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (31,'view_index_agencies','Autorisé à voir la page d\'index des agences');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (31,'destroy_field_sellers','Autorisé à supprimer des champs de données pour les vendeurs');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (31,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (31,2,1);
@@ -864,9 +880,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (31,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (31,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (31,23,1);
 
---
+-- End Field Sellers
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (32,'view_agency_details','Autorisé à voir les détails d\'une agence');
+
+-- Field Type Users
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (32,'index_field_type_users','Autorisé à voir les champs types utilisateurs');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (32,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (32,2,1);
@@ -894,7 +913,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (32,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (33,'create_new_agency','Autorisé à créer une nouvelle agence');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (33,'create_field_type_users','Autorisé à ajouter un champ pour un type utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (33,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (33,2,1);
@@ -922,7 +941,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (33,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (34,'edit_agency','Autorisé à editer une agence existante');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (34,'update_field_type_users','Autorisé à éditer des champs de type utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (34,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (34,2,1);
@@ -950,7 +969,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (34,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (35,'edit_user','Autorisé à éditer ses informations personnelles');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (35,'destroy_field_type_users','Autorisé à supprimer un champ de type utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (35,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (35,2,1);
@@ -978,7 +997,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (35,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (36,'edit_other_user','Autorisé à editer le profil d\'autres utilisateurs');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (36,'unassigns_field_type_users','Autorisé à dé-assigner des champs de type utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (36,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (36,2,1);
@@ -1006,7 +1025,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (36,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (37,'edit_all_user','Autorisé à modifier tous les champs d\'un utilisateur');
+INSERT INTO `rights` (`id`, `name`, `content`) VALUES ('37', 'force_destroy_field_type_users', 'Autorisé à supprimer un champ de type utilisateur même si un utilisateur l\'a déjà renseigné');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (37,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (37,2,1);
@@ -1032,9 +1051,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (37,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (37,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (37,23,1);
 
---
+-- End Field Type Users
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (38,'edit_like_a_boss','Autorisé à modifier le type d\'utilisateur');
+
+-- Incidents
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (38,'index_incidents','Autorisé à voir tous les incidents');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (38,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (38,2,1);
@@ -1062,7 +1084,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (38,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (39,'view_detail_incident','Autorisé à voir le détail des incidents');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (39,'without_tech_incidents','Autorisé à voir les incidents non attribués');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (39,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (39,2,1);
@@ -1090,7 +1112,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (39,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (40,'ask_for_reaffect','Autorisé à demander une réaffectation de l\'incident');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (40,'show_incidents','Autorisé à éditer ses incidents');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (40,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (40,2,1);
@@ -1118,7 +1140,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (40,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (41,'edit_categories_incidents','Autorisé à modifier la catégorie et sous catégorie d\'un incident');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (41,'new_incidents','Autorisé à voir la page pour créer un incident');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (41,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (41,2,1);
@@ -1146,7 +1168,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (41,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (42,'edit_lvl_incident','Autorisé à modifier le niveau d\'un incident');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (42,'edit_incidents','Autorisé à éditer un incident d\'un autre membre');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (42,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (42,2,1);
@@ -1174,7 +1196,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (42,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (43,'save_changes_of_edit','Autorisé à enregistrer les modifications d\'un incident');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (43,'create_incidents','Autorisé à créer de nouveaux incidents');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (43,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (43,2,1);
@@ -1202,7 +1224,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (43,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (44,'treat_incidents','Autorisé à traiter les incidents');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (44,'update_incidents','Autorisé à éditer un incident');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (44,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (44,2,1);
@@ -1230,7 +1252,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (44,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (45,'create_procedure','Autorisé à créer une procedure');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (45,'destroy_incidents','Autorisé à supprimer un incident');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (45,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (45,2,1);
@@ -1258,7 +1280,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (45,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (46,'view_procedures','Autorisé à voir les procedures');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (46,'reject_incidents','Autorisé à rejeter un incident');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (46,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (46,2,1);
@@ -1286,7 +1308,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (46,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (47,'edit_procedure','Autorisé à modifier les procedures');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (47,'cloture_incidents','Autorisé à cloturer les incidents ou à faire une demande de cloture');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (47,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (47,2,1);
@@ -1312,9 +1334,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (47,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (47,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (47,23,1);
 
---
+-- End Incidents
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (48,'archive_procedure','Autorisé à archiver les procedures');
+
+-- Materials
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (48,'index_materials','Autorisé à voir les matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (48,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (48,2,1);
@@ -1342,7 +1367,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (48,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (49,'delete_procedure','Autorisé à supprimer une procedure');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (49,'show_materials','Autorisé à voir les détails du matériel');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (49,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (49,2,1);
@@ -1370,7 +1395,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (49,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (50,'ping_agencies','Autorisé à pinger les agences');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (50,'new_materials','Autorisé à voir la page de creation des matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (50,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (50,2,1);
@@ -1398,7 +1423,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (50,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (51,'create_sellers','Autorisé à ajouter des vendeurs de matériel');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (51,'edit_materials','Autorisé à voir la page d\'edition des matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (51,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (51,2,1);
@@ -1424,9 +1449,10 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (51,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (51,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (51,23,1);
 
+
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (52,'modify_sellers','Autorisé à modifier des vendeurs de matériel');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (52,'create_materials','Autorisé à créer des matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (52,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (52,2,1);
@@ -1454,7 +1480,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (52,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (53,'delete_sellers','Autorisé à supprimer des vendeurs de matériel');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (53,'update_materials','Autorisé à éditer des matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (53,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (53,2,1);
@@ -1482,7 +1508,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (53,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (54,'view_sellers','Autorisé à voir les vendeurs de matériel');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (54,'destroy_materials','Autorisé à supprimer des materiels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (54,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (54,2,1);
@@ -1508,9 +1534,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (54,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (54,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (54,23,1);
 
---
+-- End Materials
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (55,'create_field_sellers','Autorisé à créer des champs de données pour les vendeurs');
+
+-- Procedures
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (55,'index_procedures','Autorisé à voir les procedures');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (55,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (55,2,1);
@@ -1538,7 +1567,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (55,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (56,'modify_field_sellers','Autorisé à modifier des champs de données pour les vendeurs');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (56,'show_procedures','Autorisé à voir le détail d\'une procedure');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (56,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (56,2,1);
@@ -1566,7 +1595,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (56,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (57,'delete_field_sellers','Autorisé à supprimer des champs de données pour les vendeurs');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (57,'new_procedures','Autorisé à voir la page créer une procedure');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (57,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (57,2,1);
@@ -1594,7 +1623,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (57,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (58,'view_field_sellers','Autorisé à voir les champs de données pour les vendeurs');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (58,'edit_procedures','Autorisé à voir la page éditer les procedures');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (58,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (58,2,1);
@@ -1622,7 +1651,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (58,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (59,'create_detentor_type','Autorisé à créer des types de detenteur de matériel');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (59,'create_procedures','Autorisé à créer une procedure');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (59,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (59,2,1);
@@ -1650,7 +1679,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (59,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (60,'modify_detentor_type','Autorisé à modifier des types de detenteur de matériel');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (60,'update_procedures','Autorisé à créer une procedure');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (60,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (60,2,1);
@@ -1678,7 +1707,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (60,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (61,'delete_detentor_type','Autorisé à supprimer des types de detenteur de matériel');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (61,'destroy_procedures','Autorisé à supprimer une procedure');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (61,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (61,2,1);
@@ -1704,9 +1733,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (61,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (61,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (61,23,1);
 
---
+-- End Procedures
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (62,'view_detentor_type','Autorisé à voir les types de détenteur de matériel');
+
+-- Rights
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (62,'index_rights','Autorisé à voir la liste des droits');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (62,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (62,2,1);
@@ -1726,7 +1758,6 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (62,15
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (62,16,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (62,17,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (62,18,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (62,19,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (62,20,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (62,21,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (62,22,1);
@@ -1734,7 +1765,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (62,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (63,'create_material','Autorisé à créer des matériels');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (63,'show_rights','Autorisé à voir le détail du droit');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (63,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (63,2,1);
@@ -1760,9 +1791,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (63,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (63,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (63,23,1);
 
---
+-- End Rights
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (64,'modify_material','Autorisé à modifier des matériels');
+
+-- Sellers
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (64,'index_sellers','Autorisé à voir les vendeurs de matériel');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (64,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (64,2,1);
@@ -1790,7 +1824,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (64,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (65,'delete_material','Autorisé à supprimer des materiels');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (65,'show_sellers','Autorisé à voir le détail du vendeur de matériel');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (65,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (65,2,1);
@@ -1818,7 +1852,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (65,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (66,'view_material','Autorisé à voir les matériels');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (66,'create_sellers','Autorisé à créer des vendeurs de matériel');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (66,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (66,2,1);
@@ -1846,7 +1880,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (66,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (67,'create_spec_material','Autorisé à créer des specs pour les matériels');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (67,'update_sellers','Autorisé à éditer des vendeurs de matériel');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (67,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (67,2,1);
@@ -1874,7 +1908,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (67,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (68,'modify_spec_material','Autorisé à modifier des specs pour les matériels');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (68,'destroy_sellers','Autorisé à supprimer des vendeurs de matériel');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (68,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (68,2,1);
@@ -1899,10 +1933,9 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (68,20
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (68,21,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (68,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (68,23,1);
-
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (69,'delete_spec_material','Autorisé à supprimer les specs pour les matériels');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (69,'disable_sellers','Autorisé à désactiver des vendeurs de matériel');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (69,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (69,2,1);
@@ -1928,9 +1961,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (69,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (69,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (69,23,1);
 
---
+-- End Sellers
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (70,'view_spec_material','Autorisé à voir les spec pour les matériels');
+
+-- SpecMaterials
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (70,'index_spec_materials','Autorisé à voir les spec pour les matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (70,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (70,2,1);
@@ -1958,7 +1994,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (70,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (71,'create_spec_type_material','Autorisé à créer des champs de spec pour les matériels');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (71,'create_spec_materials','Autorisé à créer des specs pour les matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (71,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (71,2,1);
@@ -1986,7 +2022,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (71,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (72,'modify_spec_type_material','Autorisé à modifier des champs de spec pour les matériels');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (72,'update_spec_materials','Autorisé à éditer des specs pour les matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (72,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (72,2,1);
@@ -2014,7 +2050,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (72,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (73,'delete_spec_type_material','Autorisé à supprimer des champs de spec pour les matériels');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (73,'destroy_spec_materials','Autorisé à supprimer les specs pour les matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (73,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (73,2,1);
@@ -2040,9 +2076,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (73,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (73,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (73,23,1);
 
---
+-- End SpecMaterials
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (74,'view_spec_type_material','Autorisé à voir les champs de spec pour les matériels');
+
+-- SpecTypeMaterials
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (74,'index_spec_type_materials','Autorisé à voir les champs de spec pour les matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (74,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (74,2,1);
@@ -2070,7 +2109,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (74,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (75,'create_type_material','Autorisé à créer des types de matériels');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (75,'create_spec_type_materials','Autorisé à créer des champs de spec pour les matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (75,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (75,2,1);
@@ -2098,7 +2137,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (75,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (76,'modify_type_material','Autorisé à modifier des types de matériels');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (76,'update_spec_type_materials','Autorisé à éditer des champs de spec pour les matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (76,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (76,2,1);
@@ -2126,7 +2165,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (76,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (77,'delete_type_material','Autorisé à supprimer des types de matériels');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (77,'destroy_spec_type_materials','Autorisé à supprimer des champs de spec pour les matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (77,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (77,2,1);
@@ -2152,9 +2191,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (77,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (77,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (77,23,1);
 
---
+-- End SpecTypeMaterials
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (78,'view_type_material','Autorisé à voir les types de matériels');
+
+-- TypeMaterials
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (78,'index_type_materials','Autorisé à voir les types de matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (78,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (78,2,1);
@@ -2182,7 +2224,35 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (78,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (80,'delete_agency','Autorisé à supprimer une agence');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (79,'create_type_materials','Autorisé à créer des types de matériels');
+
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,1,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,2,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,3,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,4,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,5,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,6,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,7,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,8,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,9,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,10,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,11,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,12,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,13,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,14,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,15,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,16,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,17,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,18,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,19,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,20,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,21,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,22,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (79,23,1);
+
+--
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (80,'edit_type_materials','Autorisé à éditer des types de matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (80,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (80,2,1);
@@ -2210,7 +2280,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (80,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (81,'delete_user','Autorisé à supprimer un utilisateur');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (81,'destroy_type_materials','Autorisé à supprimer des types de matériels');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (81,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (81,2,1);
@@ -2236,9 +2306,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (81,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (81,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (81,23,1);
 
---
+-- End TypeMaterials
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (82,'create_update','Autorisé à créer une mise à jour');
+
+-- TypeUsers
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (82,'index_type_users','Autorisé à voir la liste des types utilisateurs');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (82,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (82,2,1);
@@ -2266,7 +2339,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (82,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (83,'modify_update','Autorisé à modifier une mise à jour');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (83,'update_type_users','Autorisé à editer un type utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (83,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (83,2,1);
@@ -2294,7 +2367,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (83,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (84,'delete_update','Autorisé à supprimer un mise à jour');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (84,'create_type_users','Autorisé à ajouter un type utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (84,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (84,2,1);
@@ -2322,7 +2395,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (84,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (85,'view_update','Autorisé à voir les mises à jour');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (85,'disable_type_users','Autorisé à désactiver un type utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (85,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (85,2,1);
@@ -2350,7 +2423,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (85,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (86,'enable_disable_user','Autorisé à activer ou désactiver un utilisateur');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (86,'destroy_type_users','Autorisé à supprimer un type utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (86,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (86,2,1);
@@ -2376,9 +2449,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (86,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (86,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (86,23,1);
 
---
+-- End TypeUsers
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (87,'view_type_users','Autorisé à voir la liste des types utilisateurs');
+
+-- Updates
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (87,'index_updates','Autorisé à voir les mises à jour');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (87,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (87,2,1);
@@ -2406,7 +2482,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (87,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (88,'edit_type_users','Autorisé à editer un type utilisateur');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (88,'show_updates','Autorisé à voir les détails d\'une mise à jour');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (88,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (88,2,1);
@@ -2434,7 +2510,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (88,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (89,'add_type_users','Autorisé à ajouter un type utilisateur');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (89,'new_updates','Autorisé à voir la page créer une mise à jour');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (89,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (89,2,1);
@@ -2462,7 +2538,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (89,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (90,'add_field_type_users','Autorisé à ajouter un champ pour un type utilisateur');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (90,'edit_updates','Autorisé à voir la page éditer une mise à jour');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (90,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (90,2,1);
@@ -2490,7 +2566,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (90,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (91,'disable_type_users','Autorisé à désactiver un type utilisateur');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (91,'create_updates','Autorisé à créer une mise à jour');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (91,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (91,2,1);
@@ -2518,7 +2594,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (91,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (92,'destroy_type_users','Autorisé à supprimer un type utilisateur');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (92,'update_updates','Autorisé à éditer une mise à jour');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (92,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (92,2,1);
@@ -2546,7 +2622,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (92,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (93,'unassigns_fields_type_user','Autorisé à dé-assigner des champs de type utilisateur');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (93,'destroy_updates','Autorisé à supprimer un mise à jour');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (93,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (93,2,1);
@@ -2572,9 +2648,12 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (93,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (93,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (93,23,1);
 
---
+-- End Updates
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (94,'delete_field_type_user','Autorisé à supprimer un champ de type utilisateur');
+
+-- Users
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (94,'index_users','Autorisé à voir la liste des utilisateurs');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (94,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (94,2,1);
@@ -2602,7 +2681,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (94,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (95,'edit_fields_type_user','Autorisé à modifier des champs de type utilisateur');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (95,'enable_disable_users','Autorisé à désactiver/activer un utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (95,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (95,2,1);
@@ -2630,7 +2709,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (95,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (96,'delete_type_material_seller','Autorisé à supprimer les types de materiels que vend un vendeur');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (96,'edit_users','Autorisé à éditer ses informations personnelles');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (96,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (96,2,1);
@@ -2658,7 +2737,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (96,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (97,'view_field_type_users','Autorisé à voir les champs types utilisateurs');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (97,'edit_other_users','Autorisé à editer le profil d\'autres utilisateurs');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (97,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (97,2,1);
@@ -2684,9 +2763,9 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (97,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (97,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (97,23,1);
 
----
+--
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (98,'view_field_agencies','Autorisé à voir les champs agences');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (98,'full_edit_users','Autorisé à éditer tous les champs d\'un utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (98,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (98,2,1);
@@ -2712,9 +2791,9 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (98,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (98,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (98,23,1);
 
----
+--
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (99,'create_field_agencies','Autorisé à créer les champs agences');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (99,'create_users','Autorisé à créer un admin');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (99,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (99,2,1);
@@ -2740,9 +2819,9 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (99,21
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (99,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (99,23,1);
 
----
+--
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (100,'update_field_agencies','Autorisé à editer les champs agences');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (100,'update_users','Autorisé à editer son profil');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (100,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (100,2,1);
@@ -2768,9 +2847,9 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (100,2
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (100,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (100,23,1);
 
----
+--
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (101,'delete_field_agencies','Autorisé à supprimer les champs agences');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (101,'destroy_users','Autorisé à supprimer un utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (101,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (101,2,1);
@@ -2796,27 +2875,10 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (101,2
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (101,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (101,23,1);
 
-INSERT INTO `Tickets_development`.`rights` (`id`, `name`, `content`) VALUES ('102', 'force_destroy_field_type_user', 'Autorisé à supprimer un champ de type utilisateur même si un utilisateur l\'a déjà renseigné');
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,1,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,2,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,3,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,4,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,5,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,6,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,7,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,8,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,9,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,10,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,11,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,12,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,13,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,14,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,15,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,16,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,17,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,18,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,19,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,20,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,21,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,22,1);
-INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (102,23,1);
+-- End Users
+
+------ END ------
+
+-- Responses
+-- TODO : Create rights for responses
+-- End Responses

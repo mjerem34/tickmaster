@@ -1,12 +1,12 @@
 class TypeMaterialsController < ApplicationController
-  before_action :set_type_material, only: [:append_spec_type_material, :update, :destroy]
+  before_action :set_type_material, only: %i[append_spec_type_material update destroy]
   before_action :set_expiration
   before_action :restrict_access
 
   # GET /type_materials
   # GET /type_materials.json
   def index
-    @view_type_material = verifRight('view_type_material')
+    @view_type_material = verify_right('view_type_material')
     if @view_type_material
       @title = 'Types de matériel'
       @type_materials = TypeMaterial.all
@@ -16,14 +16,14 @@ class TypeMaterialsController < ApplicationController
         format.html { render :index }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # POST /type_materials
   # POST /type_materials.json
   def create
-    @create_type_material = verifRight('create_type_material')
+    @create_type_material = verify_right('create_type_material')
     if @create_type_material
       @type_material = TypeMaterial.new(type_material_params)
       respond_to do |format|
@@ -35,14 +35,14 @@ class TypeMaterialsController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # PATCH/PUT /type_materials/1
   # PATCH/PUT /type_materials/1.json
   def update
-    @modify_type_material = verifRight('modify_type_material')
+    @modify_type_material = verify_right('modify_type_material')
     if @modify_type_material
       respond_to do |format|
         if @type_material.update(type_material_params)
@@ -53,14 +53,14 @@ class TypeMaterialsController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # DELETE /type_materials/1
   # DELETE /type_materials/1.json
   def destroy
-    @delete_type_material = verifRight('delete_type_material')
+    @delete_type_material = verify_right('delete_type_material')
     if @delete_type_material
       respond_to do |format|
         if @type_material.materials.any?
@@ -78,13 +78,13 @@ class TypeMaterialsController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # POST /type_materials/1/append_spec_type_material.json
   def append_spec_type_material
-    @modify_type_material = verifRight('modify_type_material')
+    @modify_type_material = verify_right('modify_type_material')
     if @modify_type_material
       @spec_type_material = SpecTypeMaterial.find_or_create_by(name: params[:spec_type_material][:name])
       respond_to do |format|
@@ -97,7 +97,7 @@ class TypeMaterialsController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 

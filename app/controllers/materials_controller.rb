@@ -1,9 +1,10 @@
 class MaterialsController < ApplicationController
   before_action :restrict_access
-  before_action :set_material, only: [:show, :edit, :update, :destroy]
+  before_action :set_material, only: %i[show edit update destroy]
   before_action :set_expiration
-  before_action :set_detentor_type, only: [:new, :redefine_detentor_type]
+  before_action :set_detentor_type, only: %i[new redefine_detentor_type]
   # GET /materials/get_all_specs_types
+  # TODO : Replace with the spec_type_materials#index
   def get_all_specs_types
     @all_specs_types = SpecTypeMaterial.all
     respond_to do |format|
@@ -12,6 +13,7 @@ class MaterialsController < ApplicationController
   end
 
   # GET /materials/get_all_type_materials.json
+  # TODO : Replace with the type_materials#index
   def get_all_type_materials
     @type_materials = TypeMaterial.all
     @seller_id = params[:seller_id]
@@ -21,6 +23,7 @@ class MaterialsController < ApplicationController
   end
 
   # GET /materials/redefine_seller_selected
+  # TODO : Replace with seller#show
   def redefine_seller_selected
     @seller = Seller.find(params[:id_seller]) if Seller.exists?(params[:id_seller])
     respond_to do |format|
@@ -28,6 +31,7 @@ class MaterialsController < ApplicationController
     end
   end
 
+  # TODO : service object from this
   def redefine_material_selected
     @material = Material.find(params[:material_id])
     @material_specs = {}
@@ -43,16 +47,10 @@ class MaterialsController < ApplicationController
   # GET /materials.json
   # Should render all the materials.
   def index
-    @view_material = verifRight('view_material')
-    if @view_material
-      @title = 'Matériels'
-      @materials = Material.all
-      respond_to do |format|
-        format.json { render json: @materials }
-        format.html { render :index }
-      end
-    else
-      renderUnauthorized
+    @materials = Material.all
+    respond_to do |format|
+      format.json { render json: @materials }
+      format.html { render :index }
     end
   end
 
@@ -88,23 +86,21 @@ class MaterialsController < ApplicationController
   # GET /materials/1.json
   # Should render specs of one material.
   def show
-    @view_material = verifRight('view_material')
+    @view_material = verify_right('view_material')
     if @view_material
-      @title = "Matériel n° #{@material.id}"
       respond_to do |format|
         format.json { render json: @material }
         format.html { render :show }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # GET /materials/new
   def new
-    @create_material = verifRight('create_material')
+    @create_material = verify_right('create_material')
     if @create_material
-      @title = 'Nouveau Matériel'
       @type_materials = TypeMaterial.all
       @type_material = @type_materials.first
       @all_materials = Material.where(type_material_id: @type_material.id)
@@ -120,8 +116,12 @@ class MaterialsController < ApplicationController
       @sellers = Seller.where(actif: true)
       @seller = @sellers.first
     else
-      renderUnauthorized
+      permission_denied
     end
+  end
+
+  def edit
+    # TODO : Reintegrate !
   end
 
   # POST /materials
@@ -134,10 +134,9 @@ class MaterialsController < ApplicationController
   # seller_specs
   # specs_values
   def create
-    @create_material = verifRight('create_material')
+    @create_material = verify_right('create_material')
     if @create_material
       if !params[:material][:type_material_name].blank? && !params[:material][:material_name].blank? && !params[:seller_name].blank? && !params[:detentor_type_id].blank? && !params[:detentor_id].blank? && !params[:seller_specs].blank? && !params[:specs_values].blank?
-        @title = 'Nouveau Matériel'
         Seller.exists?(name: params[:seller_name]) ? @seller = Seller.where(name: params[:seller_name]).first : @seller = Seller.create(name: params[:seller_name])
         TypeMaterial.exists?(name: params[:material][:type_material_name]) ? @type_material = TypeMaterial.where(name: params[:material][:type_material_name]).first : @type_material = TypeMaterial.create(name: params[:material][:type_material_name])
         TypeMaterialSeller.create(type_material_id: @type_material.id, seller_id: @seller.id) unless TypeMaterialSeller.exists?(type_material_id: @type_material.id, seller_id: @seller.id)
@@ -163,16 +162,16 @@ class MaterialsController < ApplicationController
           format.json { render json: 'Impossible de créer le matériel, il manque des données.', status: :unprocessable_entity }
           format.html { redirect_to :back, notice: 'Impossible de créer le matériel, il manque des données.' }
         end
-    end
+      end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # PATCH/PUT /materials/1
   # PATCH/PUT /materials/1.json
   def update
-    if verifRight('modify_material')
+    if verify_right('modify_material')
       respond_to do |format|
         if @material.update(material_params)
           format.json { head :no_content }
@@ -183,14 +182,14 @@ class MaterialsController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # DELETE /materials/1
   # DELETE /materials/1.json
   def destroy
-    if verifRight('delete_material')
+    if verify_right('delete_material')
       respond_to do |format|
         if @material.destroy
           format.json { head :no_content }
@@ -201,7 +200,7 @@ class MaterialsController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 

@@ -1,12 +1,12 @@
 class UpdatesController < ApplicationController
-  before_action :set_update, only: [:show, :edit, :update, :destroy]
+  before_action :set_update, only: %i[show edit update destroy]
   before_action :set_expiration
   before_action :restrict_access
 
   # GET /updates
   # GET /updates.json
   def index
-    @view_update = verifRight('view_update')
+    @view_update = verify_right('view_update')
     if @view_update
       @title = 'Liste des mises à jour'
       @updates = Update.all
@@ -15,14 +15,14 @@ class UpdatesController < ApplicationController
         format.html { render :index }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # GET /updates/1
   # GET /updates/1.json
   def show
-    @view_update = verifRight('view_update')
+    @view_update = verify_right('view_update')
     if @view_update
       @title = "Mise à jour numéro : #{@update.id}"
       respond_to do |format|
@@ -30,36 +30,36 @@ class UpdatesController < ApplicationController
         format.html { render :show }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # GET /updates/new
   def new
-    @create_update = verifRight('create_update')
+    @create_update = verify_right('create_update')
     if @create_update
       @title = 'Nouvelle mise à jour'
       @update = Update.new
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # GET /updates/1/edit
   def edit
-    @modify_update = verifRight('modify_update')
+    @modify_update = verify_right('modify_update')
     if @modify_update
       @title = "Mise à jour numéro : #{@update.id}"
       respond_to :html
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # POST /updates
   # POST /updates.json
   def create
-    @create_update = verifRight('create_update')
+    @create_update = verify_right('create_update')
     if @create_update
       @update = Update.new(update_params)
       respond_to do |format|
@@ -76,14 +76,14 @@ class UpdatesController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # PATCH/PUT /updates/1
   # PATCH/PUT /updates/1.json
   def update
-    @modify_update = verifRight('modify_update')
+    @modify_update = verify_right('modify_update')
     if @modify_update
       respond_to do |format|
         if @update.update(update_params)
@@ -95,14 +95,14 @@ class UpdatesController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # DELETE /updates/1
   # DELETE /updates/1.json
   def destroy
-    @delete_update = verifRight('delete_update')
+    @delete_update = verify_right('delete_update')
     if @delete_update
       respond_to do |format|
         if @update.destroy
@@ -114,7 +114,7 @@ class UpdatesController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 

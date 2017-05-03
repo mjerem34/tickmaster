@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :field_agencies
   resources :type_users do
     member do
-      delete :disable_type_users
+      delete :disable
       post :add_field_type_user
       delete :delete_field_type_user
     end
@@ -43,12 +43,12 @@ Rails.application.routes.draw do
   resources :agencies do
     collection do
       get :ping
+      get :do_ping
     end
   end
   resources :categories do
     member do
       get :create_cats
-      get :subcats
     end
   end
   resources :sous_categories
@@ -63,7 +63,7 @@ Rails.application.routes.draw do
     end
   end
   resources :file
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions, only: %i[new create destroy]
   resources :incidents do
     member do
       get :update_subcats
@@ -72,7 +72,7 @@ Rails.application.routes.draw do
       get :order_by
     end
     collection do
-      get :incidents_without_tech
+      get :without_tech
     end
     resources :responses
   end
@@ -102,9 +102,7 @@ Rails.application.routes.draw do
   delete '/sessions', to: 'sessions#destroy', as: :sign_out
   get '/rights', to: 'rights#index'
   get '/agencies', to: 'agencies#index'
-  get '/agencies_doPing', to: 'agencies#doPing'
   get '/sessions', to: redirect('/sessions/new')
-  get '/api-docs', to: redirect('/swagger/dist/index.html?url=/api-docs/api-docs.json')
 
   # get '/test_exception', to: 'application#test_exception'
 

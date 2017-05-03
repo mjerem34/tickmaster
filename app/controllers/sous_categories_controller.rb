@@ -1,7 +1,7 @@
 class SousCategoriesController < ApplicationController
   # Globally, this controller is used only for the future Windows app
   # Because for web, all it is managed by the CategoriesController.
-  before_action :set_sous_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_sous_category, only: %i[show edit update destroy]
   before_action :set_expiration
   before_action :restrict_access
 
@@ -9,19 +9,19 @@ class SousCategoriesController < ApplicationController
   # GET /sous_categories.json
   # Should get and return all the subcategories
   def index
-    @view_index_subcategories = verifRight('view_index_subcategories')
-    if @view_index_subcategories
+    @index_sous_categories = verify_right('index_sous_categories')
+    if @index_sous_categories
       @title = 'Liste des sous catégories'
       @sous_categories = SousCategory.all
-      @view_details_subcategories = verifRight('view_details_subcategories')
-      @edit_subcategories = verifRight('edit_subcategories')
-      @delete_subcategories = verifRight('delete_subcategories')
+      @show_sous_categories = verify_right('show_sous_categories')
+      @edit_sous_categories = verify_right('edit_sous_categories')
+      @destroy_sous_categories = verify_right('destroy_sous_categories')
       respond_to do |format|
         format.json { render json: @sous_categories }
         format.html { render :index }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -29,39 +29,39 @@ class SousCategoriesController < ApplicationController
   # GET /sous_categories/1.json
   # Should return one subcategory, by id passed in params.
   def show
-    @view_details_subcategories = verifRight('view_details_subcategories')
-    if @view_details_subcategories
+    @show_sous_categories = verify_right('show_sous_categories')
+    if @show_sous_categories
       @title = "Liste des incidents de sous catégorie : #{@sous_category.name}"
       respond_to do |format|
         format.json { render json: @sous_category }
         format.html { render :show }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # GET /sous_categories/new
   # This should never be used.
   def new
-    @create_new_subcategory = verifRight('create_new_subcategory')
-    if @create_new_subcategory
+    @new_sous_categories = verify_right('new_sous_categories')
+    if @new_sous_categories
       @title = 'Nouvelle sous catégorie'
       @sous_category = SousCategory.new
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # GET /sous_categories/1/edit
   # This one too.
   def edit
-    @edit_subcategories = verifRight('edit_subcategories')
-    if @edit_subcategories
+    @edit_sous_categories = verify_right('edit_sous_categories')
+    if @edit_sous_categories
       @title = "Editer sous catégorie : #{@sous_category.name}"
       @category = Category.find(@sous_category.category_id)
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -69,8 +69,8 @@ class SousCategoriesController < ApplicationController
   # POST /sous_categories.json
   # I think this method should create an subcategory... But I am not sure..
   def create
-    @create_new_subcategory = verifRight('create_new_subcategory')
-    if @create_new_subcategory
+    @create_sous_categories = verify_right('create_sous_categories')
+    if @create_sous_categories
       @category = Category.find(params[:sous_category][:category_id])
       @sous_category = SousCategory.new(sous_category_params)
       # Any category have a 'lvl_urgence_max', for those who create an incident.
@@ -86,7 +86,7 @@ class SousCategoriesController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -94,8 +94,8 @@ class SousCategoriesController < ApplicationController
   # PATCH/PUT /sous_categories/1.json
   # Should update the params of the subcategory passed in params.
   def update
-    @edit_subcategories = verifRight('edit_subcategories')
-    if @edit_subcategories
+    @update_sous_categories = verify_right('update_sous_categories')
+    if @update_sous_categories
       respond_to do |format|
         if @sous_category.update(sous_category_params)
           format.json { head :no_content }
@@ -106,7 +106,7 @@ class SousCategoriesController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -114,8 +114,8 @@ class SousCategoriesController < ApplicationController
   # DELETE /sous_categories/1.json
   # Should delete the subcategory passed in params only if contains no incidents.
   def destroy
-    @delete_subcategories = verifRight('delete_subcategories')
-    if @delete_subcategories
+    @destroy_sous_categories = verify_right('destroy_sous_categories')
+    if @destroy_sous_categories
       respond_to do |format|
         if Incident.where(sous_category_id: @sous_category.id).empty?
           @sous_category.destroy
@@ -127,7 +127,7 @@ class SousCategoriesController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 

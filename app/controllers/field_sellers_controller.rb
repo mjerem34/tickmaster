@@ -1,5 +1,5 @@
 class FieldSellersController < ApplicationController
-  before_action :set_field_seller, only: [:update, :destroy]
+  before_action :set_field_seller, only: %i[update destroy]
   before_action :set_expiration
   before_action :restrict_access
 
@@ -7,23 +7,23 @@ class FieldSellersController < ApplicationController
   # GET /field_sellers.json
   # Should render all the fields sellers.
   def index
-    @view_field_sellers = verifRight('view_field_sellers')
-    if @view_field_sellers
+    @index_field_sellers = verify_right('index_field_sellers')
+    if @index_field_sellers
       @title = 'Champs des vendeurs'
       @field_sellers = FieldSeller.all
-      @create_field_sellers = verifRight('create_field_sellers')
+      @create_field_sellers = verify_right('create_field_sellers')
       respond_to do |format|
         format.json { render json: @field_sellers }
         format.html { render :index }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # POST /field_sellers.json
   def create
-    @create_field_sellers = verifRight('create_field_sellers')
+    @create_field_sellers = verify_right('create_field_sellers')
     if @create_field_sellers
       @field_seller = FieldSeller.new(field_seller_params)
       respond_to do |format|
@@ -35,14 +35,14 @@ class FieldSellersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # PATCH/PUT /field_sellers/1.json
   def update
-    @modify_field_sellers = verifRight('modify_field_sellers')
-    if @modify_field_sellers
+    @update_field_sellers = verify_right('update_field_sellers')
+    if @update_field_sellers
       respond_to do |format|
         if @field_seller.update(field_seller_params)
           format.js
@@ -52,16 +52,16 @@ class FieldSellersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # DELETE /field_sellers/1.json
   def destroy
-    @delete_field_sellers = verifRight('delete_field_sellers')
-    if @delete_field_sellers
+    @destroy_field_sellers = verify_right('destroy_field_sellers')
+    if @destroy_field_sellers
       respond_to do |format|
-        if !@field_seller.field_seller_sellers.any?
+        if @field_seller.field_seller_sellers.none?
           if @field_seller.destroy
             format.js
             format.json { head :no_content }
@@ -73,7 +73,7 @@ class FieldSellersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 

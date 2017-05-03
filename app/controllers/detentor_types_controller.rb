@@ -5,8 +5,8 @@ class DetentorTypesController < ApplicationController
   # GET /detentor_types
   # GET /detentor_types.json
   def index
-    @view_detentor_type = verifRight('view_detentor_type')
-    if @view_detentor_type
+    @index_detentor_types = verify_right('index_detentor_types')
+    if @index_detentor_types
       @title = 'Types de détenteurs'
       @detentor_types = DetentorType.all
       respond_to do |format|
@@ -14,7 +14,7 @@ class DetentorTypesController < ApplicationController
         format.html { render :index }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 end

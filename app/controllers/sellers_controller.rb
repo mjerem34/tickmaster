@@ -1,11 +1,12 @@
+# sellers_controller.rb
 class SellersController < ApplicationController
-  before_action :set_seller, only: [:permanent_deletion, :add_type_material, :delete_type_material, :add_field_seller, :delete_field_seller, :update, :destroy, :show]
+  before_action :set_seller, only: %i[permanent_deletion add_type_material delete_type_material add_field_seller delete_field_seller update destroy show]
   before_action :set_expiration
   before_action :restrict_access
 
   # GET /sellers.json
   def index
-    @view_sellers = verifRight('view_sellers')
+    @view_sellers = verify_right('view_sellers')
     if @view_sellers
       @title = 'Vendeurs'
       @sellers = Seller.all
@@ -16,7 +17,7 @@ class SellersController < ApplicationController
         format.html { render :index }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -29,7 +30,7 @@ class SellersController < ApplicationController
 
   # POST /sellers.json
   def create
-    @create_sellers = verifRight('create_sellers')
+    @create_sellers = verify_right('create_sellers')
     if @create_sellers
       @field_sellers = FieldSeller.all
       @type_materials = TypeMaterial.all
@@ -43,13 +44,13 @@ class SellersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # PATCH/PUT /sellers/1.json
   def update
-    @modify_sellers = verifRight('modify_sellers')
+    @modify_sellers = verify_right('modify_sellers')
     if @modify_sellers
       respond_to do |format|
         if @seller.update(seller_params)
@@ -60,14 +61,14 @@ class SellersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # DELETE /sellers/1.json
   # Just disable/enable the seller
   def destroy
-    @modify_sellers = verifRight('modify_sellers')
+    @modify_sellers = verify_right('modify_sellers')
     if @modify_sellers
       respond_to do |format|
         if @seller.actif
@@ -79,13 +80,13 @@ class SellersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
   # DELETE /sellers/1/permanent_deletion
   def permanent_deletion
-    @delete_sellers = verifRight('delete_sellers')
+    @delete_sellers = verify_right('delete_sellers')
     if @delete_sellers
       respond_to do |format|
         if @seller.materials.any?
@@ -102,13 +103,14 @@ class SellersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
+  # TODO : Créer un controller type_material_seller et mettre ça
   # POST /sellers/1/add_type_material.json
   def add_type_material
-    @modify_sellers = verifRight('modify_sellers')
+    @modify_sellers = verify_right('modify_sellers')
     if @modify_sellers
       @type_material = TypeMaterial.find_or_create_by(name: params[:type_material][:name])
       respond_to do |format|
@@ -124,13 +126,14 @@ class SellersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
+  # TODO : Et ça aussi !
   # DELETE /sellers/1/delete_type_material.json
   def delete_type_material
-    @modify_sellers = verifRight('modify_sellers')
+    @modify_sellers = verify_right('modify_sellers')
     if @modify_sellers
       respond_to do |format|
         @type_material_id = params[:type_material][:id]
@@ -147,13 +150,14 @@ class SellersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
+  # TODO : Créer un controller field_seller_seller et mettre ça :
   # POST /sellers/1/add_field_seller.json
   def add_field_seller
-    @modify_sellers = verifRight('modify_sellers')
+    @modify_sellers = verify_right('modify_sellers')
     if @modify_sellers
       @field_seller = FieldSeller.find_or_create_by(name: params[:field_seller][:name])
       respond_to do |format|
@@ -170,13 +174,14 @@ class SellersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
+  # TODO : Ca aussi
   # PUT /sellers/1/update_field_seller.json
   def update_field_seller
-    @modify_sellers = verifRight('modify_sellers')
+    @modify_sellers = verify_right('modify_sellers')
     if @modify_sellers
       @field_seller_seller = FieldSellerSeller.where(field_seller_id: params[:field_seller][:id], seller_id: params[:id])
       respond_to do |format|
@@ -188,13 +193,13 @@ class SellersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
-
+# TODO: Ca aussi :
   # DELETE /sellers/1/delete_field_seller.json
   def delete_field_seller
-    @modify_sellers = verifRight('modify_sellers')
+    @modify_sellers = verify_right('modify_sellers')
     if @modify_sellers
       @field_seller_id = params[:field_seller][:id]
       @field_seller_seller = FieldSellerSeller.where(field_seller_id: params[:field_seller][:id], seller_id: params[:id])
@@ -207,7 +212,7 @@ class SellersController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 

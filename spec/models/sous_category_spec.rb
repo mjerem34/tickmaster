@@ -14,13 +14,13 @@ RSpec.describe SousCategory, type: :model do
 
   it { expect(build(:sous_category, lvl_urgence_max: nil)).not_to be_valid }
 
-  it "should render the category" do
+  it 'should render the category' do
     sous_category = create(:sous_category, category_id: @category.id)
 
     expect(sous_category.category).to eq @category
   end
 
-  it "should render all the incidents" do
+  it 'should render all the incidents' do
     agency = create(:agency)
     user = create(:user, agency_id: agency.id)
     admin = create(:admin, agency_id: agency.id)

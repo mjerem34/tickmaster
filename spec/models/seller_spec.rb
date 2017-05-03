@@ -8,19 +8,19 @@ RSpec.describe Seller, type: :model do
 
   it { expect(build(:seller, name: SecureRandom.hex(127))).to be_valid }
 
-  it "is invalid if double #name" do
+  it 'is invalid if double #name' do
     seller = create(:seller)
 
     expect(build(:seller, name: seller.name)).not_to be_valid
   end
 
-  it "set actif to true on creation" do
+  it 'set actif to true on creation' do
     seller = create(:seller)
 
     expect(seller.actif).to eq true
   end
 
-  it "should return materials" do
+  it 'should return materials' do
     type_material = create(:type_material)
     detentor_type = create(:detentor_type)
     seller = create(:seller)
@@ -30,7 +30,7 @@ RSpec.describe Seller, type: :model do
     expect(seller.materials).to eq [material]
   end
 
-  it "should return type_materials the seller sells" do
+  it 'should return type_materials the seller sells' do
     type_material = create(:type_material)
     seller = create(:seller)
 
@@ -39,7 +39,7 @@ RSpec.describe Seller, type: :model do
     expect(seller.type_materials).to eq [type_material]
   end
 
-  it "should return the field_sellers the seller have" do
+  it 'should return the field_sellers the seller have' do
     field_seller = create(:field_seller)
     seller = create(:seller)
 

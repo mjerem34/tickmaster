@@ -35,7 +35,7 @@ $(document).ready(function () {
     var nameOfAgency = $(this).data("name"); // Va chercher ce qui a dans data-name="CLE LATTES"
     $.namesAgencies.push(nameOfAgency);
     $.worker = new Worker(window.URL.createObjectURL(new Blob(['function sleep(milliseconds) {var start = new Date().getTime();for (var i = 0; i < 1e7; i++) {if ((new Date().getTime() - start) > milliseconds){break;}}}onmessage = function(e) { for(var i = 0; i < 1e7; i++){var xhr = new XMLHttpRequest();xhr.open("' +
-    'GET", "http://10.134.2.250/agencies_doPing?host=" + e.data + "&t=" + Math.random(), false);xhr.send();var result = xhr.responseText;postMessage(result);sleep(1000);}}'])));
+    'GET", "http://10.134.2.250/agencies/do_ping?host=" + e.data + "&t=" + Math.random(), false);xhr.send();var result = xhr.responseText;postMessage(result);sleep(1000);}}'])));
     $.workers[nameOfAgency] = $.worker;
     $.worker.onmessage = function (e) {
       var now = new Date(Date.now());
@@ -63,7 +63,7 @@ $(document).ready(function () {
       if (ipOfAgency != "NULL") {
         $.namesAgencies.push(nameOfAgency);
         $.worker = new Worker(window.URL.createObjectURL(new Blob(['function sleep(milliseconds) {var start = new Date().getTime();for (var i = 0; i < 1e7; i++) {if ((new Date().getTime() - start) > milliseconds){break;}}}onmessage = function(e) { for(var i = 0; i < 1e7; i++){var xhr = new XMLHttpRequest();xhr.open("' +
-        'GET", "http://10.134.2.250/agencies_doPing?host=" + e.data + "&t=" + Math.random(), false);xhr.send();var result = xhr.responseText;postMessage(result);sleep(1000);}}'])));
+        'GET", "http://10.134.2.250/agencies/do_ping?host=" + e.data + "&t=" + Math.random(), false);xhr.send();var result = xhr.responseText;postMessage(result);sleep(1000);}}'])));
         $.workers[nameOfAgency] = $.worker;
         $.worker.onmessage = function (e) {
 
@@ -100,9 +100,9 @@ $(document).ready(function () {
 // PAGE FORM (UPDATE, CREATE)
   $(document).on('click', "button[name='send-form']", function(){
     var dataAgence = {};
-    var dataAgenceComp = {};
+    var data_agence_comp = {};
     $.each($(".field_agency_value"), function (index, input) {
-      dataAgenceComp[input.name] = input.value;
+      data_agence_comp[input.name] = input.value;
     });
     if ($(this).data("id") != "0") {
       $.ajax({
@@ -114,7 +114,7 @@ $(document).ready(function () {
             name: $("#agency_name").val(),
             ip_adress: $("#agency_ip_adress").val()
           },
-          dataAgenceComp: dataAgenceComp
+          data_agence_comp: data_agence_comp
         },
         error: function(result){
           notifError(result.responseText);
@@ -130,7 +130,7 @@ $(document).ready(function () {
             name: $("#agency_name").val(),
             ip_adress: $("#agency_ip_adress").val()
           },
-          dataAgenceComp: dataAgenceComp
+          data_agence_comp: data_agence_comp
         },
         error: function(result){
           notifError(result.responseText);

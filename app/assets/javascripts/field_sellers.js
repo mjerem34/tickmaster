@@ -23,7 +23,7 @@ $(document).on('keyup', '#name_field_seller', function(e){
 });
 
 // This is for DELETE on click on the red button
-$(document).on('click', '#delete_field_sellers', function(){
+$(document).on('click', '#destroy_field_sellers', function(){
   $.ajax({
     url: '/field_sellers/' + $(this).parent('td').parent('tr').attr('id'),
     type: 'DELETE',

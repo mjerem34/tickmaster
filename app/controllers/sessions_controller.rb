@@ -2,13 +2,14 @@ class SessionsController < ApplicationController
   # GET /sessions/new
   def new
     if !current_user.nil?
-      @title = "Vous êtes déjà connecté !"
+      @title = 'Vous êtes déjà connecté !'
       redirect_to root_path
     else
       @title = "S'identifier"
       render :new
     end
   end
+
   # POST /sessions
   # POST /sessions.json
   def create
@@ -31,7 +32,7 @@ class SessionsController < ApplicationController
             sign_in @user
             puts "current_user in session : #{current_user.inspect}"
             format.json { render json: 'Connexion réussie', status: 200 }
-            format.html { redirect_to root_path , notice: 'Connexion réussie' }
+            format.html { redirect_to root_path, notice: 'Connexion réussie' }
           end
         end
       end

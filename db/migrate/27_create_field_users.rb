@@ -5,6 +5,6 @@ class CreateFieldUsers < ActiveRecord::Migration
       t.references :user, index: true, foreign_key: true
       t.text :content
     end
-    add_index :field_users, [:field_type_user_id, :user_id], unique: true
+    add_index :field_users, %i[field_type_user_id user_id], unique: true
   end
 end

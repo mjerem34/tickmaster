@@ -4,17 +4,17 @@ FactoryGirl.define do
     f.surname { Faker::Name.first_name }
     f.name { Faker::Name.last_name }
     f.pseudo { Faker::Internet.user_name }
-    f.password "password"
+    f.password 'password'
     f.email { Faker::Internet.free_email }
     # Type_user : 1 has all rights
     f.type_user_id 1
-    f.tel "0606060606"
+    f.tel '0606060606'
     f.ip_addr { Faker::Internet.ip_v4_address }
   end
 
   factory :agency, class: Agency do |f|
     f.name { Faker::Address.city }
-    f.ip_adress "8.8.8.8"
+    f.ip_adress '8.8.8.8'
   end
 
   factory :archive, class: Archive do |f|
@@ -87,25 +87,25 @@ FactoryGirl.define do
     f.title { Faker::Lorem.words(4).join(' ') }
     f.content { Faker::Lorem.words(40).join(' ') }
     f.lvl_urgence_user 10
-    f.ip_adress "8.8.8.8"
+    f.ip_adress '8.8.8.8'
   end
 
   factory :incidents_state, class: IncidentsState do |f|
     f.name { Faker::Lorem.words(3).join(' ') }
     f.shortcut { Faker::Lorem.word }
-    f.user_color "success"
-    f.tech_color "success"
+    f.user_color 'success'
+    f.tech_color 'success'
   end
 
   factory :invalid_user, class: User do |f|
-    f.surname ""
+    f.surname ''
     f.name { Faker::Name.last_name }
     f.pseudo { Faker::Internet.user_name }
-    f.password "password"
+    f.password 'password'
     f.email { Faker::Internet.free_email }
     f.type_user_id 23
     f.agency_id 2
-    f.tel "0606060606"
+    f.tel '0606060606'
     f.ip_addr { Faker::Internet.ip_v4_address }
   end
 
@@ -131,7 +131,7 @@ FactoryGirl.define do
     # t.integer  "sender_id"
     # t.integer  "receiver_id"
     f.content { Faker::Lorem.words(10).join(' ') }
-    f.ip_adress_sender "8.8.8.8"
+    f.ip_adress_sender '8.8.8.8'
   end
 
   factory :right, class: Right do |f|
@@ -198,12 +198,12 @@ FactoryGirl.define do
     f.surname { Faker::Name.first_name }
     f.name { Faker::Name.last_name }
     f.pseudo { Faker::Internet.user_name }
-    f.password "password"
+    f.password 'password'
     f.email { Faker::Internet.free_email }
     # Type_user : 23 has no rights
     f.type_user_id 23
     f.agency_id 2
-    f.tel "0606060606"
+    f.tel '0606060606'
     f.ip_addr { Faker::Internet.ip_v4_address }
     f.actif true
   end

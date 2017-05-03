@@ -1,22 +1,22 @@
 class ProceduresController < ApplicationController
-  before_action :set_procedure, only: [:show, :edit, :update, :destroy]
-  before_action :set_categories_all, only: [:index, :show, :edit, :new, :create]
+  before_action :set_procedure, only: %i[show edit update destroy]
+  before_action :set_categories_all, only: %i[index show edit new create]
   before_action :restrict_access
   # GET /procedures
   # GET /procedures.json
   # Should get and return all the procedures.
   def index
-    @view_procedures = verifRight('view_procedures')
+    @view_procedures = verify_right('view_procedures')
     if @view_procedures
       @title = 'Liste des procedures'
       @procedures = Procedure.all.reorder('created_at asc')
-      @edit_procedure = verifRight('edit_procedure')
+      @edit_procedure = verify_right('edit_procedure')
       respond_to do |format|
         format.json { render json: @procedures }
         format.html { render :index }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -24,7 +24,7 @@ class ProceduresController < ApplicationController
   # GET /procedures/1.json
   # Get and returns one procedure by params passed.
   def show
-    @view_procedures = verifRight('view_procedures')
+    @view_procedures = verify_right('view_procedures')
     if @view_procedures
       @title = 'Procedure N° ' + @procedure.id.to_s
       respond_to do |format|
@@ -32,7 +32,7 @@ class ProceduresController < ApplicationController
         format.html { render :show }
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -42,7 +42,7 @@ class ProceduresController < ApplicationController
   # It get the param 'nom', 'contenu', 'messages' passed by an incident.
   # You understand ? Incident => Procedure = DRY.
   def new
-    @create_procedure = verifRight('create_procedure')
+    @create_procedure = verify_right('create_procedure')
     if @create_procedure
       @title = 'Nouvelle procedure'
       @procedure = Procedure.new
@@ -66,7 +66,7 @@ class ProceduresController < ApplicationController
         @sous_categories = SousCategory.where('category_id = ?', @category_id)
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -84,12 +84,12 @@ class ProceduresController < ApplicationController
   # GET /procedures/1/edit
   # Should render the edit form, for... edit an procedure !!
   def edit
-    @edit_procedure = verifRight('edit_procedure')
+    @edit_procedure = verify_right('edit_procedure')
     if @edit_procedure
       @title = 'Procedure N° ' + @procedure.id.to_s
       @sous_categories = SousCategory.where('category_id = ?', Category.first.id)
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -97,7 +97,7 @@ class ProceduresController < ApplicationController
   # POST /procedures.json
   # Should create an procedure, with files et cetera...
   def create
-    @create_procedure = verifRight('create_procedure')
+    @create_procedure = verify_right('create_procedure')
     if @create_procedure
       @procedure = Procedure.new(procedure_params)
       respond_to do |format|
@@ -119,7 +119,7 @@ class ProceduresController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -127,7 +127,7 @@ class ProceduresController < ApplicationController
   # PATCH/PUT /procedures/1.json
   # Update the params of the procedure passed in params.
   def update
-    @edit_procedure = verifRight('edit_procedure')
+    @edit_procedure = verify_right('edit_procedure')
     if @edit_procedure
       respond_to do |format|
         if @procedure.update(procedure_params)
@@ -139,7 +139,7 @@ class ProceduresController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 
@@ -147,7 +147,7 @@ class ProceduresController < ApplicationController
   # DELETE /procedures/1.json
   # Should destroy the procedure selected.
   def destroy
-    @delete_procedure = verifRight('delete_procedure')
+    @delete_procedure = verify_right('delete_procedure')
     if @delete_procedure
       respond_to do |format|
         if @procedure.destroy
@@ -159,7 +159,7 @@ class ProceduresController < ApplicationController
         end
       end
     else
-      renderUnauthorized
+      permission_denied
     end
   end
 

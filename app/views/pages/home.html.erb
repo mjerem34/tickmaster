@@ -3,7 +3,7 @@
 <% if !current_user.type_user.is_tech %>
 <% @incidents = Incident.all.order("created_at asc") %>
 <% @agencies = Agency.all %>
-<% @incidents_without_tech = @incidents.where(tech_id: nil).includes(:user, :category, :sous_category).order("created_at asc") %>
+<% @without_tech = @incidents.where(tech_id: nil).includes(:user, :category, :sous_category).order("created_at asc") %>
 <% @incidents_to_treat = @incidents.where(tech_id: current_user.id, incident_state_id_for_user_id: [2, 3, 4, 5, 6, 11, 12]).limit(20).includes(:user, :category, :sous_category).order("created_at asc") %>
 <br>
 <div class="tableau-de-bord">
@@ -73,7 +73,7 @@
         </tr>
       </thead>
       <tbody>
-        <% for incident in @incidents_without_tech do %>
+        <% for incident in @without_tech do %>
         <tr>
           <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#withouttech<%= incident.id %>"><%= incident.user.name %></td>
           <td class="hover-cellule <%= incident.id %>" data-toggle="modal" data-target="#withouttech<%= incident.id %>"><%= incident.tech.nil? ? "" : incident.tech.name %></td>

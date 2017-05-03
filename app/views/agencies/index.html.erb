@@ -33,10 +33,10 @@
               <!-- BODY DU MODAL -->
               <!-- FOOTER DU MODAL -->
               <div class="modal-footer">
-                <% if @delete_agency %>
+                <% if @destroy_agencies %>
                 <button type="button" name="button" data-redirect="<%= agencies_url %>" data-method="delete" data-href="<%= agency_path(agency.id) %>" class="btn btn-flat btn-default btn-modal ask_for_confirm">Supprimer</button>
                 <% end %>
-                <% if @edit_agency %>
+                <% if @edit_agencies %>
                 <%= link_to "Editer", edit_agency_url(agency), class: 'btn btn-flat btn-info btn-modal'%>
                 <% end %>
                 <button type="button" class="btn btn-flat btn-danger btn-modal" data-dismiss="modal">Fermer</button>
