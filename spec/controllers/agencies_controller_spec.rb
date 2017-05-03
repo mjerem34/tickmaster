@@ -130,23 +130,23 @@ RSpec.describe AgenciesController, type: :controller do
         end
         describe '#update' do
           context 'with valid attributes' do
-            before { put :update, id: @agency.id, agency: { name: 'efsefsef', data_agence_comp: { codePostal: '34720' } } }
+            before { put :update, id: @agency.id, agency: { name: 'efsefsef', ip_adress: '8.8.8.8', data_agence_comp: { codePostal: '34720' } } }
             it 'should edit the agency' do
-              expect(Agency.first.name).to eq 'efsefsef'
+              expect(Agency.find_by_name('efsefsef')).to eq @agency
             end
             it 'should return ok code' do
               expect(response.status).to eq 204
             end
           end
-          # context 'with invalid attributes' do
-          #   before { put :update, id: @agency.id, agency: { name: true, data_agence_comp: { codePostal: '34720' } } }
-          #   it 'should not edit the agency' do
-          #     expect(Agency.first.name).not_to eq nil
-          #   end
-          #   it 'should return error status' do
-          #     expect(response.status).to eq 422
-          #   end
-          # end
+          context 'with invalid attributes' do
+            before { put :update, id: @agency.id, agency: { name: "fefef", ip_adress: nil, data_agence_comp: { codePostal: '34720' } } }
+            it 'should not edit the agency' do
+              expect(Agency.find_by_name('efsefsef')).not_to eq @agency
+            end
+            it 'should return error status' do
+              expect(response.status).to eq 422
+            end
+          end
         end
         describe '#destroy' do
           it 'should return' do
