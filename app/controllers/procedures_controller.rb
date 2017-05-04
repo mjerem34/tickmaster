@@ -114,7 +114,7 @@ class ProceduresController < ApplicationController
           format.json { render json: @procedure.id, status: :created }
           format.html { redirect_to @procedure, notice: 'La procedure a été créée.' }
         else
-          format.json { render json: @procedure.errors, status: :unprocessable_entity }
+          format.json { render json: @procedure.errors, status: 422 }
           format.html { redirect_to :back, notice: 'Impossible de créer la procedure.' + @procedure.errors }
         end
       end
@@ -134,7 +134,7 @@ class ProceduresController < ApplicationController
           format.json { head :no_content }
           format.html { redirect_to @procedure, notice: 'La procedure a été mise a jour.' }
         else
-          format.json { render json: @procedure.errors, status: :unprocessable_entity }
+          format.json { render json: @procedure.errors, status: 422 }
           format.html { redirect_to :back, notice: 'Impossible de modifier la procedure' }
         end
       end
@@ -154,7 +154,7 @@ class ProceduresController < ApplicationController
           format.json { head :no_content }
           format.html { redirect_to procedures_url, notice: 'La procedure a été supprimée.' }
         else
-          format.json { render json: @procedure.errors, status: :unprocessable_entity }
+          format.json { render json: @procedure.errors, status: 422 }
           format.html { redirect_to :back, notice: "Impossible de supprimer la procedure. #{@procedure.errors}" }
         end
       end

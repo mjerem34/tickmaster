@@ -173,7 +173,7 @@ class IncidentsController < ApplicationController
             sendNotif(disp.ip_addr, @incident.user.name + ' ' + @incident.user.surname + ' a créé un incident !')
           end
         else
-          format.json { render json: "Impossible de créer l'incident", status: :unprocessable_entity }
+          format.json { render json: "Impossible de créer l'incident", status: 422 }
           format.html { render :new, notice: "Impossible de créer l'incident, veuillez réessayer" }
         end
       end

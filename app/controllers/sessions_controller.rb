@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
   def destroy
     respond_to do |format|
       if current_user.nil?
-        format.json { render json: 'Vous êtes déjà déconnecté !', status: :unprocessable_entity }
+        format.json { render json: 'Vous êtes déjà déconnecté !', status: 422 }
         format.html { redirect_to root_path, notice: 'Vous êtes déjà déconnecté !' }
       else
         sign_out

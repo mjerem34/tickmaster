@@ -39,10 +39,10 @@ class TypeUsersController < ApplicationController
             format.js
             format.json { render json: @type_user.id, status: :created }
           else
-            format.json { render json: @type_user.errors.full_messages.first, status: :unprocessable_entity }
+            format.json { render json: @type_user.errors.full_messages.first, status: 422 }
           end
         else
-          format.json { render json: 'Merci de remplir tous les champs', status: :unprocessable_entity }
+          format.json { render json: 'Merci de remplir tous les champs', status: 422 }
         end
       end
     else
@@ -71,7 +71,7 @@ class TypeUsersController < ApplicationController
             format.json { render json: 'Ce champ est déjà renseigné !' }
           end
         else
-          format.json { render json: 'Veuillez remplir tous les champs', status: :unprocessable_entity }
+          format.json { render json: 'Veuillez remplir tous les champs', status: 422 }
         end
       end
     else
@@ -95,7 +95,7 @@ class TypeUsersController < ApplicationController
               format.js
               format.json { head :no_content }
             else
-              format.json { render json: @field_type_user_type_user.errors.full_messages.first, status: :unprocessable_entity }
+              format.json { render json: @field_type_user_type_user.errors.full_messages.first, status: 422 }
             end
           else
             if User.where(type_user_id: params[:id]).any?
@@ -113,7 +113,7 @@ class TypeUsersController < ApplicationController
                     format.js
                     format.json { head :no_content }
                   else
-                    format.json { render json: @field_type_user_type_user.errors.full_messages.first, status: :unprocessable_entity }
+                    format.json { render json: @field_type_user_type_user.errors.full_messages.first, status: 422 }
                   end
                   break
                 end
@@ -124,12 +124,12 @@ class TypeUsersController < ApplicationController
                 format.js
                 format.json { head :no_content }
               else
-                format.json { render json: @field_type_user_type_user.errors.full_messages.first, status: :unprocessable_entity }
+                format.json { render json: @field_type_user_type_user.errors.full_messages.first, status: 422 }
               end
             end
           end
         else
-          format.json { render json: 'Veuillez remplir tous les champs', status: :unprocessable_entity }
+          format.json { render json: 'Veuillez remplir tous les champs', status: 422 }
         end
       end
     else
@@ -147,7 +147,7 @@ class TypeUsersController < ApplicationController
           format.js
           format.json { head :no_content }
         else
-          format.json { render json: @type_user.errors.full_messages.first, status: :unprocessable_entity }
+          format.json { render json: @type_user.errors.full_messages.first, status: 422 }
         end
       end
     else
@@ -162,7 +162,7 @@ class TypeUsersController < ApplicationController
         @type_user.users.each { |user| !@type_user.actif ? user.update(actif: false) : user.update(actif: true) }
         format.json { head :no_content }
       else
-        format.json { render json: @type_user.errors, status: :unprocessable_entity }
+        format.json { render json: @type_user.errors, status: 422 }
       end
     end
   end
@@ -173,13 +173,13 @@ class TypeUsersController < ApplicationController
     if @destroy_type_users
       respond_to do |format|
         if @type_user.users.any?
-          format.json { render json: 'Vous ne pouvez pas supprimer ce type utilisateur car il contient des utilisateurs', status: :unprocessable_entity }
+          format.json { render json: 'Vous ne pouvez pas supprimer ce type utilisateur car il contient des utilisateurs', status: 422 }
         else
           if @type_user.destroy
             format.js
             format.json { head :no_content }
           else
-            format.json { render json: @type_user.errors, status: :unprocessable_entity }
+            format.json { render json: @type_user.errors, status: 422 }
           end
         end
       end

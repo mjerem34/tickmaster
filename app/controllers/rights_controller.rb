@@ -25,11 +25,11 @@ class RightsController < ApplicationController
           if TypeUserRight.where(right_id: params[:right], type_user_id: params[:type_user]).first.update(value: params[:checked])
             respond_to { |format| format.json { head :no_content } }
           else
-            respond_to { |format| format.json { render json: nil, status: :unprocessable_entity } }
+            respond_to { |format| format.json { render json: nil, status: 422 } }
           end
         end
       else
-        respond_to { |format| format.json { render json: nil, status: :unprocessable_entity } }
+        respond_to { |format| format.json { render json: nil, status: 422 } }
       end
     else
       permission_denied

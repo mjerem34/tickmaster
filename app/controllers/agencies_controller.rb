@@ -67,7 +67,7 @@ class AgenciesController < ApplicationController
         format.js
         format.json { head :no_content }
       else
-        format.json { render json: nil, status: :unprocessable_entity }
+        format.json { render json: nil, status: 422 }
       end
     end
   end

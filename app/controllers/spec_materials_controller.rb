@@ -34,7 +34,7 @@ class SpecMaterialsController < ApplicationController
           format.js
           format.json { render json: @spec_material.id, status: :created }
         else
-          format.json { render json: @spec_material.errors.full_messages.first, status: :unprocessable_entity }
+          format.json { render json: @spec_material.errors.full_messages.first, status: 422 }
         end
       end
     else
@@ -54,7 +54,7 @@ class SpecMaterialsController < ApplicationController
           format.js
           format.json { head :no_content }
         else
-          format.json { render json: @spec_material.errors.full_messages.first, status: :unprocessable_entity }
+          format.json { render json: @spec_material.errors.full_messages.first, status: 422 }
         end
       end
     else
@@ -73,7 +73,7 @@ class SpecMaterialsController < ApplicationController
           format.json do
             render json: "Impossible de supprimer cette caractéristique car
             elle est liée a un matériel.",
-                   status: :unprocessable_entity
+                   status: 422
           end
         else
           if @spec_material.destroy

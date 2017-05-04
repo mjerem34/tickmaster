@@ -40,7 +40,7 @@ class FieldTypeUsersController < ApplicationController
         else
           format.json do
             render json: @field_type_user.errors.full_messages.first,
-                   status: :unprocessable_entity
+                   status: 422
           end
         end
       end
@@ -61,7 +61,7 @@ class FieldTypeUsersController < ApplicationController
         else
           format.json do
             render json: @field_type_user.errors.full_messages.first,
-                   status: :unprocessable_entity
+                   status: 422
           end
         end
       end
@@ -85,14 +85,14 @@ class FieldTypeUsersController < ApplicationController
           else
             format.json do
               render json: @field_type_user.errors.full_messages.first,
-                     status: :unprocessable_entity
+                     status: 422
             end
           end
         else
           format.json do
             render json: 'Impossible de supprimer le champ car il contient'\
             ' des données associées',
-                   status: :unprocessable_entity
+                   status: 422
           end
         end
       end

@@ -24,7 +24,7 @@ class UsersController < ApplicationController
       if @user.update(actif: params[:actif])
         respond_to { |format| format.json { head :no_content } }
       else
-        respond_to { |format| format.json { render json: nil, status: :unprocessable_entity } }
+        respond_to { |format| format.json { render json: nil, status: 422 } }
       end
     else
       permission_denied
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
             format.json { render json: 'Un email contenant votre pseudonyme vient de vous être envoyé.', status: :ok }
             format.html { redirect_to signin_path, notice: 'Un email contenant votre pseudonyme vient de vous être envoyé.' }
           rescue Exception => e
-            format.json { render json: "Impossible d'envoyer le mail car l'accès internet est inexistant ou votre adresse email est invalide, veuillez vous addresser à votre administrateur réseau", status: :unprocessable_entity }
+            format.json { render json: "Impossible d'envoyer le mail car l'accès internet est inexistant ou votre adresse email est invalide, veuillez vous addresser à votre administrateur réseau", status: 422 }
             format.html { redirect_to signin_path, notice: "Impossible d'envoyer le mail car l'accès internet est inexistant ou votre adresse email est invalide, veuillez vous addresser à votre administrateur réseau" }
           end
         end
@@ -193,7 +193,7 @@ class UsersController < ApplicationController
           format.json { head :no_content }
           format.html { redirect_to @user, notice: 'Vos informations ont bien été actualisées.' }
         else
-          format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.json { render json: @user.errors, status: 422 }
           format.html { render :edit, notice: "Impossible d'éditer vos paramètres ... Pourquoi voulez vous changer ? Vous n'êtes pas assez bien comme ça ?" }
         end
       end
@@ -213,7 +213,7 @@ class UsersController < ApplicationController
           format.json { head :no_content }
           format.html { redirect_to users_url, notice: "Vous venez de supprimer un utilisateur, ce n'est pas bien de prendre une vie ..." }
         else
-          format.json { render json: @user.errors, status: :unprocessable_entity }
+          format.json { render json: @user.errors, status: 422 }
           format.html { render :edit, notice: 'Impossible de supprimer cet utilisateur, il est définitivement plus fort que vous !' }
         end
       end
@@ -244,7 +244,7 @@ class UsersController < ApplicationController
           sendNotif(tech.ip_addr, @user.name + ' ' + @user.surname + " vient de s'inscrire !")
         end
       else
-        format.json { render json: @user.errors.full_messages.first, status: :unprocessable_entity }
+        format.json { render json: @user.errors.full_messages.first, status: 422 }
       end
     end
   end

@@ -58,7 +58,7 @@ class MaterialsController < ApplicationController
     @type_materials = TypeMaterial.where(name: params[:type_material_name])
     respond_to do |format|
       if @type_materials.first.nil?
-        format.json { render json: "Ce type de matériel n'existe pas, il sera créé.", status: :unprocessable_entity }
+        format.json { render json: "Ce type de matériel n'existe pas, il sera créé.", status: 422 }
       else
         @all_materials = Material.where(type_material_id: @type_materials.first.id)
         @materials = @all_materials.select(:name).uniq.each { |mat| mat.id = @all_materials.where(name: mat.name).first.id }
@@ -159,7 +159,7 @@ class MaterialsController < ApplicationController
         end
       else
         respond_to do |format|
-          format.json { render json: 'Impossible de créer le matériel, il manque des données.', status: :unprocessable_entity }
+          format.json { render json: 'Impossible de créer le matériel, il manque des données.', status: 422 }
           format.html { redirect_to :back, notice: 'Impossible de créer le matériel, il manque des données.' }
         end
       end
@@ -177,7 +177,7 @@ class MaterialsController < ApplicationController
           format.json { head :no_content }
           format.html { redirect_to @material, notice: 'Le matériel a bien été mis à jour.' }
         else
-          format.json { render json: @material.errors, status: :unprocessable_entity }
+          format.json { render json: @material.errors, status: 422 }
           format.html { render :edit, notice: 'Impossible de modifier ce matériel ... Dommage !' }
         end
       end
@@ -195,7 +195,7 @@ class MaterialsController < ApplicationController
           format.json { head :no_content }
           format.html { redirect_to materials_url, notice: 'Matériel supprimé.' }
         else
-          format.json { render json: @material.errors, status: :unprocessable_entity }
+          format.json { render json: @material.errors, status: 422 }
           format.html { render :edit, notice: 'Impossible de supprimer ce matériel.' }
         end
       end

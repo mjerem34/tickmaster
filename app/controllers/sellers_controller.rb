@@ -40,7 +40,7 @@ class SellersController < ApplicationController
           format.js
           format.json { render json: @seller.id, status: :created }
         else
-          format.json { render json: @seller.errors.full_messages.first, status: :unprocessable_entity }
+          format.json { render json: @seller.errors.full_messages.first, status: 422 }
         end
       end
     else
@@ -57,7 +57,7 @@ class SellersController < ApplicationController
           format.js
           format.json { head :no_content }
         else
-          format.json { render json: @seller.errors.full_messages.first, status: :unprocessable_entity }
+          format.json { render json: @seller.errors.full_messages.first, status: 422 }
         end
       end
     else
@@ -90,7 +90,7 @@ class SellersController < ApplicationController
     if @delete_sellers
       respond_to do |format|
         if @seller.materials.any?
-          format.json { render json: 'Impossible de supprimer ce vendeur car il contient des données associées', status: :unprocessable_entity }
+          format.json { render json: 'Impossible de supprimer ce vendeur car il contient des données associées', status: 422 }
         else
           if @seller.destroy
             FieldSellerSeller.where(seller_id: @seller.id).delete_all
@@ -98,7 +98,7 @@ class SellersController < ApplicationController
             format.js
             format.json { head :no_content }
           else
-            format.json { render json: @seller.errors.full_messages.first, status: :unprocessable_entity }
+            format.json { render json: @seller.errors.full_messages.first, status: 422 }
           end
         end
       end
@@ -115,13 +115,13 @@ class SellersController < ApplicationController
       @type_material = TypeMaterial.find_or_create_by(name: params[:type_material][:name])
       respond_to do |format|
         if TypeMaterialSeller.exists?(type_material_id: @type_material.id, seller_id: params[:id])
-          format.json { render json: 'Ce type de matériel a déjà été ajouté a ce vendeur', status: :unprocessable_entity }
+          format.json { render json: 'Ce type de matériel a déjà été ajouté a ce vendeur', status: 422 }
         else
           if TypeMaterialSeller.create(type_material_id: @type_material.id, seller_id: params[:id])
             format.js
             format.json { render json: @type_material.id, status: :ok }
           else
-            format.json { render json: @type_material.errors.full_messages.first, status: :unprocessable_entity }
+            format.json { render json: @type_material.errors.full_messages.first, status: 422 }
           end
         end
       end
@@ -145,7 +145,7 @@ class SellersController < ApplicationController
             format.js
             format.json { head :no_content }
           else
-            format.json { render json: @seller.errors.full_messages.first, status: :unprocessable_entity }
+            format.json { render json: @seller.errors.full_messages.first, status: 422 }
           end
         end
       end
@@ -162,14 +162,14 @@ class SellersController < ApplicationController
       @field_seller = FieldSeller.find_or_create_by(name: params[:field_seller][:name])
       respond_to do |format|
         if FieldSellerSeller.exists?(field_seller_id: @field_seller.id, seller_id: params[:id])
-          format.json { render json: 'Ce champ existe déjà.', status: :unprocessable_entity }
+          format.json { render json: 'Ce champ existe déjà.', status: 422 }
         else
           @field_seller_seller = FieldSellerSeller.new(field_seller_id: @field_seller.id, seller_id: params[:id], content: params[:content])
           if @field_seller_seller.save
             format.js
             format.json { render json: @field_seller.id, status: :created }
           else
-            format.json { render json: @field_seller.errors.full_messages.first, status: :unprocessable_entity }
+            format.json { render json: @field_seller.errors.full_messages.first, status: 422 }
           end
         end
       end
@@ -189,7 +189,7 @@ class SellersController < ApplicationController
           format.js { render 'update' }
           format.json { head :no_content }
         else
-          format.json { render json: @field_seller_seller.errors.full_messages.first, status: :unprocessable_entity }
+          format.json { render json: @field_seller_seller.errors.full_messages.first, status: 422 }
         end
       end
     else
@@ -208,7 +208,7 @@ class SellersController < ApplicationController
           format.js
           format.json { head :no_content }
         else
-          format.json { render json: @field_seller_seller.errors.full_messages.first, status: :unprocessable_entity }
+          format.json { render json: @field_seller_seller.errors.full_messages.first, status: 422 }
         end
       end
     else

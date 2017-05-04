@@ -81,7 +81,7 @@ class SousCategoriesController < ApplicationController
           format.json { render json: @sous_category.id, status: :created }
           format.html { redirect_to edit_category_path(@category), notice: 'Vous venez de créer une sous catégorie.' }
         else
-          format.json { render json: @sous_category.errors, status: :unprocessable_entity }
+          format.json { render json: @sous_category.errors, status: 422 }
           format.html { redirect_to :back, notice: 'Impossible de créer la sous catégorie.' }
         end
       end
@@ -101,7 +101,7 @@ class SousCategoriesController < ApplicationController
           format.json { head :no_content }
           format.html { redirect_to :back, notice: 'Les paramètres de la sous catégorie ont été actualisés.' }
         else
-          format.json { render json: @sous_category.errors, status: :unprocessable_entity }
+          format.json { render json: @sous_category.errors, status: 422 }
           format.html { render :back, notice: "Impossible de modifier la sous catégorie : #{@sous_category.errors}" }
         end
       end
@@ -122,7 +122,7 @@ class SousCategoriesController < ApplicationController
           format.json { head :no_content }
           format.html { redirect_to :back, notice: "La sous catégorie vient d'être supprimée." }
         else
-          format.json { render json: 'Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents.', status: :unprocessable_entity }
+          format.json { render json: 'Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents.', status: 422 }
           format.html { redirect_to categories_url, notice: 'Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents.' }
         end
       end

@@ -31,7 +31,7 @@ class FieldSellersController < ApplicationController
           format.js
           format.json { render json: @field_seller.id, status: :created }
         else
-          format.json { render json: @field_seller.errors.full_messages.first, status: :unprocessable_entity }
+          format.json { render json: @field_seller.errors.full_messages.first, status: 422 }
         end
       end
     else
@@ -48,7 +48,7 @@ class FieldSellersController < ApplicationController
           format.js
           format.json { head :no_content }
         else
-          format.json { render json: @field_seller.errors.full_messages.first, status: :unprocessable_entity }
+          format.json { render json: @field_seller.errors.full_messages.first, status: 422 }
         end
       end
     else
@@ -66,10 +66,10 @@ class FieldSellersController < ApplicationController
             format.js
             format.json { head :no_content }
           else
-            format.json { render json: @field_seller.errors.full_messages.first, status: :unprocessable_entity }
+            format.json { render json: @field_seller.errors.full_messages.first, status: 422 }
           end
         else
-          format.json { render json: 'Impossible de supprimer le champ car il contient des données associées', status: :unprocessable_entity }
+          format.json { render json: 'Impossible de supprimer le champ car il contient des données associées', status: 422 }
         end
       end
     else

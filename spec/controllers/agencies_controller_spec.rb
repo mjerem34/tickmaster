@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe AgenciesController, type: :controller do
+  before { @agency = create(:agency) }
   describe 'JSON' do
     before { request.accept = 'application/json' }
     it 'should content-type include app/json' do
@@ -46,8 +47,7 @@ RSpec.describe AgenciesController, type: :controller do
       end
       describe '#edit' do
         it 'should render status unauthorized' do
-          agency = create(:agency)
-          get :edit, id: agency.id
+          get :edit, id: @agency.id
 
           expect(response.status).to eq 401
         end
@@ -61,16 +61,14 @@ RSpec.describe AgenciesController, type: :controller do
       end
       describe '#update' do
         it 'should render status unauthorized' do
-          agency = create(:agency)
-          put :update, id: agency.id, agency: { name: 'nkin' }
+          put :update, id: @agency.id, agency: { name: 'nkin' }
 
           expect(response.status).to eq 401
         end
       end
       describe '#destroy' do
         it 'should render status unauthorized' do
-          agency = create(:agency)
-          delete :destroy, id: agency.id
+          delete :destroy, id: @agency.id
 
           expect(response.status).to eq 401
         end
@@ -79,7 +77,6 @@ RSpec.describe AgenciesController, type: :controller do
     context 'connected' do
       context 'have the right' do
         before do
-          @agency = create(:agency)
           @admin = create(:admin, agency_id: @agency.id)
 
           sign_in @admin
@@ -140,7 +137,7 @@ RSpec.describe AgenciesController, type: :controller do
             end
           end
           context 'with invalid attributes' do
-            before { put :update, id: @agency.id, agency: { name: "fefef", ip_address: nil, data_agence_comp: { codePostal: '34720' } } }
+            before { put :update, id: @agency.id, agency: { name: 'fefef', ip_address: nil, data_agence_comp: { codePostal: '34720' } } }
             it 'should not edit the agency' do
               expect(Agency.find_by_name('efsefsef')).not_to eq @agency
             end
@@ -156,7 +153,6 @@ RSpec.describe AgenciesController, type: :controller do
       end
       context "don't have the right" do
         before do
-          @agency = create(:agency)
           @user = create(:user, agency_id: @agency.id)
 
           sign_in @user
@@ -184,8 +180,7 @@ RSpec.describe AgenciesController, type: :controller do
         end
         describe '#show' do
           it 'should render status unauthorized' do
-            agency = create(:agency)
-            get :show, id: agency.id
+            get :show, id: @agency.id
 
             expect(response.status).to eq 403
           end
@@ -199,8 +194,7 @@ RSpec.describe AgenciesController, type: :controller do
         end
         describe '#edit' do
           it 'should render status unauthorized' do
-            agency = create(:agency)
-            get :edit, id: agency.id
+            get :edit, id: @agency.id
 
             expect(response.status).to eq 403
           end
@@ -214,16 +208,14 @@ RSpec.describe AgenciesController, type: :controller do
         end
         describe '#update' do
           it 'should render status unauthorized' do
-            agency = create(:agency)
-            put :update, id: agency.id, agency: { name: 'nkin', ip_address: '8.8.8.8' }
+            put :update, id: @agency.id, agency: { name: 'nkin', ip_address: '8.8.8.8' }
 
             expect(response.status).to eq 403
           end
         end
         describe '#destroy' do
           it 'should render status unauthorized' do
-            agency = create(:agency)
-            delete :destroy, id: agency.id
+            delete :destroy, id: @agency.id
 
             expect(response.status).to eq 403
           end
@@ -240,63 +232,126 @@ RSpec.describe AgenciesController, type: :controller do
     end
     context 'not connected' do
       describe '#index' do
+        it 'should redirect to root_path' do
+          get :index
+
+          expect(response).to redirect_to root_path
+        end
       end
       describe '#ping' do
-      end
-      describe '#doPing' do
-      end
-      describe '#pingDef' do
+        it 'should redirect to root_path' do
+          get :ping
+
+          expect(response).to redirect_to root_path
+        end
       end
       describe '#show' do
+        it 'should redirect to root_path' do
+          get :show, id: @agency.id
+
+          expect(response).to redirect_to root_path
+        end
       end
       describe '#new' do
+        it 'should redirect to root_path' do
+          get :new
+
+          expect(response).to redirect_to root_path
+        end
       end
       describe '#edit' do
-      end
-      describe '#create' do
-      end
-      describe '#destroy' do
+        it 'should redirect to root_path' do
+          get :edit, id: @agency.id
+
+          expect(response).to redirect_to root_path
+        end
       end
     end
     context 'connected' do
       context 'have the right' do
+        before do
+          @admin = create(:admin, agency_id: @agency.id)
+
+          sign_in @admin
+        end
         describe '#index' do
+          it 'should render template :index' do
+            get :index
+
+            expect(response).to render_template :index
+          end
         end
         describe '#ping' do
-        end
-        describe '#doPing' do
-        end
-        describe '#pingDef' do
+          it 'should render template :index' do
+            get :ping
+
+            expect(response).to render_template :ping
+          end
         end
         describe '#show' do
+          it 'should render template :index' do
+            get :show, id: @agency.id
+
+            expect(response).to redirect_to edit_agency_url(@agency)
+          end
         end
         describe '#new' do
+          it 'should render template :index' do
+            get :new
+
+            expect(response).to render_template :new
+          end
         end
         describe '#edit' do
-        end
-        describe '#create' do
-        end
-        describe '#destroy' do
+          it 'should render template :index' do
+            get :edit, id: @agency.id
+
+            expect(response).to render_template :edit
+          end
         end
       end
       context "don't have the right" do
+        before do
+          @user = create(:user, agency_id: @agency.id)
+
+          sign_in @user
+        end
+
         describe '#index' do
+          it 'should redirect to root_path' do
+            get :index
+
+            expect(response).to redirect_to root_path
+          end
         end
         describe '#ping' do
+          it 'should redirect to root_path' do
+            get :ping
+
+            expect(response).to redirect_to root_path
+          end
         end
-        describe '#doPing' do
-        end
-        describe '#pingDef' do
-        end
+
         describe '#show' do
+          it 'should redirect to root_path' do
+            get :show, id: @agency.id
+
+            expect(response).to redirect_to root_path
+          end
         end
         describe '#new' do
+          it 'should redirect to root_path' do
+            get :new
+
+            expect(response).to redirect_to root_path
+          end
         end
         describe '#edit' do
-        end
-        describe '#create' do
-        end
-        describe '#destroy' do
+          it 'should redirect to root_path' do
+            get :edit, id: @agency.id
+
+            expect(response).to redirect_to root_path
+          end
         end
       end
     end

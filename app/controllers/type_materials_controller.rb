@@ -31,7 +31,7 @@ class TypeMaterialsController < ApplicationController
           format.js
           format.json { render json: @type_material.id, status: :created }
         else
-          format.json { render json: @type_material.errors.full_messages.first, status: :unprocessable_entity }
+          format.json { render json: @type_material.errors.full_messages.first, status: 422 }
         end
       end
     else
@@ -49,7 +49,7 @@ class TypeMaterialsController < ApplicationController
           format.js
           format.json { head :no_content }
         else
-          format.json { render json: @type_material.errors.full_messages.first, status: :unprocessable_entity }
+          format.json { render json: @type_material.errors.full_messages.first, status: 422 }
         end
       end
     else
@@ -64,16 +64,16 @@ class TypeMaterialsController < ApplicationController
     if @delete_type_material
       respond_to do |format|
         if @type_material.materials.any?
-          format.json { render json: 'Impossible de supprimer ce type de matériel car il est en liaison avec des matériels', status: :unprocessable_entity }
+          format.json { render json: 'Impossible de supprimer ce type de matériel car il est en liaison avec des matériels', status: 422 }
         elsif @type_material.type_material_sellers.any?
-          format.json { render json: 'Impossible de supprimer ce type de matériel car il est en liaison avec des vendeurs', status: :unprocessable_entity }
+          format.json { render json: 'Impossible de supprimer ce type de matériel car il est en liaison avec des vendeurs', status: 422 }
         else
           if @type_material.destroy
             TypeMaterialSpecTypeMaterial.where(type_material_id: @type_material.id).delete_all
             format.js
             format.json { head :no_content }
           else
-            format.json { render json: @type_material.errors.full_messages.first, status: :unprocessable_entity }
+            format.json { render json: @type_material.errors.full_messages.first, status: 422 }
           end
         end
       end
@@ -89,7 +89,7 @@ class TypeMaterialsController < ApplicationController
       @spec_type_material = SpecTypeMaterial.find_or_create_by(name: params[:spec_type_material][:name])
       respond_to do |format|
         if TypeMaterialSpecTypeMaterial.where(spec_type_material_id: @spec_type_material.id, type_material_id: @type_material.id).any?
-          format.json { render json: "Impossible d'affecter ce type de caracteristique technique a ce type de matériel car il est déjà affecté.", status: :unprocessable_entity }
+          format.json { render json: "Impossible d'affecter ce type de caracteristique technique a ce type de matériel car il est déjà affecté.", status: 422 }
         else
           TypeMaterialSpecTypeMaterial.create(spec_type_material_id: @spec_type_material.id, type_material_id: @type_material.id)
           format.js
