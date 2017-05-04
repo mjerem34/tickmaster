@@ -4,10 +4,11 @@ RSpec.describe CategoriesController, type: :controller do
     before { request.accept = 'application/json' }
     context 'not connected' do
       describe '#index' do
-        it 'should render 401' do
+        it 'should render 401 and display nothing' do
           get :index
 
           expect(response.status).to eq 401
+          expect(response.body).to eq 'null'
         end
       end
       describe '#create' do
@@ -15,6 +16,7 @@ RSpec.describe CategoriesController, type: :controller do
           post :create, attributes_for(:category)
 
           expect(response.status).to eq 401
+          expect(response.body).to eq 'null'
         end
       end
       context 'category created' do
@@ -24,6 +26,7 @@ RSpec.describe CategoriesController, type: :controller do
             get :show, id: @category.id
 
             expect(response.status).to eq 401
+            expect(response.body).to eq 'null'
           end
         end
         describe '#update' do
@@ -31,6 +34,7 @@ RSpec.describe CategoriesController, type: :controller do
             put :update, id: @category.id, category: { name: 'testa' }
 
             expect(response.status).to eq 401
+            expect(response.body).to eq 'null'
           end
         end
         describe '#destroy' do
@@ -38,6 +42,7 @@ RSpec.describe CategoriesController, type: :controller do
             delete :destroy, id: @category.id
 
             expect(response.status).to eq 401
+            expect(response.body).to eq 'null'
           end
         end
       end
@@ -115,6 +120,7 @@ RSpec.describe CategoriesController, type: :controller do
             get :index
 
             expect(response.status).to eq 403
+            expect(response.body).to eq 'null'
           end
         end
         describe '#create' do
@@ -122,6 +128,7 @@ RSpec.describe CategoriesController, type: :controller do
             post :create, attributes_for(:category)
 
             expect(response.status).to eq 403
+            expect(response.body).to eq 'null'
           end
         end
         context 'category created' do
@@ -131,6 +138,7 @@ RSpec.describe CategoriesController, type: :controller do
               get :show, id: @category.id
 
               expect(response.status).to eq 403
+              expect(response.body).to eq 'null'
             end
           end
           describe '#update' do
@@ -138,6 +146,7 @@ RSpec.describe CategoriesController, type: :controller do
               put :update, id: @category.id, category: { name: 'esfes' }
 
               expect(response.status).to eq 403
+              expect(response.body).to eq 'null'
             end
           end
           describe '#destroy' do
@@ -145,6 +154,7 @@ RSpec.describe CategoriesController, type: :controller do
               delete :destroy, id: @category.id
 
               expect(response.status).to eq 403
+              expect(response.body).to eq 'null'
             end
           end
         end
