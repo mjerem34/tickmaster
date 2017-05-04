@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
       @response.content = "Cloture de l'incident : " + @response.content
     end
     @response.sender_id = current_user.id
-    @response.ip_adress_sender ||= request.remote_ip
+    @response.ip_address_sender ||= request.remote_ip
     if @response.sender_id == @incident.tech_id
       @incident.update(notify_for_tech: false, notify_for_user: true)
       @response.receiver_id = @incident.user_id
@@ -276,7 +276,7 @@ class ApplicationController < ActionController::Base
         incident_id: response.incident_id,
         sender_id: response.sender_id,
         receiver_id: response.receiver_id,
-        ip_adress_sender: response.ip_adress_sender,
+        ip_address_sender: response.ip_address_sender,
         pc_id: response.pc_id
       )
       # Check if the answer does not have files.

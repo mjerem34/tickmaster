@@ -22,9 +22,9 @@ RSpec.describe Response, type: :model do
 
   it { expect(build(:response, content: SecureRandom.hex(32_767), incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)).to be_valid }
 
-  it { expect(build(:response, ip_adress_sender: nil, incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)).not_to be_valid }
+  it { expect(build(:response, ip_address_sender: nil, incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)).not_to be_valid }
 
-  it { expect(build(:response, ip_adress_sender: SecureRandom.hex(3), incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)).not_to be_valid }
+  it { expect(build(:response, ip_address_sender: SecureRandom.hex(3), incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)).not_to be_valid }
 
   context 'with response created' do
     before { @response = create(:response, incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id) }

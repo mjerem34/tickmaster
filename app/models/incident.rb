@@ -67,7 +67,7 @@ class Incident < ActiveRecord::Base
       @response.save!
       @responses = Response.all.where(incident_id: incident.id)
       @responses.each do |response|
-        @archive = Archive.new(content: response.content, incident_id: response.incident_id, sender_id: response.sender_id, receiver_id: response.receiver_id, ip_adress_sender: response.ip_adress_sender, pc_id: response.pc_id)
+        @archive = Archive.new(content: response.content, incident_id: response.incident_id, sender_id: response.sender_id, receiver_id: response.receiver_id, ip_address_sender: response.ip_address_sender, pc_id: response.pc_id)
         response.destroy if @archive.save!
         begin
           AppMailer.incident_clotured_for_creator_if_is_creator_clotured(incident, @users, @responses).deliver_now

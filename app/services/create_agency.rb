@@ -1,12 +1,12 @@
 # create_agency.rb
 class CreateAgency
   def initialize(params:)
-    @name = params[:agency][:name]
-    @ip_adress = params[:agency][:ip_adress]
-    @data_agence_comp = params[:agency][:data_agence_comp]
+    @name = params[:name]
+    @ip_address = params[:ip_address]
+    @data_agence_comp = params[:data_agence_comp]
   end
 
-  def create
+  def call
     create_agency.tap do |agency|
       add_fields_to(agency) if agency.persisted?
     end
@@ -15,7 +15,7 @@ class CreateAgency
   private
 
   def create_agency
-    Agency.create(name: @name, ip_adress: @ip_adress)
+    Agency.create(name: @name, ip_address: @ip_address)
   end
 
   def add_fields_to(agency)

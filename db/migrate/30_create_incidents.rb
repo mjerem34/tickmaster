@@ -12,7 +12,7 @@ class CreateIncidents < ActiveRecord::Migration
       t.integer :lvl_of_incident, limit: 1, default: 1
       t.boolean :cloture_user, default: false
       t.boolean :cloture_tech, default: false
-      t.string :ip_adress, null: false
+      t.string :ip_address, null: false
       t.references :incident_state_id_for_user, index: true, default: 1
       t.references :incident_state_id_for_tech, index: true, default: 1
       t.datetime :archived_at

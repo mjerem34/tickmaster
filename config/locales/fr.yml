@@ -69,7 +69,7 @@ fr:
         tel: "Champ 'Numéro de téléphone'"
         fax: "Champ 'Numéro de fax'"
         department: "Champ 'Département'"
-        ip_adress: "Champ 'Adresse IP'"
+        ip_address: "Champ 'Adresse IP'"
       incident:
         title: "Champ 'Objet'"
         content: "Champ 'Description'"
@@ -238,7 +238,7 @@ fr:
             department:
               blank: "requis"
               invalid: "invalide"
-            ip_adress:
+            ip_address:
               blank: "requis"
               invalid: "invalide"
         category:

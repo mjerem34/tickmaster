@@ -55,7 +55,7 @@ class AgenciesController < ApplicationController
   # POST /agencies
   # POST /agencies.json
   def create
-    @agency = CreateAgency.new(params: params).create
+    @agency = CreateAgency.new(params: agency_params).call
     respond_with(@agency, location: -> { agency_path(@agency) })
   end
 
@@ -63,7 +63,7 @@ class AgenciesController < ApplicationController
   # PATCH/PUT /agencies/1.json
   def update
     respond_to do |format|
-      if UpdateAgency.new(params: params).update
+      if UpdateAgency.new(id: params[:id], params: agency_params).call
         format.js
         format.json { head :no_content }
       else
@@ -95,6 +95,9 @@ class AgenciesController < ApplicationController
   end
 
   def agency_params
-    params[:agency].permit(:name, :ip_adress, :data_agence_comp)
+    agency_params = params.require(:agency)
+                          .permit(:name, :ip_address)
+    agency_params[:data_agence_comp] = params[:agency][:data_agence_comp]
+    agency_params.permit!
   end
 end

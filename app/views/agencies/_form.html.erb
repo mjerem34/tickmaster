@@ -18,12 +18,12 @@
       <!-- #field#form-group -->
       <div class="field form-group">
         <%= f.label "Adresse IP" %>
-        <%= f.text_field :ip_adress, class: "form-control next", placeholder: "Adresse IP" %>
-        <% if @agency.errors[:ip_adress].first != nil %>
+        <%= f.text_field :ip_address, class: "form-control next", placeholder: "Adresse IP" %>
+        <% if @agency.errors[:ip_address].first != nil %>
         <div class="alert alert-danger ">
-          <%= "Adresse IP" + @agency.errors[:ip_adress].first%><br>
-          <% if @agency.errors[:ip_adress].second != nil %>
-          <%= "Adresse IP" + @agency.errors[:ip_adress].second%><br>
+          <%= "Adresse IP" + @agency.errors[:ip_address].first%><br>
+          <% if @agency.errors[:ip_address].second != nil %>
+          <%= "Adresse IP" + @agency.errors[:ip_address].second%><br>
           <% end %>
         </div>
         <!-- DIV ERROR -->

@@ -14,7 +14,7 @@ FactoryGirl.define do
 
   factory :agency, class: Agency do |f|
     f.name { Faker::Address.city }
-    f.ip_adress '8.8.8.8'
+    f.ip_address '8.8.8.8'
   end
 
   factory :archive, class: Archive do |f|
@@ -23,7 +23,7 @@ FactoryGirl.define do
     # t.integer  "sender_id"
     # t.integer  "receiver_id"
     f.content { Faker::Lorem.words(12).join(' ') }
-    f.ip_adress_sender { Faker::Internet.ip_v4_address }
+    f.ip_address_sender { Faker::Internet.ip_v4_address }
   end
 
   factory :category, class: Category do |f|
@@ -87,7 +87,7 @@ FactoryGirl.define do
     f.title { Faker::Lorem.words(4).join(' ') }
     f.content { Faker::Lorem.words(40).join(' ') }
     f.lvl_urgence_user 10
-    f.ip_adress '8.8.8.8'
+    f.ip_address '8.8.8.8'
   end
 
   factory :incidents_state, class: IncidentsState do |f|
@@ -131,7 +131,7 @@ FactoryGirl.define do
     # t.integer  "sender_id"
     # t.integer  "receiver_id"
     f.content { Faker::Lorem.words(10).join(' ') }
-    f.ip_adress_sender '8.8.8.8'
+    f.ip_address_sender '8.8.8.8'
   end
 
   factory :right, class: Right do |f|

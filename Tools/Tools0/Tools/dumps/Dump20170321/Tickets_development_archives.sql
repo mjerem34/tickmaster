@@ -30,7 +30,7 @@ CREATE TABLE `archives` (
   `incident_id` int(11) DEFAULT NULL,
   `sender_id` smallint(6) DEFAULT NULL,
   `receiver_id` smallint(6) DEFAULT NULL,
-  `ip_adress_sender` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ip_address_sender` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `pc_id` int(11) DEFAULT NULL,
   `updated_at` datetime NOT NULL,
   `created_at` datetime NOT NULL,

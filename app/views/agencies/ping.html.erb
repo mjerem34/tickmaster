@@ -13,15 +13,15 @@
     </thead>
     <tbody>
       <% @agencies.each do |agency| %>
-      <tr data-ip="<%= agency.ip_adress %>" data-id="<%= agency.id %>" data-name="<%= agency.name %>">
+      <tr data-ip="<%= agency.ip_address %>" data-id="<%= agency.id %>" data-name="<%= agency.name %>">
         <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.name %></td>
-        <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.ip_adress == "NULL" ? "" : agency.ip_adress %></td>
-        <% if agency.ip_adress != "NULL" %>
+        <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.ip_address == "NULL" ? "" : agency.ip_address %></td>
+        <% if agency.ip_address != "NULL" %>
         <td id="agencyTd<%= agency.id %>" class="hover-cellule <%= agency.id %>">
-          <button type="button" name="button" data-id="<%= agency.id %>" data-ip="<%= agency.ip_adress%>" data-name="<%= agency.name %>" class="btn btn-flat btn-default button_ping_agency">Ping</button>
+          <button type="button" name="button" data-id="<%= agency.id %>" data-ip="<%= agency.ip_address%>" data-name="<%= agency.name %>" class="btn btn-flat btn-default button_ping_agency">Ping</button>
         </td>
         <td id="agencyTd<%= agency.id %>" class="hover-cellule <%= agency.id %>">
-          <button type="button" name="button" data-id="<%= agency.id %>" data-ip="<%= agency.ip_adress%>" data-name="<%= agency.name %>" class="btn btn-flat btn-default button_ping_stop_agency">Stop</button>
+          <button type="button" name="button" data-id="<%= agency.id %>" data-ip="<%= agency.ip_address%>" data-name="<%= agency.name %>" class="btn btn-flat btn-default button_ping_stop_agency">Stop</button>
         </td>
         <% else %>
         <td></td>

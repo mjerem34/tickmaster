@@ -37,7 +37,7 @@ CREATE TABLE `incidents` (
   `cloture_user` tinyint(1) DEFAULT NULL,
   `cloture_tech` tinyint(1) DEFAULT NULL,
   `pc_id` int(11) DEFAULT NULL,
-  `ip_adress` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ip_address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `solution` text COLLATE utf8_unicode_ci,
   `keywords` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `link_faq` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,

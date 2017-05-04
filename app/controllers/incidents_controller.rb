@@ -135,7 +135,7 @@ class IncidentsController < ApplicationController
       @incident = Incident.new(incident_params)
       @incident.user_id ||= current_user.id
       # Set the ip address from where are created the incident.
-      @incident.ip_adress ||= request.remote_ip
+      @incident.ip_address ||= request.remote_ip
       respond_to do |format|
         if @incident.save
           # If the incident is save, and if it contains files, it save files.

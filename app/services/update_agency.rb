@@ -1,13 +1,13 @@
 # update_agency.rb
 class UpdateAgency
-  def initialize(params:)
-    @id = params[:id]
-    @name = params[:agency][:name]
-    @ip_adress = params[:agency][:ip_adress]
-    @data_agence_comp = params[:agency][:data_agence_comp]
+  def initialize(id:, params:)
+    @id = id
+    @name = params[:name]
+    @ip_address = params[:ip_address]
+    @data_agence_comp = params[:data_agence_comp]
   end
 
-  def update
+  def call
     set_agency.tap do |agency|
       return update_fields_of(agency) if update_agency
       return false
@@ -29,7 +29,7 @@ class UpdateAgency
   end
 
   def update_agency
-    @agency.update(name: @name, ip_adress: @ip_adress)
+    @agency.update(name: @name, ip_address: @ip_address)
   end
 
   def field_agency(name)

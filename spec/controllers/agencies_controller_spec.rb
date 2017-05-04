@@ -107,7 +107,7 @@ RSpec.describe AgenciesController, type: :controller do
         end
         describe '#create' do
           context 'valid attributes' do
-            before { post :create, agency: { name: 'fef', ip_adress: '8.8.8.8', data_agence_comp: { codePostal: '34070' } } }
+            before { post :create, agency: { name: 'fef', ip_address: '8.8.8.8', data_agence_comp: { Code_postal: '34070', Ville: 'Montpellier' } } }
             it 'should create an agency' do
               expect(Agency.count).to eq 2
             end
@@ -116,11 +116,11 @@ RSpec.describe AgenciesController, type: :controller do
               expect(response.body).to eq agency.to_json
             end
             it 'should create the field_agency if not exists' do
-              expect(FieldAgency.count).to eq 1
+              expect(FieldAgency.count).to eq 2
             end
           end
           context 'invalid attributes' do
-            before { post :create, agency: { name: nil, ip_adress: '8.8.8.8', data_agence_comp: { codePostal: '34070' } } }
+            before { post :create, agency: { name: nil, ip_address: '8.8.8.8', data_agence_comp: { codePostal: '34070' } } }
             it 'should not create an agency if invalid' do
               expect(Agency.count).to eq 1
             end
@@ -131,7 +131,7 @@ RSpec.describe AgenciesController, type: :controller do
         end
         describe '#update' do
           context 'with valid attributes' do
-            before { put :update, id: @agency.id, agency: { name: 'efsefsef', ip_adress: '8.8.8.8', data_agence_comp: { codePostal: '34720' } } }
+            before { put :update, id: @agency.id, agency: { name: 'efsefsef', ip_address: '8.8.8.8', data_agence_comp: { codePostal: '34720' } } }
             it 'should edit the agency' do
               expect(Agency.find_by_name('efsefsef')).to eq @agency
             end
@@ -140,7 +140,7 @@ RSpec.describe AgenciesController, type: :controller do
             end
           end
           context 'with invalid attributes' do
-            before { put :update, id: @agency.id, agency: { name: "fefef", ip_adress: nil, data_agence_comp: { codePostal: '34720' } } }
+            before { put :update, id: @agency.id, agency: { name: "fefef", ip_address: nil, data_agence_comp: { codePostal: '34720' } } }
             it 'should not edit the agency' do
               expect(Agency.find_by_name('efsefsef')).not_to eq @agency
             end
@@ -215,7 +215,7 @@ RSpec.describe AgenciesController, type: :controller do
         describe '#update' do
           it 'should render status unauthorized' do
             agency = create(:agency)
-            put :update, id: agency.id, agency: { name: 'nkin', ip_adress: '8.8.8.8' }
+            put :update, id: agency.id, agency: { name: 'nkin', ip_address: '8.8.8.8' }
 
             expect(response.status).to eq 403
           end

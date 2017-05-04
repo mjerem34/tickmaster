@@ -112,7 +112,7 @@ $(document).ready(function () {
         data: {
           agency: {
             name: $("#agency_name").val(),
-            ip_adress: $("#agency_ip_adress").val()
+            ip_address: $("#agency_ip_address").val()
           },
           data_agence_comp: data_agence_comp
         },
@@ -128,7 +128,7 @@ $(document).ready(function () {
         data: {
           agency: {
             name: $("#agency_name").val(),
-            ip_adress: $("#agency_ip_adress").val()
+            ip_address: $("#agency_ip_address").val()
           },
           data_agence_comp: data_agence_comp
         },

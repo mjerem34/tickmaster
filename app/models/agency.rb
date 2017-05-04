@@ -15,5 +15,5 @@ class Agency < ActiveRecord::Base
 
   validates :name, presence: true,
                    uniqueness: { case_sensitive: false }
-  validates :ip_adress, presence: true, format: { with: IP_REGEXP }
+  validates :ip_address, presence: true, format: { with: IP_REGEXP }
 end

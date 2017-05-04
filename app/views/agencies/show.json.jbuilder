@@ -1,1 +1,1 @@
-json.extract! @agency, :id, :name, :ip_adress
+json.extract! @agency, :id, :name, :ip_address

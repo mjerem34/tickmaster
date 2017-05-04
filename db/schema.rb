@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 35) do
   create_table 'agencies', force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
     t.string 'name',      null: false
-    t.string 'ip_adress', null: false
+    t.string 'ip_address', null: false
   end
 
   create_table 'archives', force: :cascade, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8' do |t|
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 35) do
     t.integer  'incident_id',                    null: false
     t.integer  'sender_id',                      null: false
     t.integer  'receiver_id',                    null: false
-    t.string   'ip_adress_sender',               null: false
+    t.string   'ip_address_sender',               null: false
     t.datetime 'created_at',                     null: false
     t.datetime 'updated_at',                     null: false
     t.index ['incident_id'], name: 'index_archives_on_incident_id', using: :btree
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(version: 35) do
     t.boolean  'cloture_user',                                null: false
     t.boolean  'cloture_tech',                                null: false
     # t.integer  "pc_id",                                       null: false
-    t.string   'ip_adress',                                   null: false
+    t.string   'ip_address',                                   null: false
     # t.text     "solution",                      limit: 65535
     # t.string   "keywords"
     # t.string   "link_faq"
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 35) do
     t.integer  'incident_id',                    null: false
     t.integer  'sender_id',                      null: false
     t.integer  'receiver_id',                    null: false
-    t.string   'ip_adress_sender',               null: false
+    t.string   'ip_address_sender',               null: false
     t.datetime 'created_at',                     null: false
     t.datetime 'updated_at',                     null: false
     t.index ['incident_id'], name: 'index_responses_on_incident_id', using: :btree

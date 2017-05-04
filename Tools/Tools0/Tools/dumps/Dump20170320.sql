@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `agencies`;
 CREATE TABLE `agencies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ip_adress` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ip_address` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -54,7 +54,7 @@ CREATE TABLE `archives` (
   `incident_id` int(11) DEFAULT NULL,
   `sender_id` smallint(6) DEFAULT NULL,
   `receiver_id` smallint(6) DEFAULT NULL,
-  `ip_adress_sender` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ip_address_sender` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `pc_id` int(11) DEFAULT NULL,
   `updated_at` datetime NOT NULL,
   `created_at` datetime NOT NULL,
@@ -458,7 +458,7 @@ CREATE TABLE `incidents` (
   `cloture_user` tinyint(1) DEFAULT NULL,
   `cloture_tech` tinyint(1) DEFAULT NULL,
   `pc_id` int(11) DEFAULT NULL,
-  `ip_adress` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ip_address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `solution` text COLLATE utf8_unicode_ci,
   `keywords` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `link_faq` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -584,7 +584,7 @@ CREATE TABLE `responses` (
   `incident_id` int(11) DEFAULT NULL,
   `sender_id` smallint(6) DEFAULT NULL,
   `receiver_id` smallint(6) DEFAULT NULL,
-  `ip_adress_sender` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ip_address_sender` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `pc_id` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,

@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `agencies`;
 CREATE TABLE `agencies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ip_adress` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ip_address` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
