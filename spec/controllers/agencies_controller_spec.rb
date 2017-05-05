@@ -107,6 +107,9 @@ RSpec.describe AgenciesController, type: :controller do
             before { post :create, agency: { name: 'fef', ip_address: '8.8.8.8', data_agence_comp: { Code_postal: '34070', Ville: 'Montpellier' } } }
             it 'should create an agency' do
               expect(Agency.count).to eq 2
+              expect(FieldAgency.count).to eq 2
+              expect(FieldAgencyAgency.count).to eq 2
+              expect(FieldAgencyAgency.last).to have_attributes(content: "Montpellier")
             end
             it 'should return the id of agency created' do
               agency = Agency.find_by_name('fef')
@@ -282,28 +285,28 @@ RSpec.describe AgenciesController, type: :controller do
           end
         end
         describe '#ping' do
-          it 'should render template :index' do
+          it 'should render template :ping' do
             get :ping
 
             expect(response).to render_template :ping
           end
         end
         describe '#show' do
-          it 'should render template :index' do
+          it 'should render template :show' do
             get :show, id: @agency.id
 
             expect(response).to redirect_to edit_agency_url(@agency)
           end
         end
         describe '#new' do
-          it 'should render template :index' do
+          it 'should render template :new' do
             get :new
 
             expect(response).to render_template :new
           end
         end
         describe '#edit' do
-          it 'should render template :index' do
+          it 'should render template :edit' do
             get :edit, id: @agency.id
 
             expect(response).to render_template :edit

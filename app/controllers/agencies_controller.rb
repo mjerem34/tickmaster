@@ -85,9 +85,9 @@ class AgenciesController < ApplicationController
   private
 
   def agency_empty?
-    respond_with "L'agence contient des utilisateurs" unless @agency
-                                                             .users
-                                                             .exists?
+    render json: "L'agence contient des utilisateurs", status: 422 if @agency
+                                                                      .users
+                                                                      .exists?
   end
 
   def set_agency

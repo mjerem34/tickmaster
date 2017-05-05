@@ -79,9 +79,9 @@ class CategoriesController < ApplicationController
   private
 
   def no_incidents?
-    respond_with 'La catégorie contient des incidents' if @category
-                                                          .incidents
-                                                          .exists?
+    render json: 'Des incidents sont liés', status: 422 if @category
+                                                           .incidents
+                                                           .exists?
   end
 
   def set_category
