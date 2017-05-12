@@ -91,7 +91,7 @@ RSpec.describe FieldSellersController, type: :controller do
 
             expect(FieldSeller.count).to eq 1
           end
-          it 'should not destroy if agency binded' do
+          it 'should not destroy if seller binded' do
             delete :destroy, id: @field_seller.id
 
             expect(FieldSeller.count).to eq 1

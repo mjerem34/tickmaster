@@ -8,7 +8,11 @@ Rails.application.routes.draw do
       delete :delete_field_type_user
     end
   end
-  resources :field_type_users
+  resources :field_type_users do
+    member do
+      delete :unbind
+    end
+  end
   mount Ckeditor::Engine => '/ckeditor'
   resources :updates
   resources :type_materials do

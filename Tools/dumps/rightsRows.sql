@@ -997,7 +997,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (35,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (36,'unassigns_field_type_users','Autorisé à dé-assigner des champs de type utilisateur');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (36,'unbind_field_type_users','Autorisé à dé-assigner des champs de type utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (36,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (36,2,1);

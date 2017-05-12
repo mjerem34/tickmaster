@@ -13,9 +13,8 @@ class User < ActiveRecord::Base
   has_many :user_incidents, class_name: 'Incident', foreign_key: 'user_id'
   has_many :tech_incidents, class_name: 'Incident', foreign_key: 'tech_id'
   has_many :files_users
-  has_many :responses
-  has_many :archives
-  has_many :rights
+  has_many :responses, dependent: :destroy
+  has_many :archives, dependent: :destroy
   has_many :field_users, dependent: :destroy
   has_many :field_type_users, through: :field_users
 

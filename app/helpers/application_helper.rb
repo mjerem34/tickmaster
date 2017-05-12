@@ -12,6 +12,10 @@ module ApplicationHelper
     instance_variable_set("@#{right_name}", current_user.can?(right_name))
   end
 
+  def to_b(obj)
+    obj.to_s == 'true'
+  end
+
   private
 
   def permission_denied
@@ -34,4 +38,5 @@ module ApplicationHelper
       end
     end
   end
+
 end
