@@ -38,13 +38,14 @@
       notifAlert('Merci de remplir le champ');
       $("#name_new_type_material").css({"border-color":"red"});
       }else{
+        $.name = $("#name_new_type_material").val();
         $.ajax({
         url: '/type_materials',
         type: 'POST',
         dataType: 'script',
         data: {
           type_material: {
-            name: $("#name_new_type_material").val()
+            name: $.name
           }
         },
         error: function(jqXHR){
