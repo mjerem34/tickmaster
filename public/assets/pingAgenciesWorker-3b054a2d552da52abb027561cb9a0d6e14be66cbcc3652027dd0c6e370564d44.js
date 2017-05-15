@@ -6,7 +6,7 @@ $(window).on('message', function(e){ // onclick
         type: 'GET',
         dataType: 'script',
         data: {
-          host: e.originalEvent.data[0] // transfert de l'adress ip dans params[:host]
+          host: e.originalEvent.data[0] // transfert de l'addressip dans params[:host]
         },
         success: function(result){
           postMessage(result);

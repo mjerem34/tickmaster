@@ -1,6 +1,6 @@
 # categories_controller.rb
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i(show edit update destroy)
+  before_action :set_category, only: %i[show edit update destroy]
   before_action :set_expiration
   before_action :restrict_access
   before_action :no_incidents?, only: :destroy

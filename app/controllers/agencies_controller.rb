@@ -1,6 +1,6 @@
 # agencies_controller.rb
 class AgenciesController < ApplicationController
-  before_action :set_agency, only: %i(show edit destroy)
+  before_action :set_agency, only: %i[show edit destroy]
   before_action :set_expiration
   before_action :restrict_access
   before_action :agency_empty?, only: :destroy

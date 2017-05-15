@@ -3,9 +3,7 @@ Rails.application.routes.draw do
   resources :field_agencies
   resources :type_users do
     member do
-      delete :disable
-      post :add_field_type_user
-      delete :delete_field_type_user
+      patch :toggle
     end
   end
   resources :field_type_users do

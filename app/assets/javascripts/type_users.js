@@ -1,10 +1,10 @@
 $(document).ready(function(){
-  $(document).on('click', '#add_field_type_user', function(){
+  $(document).on('click', '#bind', function(){
     $.newFieldUser = $(this).parent().parent().children().children("select#new_field_type_user").text();
     var type_user_id = $(this).data("id-type-user");
     if( $.newFieldUser != ""){
       $.ajax({
-        url: '/type_users/' + type_user_id + '/add_field_type_user',
+        url: '/type_users/' + type_user_id + '/bind',
         type: 'POST',
         dataType: 'script',
         data: {
@@ -23,7 +23,7 @@ $(document).ready(function(){
   $(document).on('click', '#remove_ftutu', function(){
     $.this = $(this);
     $.ajax({
-      url: '/type_users/' + $.this.data('type-user-id') + '/delete_field_type_user',
+      url: '/type_users/' + $.this.data('type-user-id') + '/unbind',
       type: 'DELETE',
       dataType: 'script',
       data: {
@@ -48,7 +48,7 @@ $(document).ready(function(){
           function(isConfirm){
             if (isConfirm) {
               $.ajax({
-                url: '/type_users/' + $.this.data('type-user-id') + '/delete_field_type_user',
+                url: '/type_users/' + $.this.data('type-user-id') + '/unbind',
                 type: 'DELETE',
                 dataType: 'script',
                 data: {

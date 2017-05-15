@@ -74,6 +74,6 @@ class User < ActiveRecord::Base
   end
 
   def rights_manager
-    @rights_manager ||= RightsManager.new(self)
+    @rights_manager ||= RightsManager.new(self, nil)
   end
 end

@@ -45,7 +45,7 @@ $("div.table-responsive").after(`
                 <tbody>
                   <tr>
                     <td><%= select_tag 'new_field_type_user', options_for_select(@field_type_users.collect{|ftu| [ftu.name, ftu.id]}), class: "dropdownSearchCreate#{ @type_user.id } form-control" %></td>
-                    <td><button type="button" class="btn btn-flat btn-success" id="add_field_type_user" data-id-type-user="<%= @type_user.id %>">+</button></td>
+                    <td><button type="button" class="btn btn-flat btn-success" id="bind" data-id-type-user="<%= @type_user.id %>">+</button></td>
                   </tr>
                   <% @type_user.field_type_user_type_users.each do |ftutu| %>
                   <tr>

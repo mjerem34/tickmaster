@@ -62,7 +62,7 @@ fr:
         content: "Champ 'Description'"
       agency:
         name: "Champ 'Nom'"
-        adress: "Champ 'Adresse'"
+        address: "Champ 'Adresse'"
         cp: "Champ 'Code postal'"
         city: "Champ 'Ville'"
         email: "Champ 'Adresse Email'"
@@ -213,7 +213,7 @@ fr:
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"
-            adress:
+            address:
               blank: "requis"
               invalid: "invalide"
               taken: "déjà enregistré"

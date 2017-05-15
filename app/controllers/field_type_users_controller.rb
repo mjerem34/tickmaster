@@ -1,11 +1,11 @@
 # field_type_users_controller.rb
 class FieldTypeUsersController < ApplicationController
   before_action :set_field_type_user,
-                only: %i(update destroy unbind)
+                only: %i[update destroy unbind]
   before_action :set_expiration
   before_action :restrict_access
   before_action -> { type_user_binded?(params[:force]) },
-                only: %i(destroy unbind)
+                only: %i[destroy unbind]
   # GET /field_type_users
   # GET /field_type_users.json
   def index

@@ -1,3 +1,4 @@
+# type_user.rb
 class TypeUser < ActiveRecord::Base
   before_validation :set_actif_to_true
   has_many :field_type_user_type_users, dependent: :destroy
@@ -11,7 +12,13 @@ class TypeUser < ActiveRecord::Base
                    uniqueness: { case_sensitive: false }, length: { in: 0..254 }
   validates :secure, :is_tech, :actif, inclusion: { in: [true, false] }
 
+  delegate :toggle, to: :rights_manager
+
   def set_actif_to_true
     self.actif = true
+  end
+
+  def rights_manager
+    @rights_manager ||= RightsManager.new(nil, self)
   end
 end

@@ -1,6 +1,6 @@
 # field_agencies_controller.rb
 class FieldAgenciesController < ApplicationController
-  before_action :set_field_agency, only: %i(update destroy)
+  before_action :set_field_agency, only: %i[update destroy]
   before_action :set_expiration
   before_action :restrict_access
   before_action :agency_binded?, only: :destroy

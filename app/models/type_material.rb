@@ -1,5 +1,6 @@
 class TypeMaterial < ActiveRecord::Base
-  has_many :type_material_spec_type_materials
+  # TODO: Test dependent destroy !
+  has_many :type_material_spec_type_materials, dependent: :destroy
   has_many :spec_type_materials, through: :type_material_spec_type_materials
   has_many :type_material_sellers
   has_many :sellers, through: :type_material_sellers

@@ -136,7 +136,7 @@ LEXIQUE :
 
       ```
 * `$ sudo service nginx restart`
-* `$ sudo nano /etc/mysql/my.cnf` #comment out bind_adress line
+* `$ sudo nano /etc/mysql/my.cnf` #comment out bind_addressline
 * `$ sudo service mysql restart`
 * `$ mysql -u root -p`
 * `$ GRANT ALL PRIVILEGES ON Tickets_production.* TO ticket IDENTIFIED BY 'Volu348%';`

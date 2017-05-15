@@ -1,3 +1,4 @@
+# incidents_controller.rb
 class IncidentsController < ApplicationController
   before_action :set_incident, only: %i[show edit update destroy reply download]
   before_action :set_categories_all, only: %i[index show edit new create]
@@ -227,8 +228,8 @@ class IncidentsController < ApplicationController
     # TODO : Integrate !
   end
 
-
   private
+
   def set_categories_all
     @categories = Category.all
   end

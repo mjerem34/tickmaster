@@ -1,4 +1,0 @@
-ssh ticket@10.134.2.250
-
-LANCER LE SCRIPT :
-cd /home/ticket/ && sudo ./deploy.sh

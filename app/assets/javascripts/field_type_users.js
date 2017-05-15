@@ -21,7 +21,7 @@ $(document).on('click', '#create_field_type_users', function(){
 });
 
 // This is for DELETE an field_type_user by click on red button
-$(document).on('click', '#delete_field_type_users', function(){
+$(document).on('click', '#unbinds', function(){
   $.ajax({
     url: '/field_type_users/' + $(this).parent().parent().attr('id'),
     type: 'DELETE',
