@@ -1,145 +1,74 @@
+# Globally, this controller is used only for the future Windows app
+# Because for web, all it is managed by the CategoriesController.
 class SousCategoriesController < ApplicationController
-  # Globally, this controller is used only for the future Windows app
-  # Because for web, all it is managed by the CategoriesController.
   before_action :set_sous_category, only: %i[show edit update destroy]
   before_action :set_expiration
   before_action :restrict_access
 
   # GET /sous_categories
   # GET /sous_categories.json
-  # Should get and return all the subcategories
   def index
-    @index_sous_categories = verify_right('index_sous_categories')
-    if @index_sous_categories
-      @title = 'Liste des sous catégories'
-      @sous_categories = SousCategory.all
-      @show_sous_categories = verify_right('show_sous_categories')
-      @edit_sous_categories = verify_right('edit_sous_categories')
-      @destroy_sous_categories = verify_right('destroy_sous_categories')
-      respond_to do |format|
-        format.json { render json: @sous_categories }
-        format.html { render :index }
-      end
-    else
-      permission_denied
+    @sous_categories = SousCategory.all
+    verify_right('show_sous_categories')
+    verify_right('edit_sous_categories')
+    verify_right('destroy_sous_categories')
+    respond_to do |format|
+      format.json { render json: @sous_categories }
+      format.html { render :index }
     end
   end
 
   # GET /sous_categories/1
   # GET /sous_categories/1.json
-  # Should return one subcategory, by id passed in params.
   def show
-    @show_sous_categories = verify_right('show_sous_categories')
-    if @show_sous_categories
-      @title = "Liste des incidents de sous catégorie : #{@sous_category.name}"
-      respond_to do |format|
-        format.json { render json: @sous_category }
-        format.html { render :show }
-      end
-    else
-      permission_denied
-    end
-  end
-
-  # GET /sous_categories/new
-  # This should never be used.
-  def new
-    @new_sous_categories = verify_right('new_sous_categories')
-    if @new_sous_categories
-      @title = 'Nouvelle sous catégorie'
-      @sous_category = SousCategory.new
-    else
-      permission_denied
-    end
-  end
-
-  # GET /sous_categories/1/edit
-  # This one too.
-  def edit
-    @edit_sous_categories = verify_right('edit_sous_categories')
-    if @edit_sous_categories
-      @title = "Editer sous catégorie : #{@sous_category.name}"
-      @category = Category.find(@sous_category.category_id)
-    else
-      permission_denied
-    end
+    render json: @sous_category
   end
 
   # POST /sous_categories
   # POST /sous_categories.json
   # I think this method should create an subcategory... But I am not sure..
   def create
-    @create_sous_categories = verify_right('create_sous_categories')
-    if @create_sous_categories
-      @category = Category.find(params[:sous_category][:category_id])
-      @sous_category = SousCategory.new(sous_category_params)
-      # Any category have a 'lvl_urgence_max', for those who create an incident.
-      # With that, we can determine how many an incident is important.
-      @sous_category.lvl_urgence_max.nil? ? @sous_category.lvl_urgence_max = 10 : false
-      respond_to do |format|
-        if @sous_category.save
-          format.json { render json: @sous_category.id, status: :created }
-          format.html { redirect_to edit_category_path(@category), notice: 'Vous venez de créer une sous catégorie.' }
-        else
-          format.json { render json: @sous_category.errors, status: 422 }
-          format.html { redirect_to :back, notice: 'Impossible de créer la sous catégorie.' }
-        end
-      end
+    @category = Category.find(params[:sous_category][:category_id])
+    @sous_category = SousCategory.new(sous_category_params)
+    if @sous_category.save
+      render json: @sous_category.id, status: 201
     else
-      permission_denied
+      render json: @sous_category.errors, status: 422
     end
   end
 
   # PATCH/PUT /sous_categories/1
   # PATCH/PUT /sous_categories/1.json
-  # Should update the params of the subcategory passed in params.
   def update
-    @update_sous_categories = verify_right('update_sous_categories')
-    if @update_sous_categories
-      respond_to do |format|
-        if @sous_category.update(sous_category_params)
-          format.json { head :no_content }
-          format.html { redirect_to :back, notice: 'Les paramètres de la sous catégorie ont été actualisés.' }
-        else
-          format.json { render json: @sous_category.errors, status: 422 }
-          format.html { render :back, notice: "Impossible de modifier la sous catégorie : #{@sous_category.errors}" }
-        end
-      end
+    if @sous_category.update(sous_category_params)
+      render json: nil
     else
-      permission_denied
+      render json: @sous_category.errors, status: 422
     end
   end
 
   # DELETE /sous_categories/1
   # DELETE /sous_categories/1.json
-  # Should delete the subcategory passed in params only if contains no incidents.
   def destroy
-    @destroy_sous_categories = verify_right('destroy_sous_categories')
-    if @destroy_sous_categories
-      respond_to do |format|
-        if Incident.where(sous_category_id: @sous_category.id).empty?
-          @sous_category.destroy
-          format.json { head :no_content }
-          format.html { redirect_to :back, notice: "La sous catégorie vient d'être supprimée." }
-        else
-          format.json { render json: 'Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents.', status: 422 }
-          format.html { redirect_to categories_url, notice: 'Vous ne pouvez pas supprimer cette sous catégorie car elle contient des incidents.' }
-        end
-      end
+    if @sous_category.destroy
+      render json: nil
     else
-      permission_denied
+      render json: nil, status: 422
     end
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_sous_category
     @sous_category = SousCategory.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def sous_category_params
     params.require(:sous_category).permit(:name, :category_id, :lvl_urgence_max)
+  end
+
+  def incidents_binded?
+    render json: 'Des incidents sont liés', status: 422 if @sous_category
+                                                           .incidents.any?
   end
 end

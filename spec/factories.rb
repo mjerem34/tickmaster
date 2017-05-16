@@ -145,7 +145,7 @@ FactoryGirl.define do
 
   factory :sous_category, class: SousCategory do |f|
     # t.integer "category_id"
-    f.name { Faker::Address.city }
+    f.name { Faker::Lorem.word }
     f.lvl_urgence_max 10
   end
 

@@ -46,7 +46,7 @@ class SpecMaterialsController < ApplicationController
   # DELETE /spec_materials/1.json
   def destroy
     if @spec_material.destroy
-      render json: nil, status: 200
+      render json: nil
     else
       render json: @spec_material.errors.full_messages.first
     end

@@ -1,3 +1,4 @@
+# sous_category.rb
 class SousCategory < ActiveRecord::Base
   has_many :incidents
   belongs_to :category
@@ -5,4 +6,10 @@ class SousCategory < ActiveRecord::Base
   validates :name, presence: true, length: { in: 0..254 }
   validates :lvl_urgence_max, presence: true
   validates :category_id, presence: true
+
+  before_validation :set_lvl_urgence_max
+
+  def set_lvl_urgence_max
+    self.lvl_urgence_max = 10 if lvl_urgence_max.nil?
+  end
 end

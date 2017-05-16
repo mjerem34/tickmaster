@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
           else
             sign_in @user
             puts "current_user in session : #{current_user.inspect}"
-            format.json { render json: 'Connexion réussie', status: 200 }
+            format.json { render json: 'Connexion réussie' }
             format.html { redirect_to root_path, notice: 'Connexion réussie' }
           end
         end

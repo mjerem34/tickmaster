@@ -45,7 +45,7 @@ class UsersController < ApplicationController
       else
         unless params[:ip_addr].nil?
           @user.update(ip_addr: params[:ip_addr])
-          render json: @user, status: 200
+          render json: @user
           # All it is ok ! Ip is changed.
           return true
         end

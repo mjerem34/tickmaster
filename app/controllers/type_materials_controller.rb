@@ -32,7 +32,7 @@ class TypeMaterialsController < ApplicationController
   # PATCH/PUT /type_materials/1.json
   def update
     if @type_material.update(type_material_params)
-      render json: nil, status: 200
+      render json: nil
     else
       render json: @type_material.errors, status: 422
     end
@@ -42,7 +42,7 @@ class TypeMaterialsController < ApplicationController
   # DELETE /type_materials/1.json
   def destroy
     if @type_material.destroy
-      render json: nil, status: 200
+      render json: nil
     else
       render json: @type_material.errors, status: 422
     end

@@ -194,7 +194,7 @@ class ApplicationController < ActionController::Base
       sendNotif(incident.user.ip_addr, 'Votre incident n°' + incident.id.to_s + ' a été rejeté !')
     end
     respond_to do |format|
-      format.json { head :no_content, status: 200 }
+      format.json { head :no_content }
       format.html { redirect_to edit_incident_path(incident), notice: 'Votre demande de rejet a bien été prise en compte.' }
     end
   end
