@@ -56,7 +56,7 @@
                 <tr data-seller-id='<%= seller.id %>' data-field-seller-id="<%= fss.field_seller.id %>">
                   <td><%= fss.field_seller.name %></td>
                   <td><input name="name" value="<%= fss.content %>" class="form-control" id="value_field_seller"/></td>
-                  <td><button type="button" name="button" class="btn btn-flat btn-danger" id="delete_field_seller">-</button></td>
+                  <td><button type="button" name="button" class="btn btn-flat btn-danger" id="unbind_field_seller">-</button></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -75,12 +75,12 @@
               <tbody>
                 <tr data-seller-id="<%= seller.id %>">
                   <td><%= select_tag 'name_new_type_material', options_for_select(@type_materials.collect{|type_material| [type_material.name, type_material.id]}), class: "dropdownSearchCreate" %></td>
-                  <td><button type="button" name="button" class='btn btn-flat btn-success' id='add_type_material'>+</button></td>
+                  <td><button type="button" name="button" class='btn btn-flat btn-success' id='bind_type_material'>+</button></td>
                 </tr>
                 <% seller.type_material_sellers.each do |tms| %>
                 <tr data-seller-id="<%= seller.id %>" data-type-material="<%= tms.type_material.id %>">
                   <td><%= tms.type_material.name %></td>
-                  <td><button type="button" id="delete_type_material" class="btn btn-flat btn-danger">-</button></td>
+                  <td><button type="button" id="unbind_type_material" class="btn btn-flat btn-danger">-</button></td>
                 </tr>
                 <% end %>
               </tbody>

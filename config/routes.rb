@@ -21,11 +21,11 @@ Rails.application.routes.draw do
   resources :spec_type_materials
   resources :sellers do
     member do
-      post :add_type_material
-      delete :delete_type_material
-      post :add_field_seller
+      post :bind_type_material
+      delete :unbind_type_material
+      post :bind_field_seller
       put :update_field_seller
-      delete :delete_field_seller
+      delete :unbind_field_seller
       delete :permanent_deletion
     end
   end

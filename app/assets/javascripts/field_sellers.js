@@ -34,7 +34,7 @@ $(document).on('click', '#destroy_field_sellers', function(){
 });
 
 // This is for CREATE on click on the green button
-$(document).on('click', 'button#add_field_seller', function(){
+$(document).on('click', 'button#bind_field_seller', function(){
   var name = $('#name_new_field_seller').val();
   if(name == ""){
     notifsTempo('Merci de remplir le champ', 4000, 'red');

@@ -15,7 +15,7 @@
       <% @type_materials.each do |type_material| %>
         <tr id='<%= type_material.id %>' data-dismiss="modal" data-toggle="modal" data-target="#modal_type_material_<%= type_material.id %>">
           <td><%= type_material.name %></td>
-          <td><button type="button" name="button" class="btn btn-flat btn-danger" id='delete_type_material'>-</button></td>
+          <td><button type="button" name="button" class="btn btn-flat btn-danger" id='unbind_type_material'>-</button></td>
         </tr>
       <% end %>
     </tbody>

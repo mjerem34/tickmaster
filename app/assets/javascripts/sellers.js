@@ -31,7 +31,7 @@ $(document).on('keyup', '#value_new_field_seller', function(e){
       var field_seller_name = $("#table_field_seller_" + seller_id).find("#name_new_field_seller").find(":selected").html();
       var content = $(this).val();
       $.ajax({
-        url: '/sellers/'+seller_id+'/add_field_seller',
+        url: '/sellers/'+seller_id+'/bind_field_seller',
         type: 'POST',
         dataType: 'script',
         data: {
@@ -58,7 +58,7 @@ $(document).on('click', '#create_new_field_seller', function(){
     $("#table_field_seller_" + seller_id).find("#value_new_field_seller").css({"border-color":"red"});
   }else {
     $.ajax({
-      url: '/sellers/' + seller_id + '/add_field_seller',
+      url: '/sellers/' + seller_id + '/bind_field_seller',
       type: "POST",
       dataType: 'script',
       data: {
@@ -158,11 +158,11 @@ $(document).on('focusout', '#seller_name_text', function(){
 });
 
 // This is to ADD an type_material to the seller by press on the green button
-$(document).on('click', '#add_type_material', function(){
+$(document).on('click', '#bind_type_material', function(){
   var seller_id = $(this).parent().parent().data('seller-id');
   var type_material_name = $("#table_type_materials_sellers_" + seller_id).find("#name_new_type_material").find(':selected').html();
   $.ajax({
-    url: "/sellers/" + seller_id + "/add_type_material",
+    url: "/sellers/" + seller_id + "/bind_type_material",
     type: "POST",
     dataType: 'script',
     data: {
@@ -177,11 +177,11 @@ $(document).on('click', '#add_type_material', function(){
 });
 
 // This is to DELETE an type_material of the seller by press on the red button
-$(document).on('click', '#delete_type_material', function(){
+$(document).on('click', '#unbind_type_material', function(){
   var seller_id = $(this).parent().parent().data("seller-id");
   var type_material_id = $(this).parent().parent().data("type-material");
   $.ajax({
-    url: "/sellers/" + seller_id + "/delete_type_material",
+    url: "/sellers/" + seller_id + "/unbind_type_material",
     type: "DELETE",
     dataType: 'script',
     data: {
@@ -225,11 +225,11 @@ $(document).on('keyup', '#value_field_seller', function(e){
 });
 
 // This is to DELETE an field_seller of the seller by press on the red button
-$(document).on("click", "#delete_field_seller", function(){
+$(document).on("click", "#unbind_field_seller", function(){
   var seller_id = $(this).parent().parent().data("seller-id");
   var field_seller_id = $(this).parent().parent().data("field-seller-id");
   $.ajax({
-    url: '/sellers/' + seller_id + '/delete_field_seller',
+    url: '/sellers/' + seller_id + '/unbind_field_seller',
     type: 'DELETE',
     dataType: 'script',
     data: {

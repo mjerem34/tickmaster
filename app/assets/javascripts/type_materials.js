@@ -23,7 +23,7 @@
             $("#table_type_material > tbody").append(`
             <tr id='` + jqXHR.responseText + `'>
               <td><input type='text' name='name' value='` + $.name + `' class='form-control' id='input_type_material'></td>
-              <td><button type='button' name='button' class='btn btn-flat btn-danger' id='delete_type_material'>-</button></td>
+              <td><button type='button' name='button' class='btn btn-flat btn-danger' id='unbind_type_material'>-</button></td>
             </tr>
             `);
           }
@@ -56,7 +56,7 @@
           $("#table_type_material > tbody").append(`
           <tr id='` + jqXHR.responseText + `'>
             <td><input type='text' name='name' value='` + $.name + `' class='form-control' id='input_type_material'></td>
-            <td><button type='button' name='button' class='btn btn-flat btn-danger' id='delete_type_material'>-</button></td>
+            <td><button type='button' name='button' class='btn btn-flat btn-danger' id='unbind_type_material'>-</button></td>
           </tr>
           `);
         }
@@ -65,7 +65,7 @@
   });
 
 //  This is for DELETE an type_material by click on red button
-  $(document).on('click', '#delete_type_material', function(){
+  $(document).on('click', '#unbind_type_material', function(){
     $.ajax({
       url: '/type_materials/' + $(this).parent().parent().attr('id'),
       type: 'DELETE',

@@ -2933,7 +2933,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (103,2
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (104,'append_spec_type_material_type_materials','Autorisé à désactiver/activer un droit');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (104,'append_spec_type_material_type_materials','Autorisé à lier les types de matériels et les specs');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (104,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (104,2,1);
@@ -2959,8 +2959,156 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (104,2
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (104,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (104,23,1);
 
+--
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (105,'bind_type_material_sellers','Autorisé à lier un vendeur a un type de matériel');
+
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,1,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,2,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,3,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,4,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,5,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,6,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,7,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,8,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,9,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,10,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,11,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,12,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,13,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,14,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,15,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,16,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,17,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,18,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,19,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,20,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,21,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,22,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (105,23,1);
+
+--
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (106,'unbind_type_material_sellers','Autorisé à délier des types de matériels a des vendeurs');
+
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,1,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,2,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,3,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,4,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,5,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,6,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,7,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,8,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,9,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,10,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,11,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,12,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,13,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,14,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,15,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,16,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,17,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,18,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,19,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,20,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,21,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,22,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (106,23,1);
+
+--
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (107,'bind_field_seller_sellers','Autorisé à lier des champs vendeurs aux vendeurs');
+
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,1,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,2,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,3,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,4,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,5,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,6,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,7,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,8,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,9,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,10,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,11,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,12,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,13,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,14,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,15,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,16,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,17,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,18,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,19,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,20,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,21,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,22,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (107,23,1);
+
+--
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (108,'update_field_seller_sellers','Autorisé à mettre à jour les champs vendeurs des vendeurs');
+
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,1,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,2,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,3,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,4,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,5,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,6,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,7,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,8,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,9,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,10,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,11,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,12,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,13,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,14,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,15,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,16,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,17,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,18,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,19,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,20,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,21,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,22,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (108,23,1);
+
+--
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (109,'unbind_field_seller_sellers','Autorisé à délier les champs vendeurs avec les vendeurs');
+
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,1,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,2,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,3,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,4,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,5,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,6,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,7,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,8,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,9,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,10,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,11,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,12,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,13,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,14,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,15,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,16,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,17,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,18,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,19,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,20,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,21,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,22,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (109,23,1);
+
+--
+
 
 ------ END ------
 -- Responses
 -- TODO : Create rights for responses
 -- End Responses
+
+
+-- For set to 0 all rights of 23 (for tests)
+UPDATE `Tickets_test`.`type_user_rights` SET `value`='0' WHERE type_user_id=23;
+SELECT * FROM Tickets_test.type_user_rights WHERE type_user_id=23;
+-- For set to 0 all rights of 23 (for tests)
