@@ -1,8 +1,12 @@
+# pages_controller.rb
 class PagesController < ApplicationController
   before_action :set_expiration
   def home
-    redirect_to new_session_path if current_user.nil?
-    redirect_to current_user unless current_user.nil?
+    if current_user.nil?
+      redirect_to new_session_path
+    else
+      redirect_to current_user
+    end
   end
 
   def teches

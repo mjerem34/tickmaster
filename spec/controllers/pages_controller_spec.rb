@@ -1,24 +1,29 @@
 require 'rails_helper'
 RSpec.describe PagesController, type: :controller do
-  describe 'JSON' do
-    before { request.accept = 'application/json' }
-    context 'not connected' do
-    end
-    context 'connected' do
-      context 'have the right' do
-      end
-      context "don't have the right" do
-      end
-    end
-  end
   describe 'HTML' do
     before { request.accept = 'text/html' }
     context 'not connected' do
-    end
-    context 'connected' do
-      context 'have the right' do
+      describe '#home' do
+        it 'should redirect_to login page' do
+          get :home
+
+          expect(response).to redirect_to new_session_path
+        end
       end
-      context "don't have the right" do
+    end
+  end
+  context 'connected' do
+    before do
+      agency = create(:agency)
+
+      @user = create(:user, agency_id: agency.id)
+      sign_in @user
+    end
+    describe '#home' do
+      it 'should redirect_to user page' do
+        get :home
+
+        expect(response).to redirect_to @user
       end
     end
   end
