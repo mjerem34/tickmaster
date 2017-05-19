@@ -13,58 +13,58 @@
         <td><button type='button' name='button' class='btn btn-flat btn-success' id='create_new_type_material'>+</button></td>
       </tr>
       <% @type_materials.each do |type_material| %>
-        <tr id='<%= type_material.id %>' data-dismiss="modal" data-toggle="modal" data-target="#modal_type_material_<%= type_material.id %>">
-          <td><%= type_material.name %></td>
-          <td><button type="button" name="button" class="btn btn-flat btn-danger" id='unbind_type_material'>-</button></td>
-        </tr>
+      <tr id='<%= type_material.id %>' data-dismiss="modal" data-toggle="modal" data-target="#modal_type_material_<%= type_material.id %>">
+        <td><%= type_material.name %></td>
+        <td><button type="button" name="button" class="btn btn-flat btn-danger" id='unbind_type_material'>-</button></td>
+      </tr>
       <% end %>
     </tbody>
   </table>
   <div>
-<% @type_materials.each do |type_material| %>
-  <div class="container-modal">
-    <div class="modal fade" id="modal_type_material_<%= type_material.id %>" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Type de matériel : </h4>
-            <span class="seller_name"><h5 class="modal-title" data-type-material="<%= type_material.id %>"><%= type_material.name%></h5><%= image_tag 'ICONS/1004.png', size: "20x20", class: "edit_img" %></span>
-          </div>
-          <div class="modal-body">
-            <div class="table-responsive">
-              <table class="table table-hover" id="table_spec_type_material">
-                <thead class="header">
-                  <tr>
-                    <th>Nom</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><%= select_tag 'name_new_spec_type_material', options_for_select(@spec_type_materials.collect{|spec_type_material| [spec_type_material.name, spec_type_material.id]}), class: "dropdownSearchCreate" %></td>
-                    <td><button type="button" name="button" class="btn btn-flat btn-success" data-type-material-id="<%= type_material.id %>" id="new_spec_type_material">+</button></td>
-                  </tr>
-                  <% type_material.type_material_spec_type_materials.each do |type_material_spec_type_material| %>
-                  <tr data-spec-type-material-id="<%= type_material_spec_type_material.spec_type_material.id %>" data-type-material-id="<%= type_material.id %>">
-                    <td><%= type_material_spec_type_material.spec_type_material.name  %></td>
-                    <td><button type="button" name="button" class="btn btn-flat btn-danger" id="delete_spec_type_material">-</button></td>
-                  </tr>
-                  <% end %>
-                </tbody>
-              </table>
+    <% @type_materials.each do |type_material| %>
+    <div class="container-modal">
+      <div class="modal fade" id="modal_type_material_<%= type_material.id %>" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Type de matériel : </h4>
+              <span class="seller_name"><h5 class="modal-title" data-type-material="<%= type_material.id %>"><%= type_material.name%></h5><%= image_tag 'ICONS/1004.png', size: "20x20", class: "edit_img" %></span>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-flat btn-danger btn-modal" data-dismiss="modal">Fermer</button>
+            <div class="modal-body">
+              <div class="table-responsive">
+                <table class="table table-hover" id="table_spec_type_material">
+                  <thead class="header">
+                    <tr>
+                      <th>Nom</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><%= select_tag 'name_new_spec_type_material', options_for_select(@spec_type_materials.collect{|spec_type_material| [spec_type_material.name, spec_type_material.id]}), class: "dropdownSearchCreate" %></td>
+                      <td><button type="button" name="button" class="btn btn-flat btn-success" data-type-material-id="<%= type_material.id %>" id="new_spec_type_material">+</button></td>
+                    </tr>
+                    <% type_material.type_material_spec_type_materials.each do |type_material_spec_type_material| %>
+                    <tr data-spec-type-material-id="<%= type_material_spec_type_material.spec_type_material.id %>" data-type-material-id="<%= type_material.id %>">
+                      <td><%= type_material_spec_type_material.spec_type_material.name  %></td>
+                      <td><button type="button" name="button" class="btn btn-flat btn-danger" id="delete_spec_type_material">-</button></td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-flat btn-danger btn-modal" data-dismiss="modal">Fermer</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-<% end %>
+    <% end %>
+  
 
-
-<% content_for(:js) do %>
-<%= javascript_include_tag 'type_materials'%>
-<% end %>
+  <% content_for(:js) do %>
+  <%= javascript_include_tag 'type_materials'%>
+  <% end %>

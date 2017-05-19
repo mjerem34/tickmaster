@@ -9,8 +9,6 @@ class AgenciesController < ApplicationController
   # GET /agencies
   # GET /agencies.json
   def index
-    verify_right('destroy_agencies')
-    verify_right('edit_agencies')
     @agencies = Agency.order('name asc')
     respond_to do |format|
       format.json { render json: @agencies }

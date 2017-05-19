@@ -59,7 +59,6 @@ RSpec.describe CategoriesController, type: :controller do
         describe '#index' do
           it 'should render the list of the categories' do
             get :index
-            puts Category.all.inspect
             expect(response.body).to eq [@category].to_json
           end
         end
@@ -69,7 +68,7 @@ RSpec.describe CategoriesController, type: :controller do
 
             expect(Category.count).to eq 2
             expect(response.status).to eq 201
-            expect(response.body).to eq Category.second.id.to_s
+            expect(response.body).to eq [Category.second.id, Category.second.sous_categories.first.id].to_json
           end
           it 'should error on invalid params' do
             post :create, category: { name: nil }
@@ -174,20 +173,6 @@ RSpec.describe CategoriesController, type: :controller do
           expect(response).to redirect_to root_path
         end
       end
-      describe '#show' do
-        it 'should redirect to root_path' do
-          get :show, id: @category.id
-
-          expect(response).to redirect_to root_path
-        end
-      end
-      describe '#edit' do
-        it 'should redirect to root_path' do
-          get :edit, id: @category.id
-
-          expect(response).to redirect_to root_path
-        end
-      end
     end
     context 'connected' do
       context 'have the right' do
@@ -205,20 +190,6 @@ RSpec.describe CategoriesController, type: :controller do
             expect(response).to render_template :index
           end
         end
-        describe '#show' do
-          it 'should redirect to edit template' do
-            get :show, id: @category.id
-
-            expect(response).to redirect_to edit_category_url(@category)
-          end
-        end
-        describe '#edit' do
-          it 'should render edit template' do
-            get :edit, id: @category.id
-
-            expect(response).to render_template :edit
-          end
-        end
       end
       context "don't have the right" do
         before do
@@ -231,20 +202,6 @@ RSpec.describe CategoriesController, type: :controller do
         describe '#index' do
           it 'should redirect to root_path' do
             get :index
-
-            expect(response).to redirect_to root_path
-          end
-        end
-        describe '#show' do
-          it 'should redirect to root_path' do
-            get :show, id: @category.id
-
-            expect(response).to redirect_to root_path
-          end
-        end
-        describe '#edit' do
-          it 'should redirect to root_path' do
-            get :edit, id: @category.id
 
             expect(response).to redirect_to root_path
           end

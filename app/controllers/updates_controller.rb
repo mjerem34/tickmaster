@@ -71,7 +71,7 @@ class UpdatesController < ApplicationController
           format.json { render json: @update.id, status: :created }
           format.html { redirect_to @update, notice: 'La mise à jour a été crée, et grâce à toi BG !' }
         else
-          format.json { render json: @update.errors, status: 422 }
+          format.json { render json: @update.errors.full_messages, status: 422 }
           format.html { render :new, notice: "Impossible de créer la mise à jour : #{@update.errors}" }
         end
       end
@@ -90,7 +90,7 @@ class UpdatesController < ApplicationController
           format.json { head :no_content }
           format.html { redirect_to @update, notice: 'La mise à jour a bien été editée' }
         else
-          format.json { render json: @update.errors, status: 422 }
+          format.json { render json: @update.errors.full_messages, status: 422 }
           format.html { render :edit, notice: "Impossible d'éditer la mise à jour : #{@update.errors}" }
         end
       end

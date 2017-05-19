@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
-  before_action :set_default_rights
   include ApplicationHelper
 
   private
@@ -57,13 +56,13 @@ class ApplicationController < ActionController::Base
         if @response.receiver.nil?
           User.joins(:type_user).where('type_users.is_tech=1').each do |disp|
             unless disp.ip_addr.blank?
-              sendNotif(disp.ip_addr, @response.sender.name + ' ' +
+              send_notif(disp.ip_addr, @response.sender.name + ' ' +
               @response.sender.surname + ' a envoyé un message !')
             end
           end
         else
           unless @response.receiver.ip_addr.blank?
-            sendNotif(@response.receiver.ip_addr, @response.sender.name + ' ' +
+            send_notif(@response.receiver.ip_addr, @response.sender.name + ' ' +
              @response.sender.surname + ' a envoyé un message !')
           end
         end
@@ -128,50 +127,6 @@ class ApplicationController < ActionController::Base
 
   # Must send a notification to the anyone.
   # For example when someone create a ticket, the dispatchor receive a notif.
-  def sendNotif(host, msg, timeout = 3)
-    port = '3333'
-    # Convert the passed host into structures the non-blocking calls
-    # Can deal with
-    addr = Socket.getaddrinfo(host, nil)
-    sockaddr = Socket.pack_sockaddr_in(port, addr[0][3])
-
-    Socket.new(Socket.const_get(addr[0][0]), Socket::SOCK_STREAM, 0).tap do |socket|
-      socket.setsockopt(Socket::IPPROTO_TCP, Socket::TCP_NODELAY, 1)
-
-      begin
-        # Initiate the socket connection in the background. If it doesn't fail
-        # immediatelyit will raise an IO::WaitWritable (Errno::EINPROGRESS)
-        # indicating the connection is in progress.
-        socket.connect_nonblock(sockaddr)
-      rescue IO::WaitWritable
-        # IO.select will block until the socket is writable or the timeout
-        # is exceeded - whichever comes first.
-        if IO.select(nil, [socket], nil, timeout)
-          begin
-            # Verify there is now a good connection
-            socket.connect_nonblock(sockaddr)
-            socket.puts(msg)
-          rescue Errno::EISCONN
-            # Good news everybody, the socket is connected!
-            socket.puts(msg)
-          rescue Errno::ENETUNREACH
-            # No internet access
-            nil
-          rescue
-            # An unexpected exception was raised - the connection is no good.
-            socket.close
-          end
-        else
-          # IO.select returns nil when the socket is not ready before timeout
-          # seconds have elapsed
-          socket.close
-          # raise "Connection timeout"
-        end
-      rescue Errno::ENETUNREACH
-        nil
-      end
-    end
-  end
 
   # Must reject the incident and send emails.
   def reject_it(incident)
@@ -187,11 +142,11 @@ class ApplicationController < ActionController::Base
     end
     User.joins(:type_user).where('type_users.is_tech=1').each do |disp|
       unless disp.ip_addr.blank?
-        sendNotif(disp.ip_addr, "L'incident n°" + incident.id.to_s + ' a été rejeté !')
+        send_notif(disp.ip_addr, "L'incident n°" + incident.id.to_s + ' a été rejeté !')
     end
     end
     unless incident.user.ip_addr.blank?
-      sendNotif(incident.user.ip_addr, 'Votre incident n°' + incident.id.to_s + ' a été rejeté !')
+      send_notif(incident.user.ip_addr, 'Votre incident n°' + incident.id.to_s + ' a été rejeté !')
     end
     respond_to do |format|
       format.json { head :no_content }
@@ -216,7 +171,7 @@ class ApplicationController < ActionController::Base
     if incident.user_id == current_user.id
       unless incident.tech.ip_addr == ''
         # Send the notification to the tech if the tech have the app installed.
-        sendNotif(incident.tech.ip_addr, "L'incident n°" + incident.id.to_s + ' a été cloturé !')
+        send_notif(incident.tech.ip_addr, "L'incident n°" + incident.id.to_s + ' a été cloturé !')
       end
       incident.update(resolved_at: Time.now, archived_at: Time.now, incident_state_id_for_tech_id: 7, incident_state_id_for_user_id: 7)
       archivage
@@ -237,7 +192,7 @@ class ApplicationController < ActionController::Base
     else # Or if is tech that have ask for a cloturation.
       unless incident.user.ip_addr.blank?
         # Send the notification to the user if the user have the app installed.
-        sendNotif(incident.user.ip_addr, 'Votre incident n°' + incident.id.to_s + ' demande à être cloturé !')
+        send_notif(incident.user.ip_addr, 'Votre incident n°' + incident.id.to_s + ' demande à être cloturé !')
       end
       incident.update(resolved_at: Time.now, incident_state_id_for_tech_id: 9, incident_state_id_for_user_id: 8)
       @response.save!
@@ -354,7 +309,7 @@ class ApplicationController < ActionController::Base
     User.joins(:type_user).where('type_users.is_tech=1').each do |disp|
       next if disp.ip_addr.blank?
       # Try to send the notification to his app.
-      sendNotif(disp.ip_addr, "L'incident n°" + incident.id.to_s +
+      send_notif(disp.ip_addr, "L'incident n°" + incident.id.to_s +
       ' demande a être réaffecté !')
     end
     respond_to do |format|
@@ -369,41 +324,5 @@ class ApplicationController < ActionController::Base
                     ' prise en compte.'
       end
     end
-  end
-
-  # Must check rights to display the lateral bar.
-  # Bar needs to check rights to display only buttons current user can see.
-  def set_default_rights
-    return false if current_user.nil?
-    verify_right('view_procedures')
-    verify_right('create_procedure')
-
-    verify_right('without_tech_incidents')
-    verify_right('index_incidents')
-
-    verify_right('index_categories')
-
-    verify_right('index_users')
-    verify_right('create_new_tech')
-    verify_right('index_field_type_users')
-
-    verify_right('view_index_rights')
-    verify_right('view_type_users')
-
-    verify_right('index_agencies')
-    verify_right('new_agencies')
-    verify_right('index_field_agencies')
-    verify_right('ping_agencies')
-
-    verify_right('create_material')
-    verify_right('view_material')
-    verify_right('view_sellers')
-    verify_right('index_field_sellers')
-    verify_right('view_type_material')
-    verify_right('view_spec_type_material')
-    verify_right('view_spec_material')
-
-    verify_right('create_update')
-    verify_right('view_update')
   end
 end

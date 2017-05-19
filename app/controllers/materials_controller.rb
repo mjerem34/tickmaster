@@ -177,7 +177,7 @@ class MaterialsController < ApplicationController
           format.json { head :no_content }
           format.html { redirect_to @material, notice: 'Le matériel a bien été mis à jour.' }
         else
-          format.json { render json: @material.errors, status: 422 }
+          format.json { render json: @material.errors.full_messages, status: 422 }
           format.html { render :edit, notice: 'Impossible de modifier ce matériel ... Dommage !' }
         end
       end
@@ -195,7 +195,7 @@ class MaterialsController < ApplicationController
           format.json { head :no_content }
           format.html { redirect_to materials_url, notice: 'Matériel supprimé.' }
         else
-          format.json { render json: @material.errors, status: 422 }
+          format.json { render json: @material.errors.full_messages, status: 422 }
           format.html { render :edit, notice: 'Impossible de supprimer ce matériel.' }
         end
       end

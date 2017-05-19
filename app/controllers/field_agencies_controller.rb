@@ -23,7 +23,7 @@ class FieldAgenciesController < ApplicationController
         format.js
         format.json { render json: @field_agency.id, status: :created }
       else
-        format.json { render json: @field_agency.errors, status: 422 }
+        format.json { render json: @field_agency.errors.full_messages, status: 422 }
       end
     end
   end
@@ -35,7 +35,7 @@ class FieldAgenciesController < ApplicationController
         format.js
         format.json { head :no_content }
       else
-        format.json { render json: @field_agency.errors, status: 422 }
+        format.json { render json: @field_agency.errors.full_messages, status: 422 }
       end
     end
   end
@@ -47,7 +47,7 @@ class FieldAgenciesController < ApplicationController
         format.js
         format.json { head :no_content }
       else
-        format.json { render json: @field_agency.errors, status: 422 }
+        format.json { render json: @field_agency.errors.full_messages, status: 422 }
       end
     end
   end

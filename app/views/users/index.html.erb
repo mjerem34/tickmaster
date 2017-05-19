@@ -7,8 +7,8 @@
         <th>Tel</th>
         <th>Email</th>
         <th>Agence</th>
-        <%= "<th>Type utilisateur</th>".html_safe if @view_users_pages %>
-        <%= "<th>Actif</th>".html_safe if @enable_disable_user %>
+        <%= "<th>Type utilisateur</th>".html_safe if current_user.can?('edit_users') %>
+        <%= "<th>Actif</th>".html_safe if current_user.can?('edit_users') %>
       </tr>
     </thead>
     <tbody>
@@ -18,13 +18,13 @@
           <td data-toggle="modal" data-target="#<%= user.id %>"><%= user.tel %></td>
           <td data-toggle="modal" data-target="#<%= user.id %>"><%= user.email %></td>
           <td data-toggle="modal" data-target="#<%= user.id %>"><%= user.agency.name %></td>
-          <%= "<td>#{user.type_user.name}</td>".html_safe if @view_users_pages %>
-          <% if @enable_disable_user %>
+          <%= "<td>#{user.type_user.name}</td>".html_safe if current_user.can?('edit_users') %>
+          <% if current_user.can?('edit_users') %>
             <%= "<td><div class='slideThree' data-id='#{user.id}'><input class='checkbox-right' type='checkbox' checked><label for='checkbox-right'></label></div></td>".html_safe if user.actif %>
             <%= "<td><div class='slideThree' data-id='#{user.id}'><input class='checkbox-right' type='checkbox'><label for='checkbox-right'></label></div></td>".html_safe if !user.actif %>
           <% end %>
         </tr>
-        <% if @view_users_pages %>
+        <% if current_user.can?('edit_users') %>
         <div class="container-modal">
           <!-- Modal -->
           <div class="modal fade" id="<%= user.id %>" role="dialog">
@@ -43,10 +43,10 @@
                   <!-- # TODO: Afficher les informations dans une boucle -->
                 </div>
                 <div class="modal-footer">
-                  <% if @edit_other_user %>
-                    <%= link_to "Editer", profil_user_path(user.id), class: "btn btn-flat btn-primary"%>
+                  <% if current_user.can?('edit_users') %>
+                    <%= link_to "Editer", edit_user_path(user.id), class: "btn btn-flat btn-primary"%>
                   <% end %>
-                  <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Fermer</button>
+                  
                 </div>
               </div>
 

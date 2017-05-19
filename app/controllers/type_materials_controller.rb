@@ -24,7 +24,7 @@ class TypeMaterialsController < ApplicationController
     if @type_material.save
       render json: @type_material.id, status: :created
     else
-      render json: @type_material.errors, status: 422
+      render json: @type_material.errors.full_messages, status: 422
     end
   end
 
@@ -34,7 +34,7 @@ class TypeMaterialsController < ApplicationController
     if @type_material.update(type_material_params)
       render json: nil
     else
-      render json: @type_material.errors, status: 422
+      render json: @type_material.errors.full_messages, status: 422
     end
   end
 
@@ -44,7 +44,7 @@ class TypeMaterialsController < ApplicationController
     if @type_material.destroy
       render json: nil
     else
-      render json: @type_material.errors, status: 422
+      render json: @type_material.errors.full_messages, status: 422
     end
   end
 

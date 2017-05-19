@@ -172,48 +172,4 @@ RSpec.describe SousCategoriesController, type: :controller do
       end
     end
   end
-  describe 'HTML' do
-    before { request.accept = 'text/html' }
-    context 'not connected' do
-      describe '#index' do
-        it 'should redirect_to root_path' do
-          get :index
-
-          expect(response).to redirect_to root_path
-        end
-      end
-    end
-    context 'connected' do
-      context 'have the right' do
-        before do
-          agency = create(:agency)
-          admin = create(:admin, agency_id: agency.id)
-
-          sign_in admin
-        end
-        describe '#index' do
-          it 'should show the sous_category' do
-            get :index
-
-            expect(response).to render_template :index
-          end
-        end
-      end
-      context "don't have the right" do
-        before do
-          agency = create(:agency)
-          user = create(:user, agency_id: agency.id)
-
-          sign_in user
-        end
-        describe '#index' do
-          it 'should redirect_to root_path' do
-            get :index
-
-            expect(response).to redirect_to root_path
-          end
-        end
-      end
-    end
-  end
 end

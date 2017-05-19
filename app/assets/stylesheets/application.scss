@@ -19,6 +19,7 @@
 *= require selectize.bootstrap3
 *= require sweetalert
 *= require rights
+*= require modals
 */
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -70,3 +71,9 @@ div.signup-page {
   min-height: 95vh;
 }
 // Blocks -- End
+
+// Buttons -- Begin
+// .btn-success{
+//   padding-bottom: 0;
+// }
+// Buttons -- End

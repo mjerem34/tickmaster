@@ -92,11 +92,11 @@
               </ul>
             </li>
             <li class='footer'>
-            #{link_to("Nouvelle mise à jour", new_update_url) if @create_update }
+            #{link_to("Nouvelle mise à jour", new_update_url) if current_user.can?('create_update') }
             </li>
           </ul>
         </li>
-        ".html_safe if @view_update %>
+        ".html_safe if current_user.can?('index_update') %>
         <!-- User Account Menu -->
         <li class="dropdown user user-menu">
           <!-- Menu Toggle Button -->
@@ -194,8 +194,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <%= "<li>".html_safe + link_to('Liste des procedures', procedures_url) + "</li>".html_safe if @view_procedures %>
-            <%= "<li>".html_safe + link_to('Créer procedures', new_procedure_url) + "</li>".html_safe if @create_procedure %>
+            <%= "<li>".html_safe + link_to('Liste des procedures', procedures_url) + "</li>".html_safe if current_user.can?('index_procedures') %>
+            <%= "<li>".html_safe + link_to('Créer procedures', new_procedure_url) + "</li>".html_safe if current_user.can?('create_procedures') %>
           </ul>
         </li>
         <li class="treeview">
@@ -206,21 +206,11 @@
           </a>
           <ul class="treeview-menu">
             <%= "<li>".html_safe + link_to("Mes incidents", current_user) + "</li>".html_safe %>
-            <%= "<li>".html_safe + link_to("A traiter", to_treat_user_url(current_user)) + "</li>".html_safe if @without_tech_incidents %>
-            <%= "<li>".html_safe + link_to("Non attribués", without_tech_incidents_url) + "</li>".html_safe if @without_tech_incidents %>
-            <%= "<li>".html_safe + link_to("Tous les incidents", incidents_url) + "</li>".html_safe if @index_incidents %>
+            <%= "<li>".html_safe + link_to("A traiter", to_treat_user_url(current_user)) + "</li>".html_safe if current_user.can?('without_tech_incidents') %>
+            <%= "<li>".html_safe + link_to("Non attribués", without_tech_incidents_url) + "</li>".html_safe if current_user.can?('without_tech_incidents') %>
+            <%= "<li>".html_safe + link_to("Tous les incidents", incidents_url) + "</li>".html_safe if current_user.can?('index_incidents') %>
             <%= "<li>".html_safe + link_to("Cloturés/Rejetés", allincidents_user_url(current_user)) + "</li>".html_safe %>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-sitemap"></i> <span>Catégories</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <%= "<li>".html_safe + link_to("Catégories", categories_url) + "</li>".html_safe if @index_categories %>
-            <%= "<li>".html_safe + link_to("Sous-Catégories", sous_categories_url) + "</li>".html_safe if @index_categories %>
+            <%= "<li>".html_safe + link_to("Liste des catégories", categories_url) + "</li>".html_safe if current_user.can?('index_categories') %>
           </ul>
         </li>
         <li class="treeview">
@@ -230,9 +220,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <%= "<li>".html_safe + link_to("Tous les utilisateurs", users_url) + "</li>".html_safe if @index_users %>
-            <%= "<li>".html_safe + link_to("Créer un utilisateur", new_type_user_url) + "</li>".html_safe if @create_new_tech %>
-            <%= "<li>".html_safe + link_to("Champs utilisateurs", field_type_users_url) + "</li>".html_safe if @index_field_type_users %>
+            <%= "<li>".html_safe + link_to("Tous les utilisateurs", users_url) + "</li>".html_safe if current_user.can?('index_users') %>
+            <%= "<li>".html_safe + link_to("Créer un utilisateur", new_type_user_url) + "</li>".html_safe if current_user.can?('create_users') %>
+            <%= "<li>".html_safe + link_to("Champs utilisateurs", field_type_users_url) + "</li>".html_safe if current_user.can?('index_field_type_users') %>
           </ul>
         </li>
         <li class="treeview">
@@ -242,8 +232,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <%= "<li>".html_safe + link_to("Liste des droits", rights_url) + "</li>".html_safe if @view_index_rights %>
-            <%= "<li>".html_safe + link_to("Profils utilisateurs", type_users_url) + "</li>".html_safe if @view_type_users %>
+            <%= "<li>".html_safe + link_to("Liste des droits", rights_url) + "</li>".html_safe if current_user.can?('index_rights') %>
+            <%= "<li>".html_safe + link_to("Profils utilisateurs", type_users_url) + "</li>".html_safe if current_user.can?('index_type_users') %>
           </ul>
         </li>
         <li class="treeview">
@@ -253,10 +243,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <%= "<li>".html_safe + link_to("Liste des agences", agencies_url) + "</li>".html_safe if @index_agencies %>
-            <%= "<li>".html_safe + link_to("Nouvelle agence", new_agency_url) + "</li>".html_safe if @new_agencies %>
-            <%= "<li>".html_safe + link_to("Champs agences", field_agencies_url) + "</li>".html_safe if @index_field_agencies %>
-            <%= "<li>".html_safe + link_to("Pinger les agences", ping_agencies_url) + "</li>".html_safe if @ping_agencies %>
+            <%= "<li>".html_safe + link_to("Liste des agences", agencies_url) + "</li>".html_safe if current_user.can?('index_agencies') %>
+            <%= "<li>".html_safe + link_to("Nouvelle agence", new_agency_url) + "</li>".html_safe if current_user.can?('new_agencies') %>
+            <%= "<li>".html_safe + link_to("Champs agences", field_agencies_url) + "</li>".html_safe if current_user.can?('index_field_agencies') %>
+            <%= "<li>".html_safe + link_to("Pinger les agences", ping_agencies_url) + "</li>".html_safe if current_user.can?('ping_agencies') %>
           </ul>
         </li>
         <li class="treeview">
@@ -266,13 +256,13 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <%= "<li>".html_safe + link_to("Nouveau matériel", new_material_url) + "</li>".html_safe if @create_material %>
-            <%= "<li>".html_safe + link_to("Liste des matériels", materials_url) + "</li>".html_safe if @view_material %>
-            <%= "<li>".html_safe + link_to("Liste des vendeurs", sellers_url) + "</li>".html_safe if @view_sellers %>
-            <%= "<li>".html_safe + link_to("Champs vendeurs", field_sellers_url) + "</li>".html_safe if @index_field_sellers %>
-            <%= "<li>".html_safe + link_to("Types de matériels", type_materials_url) + "</li>".html_safe if @view_type_material %>
-            <%= "<li>".html_safe + link_to("Types de caractéristiques techniques", spec_type_materials_url) + "</li>".html_safe if @view_spec_type_material %>
-            <%= "<li>".html_safe + link_to("Caractéristiques techniques", spec_materials_url) + "</li>".html_safe if @view_spec_material %>
+            <%= "<li>".html_safe + link_to("Nouveau matériel", new_material_url) + "</li>".html_safe if current_user.can?('create_materials') %>
+            <%= "<li>".html_safe + link_to("Liste des matériels", materials_url) + "</li>".html_safe if current_user.can?('index_materials') %>
+            <%= "<li>".html_safe + link_to("Liste des vendeurs", sellers_url) + "</li>".html_safe if current_user.can?('index_sellers') %>
+            <%= "<li>".html_safe + link_to("Champs vendeurs", field_sellers_url) + "</li>".html_safe if current_user.can?('index_field_sellers') %>
+            <%= "<li>".html_safe + link_to("Types de matériels", type_materials_url) + "</li>".html_safe if current_user.can?('index_type_materials') %>
+            <%= "<li>".html_safe + link_to("Types de caractéristiques techniques", spec_type_materials_url) + "</li>".html_safe if current_user.can?('index_spec_type_materials') %>
+            <%= "<li>".html_safe + link_to("Caractéristiques techniques", spec_materials_url) + "</li>".html_safe if current_user.can?('index_spec_materials') %>
           </ul>
         </li>
         <li class="treeview">

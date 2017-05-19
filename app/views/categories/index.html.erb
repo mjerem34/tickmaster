@@ -1,52 +1,77 @@
 <div class="table-responsive">
-  <table class="table table-hover table-bordered dataTable">
-    <thead class="header">
+  <table class="table table-hover categories">
+    <thead>
       <tr>
-        <th>#</th>
         <th>Nom</th>
-        <th></th>
         <th></th>
       </tr>
     </thead>
     <tbody>
       <% @categories.each do |category| %>
-      <tr>
-        <td onClick="document.location.href='<%=edit_category_path(category)%>'"><%= category.id %></td>
-        <% if @show_categories then %>
-        <td onClick="document.location.href='<%=edit_category_path(category)%>'"><%= category.name %></td>
-      <% else %>
+      <tr data-toggle="modal" data-target="#<%= category.id %>">
         <td><%= category.name %></td>
-        <% end %>
-        <% if @destroy_categories then %>
-        <td><%= link_to 'Supprimer', category, method: :delete, data: { confirm: 'Êtes vous VRAIMENT sûr de vouloir supprimer cette catégorie ? Non, je dis ça parce que si vous la supprimez le monde entier va exploser ! Je vous aurais prévenu !' }%></td>
-        <% end %>
-        <td>
-          <p>&laquo;</p>
-        </td>
-
+        <td></td>
       </tr>
-
       <% end %>
-      <tr class="formsnewsubcats">
-        <%= simple_form_for(@category) do |f| %>
-        <td>
-          <p style="font-size:2em;">&raquo;</p>
-        </td>
-        <td class='newsubcat'><%= f.text_field :name, class: "form-control ", placeholder: "Nom(Requis)", style: "margin-left:0px;"%></td>
-        <td colspan="1"></td>
-        <td class='newsubcat'>
-          <p type="submit" name="commit" class="btn btn-flat btn-success btn-create-category submit " id="sendButton">+</p>
-        </td>
-        <% end %>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div class="actions"></div>
+      <tr class='create_categories'>
+        <td><input type='text' name='category_name' class='form-control' placeholder='Nom(Requis)'/></td>
+        <td><button type='button' name='create_button' class="btn btn-flat btn-success">+</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-<br>
-<script type="text/javascript">
-  $("#sendButton").click(function () {
-    $("#new_category").submit();
-  });
-</script>
+  <% @categories.each do |category| %>
+  <div class="container-modal">
+    <div class="modal fade" id="<%= category.id %>" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <i>Nom : </i>
+            <i>Appuyez sur entrée pour éditer le nom de la catégorie</i>
+            <h4 class="modal-title"><input type='text' name='name_category' class='form-control' data-id='<%= category.id %>' value='<%= category.name %>'/></h4>
+          </div>
+          <div class="modal-body">
+            <i>Sous catégories : </i>
+            <div class="table-responsive">
+              <table class="table table-hover sous_categories_<%= category.id %>">
+                <thead class="header">
+                  <tr>
+                    <th>Nom</th>
+                    <th>Urgence max</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% category.sous_categories.each do |sous_category| %>
+                  <tr class='sous_categories'>
+                    <td><input type='text' name='sous_category_name' class='form-control' value='<%= sous_category.name %>'/></td>
+                    <td><input type='number' name='sous_category_lvl_urgence_max' class='form-control' value='<%= sous_category.lvl_urgence_max%>'/></td>
+                    <td><button type='button' name='destroy_sous_category' class='btn btn-flat btn-danger' data-id='<%= sous_category.id %>'>-</button></td>
+                  </tr>
+                  <% end %>
+                  <tr class='create_sous_categories'>
+                    <td><input type='text' name='sous_category_name' class='form-control' data-category="<%= category.id %>" placeholder='Nom(Requis)'/></td>
+                    <td><input type='number' name='sous_category_lvl_urgence_max' class='form-control' step="1" value='1' min="1" max="10"/></td>
+                    <td><button type='button' name='create_button' class="btn btn-flat btn-success">+</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <% if current_user.can?('destroy_categories') then %>
+              <button type='button' name='button' class='btn btn-flat btn-danger' id='delete_category' data-id='<%= category.id %>'>Supprimer</button>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+
+    <% content_for :js do %>
+    <%= javascript_include_tag 'categories' %>
+    <%= javascript_include_tag 'sous_categories' %>
+    <% end %>

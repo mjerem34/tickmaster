@@ -66,9 +66,9 @@ RSpec.describe UsersController, type: :controller do
     context 'connected' do
       context 'have the right' do
         before do
-          @user = create(:admin, agency_id: @agency.id)
+          @admin = create(:admin, agency_id: @agency.id)
 
-          sign_in @user
+          sign_in @admin
         end
         describe '#index' do
           it 'should display the whole list of user' do
@@ -78,15 +78,15 @@ RSpec.describe UsersController, type: :controller do
           end
         end
         describe '#show' do
-          it 'should display the list of the incidents' do
-            get :show, id: @user.id
+          it 'should display the list of the incidents of the user' do
+            get :show, id: @admin.id
 
-            expect(response).to render_template(:show)
+            expect(response).to render_template :show
           end
         end
         describe '#edit' do
           it "should render the form if it's his profile" do
-            get :edit, id: @user.id
+            get :edit, id: @admin.id
 
             expect(response).to render_template(:edit)
           end
@@ -105,14 +105,14 @@ RSpec.describe UsersController, type: :controller do
         end
         describe '#to_treat' do
           it 'should render to treat template' do
-            get :to_treat, id: @user.id
+            get :to_treat, id: @admin.id
 
             expect(response).to render_template :to_treat
           end
         end
         describe '#allincidents' do
           it 'should render the template' do
-            get :allincidents, id: @user.id
+            get :allincidents, id: @admin.id
 
             expect(response).to render_template :allincidents
           end

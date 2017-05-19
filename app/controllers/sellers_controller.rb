@@ -29,7 +29,7 @@ class SellersController < ApplicationController
     if @seller.save
       render json: @seller.id, status: :created
     else
-      render json: @seller.errors, status: 422
+      render json: @seller.errors.full_messages, status: 422
     end
   end
 
@@ -38,7 +38,7 @@ class SellersController < ApplicationController
     if @seller.update(seller_params)
       render json: nil
     else
-      render json: @seller.errors, status: 422
+      render json: @seller.errors.full_messages, status: 422
     end
   end
 
@@ -48,7 +48,7 @@ class SellersController < ApplicationController
     if @seller.destroy
       render json: nil
     else
-      render json: @seller.errors, status: 422
+      render json: @seller.errors.full_messages, status: 422
     end
   end
 
@@ -60,7 +60,7 @@ class SellersController < ApplicationController
     )
       render json: @type_material.id
     else
-      render json: @type_material.errors, status: 422
+      render json: @type_material.errors.full_messages, status: 422
     end
   end
 
@@ -73,7 +73,7 @@ class SellersController < ApplicationController
     if @type_material_seller.delete_all
       render json: nil
     else
-      render json: @type_material_seller.errors, status: 422
+      render json: @type_material_seller.errors.full_messages, status: 422
     end
   end
 
@@ -86,7 +86,7 @@ class SellersController < ApplicationController
     if @field_seller_seller.save
       render json: nil
     else
-      render json: @field_seller.errors, status: 422
+      render json: @field_seller.errors.full_messages, status: 422
     end
   end
 
@@ -95,7 +95,7 @@ class SellersController < ApplicationController
     if @field_seller_seller.update_all(content: params[:content])
       render json: nil
     else
-      render json: @field_seller_seller.errors, status: 422
+      render json: @field_seller_seller.errors.full_messages, status: 422
     end
   end
 
@@ -104,7 +104,7 @@ class SellersController < ApplicationController
     if @field_seller_seller.delete_all
       render json: nil
     else
-      render json: @field_seller_seller.errors, status: 422
+      render json: @field_seller_seller.errors.full_messages, status: 422
     end
   end
 

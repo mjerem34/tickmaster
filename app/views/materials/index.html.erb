@@ -51,13 +51,13 @@
                 <p>Détenteur : <%= link_to "#{detentor.name}", edit_agency_path(detentor.id) %></p>
                 <% else %>
                 <!-- Alors c'est un utilisateur -->
-                <p>Détenteur : <%= link_to "#{detentor.name + ' ' + detentor.surname}", profil_user_path(detentor.id) %></p>
+                <p>Détenteur : <%= link_to "#{detentor.name + ' ' + detentor.surname}", edit_user_path(detentor.id) %></p>
                 <% end %>
               </div>
               <div class="modal-footer">
                 <%= link_to 'Editer', edit_material_path(material), class: 'btn btn-flat btn-success' %>
                 <%= link_to 'Supprimer', material, method: :delete, data: { confirm: 'Êtes vous sûr de vouloir supprimer ce matériel ?' }, class: 'btn btn-flat btn-primary' %>
-                <button type="button" class="btn btn-flat btn-danger" data-dismiss="modal">Fermer</button>
+                
               </div>
             </div>
           </div>

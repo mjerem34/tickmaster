@@ -35,7 +35,7 @@ class TypeUsersController < ApplicationController
         format.js
         format.json { render json: @type_user.id, status: :created }
       else
-        format.json { render json: @type_user.errors, status: 422 }
+        format.json { render json: @type_user.errors.full_messages, status: 422 }
       end
     end
   end
@@ -48,7 +48,7 @@ class TypeUsersController < ApplicationController
         format.js
         format.json { head :no_content }
       else
-        format.json { render json: @type_user.errors, status: 422 }
+        format.json { render json: @type_user.errors.full_messages, status: 422 }
       end
     end
   end
@@ -60,7 +60,7 @@ class TypeUsersController < ApplicationController
         format.js
         format.json { head :no_content }
       else
-        format.json { render json: @type_user.errors, status: 422 }
+        format.json { render json: @type_user.errors.full_messages, status: 422 }
       end
     end
   end

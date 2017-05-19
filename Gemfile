@@ -95,4 +95,6 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'spring'
   gem 'thin'
+  gem 'guard-livereload'
+  gem 'guard-bundler'
 end

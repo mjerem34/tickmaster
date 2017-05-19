@@ -14,6 +14,19 @@ RSpec.describe SousCategory, type: :model do
 
   it { expect(build(:sous_category, lvl_urgence_max: nil)).not_to be_valid }
 
+  # Can't have the same name AND the same category_id
+  # Tested on 'Autre' because when create Category, an sous_category 'Autre'
+  # Is created
+  # Case insensitive
+  it { expect(build(:sous_category, name: 'autre', category_id: @category.id)).not_to be_valid }
+
+  it 'can have the same name if categ is not the same' do
+    category = create(:category)
+    build(:sous_category, name: 'test', category_id: @category.id)
+
+    expect(build(:sous_category, name: 'test', category_id: category.id)).to be_valid
+  end
+
   it 'should render the category' do
     sous_category = create(:sous_category, category_id: @category.id)
 

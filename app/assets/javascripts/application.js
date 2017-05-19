@@ -130,4 +130,14 @@ $(document).ready(function(){
       }
     });
   });
+
+  // $(document).on('keyup', 'input[type="number"]', function(e){
+  //   alert($(this).val());
+  //   alert($(this).attr("max"));
+  //   if ($(this).val() > $(this).attr("max")) {
+  //     $(this).val($(this).attr("max"));
+  //   // }else if ($(this).val() < $(this).attr('min')) {
+  //   //   $(this).val($(this).attr("min"));
+  //   }
+  // });
 });
