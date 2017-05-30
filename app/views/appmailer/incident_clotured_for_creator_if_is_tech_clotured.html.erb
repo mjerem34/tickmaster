@@ -93,10 +93,7 @@
                     <% end %>
                     <% @responses.each do |response| %>
                     <p class="callout">
-                      <strong>Message de
-                        <%= @users.where(id: response.sender_id).pluck(:name, :surname).join(' ')%>
-                        à
-                        <%= @users.where(id: response.receiver_id).pluck(:name, :surname).join(' ')%>
+                      <strong>Message de <%= "#{response.sender.name}, #{response.sender.surname}" %>
                         :
                       </strong><br>
                       <%= response.content %>

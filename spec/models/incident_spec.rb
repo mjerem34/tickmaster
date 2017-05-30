@@ -38,12 +38,12 @@ RSpec.describe Incident, type: :model do
     before { @incident = create(:incident, user_id: @user.id, tech_id: @admin.id, category_id: @category.id, sous_category_id: @sous_category.id, lvl_urgence_user: 5) }
 
     it 'render responses of the incident' do
-      response = create(:response, incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)
+      response = create(:response, incident_id: @incident.id, sender_id: @user.id)
 
       expect(@incident.responses).to eq [response]
     end
     it 'render archives of the incident' do
-      archive = create(:archive, incident_id: @incident.id, sender_id: @user.id, receiver_id: @admin.id)
+      archive = create(:archive, incident_id: @incident.id, sender_id: @user.id)
 
       expect(@incident.archives).to eq [archive]
     end

@@ -30,7 +30,7 @@ class AppMailer < ApplicationMailer
     @incident = incident
     @users = users
     @response = response
-    mail(to: users.where(id: response.receiver_id).pluck(:email).join('').to_s, subject: "Vous avez reçu une réponse liée à l'incident n°#{incident.id}.",
+    mail(to: users.where(id: incident.tech_id).pluck(:email).join('').to_s, subject: "Vous avez reçu une réponse liée à l'incident n°#{incident.id}.",
          template_path: '/appmailer', template_name: 'incident_replied_for_receiver')
   end
 
@@ -181,11 +181,7 @@ class AppMailer < ApplicationMailer
   private
 
   def test_connection
-    if smtp = Net::SMTP.start('auth.smtp.1and1.fr', 587)
-      return true
-    else
-      return false
-    end
+    return true if smtp = Net::SMTP.start('auth.smtp.1and1.fr', 587)
     smtp.finish
   end
 end

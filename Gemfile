@@ -27,8 +27,6 @@ gem 'jquery-rails'
 gem 'selectize-rails'
 # Ping the world !
 gem 'net-ping'
-# To see beautiful alert() in js
-gem 'sweetalert-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # Don't use Turbolinks
 # gem 'turbolinks'
@@ -48,7 +46,6 @@ gem 'passenger'
 gem 'bootstrap-slider-rails'
 # To make charts in ping
 gem 'highcharts-rails'
-gem 'slim-rails'
 # Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser
 gem 'nokogiri'
 # Slim progress bars for Ajax'y applications
@@ -69,7 +66,7 @@ gem 'carrierwave' # => IN USE
 # Chosen is a library for making long, unwieldy select boxes more user friendly.
 gem 'chosen-rails'
 # CKEditor is a WYSIWYG text editor
-gem 'ckeditor', '4.1.4'
+gem "wysiwyg-rails"
 gem 'mini_magick'
 # gem 'compass-rails', git: 'https://github.com/Compass/compass-rails.git', '~> 2.0.5'
 gem 'compass-rails'

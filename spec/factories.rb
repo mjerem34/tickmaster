@@ -1,5 +1,8 @@
 require 'faker'
 FactoryGirl.define do
+  factory :attachment do
+    file "MyString"
+  end
   factory :admin, class: User do |f|
     f.surname { Faker::Name.first_name }
     f.name { Faker::Name.last_name }
@@ -21,7 +24,6 @@ FactoryGirl.define do
     # An archive is an copy of an answer
     # t.integer  "incident_id"
     # t.integer  "sender_id"
-    # t.integer  "receiver_id"
     f.content { Faker::Lorem.words(12).join(' ') }
     f.ip_address_sender { Faker::Internet.ip_v4_address }
   end
@@ -129,7 +131,6 @@ FactoryGirl.define do
   factory :response, class: Response do |f|
     # t.integer  "incident_id"
     # t.integer  "sender_id"
-    # t.integer  "receiver_id"
     f.content { Faker::Lorem.words(10).join(' ') }
     f.ip_address_sender '8.8.8.8'
   end

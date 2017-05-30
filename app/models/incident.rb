@@ -1,3 +1,4 @@
+# incident.rb
 class Incident < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'user_id'
   belongs_to :tech, class_name: 'User', foreign_key: 'tech_id'
@@ -15,13 +16,24 @@ class Incident < ActiveRecord::Base
   validates :title, presence: true, length: { in: 0..199 }
   validates :content, presence: true
   validates :user_id, presence: true
-  validates :tech_id, presence: true
   validates :category_id, presence: true
   validates :sous_category_id, presence: true
   validates :lvl_urgence_user, presence: true
+  validates :incident_state_id_for_user_id, presence: true
+  validates :incident_state_id_for_tech_id, presence: true
 
   before_update :verify_if_incident_is_reaffected
-  before_create :set_lvl_urgence_user_to_max
+  before_validation :set_lvl_urgence_user_to_max
+  before_validation :set_incident_state_id_for_user_id
+  before_validation :set_incident_state_id_for_tech_id
+
+  def set_incident_state_id_for_user_id
+    self.incident_state_id_for_user_id = 1
+  end
+
+  def set_incident_state_id_for_tech_id
+    self.incident_state_id_for_tech_id = 1
+  end
 
   def set_lvl_urgence_user_to_max
     self.lvl_urgence_user = sous_category.lvl_urgence_max if lvl_urgence_user > sous_category.lvl_urgence_max
@@ -67,7 +79,7 @@ class Incident < ActiveRecord::Base
       @response.save!
       @responses = Response.all.where(incident_id: incident.id)
       @responses.each do |response|
-        @archive = Archive.new(content: response.content, incident_id: response.incident_id, sender_id: response.sender_id, receiver_id: response.receiver_id, ip_address_sender: response.ip_address_sender, pc_id: response.pc_id)
+        @archive = Archive.new(content: response.content, incident_id: response.incident_id, sender_id: response.sender_id, ip_address_sender: response.ip_address_sender, pc_id: response.pc_id)
         response.destroy if @archive.save!
         begin
           AppMailer.incident_clotured_for_creator_if_is_creator_clotured(incident, @users, @responses).deliver_now

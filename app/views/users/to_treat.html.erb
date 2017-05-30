@@ -18,7 +18,7 @@
               <td><%= incident.user.surname %>
                 <%=incident.user.name %></td>
               <td><%= incident.category.name %></td>
-              <td><%= incident.created_at.strftime("%d %b %Y") %></td>
+              <td><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
               <% if current_user.type_user.is_tech == true %>
               <td><span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.shortcut %></span></td>
             <% else %>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="modal-footer">
                       <%= link_to "Détails", edit_incident_path(incident), class: "btn btn-flat btn-primary"%>
-                      
+
                     </div>
                   </div>
 

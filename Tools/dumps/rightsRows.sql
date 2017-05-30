@@ -3129,6 +3129,31 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (110,2
 
 --
 
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (111,'upload_attachments','Autorisé à uploader des fichiers');
+
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,1,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,2,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,3,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,4,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,5,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,6,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,7,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,8,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,9,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,10,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,11,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,12,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,13,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,14,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,15,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,16,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,17,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,18,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,19,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,20,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,21,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,22,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (111,23,1);
 
 ------ END ------
 -- Responses

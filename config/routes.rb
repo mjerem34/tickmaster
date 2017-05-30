@@ -11,7 +11,6 @@ Rails.application.routes.draw do
       delete :unbind
     end
   end
-  mount Ckeditor::Engine => '/ckeditor'
   resources :updates
   resources :type_materials do
     member do
@@ -74,9 +73,6 @@ Rails.application.routes.draw do
       get :send_tech_form
       get :order_by
     end
-    collection do
-      get :without_tech
-    end
     resources :responses
   end
   resources :procedures do
@@ -106,4 +102,6 @@ Rails.application.routes.draw do
   get '/rights', to: 'rights#index'
   get '/agencies', to: 'agencies#index'
   get '/sessions', to: redirect('/sessions/new')
+  post '/attachments/upload', to: 'attachments#upload'
+  put '/attachments/destroy', to: 'attachments#destroy'
 end

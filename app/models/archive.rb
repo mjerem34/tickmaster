@@ -2,7 +2,6 @@ class Archive < ActiveRecord::Base
   belongs_to :user
   belongs_to :incident
   belongs_to :sender, class_name: 'User', foreign_key: 'sender_id'
-  belongs_to :receiver, class_name: 'User', foreign_key: 'receiver_id'
 
   has_many :files_archives
   accepts_nested_attributes_for :files_archives, allow_destroy: true
@@ -12,6 +11,5 @@ class Archive < ActiveRecord::Base
   validates :content, presence: true, length: { in: 0..65_535 }
   validates :ip_address_sender, presence: true, length: { in: 0..20 }, format: { with: IP_REGEXP }
   validates :sender_id, presence: true
-  validates :receiver_id, presence: true
   validates :incident_id, presence: true
 end

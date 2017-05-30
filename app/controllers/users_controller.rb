@@ -64,10 +64,7 @@ class UsersController < ApplicationController
   # GET /users/:id
   # GET /users/:id.json
   def show
-    @incidents = Incident.where(
-      user_id: current_user.id,
-      incident_state_id_for_user_id: [1, 2, 3, 4, 5, 6, 8, 9, 11, 12]
-    ).includes(:user, :category, :sous_category).order('created_at desc')
+    @incidents = current_user.incidents
     respond_to do |format|
       format.json { render json: @incidents }
       format.html { render :show }
@@ -103,17 +100,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.json { render json: @incidents }
       format.html { render :to_treat }
-    end
-  end
-
-  # GET /users/:id/all_incidents
-  # GET /users/:id/all_incidents.json
-  # TODO : Mettre ça dans incidents
-  def allincidents
-    @incidents = Incident.where(user_id: current_user.id).includes(:user, :category, :sous_category).where(incident_state_id_for_user_id: [7, 10]).order('created_at desc')
-    respond_to do |format|
-      format.json { render json: @incidents }
-      format.html { render :allincidents }
     end
   end
 

@@ -1,245 +1,41 @@
 <%= render 'form_edit' %>
-<!-- Contenu si l'incident n'est pas cloturé -->
-<% if !clotured_or_rejected?(@incident)%>
-<div class="table-responsive messages_in_edit_incident">
-  <h3>Messages envoyés :</h3>
-  <table class="table table-hover">
-    <thead class="header">
-      <tr>
-        <th>Contenu</th>
-        <th>Contenu supplémentaire</th>
-        <th>Expéditeur</th>
-        <th>Destinataire</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @responses = Response.find_by_sql("SELECT `responses`.* FROM `responses` WHERE `incident_id` = #{@incident.id}")%>
-      <% @responses.each do |response| %>
-      <tr>
-        <td class="hover-cellule <%= response.id %>" data-toggle="modal" data-target="#<%= response.id %>">
-          <%= truncate(strip_tags(response.content), length: 40) %>
-        </td>
-        <% if !response.file_responses.nil? %>
-        <td>
-          <ol>
-            <% response.file_responses.each do |file| %>
-            <li><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-flat btn-default btn-link-pj')%></li>
-            <% end %>
-          </ol>
-        </td>
-      <% else %>
-        <td>Aucun</td>
-        <% end %>
-        <td><%= User.where(id: response.sender_id).pluck(:name, :surname).join(' ') %></td>
-        <% if !response.receiver_id.nil? %>
-        <td><%= User.where(id: response.receiver_id).pluck(:name, :surname).join(' ') %></td>
-      <% else %>
-        <td></td>
-        <% end %>
-        <td><%= response.created_at.strftime("%d %b %Y %H:%M") %></td>
-      </tr>
-      <div class="container-modal">
-        <!-- Modal -->
-        <div class="modal fade" id="<%= response.id %>" role="dialog">
-          <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Contenu détaillé du message</h4>
-              </div>
-              <div class="modal-body">
-                <p><%= strip_tags(response.content) %></p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-flat btn-default btn-modal" data-dismiss="modal">Fermer</button>
-              </div>
-            </div>
+<div class="box box-warning direct-chat direct-chat-warning">
+  <div class="box-header with-border">
+    <h3 class="box-title">Résolution du problème</h3>
 
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+    </div>
+  </div>
+  <div class="box-body">
+    <div class="direct-chat-messages">
+      <% @incident.responses.each do |response| %>
+      <% if current_user == response.sender %>
+      <div class="direct-chat-msg right">
+        <% else %>
+        <div class="direct-chat-msg">
+          <% end %>
+          <div class="direct-chat-info clearfix">
+            <span class="direct-chat-name pull-left"><%= "#{response.sender.name} #{response.sender.surname}" %></span>
+            <span class="direct-chat-timestamp pull-right"><%= response.created_at %></span>
+          </div>
+          <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="">
+          <div class="direct-chat-text">
+            <%= strip_tags(response.content) %>
           </div>
         </div>
-
-      </div>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-
-<% else %>
-
-<!-- Contenu si l'incident est cloturé  -->
-<div class="table-responsive messages_in_edit_incident">
-  <h3>Messages envoyés :</h3>
-  <table class="table table-hover">
-    <thead class="header">
-      <tr>
-        <th>Contenu</th>
-        <th>Contenu-supplémentaire</th>
-        <th>Expéditeur</th>
-        <th>Destinataire</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @responses = Archive.find_by_sql("SELECT * FROM `archives` WHERE `incident_id` = #{@incident.id}")%>
-      <% @responses.each do |response| %>
-      <% file_responses = FileArchive.where(archive_id: response.id) %>
-      <tr>
-        <td class="hover-cellule <%= response.id %>" data-toggle="modal" data-target="#<%= response.id %>">
-          <%= truncate(strip_tags(response.content), length: 40) %>
-        </td>
-        <% if !file_responses.nil? %>
-        <td>
-          <ol>
-            <% file_responses.each do |file| %>
-            <li><%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: 'btn btn-flat btn-default btn-link-pj')%></li>
-            <% end %>
-          </ol>
-        </td>
-      <% else %>
-        <td>Aucun</td>
         <% end %>
-        <td><%= User.where(id: response.sender_id).pluck(:name, :surname).join(' ') %></td>
-        <% if !response.receiver_id.nil? %>
-        <td><%= User.where(id: response.receiver_id).pluck(:name, :surname).join(' ') %></td>
-      <% else %>
-        <td></td>
-        <% end %>
-        <td><%= response.created_at.strftime("%d %b %Y %H:%M") %></td>
-      </tr>
-      <div class="container-modal">
-        <!-- Modal -->
-        <div class="modal fade" id="<%= response.id %>" role="dialog">
-          <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Contenu détaillé du message</h4>
-              </div>
-              <div class="modal-body">
-                <p><%= strip_tags(response.content) %></p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-flat btn-default btn-modal" data-dismiss="modal">Fermer</button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
       </div>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<% end %>
-<% if !clotured_or_rejected?(@incident)%>
-<div id="form_response">
-  <%= render 'responses/new' %>
-</div>
-<ul class="buttons-edit-incident-right buttons">
-  <li>
-    <button class="btn btn-flat btn-response" name="button" type="button">Message</button>
-  </li>
+    </div>
+    <div class="box-footer">
+      <div class="input-group">
+        <input name="message" placeholder="Écrivez un message ..." class="form-control" type="text">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-warning btn-flat">Envoyer</button>
+        </span>
+      </div>
+    </div>
+    <!-- /.box-footer-->
+  </div>
 
-  <script>
-    $(document).ready(function () {
-      $("#form_response").hide();
-      $(".btn-response").click(function () {
-        $(".actionsreject").hide()
-        $(".actionsresponses").show()
-        $(".actionsreaffect").hide()
-        $(".actionscloture").hide()
-        $("#form_response").slideDown(500);
-        $('html, body').animate({
-          scrollTop: 100000
-        }, 500);
-      });
-    });
-    $(document).ready(function () {
-      $(".btn-reject").click(function () {
-        $(".actionsreject").show()
-        $(".actionsreaffect").hide()
-        $(".actionscloture").hide()
-        $(".actionsresponses").hide()
-        $("#form_response").slideDown(500);
-        $('html, body').animate({
-          scrollTop: 100000
-        }, 500);
-      });
-    });
-    $(document).ready(function () {
-      $(".btn-reaffect").click(function () {
-        $(".actionsreject").hide()
-        $(".actionsresponses").hide()
-        $(".actionscloture").hide()
-        $(".actionsreaffect").show()
-        $("#form_response").slideDown(500);
-        $('html, body').animate({
-          scrollTop: 100000
-        }, 500);
-      });
-    });
-    $(document).ready(function () {
-      $(".btn-cloture").click(function () {
-        $(".actionsreject").hide()
-        $(".actionsresponses").hide()
-        $(".actionscloture").show()
-        $(".actionsreaffect").hide()
-        $("#form_response").slideDown(500);
-        $('html, body').animate({
-          scrollTop: 100000
-        }, 500);
-      });
-    });
-    $(document).ready(function () {
-      $(".btn-cancell").click(function () {
-        $("#form_response").slideToggle(500);
-        $('html, body').animate({
-          scrollTop: 100000
-        }, 500);
-      });
-    });
-  </script>
-  <% if @incident.incident_state_id_for_tech != 12 && @ask_for_reaffect && @incident.tech_id == current_user.id && !clotured_or_rejected?(@incident)%>
-  <li>
-    <button class="btn btn-flat btn-reaffect " name="button" type="button">Réaffecter</button>
-  </li>
-  <% end %>
-  <% if @cloture_incidents %>
-  <li>
-    <button class="btn btn-flat btn-cloture " name="button" type="button">Cloturer</button>
-  </li>
-  <% end %>
-  <% if @reject_incidents %>
-  <li>
-    <button class="btn btn-flat btn-reject " name="button" type="button">Rejeter</button>
-  </li>
-  <% end %>
-  <% if @create_procedure %>
-  <% @reps = "" %>
-  <% @responses.each do |response| %>
-  <% @reps = @reps + response.content + ";;" %>
-  <% end %>
-  <li><%= link_to "Procedure", new_procedure_path(nom: @incident.title,
-contenu: @incident.content, category_id: @incident.category_id,
-sous_category_id: @incident.sous_category_id, messages: @reps), class: "btn btn-flat btn-default btn-procedure " %></li>
-  <% end %>
-</ul>
-<% end %>
-
-<% if clotured_or_rejected?(@incident)%>
-<% if @create_procedure %>
-<ul class="buttons-edit-incident-right-clotured">
-  <% @reps = "" %>
-  <% @responses.each do |response| %>
-  <% @reps = @reps + response.content + ";;" %>
-  <% end %>
-  <li><%= link_to "Procedure", new_procedure_path(nom: @incident.title,
-    contenu: @incident.content, category_id: @incident.category_id,
-    sous_category_id: @incident.sous_category_id, messages: @reps), class: "btn btn-flat btn-procedure " %></li>
-</ul>
-<% end %>
-<% end %>
+  <!--

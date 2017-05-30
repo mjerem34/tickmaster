@@ -1,17 +1,4 @@
 <%= form_for @incident, html: { multipart: true } do |f| %>
-<% if @incident.errors.any? %>
-<div id="error_explanation">
-  <h2><%= pluralize(@incident.errors.count, "error") %>
-    prohibited this incident from being saved:</h2>
-
-  <ul>
-    <% @incident.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-    <% end %>
-  </ul>
-</div>
-<% end %>
-<br>
 <div class="row">
   <div class="col-md-4">
       <div class="field">
@@ -40,7 +27,7 @@
                   </div>
                   <div class="modal-footer">
                     <%= link_to "Détails", edit_user_path(@incident.user), class: "btn btn-flat btn-primary"%>
-                    
+
                   </div>
                 </div>
 
@@ -150,29 +137,16 @@
   <div class="col-md-8">
     <div class="field">
       <%= f.label "Contenu", class: ""  %><br>
-      <% if @edit_incidents %>
-      <%=f.cktext_area :content, :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control "%>
+      <% if current_user.can?('edit_incidents') %>
+      <%= f.text_area :content, class: 'froalaEditor' %>
       <% else %>
-      <%=f.cktext_area :content, :ckeditor => {:language => 'fr'}, :id => 'incident_content incident_content', :class => "form-control ", :disabled => "disabled"%>
+      <%= f.text_area :content, class: 'froalaEditor', disabled: true %>
       <% end %>
     </div>
 
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <%= f.label "Fichiers :"%><br>
-    <% @incident.file_incidents.each do |file|%>
-    <% if file.content_type.include?("image") %>
-    <%= link_to "#{image_tag(file.file_url, size: '800x400')}".html_safe, file.file_url%>
-    <% else %>
-    <%= link_to("#{file.file_identifier}", file.file_url, action: :download, class: "form-control btn-link-pj btn btn-default") %>
-    <% end %>
-    <br><br>
-    <% end %>
-  </div>
-</div>
 <div class="row">
   <div class="col-md-12">
     <div class="actions">

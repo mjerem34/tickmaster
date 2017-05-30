@@ -207,9 +207,7 @@
           <ul class="treeview-menu">
             <%= "<li>".html_safe + link_to("Mes incidents", current_user) + "</li>".html_safe %>
             <%= "<li>".html_safe + link_to("A traiter", to_treat_user_url(current_user)) + "</li>".html_safe if current_user.can?('without_tech_incidents') %>
-            <%= "<li>".html_safe + link_to("Non attribués", without_tech_incidents_url) + "</li>".html_safe if current_user.can?('without_tech_incidents') %>
             <%= "<li>".html_safe + link_to("Tous les incidents", incidents_url) + "</li>".html_safe if current_user.can?('index_incidents') %>
-            <%= "<li>".html_safe + link_to("Cloturés/Rejetés", allincidents_user_url(current_user)) + "</li>".html_safe %>
             <%= "<li>".html_safe + link_to("Liste des catégories", categories_url) + "</li>".html_safe if current_user.can?('index_categories') %>
           </ul>
         </li>

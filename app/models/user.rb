@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :archives, dependent: :destroy
   has_many :field_users, dependent: :destroy
   has_many :field_type_users, through: :field_users
+  has_many :incidents
 
   accepts_nested_attributes_for :files_users, allow_destroy: true
 

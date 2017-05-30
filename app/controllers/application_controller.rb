@@ -125,9 +125,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Must send a notification to the anyone.
-  # For example when someone create a ticket, the dispatchor receive a notif.
-
   # Must reject the incident and send emails.
   def reject_it(incident)
     # Update the params of the incident.
