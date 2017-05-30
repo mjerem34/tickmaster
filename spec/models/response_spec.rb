@@ -29,8 +29,6 @@ RSpec.describe Response, type: :model do
 
     it { expect(@response.sender).to eq @user }
 
-    it { expect(@response.receiver).to eq @admin }
-
     it { expect(@response.incident).to eq @incident }
   end
 end

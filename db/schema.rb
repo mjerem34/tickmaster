@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20170523120734) do
     t.text     "content",           limit: 65535
     t.integer  "incident_id"
     t.integer  "sender_id",         limit: 2
-    t.integer  "receiver_id",       limit: 2
     t.string   "ip_address_sender",                            collation: "utf8_general_ci"
     t.integer  "pc_id"
     t.datetime "updated_at",                      null: false
@@ -193,7 +192,6 @@ ActiveRecord::Schema.define(version: 20170523120734) do
     t.text     "content",           limit: 65535
     t.integer  "incident_id"
     t.integer  "sender_id",         limit: 2
-    t.integer  "receiver_id",       limit: 2
     t.string   "ip_address_sender",                            collation: "utf8_general_ci"
     t.integer  "pc_id"
     t.datetime "created_at",                      null: false

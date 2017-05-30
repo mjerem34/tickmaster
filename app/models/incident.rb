@@ -23,7 +23,7 @@ class Incident < ActiveRecord::Base
   validates :incident_state_id_for_tech_id, presence: true
 
   before_update :verify_if_incident_is_reaffected
-  before_validation :set_lvl_urgence_user_to_max
+  before_create :set_lvl_urgence_user_to_max
   before_validation :set_incident_state_id_for_user_id
   before_validation :set_incident_state_id_for_tech_id
 

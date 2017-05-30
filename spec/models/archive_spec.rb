@@ -29,7 +29,6 @@ RSpec.describe Archive, type: :model do
 
     it { expect(@archive.sender).to eq @user }
 
-    it { expect(@archive.receiver).to eq @admin }
 
     it { expect(@archive.incident).to eq @incident }
   end

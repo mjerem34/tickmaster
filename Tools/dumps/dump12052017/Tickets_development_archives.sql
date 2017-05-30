@@ -27,7 +27,6 @@ CREATE TABLE `archives` (
   `content` text COLLATE utf8_unicode_ci,
   `incident_id` int(11) DEFAULT NULL,
   `sender_id` smallint(6) DEFAULT NULL,
-  `receiver_id` smallint(6) DEFAULT NULL,
   `ip_address_sender` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `pc_id` int(11) DEFAULT NULL,
   `updated_at` datetime NOT NULL,

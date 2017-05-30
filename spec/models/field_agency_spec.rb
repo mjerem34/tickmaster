@@ -10,5 +10,11 @@ RSpec.describe FieldAgency, type: :model do
     expect(build(:field_agency, name: field_agency.name)).not_to be_valid
   end
 
-  it 'return agencies'
+  it 'return agencies' do
+    field_agency = create(:field_agency)
+    agency = create(:agency)
+    create(:field_agency_agency, agency_id: agency.id, field_agency_id: field_agency.id)
+
+    expect(field_agency.agencies).to eq [agency]
+  end
 end

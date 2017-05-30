@@ -19,6 +19,4 @@ RSpec.describe Agency, type: :model do
 
     expect(agency.users).to eq [user]
   end
-  it 'should show incidents'
-  # TODO: Finish here !!!
 end

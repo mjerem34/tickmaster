@@ -27,7 +27,6 @@ CREATE TABLE `archives` (
   `content` text,
   `incident_id` int(11) NOT NULL,
   `sender_id` int(11) NOT NULL,
-  `receiver_id` int(11) NOT NULL,
   `ip_address_sender` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,

@@ -16,8 +16,6 @@ RSpec.describe Incident, type: :model do
 
   it { expect(build(:incident, user_id: nil, tech_id: @admin.id, category_id: @category.id, sous_category_id: @sous_category.id, lvl_urgence_user: 10)).not_to be_valid }
 
-  it { expect(build(:incident, user_id: @user.id, tech_id: nil, category_id: @category.id, sous_category_id: @sous_category.id, lvl_urgence_user: 10)).not_to be_valid }
-
   it { expect(build(:incident, user_id: @user.id, tech_id: @admin.id, category_id: nil, sous_category_id: @sous_category.id, lvl_urgence_user: 10)).not_to be_valid }
 
   it { expect(build(:incident, user_id: @user.id, tech_id: @admin.id, category_id: @category.id, sous_category_id: nil, lvl_urgence_user: 10)).not_to be_valid }
