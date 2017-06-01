@@ -2,14 +2,17 @@
 class Incident < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'user_id'
   belongs_to :tech, class_name: 'User', foreign_key: 'tech_id'
-  belongs_to :incident_state_id_for_tech, class_name: 'IncidentsState', foreign_key: 'incident_state_id_for_tech_id'
-  belongs_to :incident_state_id_for_user, class_name: 'IncidentsState', foreign_key: 'incident_state_id_for_user_id'
+  belongs_to :incident_state_id_for_tech,
+             class_name: 'IncidentsState',
+             foreign_key: 'incident_state_id_for_tech_id'
+  belongs_to :incident_state_id_for_user,
+             class_name: 'IncidentsState',
+             foreign_key: 'incident_state_id_for_user_id'
   belongs_to :sous_category
   belongs_to :category
 
   has_many :responses, dependent: :destroy
   has_many :archives, dependent: :destroy
-
 
   validates :title, presence: true, length: { in: 0..199 }
   validates :content, presence: true
@@ -20,7 +23,6 @@ class Incident < ActiveRecord::Base
   validates :incident_state_id_for_user_id, presence: true
   validates :incident_state_id_for_tech_id, presence: true
 
-  before_update :verify_if_incident_is_reaffected
   before_create :set_lvl_urgence_user_to_max
   before_validation :set_incident_state_id_for_user_id
   before_validation :set_incident_state_id_for_tech_id
@@ -35,33 +37,6 @@ class Incident < ActiveRecord::Base
 
   def set_lvl_urgence_user_to_max
     self.lvl_urgence_user = sous_category.lvl_urgence_max if lvl_urgence_user > sous_category.lvl_urgence_max
-  end
-
-  # This appenned every time an incident have params updated.
-  # It verify if the tech have changed.
-  def verify_if_incident_is_reaffected
-    if tech_id_changed?
-      self.incident_state_id_for_user_id = '2'
-      self.incident_state_id_for_tech_id = '2'
-      @users = User.all
-      @response = Response.new(content: 'Incident affecté', incident_id: id, sender_id: user_id)
-      @response.save!
-      begin
-        AppMailer.incident_affected_for_tech(self, @users).deliver_now
-      rescue
-        nil
-      end
-      begin
-        AppMailer.incident_affected_for_creator(self, @users).deliver_now
-      rescue
-        nil
-      end
-    end
-  end
-
-  # Mmh...
-  def downloadable?(user)
-    user != :guest
   end
 
   # Cron job every day that verify all the incidents non-clotured

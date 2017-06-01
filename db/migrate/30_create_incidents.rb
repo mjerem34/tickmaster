@@ -18,8 +18,6 @@ class CreateIncidents < ActiveRecord::Migration
       t.datetime :archived_at
       t.datetime :resolved_at
       t.timestamps null: false
-      t.boolean :notify_for_tech, default: 1
-      t.boolean :notify_for_user, default: 0
     end
   end
 end
