@@ -68,7 +68,7 @@
           <%= link_to "Pas encore inscrit ?", signup_path, class: "btn btn-flat btn-primary btn-block btn-flat"%>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-4">
-          <%= link_to 'Pseudonyme oublié ?', forget_identifiers_users_path, class: "btn btn-flat btn-danger btn-block btn-flat" %>
+          <button type="button" name="button" class="btn btn-flat btn-danger btn-block btn-flat" id="forget_credentials">Pseudonyme oublié ?</button>
         </div>
       </div>
       <% end %>
@@ -86,4 +86,8 @@
   <%= flash.now[:alert] = "Vous êtes déjà connecté !"%>
 </p>
 
+<% end %>
+
+<% content_for :js do %>
+  <% javascript_include_tag 'sessions' %>
 <% end %>

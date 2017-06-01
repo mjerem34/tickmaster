@@ -1,0 +1,25 @@
+<div class="table-responsive">
+  <table id="table_field_agencies" class="table table-hover">
+    <thead>
+      <tr>
+        <th>Nom</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input id="name_new_field_agency" class="form-control" type="text" name="name" value="" placeholder="Nom du champ"></td>
+        <td><button type="button" name="button" id="create_new_field_agency" class="btn btn-flat btn-success"></button></td>
+      </tr>
+      <% @field_agencies.each do |field_agency| %>
+      <tr>
+        <td><input type="text" name="name" value="<%= field_agency.name %>"></td>
+        <td><button type="button" name="button" id="delete_field_agency" class="btn btn-flat btn-danger"></button></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<% content_for :js do %>
+  <% javascript_include_tag 'field_agencies' %>
+<% end %>

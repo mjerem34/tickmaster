@@ -40,17 +40,6 @@ class ApplicationController < ActionController::Base
       @response.receiver_id = @incident.tech_id
     end
     if @response.save!
-      unless params[:file_responses].nil?
-        params[:file_responses]['file'].each do |a|
-          # if a.size > 31_457_280
-          # flash[:notice] = 'Doit être inférieur à 30 Mo'
-          flash[:notice] = 'Doit être inférieur à 5 Mo' if a.size > 5_242_880
-          @file_responses = @response.file_responses.create(
-            response_id: @response.id,
-            file: a
-          )
-        end
-      end
       case params[:commit]
       when 'Valider' then
         if @response.receiver.nil?
@@ -216,78 +205,6 @@ class ApplicationController < ActionController::Base
       format.html do
         redirect_to :edit_incident,
                     notice: 'Votre demande de cloture a bien été prise en compte.'
-      end
-    end
-  end
-
-  # Do the archivation of the answers and for her files.
-  def archivage
-    @responses.each do |response|
-      # Create a new archive with the sames values.
-      @archive = Archive.new(
-        content: response.content,
-        incident_id: response.incident_id,
-        sender_id: response.sender_id,
-        receiver_id: response.receiver_id,
-        ip_address_sender: response.ip_address_sender,
-        pc_id: response.pc_id
-      )
-      # Check if the answer does not have files.
-      # And if not, it goes after the .each.
-      next if response.file_responses.nil?
-      response.file_responses.each do |a|
-        # Create an identic file respon to the file_archive.
-        @file_archives = FileArchive.new(
-          archive_id: response.id,
-          file: a.file
-        )
-        # If the file is saved.
-        if @file_archives.save!
-          # It destroy the own file.
-          a.destroy
-          # Or ...
-        else
-          respond_to do |format|
-            format.json do
-              render json: "Une erreur est apparue lors de
-              l'archivage des fichiers de l'incident. Merci de contacter votre
-              administrateur en lui fournissant ces informations
-              : #{@file_archives.inspect} ------ #{response.inspect}
-              ------ #{incident.inspect}",
-                     status: 409
-            end
-            format.html do
-              redirect_to :back,
-                          notice: "Une erreur est
-                          apparue lors de l'archivage des fichiers de l'incident. Merci de
-                          contacter votre administrateur en lui fournissant ces informations
-                           : #{@file_archives.inspect} ------ #{response.inspect}
-                           ------ #{incident.inspect}"
-            end
-          end
-        end
-      end
-      # If the archive of the answer is saved.
-      if @archive.save!
-        # It destroy the own answer.
-        response.destroy!
-        # Or ...
-      else
-        respond_to do |format|
-          format.json do
-            render json: "Une erreur est apparue lors de l'archivage
-             de l'incident. Merci de contacter votre administrateur en lui
-              fournissant ces informations : #{@file_archives.inspect}
-              ------ #{response.inspect} ------ #{incident.inspect}",
-                   status: 409
-          end
-          format.html do
-            redirect_to :back, notice: "Une erreur est apparue lors de
-             l'archivage de l'incident. Merci de contacter votre administrateur
-             en lui fournissant ces informations : #{@file_archives.inspect}
-             ------ #{response.inspect} ------ #{incident.inspect}"
-          end
-        end
       end
     end
   end

@@ -48,10 +48,11 @@
     <div class="social-auth-links text-center">
       <p>- Un problème ? -</p>
       <%= link_to "J'ai déjà un compte", signin_url, class: 'btn btn-flat btn-info btn-block' %>
-      <%= link_to "J'ai oublié mes identifiants", forget_identifiers_users_url, class: 'btn btn-flat btn-danger btn-block' %>
+      <button type="button" name="button" class="btn btn-flat btn-danger btn-block btn-flat" id="forget_credentials">Pseudonyme oublié ?</button>
     </div>
   </div>
 </div>
 <% content_for :js do %>
 <%= javascript_include_tag 'users' %>
+<%= javascript_include_tag 'sessions' %>
 <% end %>

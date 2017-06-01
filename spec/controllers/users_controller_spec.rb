@@ -12,13 +12,6 @@ RSpec.describe UsersController, type: :controller do
           expect(response).to redirect_to(root_path)
         end
       end
-      describe '#forget_identifiers' do
-        it 'should render_template' do
-          get :forget_identifiers
-
-          expect(response).to render_template(:forget_identifiers)
-        end
-      end
       describe '#show' do
         it 'should redirect to root path' do
           user = create(:user, agency_id: @agency.id)
@@ -49,15 +42,6 @@ RSpec.describe UsersController, type: :controller do
           user = create(:user, agency_id: @agency.id)
 
           get :edit, id: user.id
-
-          expect(response).to redirect_to root_path
-        end
-      end
-      describe '#allincidents' do
-        it 'should redirect to root_path' do
-          user = create(:user, agency_id: @agency.id)
-
-          get :allincidents, id: user.id
 
           expect(response).to redirect_to root_path
         end
@@ -97,24 +81,12 @@ RSpec.describe UsersController, type: :controller do
 
             expect(response).to render_template(:edit)
           end
-          it 'should redirect if user does not exists' do
-            get :edit, id: 1
-
-            expect(response).to redirect_to root_path
-          end
         end
         describe '#to_treat' do
           it 'should render to treat template' do
             get :to_treat, id: @admin.id
 
             expect(response).to render_template :to_treat
-          end
-        end
-        describe '#allincidents' do
-          it 'should render the template' do
-            get :allincidents, id: @admin.id
-
-            expect(response).to render_template :allincidents
           end
         end
       end
@@ -148,23 +120,11 @@ RSpec.describe UsersController, type: :controller do
             expect(response).to redirect_to root_path
           end
         end
-        describe '#allincidents' do
-          it 'should render the template' do
-            get :allincidents, id: @user.id
-
-            expect(response).to render_template :allincidents
-          end
-        end
       end
     end
   end
   describe 'JSON' do
     before { request.accept = 'application/json' }
-    context '#forget_identifiers' do
-      it 'should success to send email if user exists'
-      it 'should fail to send email if no internet access'
-      it 'should fail to send email if user does not exists'
-    end
     it 'should content-type include app/json' do
       post :create, user: attributes_for(:user, agency_id: @agency.id)
 
@@ -200,15 +160,6 @@ RSpec.describe UsersController, type: :controller do
           user = create(:user, agency_id: @agency.id)
 
           get :to_treat, id: user.id
-
-          expect(response.status).to eq(401)
-        end
-      end
-      describe '#allincidents' do
-        it 'should render status unauthorized' do
-          user = create(:user, agency_id: @agency.id)
-
-          get :allincidents, id: user.id
 
           expect(response.status).to eq(401)
         end
@@ -282,15 +233,23 @@ RSpec.describe UsersController, type: :controller do
           end
         end
         describe '#show' do
-          it 'should render status ok' do
+          it 'should render status 403' do
             get :show, id: @user.id
 
-            expect(response.status).to eq(200)
+            expect(response.status).to eq(403)
           end
-          it 'should show incidents posted by him in body' do
+          it 'should show nothing in body' do
+            tech = create(:admin, agency_id: @agency.id)
+            category = create(:category)
+            create(:incident,
+                   user_id: @user.id,
+                   tech_id: tech.id,
+                   category_id: category.id,
+                   sous_category_id: category.sous_categories.first.id)
+
             get :show, id: @user.id
 
-            expect(response.body).to eq(@user.user_incidents.to_json)
+            expect(response.body).to eq 'null'
           end
         end
         describe '#to_treat' do
@@ -298,13 +257,6 @@ RSpec.describe UsersController, type: :controller do
             get :to_treat, id: @user.id
 
             expect(response.status).to eq(403)
-          end
-        end
-        describe '#allincidents' do
-          it 'should render status unauthorized' do
-            get :allincidents, id: @user.id
-
-            expect(response.status).to eq(200)
           end
         end
         describe '#create' do
@@ -371,29 +323,33 @@ RSpec.describe UsersController, type: :controller do
       end
       context 'when user have the authorization to do' do
         before do
-          @user = create(:admin, agency_id: @agency.id)
+          @admin = create(:admin, agency_id: @agency.id)
 
-          sign_in(@user)
+          sign_in @admin
         end
         describe '#create' do
           context 'with invalid attributes' do
-            before { post :create, user: attributes_for(:invalid_user) }
             it 'should not create an user' do
+              post :create, user: attributes_for(:invalid_user)
+
               expect(User.count).to eq(1)
+              expect(response.status).to eq(422)
             end
-            it { expect(response.status).to eq(422) }
           end
+
           context 'with valid attributes' do
             it 'should create a normal user' do
               post :create, user: attributes_for(:user, agency_id: @agency.id)
 
               expect(User.count).to eq 2
             end
+
             it 'should create an tech' do
               post :create, user: attributes_for(:admin, agency_id: @agency.id)
 
-              expect(User.count).to eq(2)
+              expect(User.count).to eq 2
             end
+
             it 'should respond with :created status' do
               post :create, user: attributes_for(:admin, agency_id: @agency.id)
 
@@ -401,14 +357,16 @@ RSpec.describe UsersController, type: :controller do
             end
           end
         end
+
         describe '#destroy' do
           it 'should respond with success' do
             new_user = create(:user, agency_id: @agency.id)
 
             delete :destroy, id: new_user.id
 
-            expect(response.status).to eq(204)
+            expect(response.status).to eq(200)
           end
+
           it 'should destroy the user' do
             new_user = create(:user, agency_id: @agency.id)
 
@@ -417,30 +375,44 @@ RSpec.describe UsersController, type: :controller do
             expect(User.count).to eq 1
           end
         end
+
         describe '#index' do
           it 'should display the users list' do
             get :index
 
             expect(response.body).to eq(User.all.to_json)
           end
+
           it 'should respond with 200 ok status' do
             get :index
 
             expect(response.status).to eq(200)
           end
         end
-        describe '#to_treat' do
-          it 'should render the incidents the user have to treat' do
-            get :to_treat, id: @user.id
 
-            expect(response.body).to eq @user.tech_incidents.to_json
+        describe '#to_treat' do
+          it 'should render the incidents the admin have to treat' do
+            user = create(:user, agency_id: @agency.id)
+            category = create(:category)
+            create(:incident,
+                   user_id: user.id,
+                   tech_id: @admin.id,
+                   category_id: category.id,
+                   sous_category_id: category.sous_categories.first.id,
+                   incident_state_id_for_tech_id: 2,
+                   incident_state_id_for_user_id: 2
+                   )
+
+            get :to_treat, id: @admin.id
+
+            expect(response.body).to eq @admin.tech_incidents.to_json
           end
         end
         describe '#update' do
           it 'should edit an part of the user' do
-            put :update, id: @user.id, user: { name: 'nijhioj' }
+            put :update, id: @admin.id, user: { name: 'nijhioj' }
 
-            expect(User.find(@user.id).name).to eq('nijhioj')
+            expect(User.find(@admin.id).name).to eq('nijhioj')
           end
           it 'should edit an part of other user' do
             new_user = create(:user, agency_id: @agency.id)

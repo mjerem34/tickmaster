@@ -9,10 +9,9 @@ class CreateUser
   end
 
   def call
-    puts @params.inspect
     @user = User.new(@params)
-    if !@current_user.nil? && @current_user.can?('create_new_tech') ||
-       @user.type_user.is_tech
+    if ((!@current_user.nil? && @current_user.can?('create_users')) ||
+       !@user.type_user.is_tech)
       create_user
     else
       @result = "Vous n'avez pas l'autorisation pour faire cela"

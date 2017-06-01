@@ -1,6 +1,6 @@
 # incidents_controller.rb
 class IncidentsController < ApplicationController
-  before_action :set_incident, only: %i[show edit update destroy reply download]
+  before_action :set_incident, only: %i[show edit update cloture reject]
   before_action :set_categories_all, only: %i[index show edit new create]
   before_action :set_users_all, only: %i[create index without_tech]
   before_action :set_expiration
@@ -64,10 +64,20 @@ class IncidentsController < ApplicationController
     end
   end
 
-  # DELETE /incidents/1
-  # DELETE /incidents/1.json
-  def destroy
-    traitResponse(params[:commit], params[:id])
+  # DELETE /incidents/1/cloture.json
+  def cloture
+    @cloture = ClotureIncident.new(incident: @incident,
+                                   current_user: current_user,
+                                   ip_address: request.remote_ip).call
+    render json: @cloture.result, status: @cloture.status
+  end
+
+  # DELETE /incidents/1/reject.json
+  def reject
+    @reject = RejectIncident.new(incident: @incident,
+                                 current_user: current_user,
+                                 ip_address: request.remote_ip).call
+    render json: @reject.result, status: @reject.status
   end
 
   private
@@ -88,11 +98,10 @@ class IncidentsController < ApplicationController
     params.require(:incident).permit(:content, :title, :tech_id,
                                      :category_id, :sous_category_id,
                                      :lvl_urgence_user, :lvl_urgence_tech,
-                                     file_incidents: %i[incident_id
-                                                        file content_type
-                                                        file_size])
+                                     :incident_state_id_for_user_id,
+                                     :incident_state_id_for_tech_id)
     params[:incident][:user_id] = current_user.id
     params[:incident][:ip_address] = request.remote_ip
-    params.permit!
+    params[:incident].permit!
   end
 end

@@ -1,10 +1,6 @@
 class Response < ActiveRecord::Base
   belongs_to :incident
   belongs_to :sender, class_name: 'User', foreign_key: 'sender_id'
-  has_many :file_responses, dependent: :destroy
-  accepts_nested_attributes_for :file_responses, allow_destroy: true
-  has_many :file_archives
-  accepts_nested_attributes_for :file_archives, allow_destroy: true
 
   IP_REGEXP = /\A(?:(?:[1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}(?:[1-9]?[0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\z/
 

@@ -36,13 +36,27 @@
 
   // This is for DELETE an field_agency by click on red button
   $(document).on('click', '#delete_field_agency', function(){
-    $.ajax({
-      url: '/field_agencies/' + $(this).parent().parent().attr('id'),
-      type: 'DELETE',
-      error: function(result){
-        notifError(result.responseText);
-      }
-    });
+    $.id = $(this).parent().parent().attr('id');
+    swal({
+      title: 'Êtes-vous sur ?',
+      text: "Vous ne pourrez pas annuler cette opération !",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Annuler',
+      confirmButtonText: 'Confirmer !'
+
+    }).then(function () {
+      $.ajax({
+        url: '/field_agencies/' + $.id,
+        type: 'DELETE',
+        error: function(result){
+          notifError(result.responseText);
+        }
+      });
+    })
+
   });
 
   // This is for UPDATE an field_agency by press enter with input in focus

@@ -1,7 +1,7 @@
 # create_incident.rb
 class CreateIncident
   def initialize(params:)
-    @params = params[:incident]
+    @params = params
     @incident = Incident.new(@params)
   end
 

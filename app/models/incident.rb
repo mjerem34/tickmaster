@@ -9,9 +9,7 @@ class Incident < ActiveRecord::Base
 
   has_many :responses, dependent: :destroy
   has_many :archives, dependent: :destroy
-  has_many :file_incidents, dependent: :destroy
 
-  accepts_nested_attributes_for :file_incidents
 
   validates :title, presence: true, length: { in: 0..199 }
   validates :content, presence: true
@@ -28,11 +26,11 @@ class Incident < ActiveRecord::Base
   before_validation :set_incident_state_id_for_tech_id
 
   def set_incident_state_id_for_user_id
-    self.incident_state_id_for_user_id = 1
+    self.incident_state_id_for_user_id ||= 1
   end
 
   def set_incident_state_id_for_tech_id
-    self.incident_state_id_for_tech_id = 1
+    self.incident_state_id_for_tech_id ||= 1
   end
 
   def set_lvl_urgence_user_to_max

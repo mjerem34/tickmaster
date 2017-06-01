@@ -3,7 +3,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy edit]
   before_action :set_expiration
   before_action :restrict_access,
-                except: %i[new create forget_identifiers change_ip]
+                except: %i[new create change_ip]
+  before_action :not_his_profile?, only: :update
 
   # GET /users
   def index
@@ -36,29 +37,6 @@ class UsersController < ApplicationController
     render nothing: true, status: 400, content_type: 'text/html'
     # params[:ip_addr] = nil and params[:pseudo] = nil => BIG ERROR !
     false
-  end
-
-  # GET /users/forget_identifiers
-  # POST /users/forget_identifiers
-  def forget_identifiers
-    unless params[:email].nil?
-      @user = User.find_by_email(params[:email])
-      respond_to do |format|
-        if @user.nil?
-          format.json { render json: "L'adresse email est incorrecte, peut être n'êtes vous pas encore inscrit ?", status: 404 }
-          format.html { redirect_to signup_path, notice: "L'adresse email est incorrecte, peut être n'êtes vous pas encore inscrit ?" }
-        else
-          begin
-            AppMailer.pseudonyme_forgeted(@user).deliver_now
-            format.json { render json: 'Un email contenant votre pseudonyme vient de vous être envoyé.', status: :ok }
-            format.html { redirect_to signin_path, notice: 'Un email contenant votre pseudonyme vient de vous être envoyé.' }
-          rescue
-            format.json { render json: "Impossible d'envoyer le mail car l'accès internet est inexistant ou votre adresse email est invalide, veuillez contacter votre administrateur réseau", status: 422 }
-            format.html { redirect_to signin_path, notice: "Impossible d'envoyer le mail car l'accès internet est inexistant ou votre adresse email est invalide, veuillez contacter votre administrateur réseau" }
-          end
-        end
-      end
-    end
   end
 
   # GET /users/:id
@@ -94,9 +72,13 @@ class UsersController < ApplicationController
 
   # GET /users/:id/to_treat
   # GET /users/:id/to_treat.json
-  # TODO : Mettre ça dans incidents
   def to_treat
-    @incidents = current_user.tech_incidents.where(incident_state_id_for_tech_id: [2, 3, 4, 5, 6]).order('created_at desc')
+    @incidents = current_user
+                 .tech_incidents
+                 .where(
+                   incident_state_id_for_tech_id: [2, 3, 4, 5, 6]
+                 )
+                 .order('created_at desc')
     respond_to do |format|
       format.json { render json: @incidents }
       format.html { render :to_treat }
@@ -116,10 +98,10 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update(user_params)
         format.json { head :no_content }
-        format.html { redirect_to @user, notice: 'Vos informations actualisées.' }
+        format.html { redirect_to @user, notice: 'Profil actualisé.' }
       else
         format.json { render json: @user.errors.full_messages, status: 422 }
-        format.html { render :edit, notice: "Impossible d'éditer vos paramètres." }
+        format.html { render :edit, notice: "Impossible d'editer votre profil" }
       end
     end
   end
@@ -142,5 +124,10 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:surname, :name, :pseudo, :email, :tel, :type_user_id, :agency_id, :password, :ip_addr)
+  end
+
+  def not_his_profile?
+    return nil if current_user == @user || current_user.can?('edit_other_users')
+    permission_denied
   end
 end

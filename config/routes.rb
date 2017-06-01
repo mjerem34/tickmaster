@@ -17,6 +17,11 @@ Rails.application.routes.draw do
       post :append_spec_type_material
     end
   end
+  resources :sessions do
+    collection do
+      post :retrieve_credentials
+    end
+  end
   resources :spec_type_materials
   resources :sellers do
     member do
@@ -29,7 +34,7 @@ Rails.application.routes.draw do
     end
   end
   resources :field_sellers
-  resources :detentor_types, only: %i(index)
+  resources :detentor_types, only: %i[index]
   resources :spec_materials
   resources :materials do
     collection do
@@ -65,13 +70,16 @@ Rails.application.routes.draw do
     end
   end
   resources :file
-  resources :sessions, only: %i(new create destroy)
+  resources :sessions, only: %i[new create destroy]
   resources :incidents do
     member do
       get :update_subcats
       get :update_maxvalue_lvl_urgence
       get :send_tech_form
       get :order_by
+      delete :cloture
+      delete :reject
+      put :reaffect
     end
     resources :responses
   end

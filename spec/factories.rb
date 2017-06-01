@@ -86,6 +86,8 @@ FactoryGirl.define do
     # t.integer  "tech_id"
     # t.integer  "category_id"
     # t.integer  "sous_category_id"
+    # t.integer "incident_state_id_for_tech_id"
+    # t.integer "incident_state_id_for_user_id"
     f.title { Faker::Lorem.words(4).join(' ') }
     f.content { Faker::Lorem.words(40).join(' ') }
     f.lvl_urgence_user 10
