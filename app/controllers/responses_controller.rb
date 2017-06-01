@@ -1,27 +1,25 @@
+# response_controller.rb
 class ResponsesController < ApplicationController
   before_action :set_expiration
   before_action :restrict_access
-  # GET /responses/new
-  def new
-    @title = 'Nouvelle réponse'
-    @incident = Incident.find(params[:incident_id])
-    @response = Response.new
-  end
 
   # POST /responses
   # POST /responses.json
   def create
-    traitResponse(params[:commit], params[:incident_id])
-  end
-
-  def download
-    send_file "#{Rails.root}/public/uploads/responses/#{@response.file_responses.id}/#{@response.file_responses.identifier}"
+    @response = Response.new(response_params)
+    if @response.save
+      render json: @response.created_at, status: 201
+    else
+      render json: @response.errors.full_messages, status: 422
+    end
   end
 
   private
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def response_params
-    params.require(:response).permit(:content, file_responses_attributes: %i[id response_id file content_type file_size])
+    params.require(:response).permit(:content, :incident_id)
+    params[:response][:sender_id] = current_user.id
+    params[:response][:ip_address_sender] = request.remote_ip
+    params[:response].permit!
   end
 end

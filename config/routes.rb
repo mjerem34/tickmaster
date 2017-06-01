@@ -81,8 +81,8 @@ Rails.application.routes.draw do
       delete :reject
       put :reaffect
     end
-    resources :responses
   end
+  resources :responses, only: :create
   resources :procedures do
     get :update_subcats
   end
