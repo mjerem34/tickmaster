@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
-    @type_users = if current_user && current_user.can?('create_new_tech')
+    @type_users = if current_user && current_user.can?('create_users')
                     TypeUser.where(actif: true)
                   else
                     TypeUser.where(is_tech: false, actif: true)

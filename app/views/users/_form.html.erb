@@ -41,11 +41,9 @@
         <%= select_tag "user[agency_id]", options_for_select(Agency.all.pluck(:name, :id).sort), class: "form-control text-uppercase", include_blank: "Agence :", required: true %>
       </div>
     </div>
-    <div class="actions form-group">
-      <button type="button" name="signup" class="btn btn-success btn-flat form-control">Valider</button>
-    </div>
     <% end %>
     <div class="social-auth-links text-center">
+      <button type="button" name="signup" class="btn btn-success btn-flat btn-block form-control">Valider</button>
       <p>- Un problème ? -</p>
       <%= link_to "J'ai déjà un compte", signin_url, class: 'btn btn-flat btn-info btn-block' %>
       <button type="button" name="button" class="btn btn-flat btn-danger btn-block btn-flat" id="forget_credentials">Pseudonyme oublié ?</button>
@@ -53,6 +51,6 @@
   </div>
 </div>
 <% content_for :js do %>
-<%= javascript_include_tag 'users' %>
-<%= javascript_include_tag 'sessions' %>
+  <%= javascript_include_tag 'users' %>
+  <%= javascript_include_tag 'sessions' %>
 <% end %>

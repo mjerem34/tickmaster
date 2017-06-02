@@ -21,8 +21,11 @@ $(document).ready(function(){
         },
         dataUserComp: dataUserComp
       },
-      error: function(result){
-        notifError(result.responseText);
+      error: function(jqXHR){
+        notifError(jqXHR.responseText);
+      },
+      success: function(jqXHR){
+        notifSuccess(jqXHR.responseText);
       }
     });
   });
@@ -59,7 +62,7 @@ $(document).ready(function(){
       $('.br-to-remove').remove();
     }
   });
-  // Appui sur le bouton Valider (inscription)
+  // # new.html.erb click signup button
   $(document).on("click", "button[name='signup']", function(){
     var surname = $('input#user_surname').val();
     var name = $('input#user_name').val();
@@ -104,12 +107,16 @@ $(document).ready(function(){
             password: password
           }
         },
-        201: function(result){
-          swal(':)', result.responseText, 'success');
-          window.location = '/';
-        },
-        error: function(result){
-          swal(':(', result.responseText, 'error');
+        statusCode: {
+          201: function(jqXHR){
+            swal(jqXHR.responseText, 'Veuillez patienter...', 'success');
+            setTimeout(function(){
+              window.location = '/';
+            }, 2000);
+          },
+          422: function(jqXHR){
+            swal(':(', jqXHR.responseText, 'error');
+          }
         }
       });
     }
