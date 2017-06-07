@@ -1,0 +1,52 @@
+<% @title = "Se connecter"%>
+<% if current_user.nil? %>
+<div class="login-box">
+  <div class="login-logo">
+    <a href="/" class="home">tick'<b>master</b></a>
+  </div>
+  <div class="login-box-body">
+    <p class="login-box-msg">Connectez vous pour commencer</p>
+    <%= form_for(@user_session) do |f| %>
+    <div class="form-group has-feedback">
+      <%= f.text_field :email, class: "form-control email-entry", placeholder: "Addresse email", id: 'next' %>
+      <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+    </div>
+    <div class="form-group has-feedback">
+      <%= f.password_field :password, class: "form-control password-entry", placeholder: "Mot de passe" %>
+      <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+    </div>
+    <div class="social-auth-links text-center">
+      <div class="row">
+        <div class="col-xs-7">
+          <label for="user_session_remember_me">Se souvenir de moi</label>
+          <%= f.check_box :remember_me %>
+        </div>
+        <div class="col-xs-5">
+          <%= f.submit "Se connecter", id: "sendButton", class: "btn btn-flat btn-success btn-flat btn-block" %>
+
+        </div>
+      </div>
+      <br>
+      <p>- Un problème ? -</p>
+      <br>
+      <%= link_to "Pas encore inscrit ?", signup_path, class: "btn btn-flat btn-primary btn-block btn-flat"%>
+      <button type="button" name="button" class="btn btn-flat btn-danger btn-block btn-flat" id="forget_credentials">Pseudonyme oublié ?</button>
+    </div>
+    <% end %>
+  </div>
+  <style media="screen">
+    .content-wrapper{
+      margin-left: 0 !important;
+    }
+  </style>
+</div>
+<% else %>
+<p class="alert_non_authorized" id="connected">
+  <%= flash.now[:alert] = "Vous êtes déjà connecté !"%>
+</p>
+
+<% end %>
+
+<% content_for :js do %>
+  <% javascript_include_tag 'user_sessions' %>
+<% end %>

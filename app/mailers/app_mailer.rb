@@ -6,7 +6,7 @@ class AppMailer < ApplicationMailer
   def incident_created_for_disp(incident, users)
     @incident = incident
     @users = users
-    mail(to: users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
+    mail(to: @users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
          subject: "Un incident a été créé par : #{incident.user.name} #{incident.user.surname}.",
          template_path: '/appmailer', template_name: 'incident_created_for_disp')
   end
@@ -22,7 +22,7 @@ class AppMailer < ApplicationMailer
     @incident = incident
     @users = users
     @response = response
-    mail(to: users.where(id: response.sender_id).pluck(:email).join('').to_s, subject: "Vous avez répondu à l'incident n°#{incident.id}.",
+    mail(to: @@users.where(id: response.sender_id).pluck(:email).join('').to_s, subject: "Vous avez répondu à l'incident n°#{incident.id}.",
          template_path: '/appmailer', template_name: 'incident_replied_for_sender')
   end
 
@@ -30,7 +30,7 @@ class AppMailer < ApplicationMailer
     @incident = incident
     @users = users
     @response = response
-    mail(to: users.where(id: incident.tech_id).pluck(:email).join('').to_s, subject: "Vous avez reçu une réponse liée à l'incident n°#{incident.id}.",
+    mail(to: @users.where(id: incident.tech_id).pluck(:email).join('').to_s, subject: "Vous avez reçu une réponse liée à l'incident n°#{incident.id}.",
          template_path: '/appmailer', template_name: 'incident_replied_for_receiver')
   end
 
@@ -38,8 +38,8 @@ class AppMailer < ApplicationMailer
     @incident = incident
     @users = users
     @response = response
-    mail(to: users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
-         subject: "Une réponse a été envoyé par : #{users.where(id: response.sender_id).pluck(:name, :surname).join(' ')} pour l'incident n°#{incident.id}.",
+    mail(to: @users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
+         subject: "Une réponse a été envoyé par : #{@users.where(id: response.sender_id).pluck(:name, :surname).join(' ')} pour l'incident n°#{incident.id}.",
          template_path: '/appmailer', template_name: 'incident_replied_for_disp')
   end
 
@@ -47,7 +47,7 @@ class AppMailer < ApplicationMailer
     @incident = incident
     @users = users
     @response = response
-    mail(to: users.where(id: response.sender_id).pluck(:email).join('').to_s, subject: "Vous avez répondu à l'incident n°#{incident.id}.",
+    mail(to: @users.where(id: response.sender_id).pluck(:email).join('').to_s, subject: "Vous avez répondu à l'incident n°#{incident.id}.",
          template_path: '/appmailer', template_name: 'incident_replied_for_disp_if_disp_answered')
   end
 
@@ -55,7 +55,7 @@ class AppMailer < ApplicationMailer
     @incident = incident
     @users = users
     @response = response
-    mail(to: users.where(id: incident.tech_id).pluck(:email).join('').to_s, subject: "Vous avez reçu une réponse liée à l'incident n°#{incident.id}.",
+    mail(to: @users.where(id: incident.tech_id).pluck(:email).join('').to_s, subject: "Vous avez reçu une réponse liée à l'incident n°#{incident.id}.",
          template_path: '/appmailer', template_name: 'incident_replied_for_tech_if_disp_answered')
   end
 
@@ -71,14 +71,14 @@ class AppMailer < ApplicationMailer
   def incident_affected_for_tech(incident, users)
     @incident = incident
     @users = users
-    mail(to: users.where(id: incident.tech_id).pluck(:email).join('').to_s, subject: 'Un incident vous a été affecté.',
+    mail(to: @users.where(id: incident.tech_id).pluck(:email).join('').to_s, subject: 'Un incident vous a été affecté.',
          template_path: '/appmailer', template_name: 'incident_affected_for_tech')
   end
 
   def incident_affected_for_disp(incident, users)
     @incident = incident
     @users = users
-    mail(to: users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
+    mail(to: @users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
          subject: "Vous venez d'affecter un incident.",
          template_path: '/appmailer', template_name: 'incident_affected_for_disp')
   end
@@ -93,7 +93,7 @@ class AppMailer < ApplicationMailer
   def incident_rejected_for_disp(incident, users)
     @incident = incident
     @users = users
-    mail(to: users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
+    mail(to: @users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
          subject: "L'incident n°#{incident.id} a été rejeté.",
          template_path: '/appmailer', template_name: 'incident_rejected_for_disp')
   end
@@ -109,15 +109,15 @@ class AppMailer < ApplicationMailer
   def incident_clotured_for_disp_if_is_tech_clotured(incident, users)
     @incident = incident
     @users = users
-    mail(to: users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
-         subject: "Demande de cloture faite par le technicien #{users.where(id: incident.tech_id).pluck(:name, :surname).join(' ')} pour l'incident n°#{incident.id}.",
+    mail(to: @users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
+         subject: "Demande de cloture faite par le technicien #{@users.where(id: incident.tech_id).pluck(:name, :surname).join(' ')} pour l'incident n°#{incident.id}.",
          template_path: '/appmailer', template_name: 'incident_clotured_for_disp_if_is_tech_clotured')
   end
 
   def incident_clotured_for_tech_if_is_tech_clotured(incident, users)
     @incident = incident
     @users = users
-    mail(to: users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
+    mail(to: @users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
          subject: "Vous avez envoyé une demande de cloture pour l'incident n°#{incident.id}.",
          template_path: '/appmailer', template_name: 'incident_clotured_for_tech_if_is_tech_clotured')
   end
@@ -134,7 +134,7 @@ class AppMailer < ApplicationMailer
   def incident_clotured_for_disp_if_is_creator_clotured(incident, users)
     @incident = incident
     @users = users
-    mail(to: users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
+    mail(to: @users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
          subject: "L'incident n°#{incident.id} a été cloturé par son créateur.",
          template_path: '/appmailer', template_name: 'incident_clotured_for_disp_if_is_creator_clotured')
   end
@@ -142,7 +142,7 @@ class AppMailer < ApplicationMailer
   def incident_clotured_for_tech_if_is_creator_clotured(incident, users)
     @incident = incident
     @users = users
-    mail(to: users.where(id: incident.tech_id).pluck(:email).join('').to_s,
+    mail(to: @users.where(id: incident.tech_id).pluck(:email).join('').to_s,
          subject: "L'incident n°#{incident.id} a été cloturé par son créateur.",
          template_path: '/appmailer', template_name: 'incident_clotured_for_tech_if_is_creator_clotured')
   end
@@ -159,14 +159,14 @@ class AppMailer < ApplicationMailer
   def incident_reaffected_for_tech(incident, users)
     @incident = incident
     @users = users
-    mail(to: users.where(id: incident.tech_id).pluck(:email).join('').to_s, subject: "Votre demande de réaffectation vient d'être envoyée",
+    mail(to: @users.where(id: incident.tech_id).pluck(:email).join('').to_s, subject: "Votre demande de réaffectation vient d'être envoyée",
          template_path: '/appmailer', template_name: 'incident_reaffected_for_tech')
   end
 
   def incident_reaffected_for_disp(incident, users)
     @incident = incident
     @users = users
-    mail(to: users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
+    mail(to: @users.joins(:type_user).where('type_users.is_tech=1').pluck(:email).join(', ').to_s,
          subject: "Demande de réaffectation pour l'incident n°#{incident.id}",
          template_path: '/appmailer', template_name: 'incident_reaffected_for_disp')
   end

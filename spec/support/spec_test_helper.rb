@@ -1,12 +1,15 @@
 module SpecTestHelper
   def login(user)
-    visit signin_path
-    fill_in 'session[pseudo]', with: user.pseudo
-    fill_in 'session[password]', with: user.password
-    click_button 'sendButton'
+    expect(user).not_to be_nil
+    session = UserSession.create!(email: user.email, password: user.password)
+    expect(session).to be_valid
+    session.save
   end
 
-  def sign_in(user)
-    cookies.signed[:remember_token] = [user.id, user.salt]
+  def logout(user)
+    expect(user).not_to be_nil
+    session = UserSession.find(email: user.email, password: user.password)
+    expect(session).to be_valid
+    session.destroy
   end
 end

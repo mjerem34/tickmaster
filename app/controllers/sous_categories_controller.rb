@@ -2,7 +2,7 @@
 # Because for web, all it is managed by the CategoriesController.
 class SousCategoriesController < ApplicationController
   before_action :set_sous_category, only: %i[show edit update destroy]
-  before_action :set_expiration
+  
   before_action :restrict_access
   before_action :incidents_binded?, only: :destroy
 

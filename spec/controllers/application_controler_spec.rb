@@ -1,5 +1,7 @@
 require 'rails_helper'
 RSpec.describe ApplicationController, type: :controller do
+  setup :activate_authlogic
+
   context 'tests for JSON' do
     before(:each) do
       request.accept = 'application/json'
@@ -19,7 +21,7 @@ RSpec.describe ApplicationController, type: :controller do
     #   end
     #   it "should return false if the current_user have not the right" do
     #     @user = create(:user, agency_id: @agency.id)
-    #     sign_in @user
+    #     login @user
     #     expect(verify_right("index_users")).to eq(false)
     #   end
     # end

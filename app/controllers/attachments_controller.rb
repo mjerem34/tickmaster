@@ -1,7 +1,7 @@
 # attachments_controller.rb
 class AttachmentsController < ApplicationController
   # skip_before_filter :verify_authenticity_token
-  before_action :set_expiration
+  
   before_action :restrict_access, except: :destroy
 
   # post /attachments/upload.json

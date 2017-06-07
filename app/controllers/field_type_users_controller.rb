@@ -2,7 +2,7 @@
 class FieldTypeUsersController < ApplicationController
   before_action :set_field_type_user,
                 only: %i[update destroy unbind]
-  before_action :set_expiration
+  
   before_action :restrict_access
   before_action -> { type_user_binded?(params[:force]) },
                 only: %i[destroy unbind]

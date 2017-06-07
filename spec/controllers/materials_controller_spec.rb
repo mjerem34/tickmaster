@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe MaterialsController, type: :controller do
+  setup :activate_authlogic
   describe 'JSON' do
     before { request.accept = 'application/json' }
     context 'not connected' do

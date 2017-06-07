@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe IncidentsController, type: :controller do
+  setup :activate_authlogic
   describe 'JSON' do
     before { request.accept = 'application/json' }
     context 'not connected' do
@@ -33,6 +34,7 @@ RSpec.describe IncidentsController, type: :controller do
                             category_id: category.id,
                             sous_category_id: category.sous_categories.first.id)
 
+          logout user
           get :edit, id: incident.id
 
           expect(response.body).to eq 'null'
@@ -56,7 +58,7 @@ RSpec.describe IncidentsController, type: :controller do
             sous_category_id: @category.sous_categories.first.id
           )
 
-          sign_in @admin
+          login @admin
         end
 
         describe '#index' do
@@ -87,6 +89,8 @@ RSpec.describe IncidentsController, type: :controller do
                  )
 
             expect(Incident.count).to eq 2
+            expect(Response.count).to eq 1
+            expect(Response.last.incident_id).to eq Incident.last.id
           end
         end # describe '#create'
         describe '#update' do
@@ -147,7 +151,7 @@ RSpec.describe IncidentsController, type: :controller do
           @agency = create(:agency)
           @user = create(:user, agency_id: @agency.id)
 
-          sign_in @user
+          login @user
         end
 
         describe '#index' do
@@ -234,7 +238,7 @@ RSpec.describe IncidentsController, type: :controller do
           @admin = create(:admin, agency_id: @agency.id)
           @user = create(:user, agency_id: @agency.id)
 
-          sign_in @admin
+          login @admin
         end
         describe '#index' do
           it 'should render template' do
@@ -272,7 +276,7 @@ RSpec.describe IncidentsController, type: :controller do
           @agency = create(:agency)
           @user = create(:user, agency_id: @agency.id)
 
-          sign_in @user
+          login @user
         end
         describe '#index' do
           it 'should redirect_to root_path' do

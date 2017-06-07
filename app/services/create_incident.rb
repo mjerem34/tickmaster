@@ -13,25 +13,15 @@ class CreateIncident
   private
 
   def default_response_creation
-    Response.create(
-      content: "Incident créé par #{incident.user.name}
-      #{incident.user.surname}", incident_id: @incident.id,
-      sender_id: @incident.user_id
+    Response.create!(
+      content: "Incident créé par #{@incident.user.name}
+      #{@incident.user.surname}", incident_id: @incident.id,
+      sender_id: @incident.user_id, ip_address_sender: '0.0.0.0'
     )
   end
 
   def create
-    ActiveRecord::Base.transaction do
-      @incident.save!
-      return if @params[:file_incidents].nil?
-      @params[:file_incidents][:file].each do |a|
-        @incident.file_incidents.create!(
-          incident_id: @incident.id,
-          file: a
-        )
-        puts a.inspect
-      end
-    end
+    @incident.save!
   end
 
   def send_desktop_notification
@@ -45,8 +35,8 @@ class CreateIncident
   end
 
   def send_emails
-    AppMailer.incident_created_for_creator(@incident, @users).deliver_now
-    AppMailer.incident_created_for_disp(@incident, @users).deliver_now
+    AppMailer.incident_created_for_creator(@incident, User.all).deliver_now
+    AppMailer.incident_created_for_disp(@incident, User.all).deliver_now
   end
 
   def notify_all

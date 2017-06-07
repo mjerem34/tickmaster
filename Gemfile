@@ -77,6 +77,7 @@ gem 'groupdate'
 gem 'puma', '~> 3.4.0'
 gem 'web-console', '~> 2.0'
 gem 'responders'
+gem 'authlogic'
 group :production do
   gem 'exception_notification'
 end

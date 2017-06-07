@@ -1,7 +1,7 @@
 class ProceduresController < ApplicationController
   before_action :set_procedure, only: %i[show edit update destroy]
   before_action :set_categories_all, only: %i[index show edit new create]
-  before_action :set_expiration
+  
   before_action :restrict_access
   # GET /procedures
   # GET /procedures.json

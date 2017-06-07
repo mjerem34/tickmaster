@@ -1,7 +1,7 @@
 # spec_materials_controller.rb
 class SpecMaterialsController < ApplicationController
   before_action :set_spec_material, only: :destroy
-  before_action :set_expiration
+  
   before_action :restrict_access
 
   # GET /spec_materials

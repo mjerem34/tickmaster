@@ -1,6 +1,6 @@
 # rights_controller.rb
 class RightsController < ApplicationController
-  before_action :set_expiration
+  
   before_action :restrict_access
 
   # GET /rights

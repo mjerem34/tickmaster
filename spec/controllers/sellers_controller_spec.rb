@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe SellersController, type: :controller do
+  setup :activate_authlogic
   before do
     @seller = create(:seller)
 
@@ -135,7 +136,7 @@ RSpec.describe SellersController, type: :controller do
     end
     context 'connected' do
       context 'have the right' do
-        before { sign_in @admin }
+        before { login @admin }
         describe '#index' do
           it 'should render 200 and show the list of sellers' do
             get :index
@@ -265,7 +266,7 @@ RSpec.describe SellersController, type: :controller do
         end
       end
       context "don't have the right" do
-        before { sign_in @user }
+        before { login @user }
         describe '#index' do
           it 'should render 403 and show nothing' do
             get :index
@@ -396,7 +397,7 @@ RSpec.describe SellersController, type: :controller do
     end
     context 'connected' do
       context 'have the right' do
-        before { sign_in @admin }
+        before { login @admin }
         describe '#index' do
           it 'should render template' do
             get :index
@@ -406,7 +407,7 @@ RSpec.describe SellersController, type: :controller do
         end
       end
       context "don't have the right" do
-        before { sign_in @user }
+        before { login @user }
         describe '#index' do
           it 'should redirect_to root_path' do
             get :index

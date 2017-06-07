@@ -1,7 +1,7 @@
 # field_sellers_controller.rb
 class FieldSellersController < ApplicationController
   before_action :set_field_seller, only: %i[update destroy]
-  before_action :set_expiration
+  
   before_action :restrict_access
   before_action :seller_binded?, only: :destroy
 

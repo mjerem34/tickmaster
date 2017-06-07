@@ -219,7 +219,7 @@
           </a>
           <ul class="treeview-menu">
             <%= "<li>".html_safe + link_to("Tous les utilisateurs", users_url) + "</li>".html_safe if current_user.can?('index_users') %>
-            <%= "<li>".html_safe + link_to("Créer un utilisateur", new_type_user_url) + "</li>".html_safe if current_user.can?('create_users') %>
+            <%= "<li>".html_safe + link_to("Créer un utilisateur", new_user_url) + "</li>".html_safe if current_user.can?('create_users') %>
             <%= "<li>".html_safe + link_to("Champs utilisateurs", field_type_users_url) + "</li>".html_safe if current_user.can?('index_field_type_users') %>
           </ul>
         </li>

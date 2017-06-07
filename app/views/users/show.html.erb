@@ -3,6 +3,7 @@
     <thead>
       <tr>
         <th>Objet</th>
+        <th>Demandeur</th>
         <th>Technicien</th>
         <th>Catégorie</th>
         <th>Date</th>
@@ -13,6 +14,7 @@
       <% @incidents.each do |incident| %>
       <tr data-toggle='modal' data-target='#<%= incident.id %>'>
         <td><%= incident.title %></td>
+        <td><%= "#{incident.user.surname} #{incident.user.name}" %></td>
         <% if incident.tech_id != nil %>
           <td><%= incident.tech.surname %> <%=incident.tech.name %></td>
         <% else %>

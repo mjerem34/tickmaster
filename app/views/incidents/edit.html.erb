@@ -1,5 +1,6 @@
 <%= render 'form_edit' %>
-<div class="box box-warning direct-chat direct-chat-warning">
+<br>
+<div class="box box-success direct-chat direct-chat-success" data-user="<%= current_user.name %> <%= current_user.surname %>">
   <div class="box-header with-border">
     <h3 class="box-title">Résolution du problème</h3>
 
@@ -9,7 +10,7 @@
   </div>
   <div class="box-body">
     <div class="direct-chat-messages">
-      <% @incident.responses.each do |response| %>
+      <% @incident.responses_or_archives.each do |response| %>
       <% if current_user == response.sender %>
       <div class="direct-chat-msg right">
         <% else %>
@@ -17,25 +18,24 @@
           <% end %>
           <div class="direct-chat-info clearfix">
             <span class="direct-chat-name pull-left"><%= "#{response.sender.name} #{response.sender.surname}" %></span>
-            <span class="direct-chat-timestamp pull-right"><%= response.created_at %></span>
+            <span class="direct-chat-timestamp pull-right"><%= response.created_at.strftime("%d-%m-%Y %H:%M:%S") %></span>
           </div>
-          <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="">
-          <div class="direct-chat-text">
-            <%= strip_tags(response.content) %>
-          </div>
+          <!-- <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt=""> -->
+          <div class="direct-chat-text"><%= strip_tags(response.content) %></div>
         </div>
-        <% end %>
+          <% end %>
       </div>
     </div>
     <div class="box-footer">
       <div class="input-group">
         <input name="message" placeholder="Écrivez un message ..." class="form-control" type="text">
         <span class="input-group-btn">
-          <button type="button" class="btn btn-warning btn-flat">Envoyer</button>
+          <button id='send-response' type="button" class="btn btn-success btn-flat" data-incident="<%= @incident.id %>">Envoyer</button>
         </span>
       </div>
     </div>
-    <!-- /.box-footer-->
-  </div>
+</div>
 
-  <!--
+<% content_for :js do %>
+<%= javascript_include_tag 'incidents' %>
+<% end %>

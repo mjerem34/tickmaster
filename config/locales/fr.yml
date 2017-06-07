@@ -52,6 +52,7 @@ fr:
     attributes:
       response:
         content: "Champ 'Message'"
+        incident_id: "Incident"
       category:
         name: "Champ 'Nom'"
       sous_category:
@@ -87,7 +88,6 @@ fr:
 
       user:
         email: "Adresse email"
-        pseudo: "Pseudonyme"
         tel: "Numéro de téléphone"
         mobile: "Numéro de mobile"
         name: "Nom"
@@ -96,6 +96,10 @@ fr:
         agency: "Agence"
         type_user_id: "Type d'utilisateur"
         agency_id: "Agence"
+        password_confirmation: "Confirmation de mot de passe"
+        crypted_password: "Mot de passe crypté"
+        password_salt: "Sel"
+        password: "Mot de passe"
       type_user:
         name: "Champ 'Nom'"
         secure: "Champ 'Sécurisé ?'"
@@ -122,6 +126,8 @@ fr:
         detentor_id: "Champ 'Détenteur'"
       field_agency:
         name: "Champ 'Nom'"
+      user_session:
+        remember_me: "Rester connecté"
     errors:
       messages:
         record_invalid: "Enregistrement Invalide"
@@ -199,7 +205,16 @@ fr:
               blank: "Requis"
               invalid: "Invalide"
               taken: "Déjà enregistré"
-            password:
+            crypted_password:
+              blank: "Requis"
+              invalid: "Invalide"
+              taken: "Déjà enregistré"
+            password_confirmation:
+              blank: "Requis"
+              invalid: "Invalide"
+              taken: "Déjà enregistré"
+              too_short: "Trop court"
+            password_salt:
               blank: "Requis"
               invalid: "Invalide"
               taken: "Déjà enregistré"
@@ -208,6 +223,8 @@ fr:
             content:
               blank: "Requis"
               too_long: "trop long"
+            incident_id:
+              blank: "requis"
         agency:
           attributes:
             name:

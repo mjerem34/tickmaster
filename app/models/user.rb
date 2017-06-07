@@ -2,10 +2,12 @@ require 'securerandom'
 require 'digest'
 # app/model/user.rb
 class User < ActiveRecord::Base
-  before_save :set_pseudo_downcase
+  acts_as_authentic do |c|
+    c.crypto_provider = Authlogic::CryptoProviders::Sha512
+  end
+
   before_save :set_email_downcase
   before_save :set_user_actif
-  before_save :set_salt
 
   belongs_to :type_user, foreign_key: :type_user_id
   belongs_to :agency
@@ -28,30 +30,20 @@ class User < ActiveRecord::Base
   PHONE_REGEXP = /\A^0[0-9]([ .-]?[0-9]{2}){4}\z/
 
   # Validations
-  validates :pseudo, presence: true, format: { with: PSEUDO_REGEXP },
-                     uniqueness: { case_sensitive: false },
-                     length: { in: 0..49 }
   validates :type_user_id, presence: true
   validates :surname, presence: true
   validates :name, presence: true
-  # validates :password, presence: true
   validates :agency_id, presence: true
   validates :tel, presence: true,
                   format: { with: PHONE_REGEXP }, length: { in: 0..30 }
 
   validates :email, presence: true,
-                    format: { with: EMAIL_REGEXP }, length: { in: 0..254 }
+                    format: { with: EMAIL_REGEXP },
+                    length: { in: 0..254 },
+                    uniqueness: { case_sensitive: false }
+  # validates :crypted_password, presence: true
 
   # Methods
-  def self.authenticate(pseudo, password)
-    user = find_by_pseudo(pseudo)
-    return if user.nil?
-    if user.type_user.secure
-      user if password == user.password
-    else
-      user
-    end
-  end
 
   def set_pseudo_downcase
     pseudo.downcase!
@@ -63,15 +55,6 @@ class User < ActiveRecord::Base
 
   def set_user_actif
     self.actif = true
-  end
-
-  def set_salt
-    self.salt = Digest::SHA2.new(512).hexdigest SecureRandom.hex(32)
-  end
-
-  def self.authenticate_with_salt(id, cookie_salt)
-    user = find_by_id(id)
-    user && user.salt == cookie_salt ? user : nil
   end
 
   def rights_manager

@@ -1,6 +1,6 @@
 # response_controller.rb
 class ResponsesController < ApplicationController
-  before_action :set_expiration
+  
   before_action :restrict_access
 
   # POST /responses
@@ -8,7 +8,7 @@ class ResponsesController < ApplicationController
   def create
     @response = Response.new(response_params)
     if @response.save
-      render json: @response.created_at, status: 201
+      render json: @response.created_at.strftime("%d-%m-%Y %H:%M:%S"), status: 201
     else
       render json: @response.errors.full_messages, status: 422
     end

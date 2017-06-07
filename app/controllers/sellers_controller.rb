@@ -2,7 +2,7 @@
 class SellersController < ApplicationController
   before_action :set_seller,
                 only: %i[update destroy show]
-  before_action :set_expiration
+  
   before_action :restrict_access
   before_action :set_type_material, only: :bind_type_material
   before_action :set_field_seller_seller, only: %i[unbind_field_seller

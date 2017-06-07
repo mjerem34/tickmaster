@@ -1,6 +1,6 @@
 # pages_controller.rb
 class PagesController < ApplicationController
-  before_action :set_expiration
+  
 
   def home
     if current_user.nil?

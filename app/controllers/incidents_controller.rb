@@ -3,8 +3,9 @@ class IncidentsController < ApplicationController
   before_action :set_incident, only: %i[show edit update cloture reject]
   before_action :set_categories_all, only: %i[index show edit new create]
   before_action :set_users_all, only: %i[create index without_tech]
-  before_action :set_expiration
+
   before_action :restrict_access
+  before_action :set_user_and_ip, only: :create
 
   # GET /incidents
   # GET /incidents.json
@@ -59,7 +60,8 @@ class IncidentsController < ApplicationController
         format.json { head :no_content }
         format.html { redirect_to :back, notice: 'Mise à jour réussie !' }
       else
-        format.html { redirect_to :back }
+        format.json { render json: @incident.errors.full_messages, status: 422 }
+        format.html { redirect_to :back, notice: 'Mise à jour échouée' }
       end
     end
   end
@@ -80,6 +82,15 @@ class IncidentsController < ApplicationController
     render json: @reject.result, status: @reject.status
   end
 
+  # PUT /incidents/1/reaffect.json
+  def reaffect
+    @reaffect = ReaffectIncident.new(incident: @incident,
+                                     current_user: current_user,
+                                     ip_address: request.remote_ip,
+                                     tech_id: params[:tech_id]).call
+    render json: @reaffect.result, status: @reaffect.status
+  end
+
   private
 
   def set_categories_all
@@ -94,14 +105,17 @@ class IncidentsController < ApplicationController
     @users = User.all
   end
 
-  def incident_params
-    params.require(:incident).permit(:content, :title, :tech_id,
-                                     :category_id, :sous_category_id,
-                                     :lvl_urgence_user, :lvl_urgence_tech,
-                                     :incident_state_id_for_user_id,
-                                     :incident_state_id_for_tech_id)
+  def set_user_and_ip
     params[:incident][:user_id] = current_user.id
     params[:incident][:ip_address] = request.remote_ip
-    params[:incident].permit!
+  end
+
+  def incident_params
+    params.require(:incident).permit(:content, :title,
+                                     :category_id, :user_id, :ip_address,
+                                     :sous_category_id,
+                                     :lvl_urgence_user, :lvl_urgence_tech,
+                                     :incident_state_id_for_user_id,
+                                     :incident_state_id_for_tech_id, :tech_id)
   end
 end

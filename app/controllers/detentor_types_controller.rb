@@ -1,6 +1,6 @@
 # detentor_types_controller.rb
 class DetentorTypesController < ApplicationController
-  before_action :set_expiration
+  
   before_action :restrict_access
 
   # GET /detentor_types

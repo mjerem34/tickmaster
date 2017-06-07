@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe TypeUsersController, type: :controller do
+  setup :activate_authlogic
   describe 'JSON' do
     before { request.accept = 'application/json' }
     context 'not connected' do
@@ -52,7 +53,7 @@ RSpec.describe TypeUsersController, type: :controller do
           agency = create(:agency)
           @admin = create(:admin, agency_id: agency.id)
 
-          sign_in @admin
+          login @admin
         end
         describe '#index' do
           it 'should show type_users' do
@@ -123,7 +124,7 @@ RSpec.describe TypeUsersController, type: :controller do
           agency = create(:agency)
           @user = create(:user, agency_id: agency.id)
 
-          sign_in @user
+          login @user
         end
         describe '#index' do
           it 'should show 403' do
@@ -194,7 +195,7 @@ RSpec.describe TypeUsersController, type: :controller do
           agency = create(:agency)
           @admin = create(:admin, agency_id: agency.id)
 
-          sign_in @admin
+          login @admin
         end
         describe '#index' do
           it 'should show type_users' do
@@ -216,7 +217,7 @@ RSpec.describe TypeUsersController, type: :controller do
           agency = create(:agency)
           @user = create(:user, agency_id: agency.id)
 
-          sign_in @user
+          login @user
         end
         describe '#index' do
           it 'should redirect to root_path' do

@@ -6,8 +6,8 @@ FactoryGirl.define do
   factory :admin, class: User do |f|
     f.surname { Faker::Name.first_name }
     f.name { Faker::Name.last_name }
-    f.pseudo { Faker::Internet.user_name }
     f.password 'password'
+    f.password_confirmation 'password'
     f.email { Faker::Internet.free_email }
     # Type_user : 1 has all rights
     f.type_user_id 1
@@ -104,8 +104,8 @@ FactoryGirl.define do
   factory :invalid_user, class: User do |f|
     f.surname ''
     f.name { Faker::Name.last_name }
-    f.pseudo { Faker::Internet.user_name }
     f.password 'password'
+    f.password_confirmation 'password'
     f.email { Faker::Internet.free_email }
     f.type_user_id 23
     f.agency_id 2
@@ -200,8 +200,8 @@ FactoryGirl.define do
   factory :user do |f|
     f.surname { Faker::Name.first_name }
     f.name { Faker::Name.last_name }
-    f.pseudo { Faker::Internet.user_name }
     f.password 'password'
+    f.password_confirmation 'password'
     f.email { Faker::Internet.free_email }
     # Type_user : 23 has no rights
     f.type_user_id 23

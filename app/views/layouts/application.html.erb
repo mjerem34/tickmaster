@@ -21,12 +21,7 @@
       <div class="content-wrapper">
         <section class="content">
           <% @name_app = "tick'master" %>
-          <% if current_user.nil? %>
-          <%= yield :form %>
-          <%= yield :accueil %>
-          <% else %>
           <%= yield %>
-          <% end %>
         </section>
       </div>
       <%= render 'layouts/flash_notices' %>

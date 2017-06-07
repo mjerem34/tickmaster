@@ -1,7 +1,7 @@
 class MaterialsController < ApplicationController
   before_action :restrict_access
   before_action :set_material, only: %i[show edit update destroy]
-  before_action :set_expiration
+  
   before_action :set_detentor_type, only: %i[new redefine_detentor_type]
   # GET /materials/get_all_specs_types
   # TODO : Replace with the spec_type_materials#index

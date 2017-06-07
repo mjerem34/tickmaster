@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe SousCategoriesController, type: :controller do
+  setup :activate_authlogic
   before do
     # When we create an category
     # An sous_category called 'Autre' is created
@@ -63,7 +64,7 @@ RSpec.describe SousCategoriesController, type: :controller do
           agency = create(:agency)
           admin = create(:admin, agency_id: agency.id)
 
-          sign_in admin
+          login admin
         end
         describe '#index' do
           it 'should show the list of sous_categories' do
@@ -120,7 +121,7 @@ RSpec.describe SousCategoriesController, type: :controller do
           agency = create(:agency)
           user = create(:user, agency_id: agency.id)
 
-          sign_in user
+          login user
         end
         describe '#index' do
           it 'should render 403 and show nothing' do

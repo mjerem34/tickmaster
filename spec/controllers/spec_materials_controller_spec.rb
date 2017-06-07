@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe SpecMaterialsController, type: :controller do
+  setup :activate_authlogic
   before do
     @spec_type_material = create(:spec_type_material)
     @spec_material = create(:spec_material,
@@ -52,7 +53,7 @@ RSpec.describe SpecMaterialsController, type: :controller do
           agency = create(:agency)
           admin = create(:admin, agency_id: agency.id)
 
-          sign_in admin
+          login admin
         end
         describe '#index' do
           it 'should render the list of spec_materials' do
@@ -160,7 +161,7 @@ RSpec.describe SpecMaterialsController, type: :controller do
           agency = create(:agency)
           user = create(:user, agency_id: agency.id)
 
-          sign_in user
+          login user
         end
         describe '#index' do
           it 'should render 403 and render nothing' do
@@ -220,7 +221,7 @@ RSpec.describe SpecMaterialsController, type: :controller do
           agency = create(:agency)
           admin = create(:admin, agency_id: agency.id)
 
-          sign_in admin
+          login admin
 
           get :index
         end
@@ -233,7 +234,7 @@ RSpec.describe SpecMaterialsController, type: :controller do
           agency = create(:agency)
           user = create(:user, agency_id: agency.id)
 
-          sign_in user
+          login user
           get :index
         end
         describe '#index' do

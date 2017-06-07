@@ -1,7 +1,7 @@
 # spec_type_materials_controller.rb
 class SpecTypeMaterialsController < ApplicationController
   before_action :set_spec_type_material, only: %i[update destroy]
-  before_action :set_expiration
+  
   before_action :restrict_access
   before_action :spec_materials_binded?, only: :destroy
   # GET /spec_type_materials

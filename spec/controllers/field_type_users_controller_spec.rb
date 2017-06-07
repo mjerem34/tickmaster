@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe FieldTypeUsersController, type: :controller do
+  setup :activate_authlogic
   before do
     @agency = create(:agency)
     @field_type_user = create(:field_type_user)
@@ -50,7 +51,7 @@ RSpec.describe FieldTypeUsersController, type: :controller do
         before do
           @admin = create(:admin, agency_id: @agency.id)
 
-          sign_in @admin
+          login @admin
         end
         describe '#index' do
           it 'should render field_agencies' do
@@ -165,7 +166,7 @@ RSpec.describe FieldTypeUsersController, type: :controller do
         before do
           @user = create(:user, agency_id: @agency.id)
 
-          sign_in @user
+          login @user
         end
         describe '#index' do
           it 'should render 403 and display nothing' do
@@ -221,7 +222,7 @@ RSpec.describe FieldTypeUsersController, type: :controller do
         before do
           @admin = create(:admin, agency_id: @agency.id)
 
-          sign_in @admin
+          login @admin
           get :index
         end
         describe '#index' do
@@ -232,7 +233,7 @@ RSpec.describe FieldTypeUsersController, type: :controller do
         before do
           @user = create(:user, agency_id: @agency.id)
 
-          sign_in @user
+          login @user
           get :index
         end
         describe '#index' do

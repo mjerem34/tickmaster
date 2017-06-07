@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe ResponsesController, type: :controller do
+  setup :activate_authlogic
   describe 'JSON' do
     before do
       request.accept = 'application/json'
@@ -25,7 +26,7 @@ RSpec.describe ResponsesController, type: :controller do
     end
     context 'connected' do
       context 'have the right' do
-        before { sign_in @tech }
+        before { login @tech }
         describe '#create' do
           it 'should create the response' do
             post :create, response: { content: 'Test', incident_id: @incident.id }
@@ -36,7 +37,7 @@ RSpec.describe ResponsesController, type: :controller do
         end
       end
       context "don't have the right" do
-        before { sign_in @user }
+        before { login @user }
         describe '#create' do
           it 'should not create the response and render 403' do
             post :create, response: { content: 'Test', incident_id: @incident.id }

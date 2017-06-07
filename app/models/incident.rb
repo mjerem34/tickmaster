@@ -16,7 +16,6 @@ class Incident < ActiveRecord::Base
 
   validates :title, presence: true, length: { in: 0..199 }
   validates :content, presence: true
-  validates :user_id, presence: true
   validates :category_id, presence: true
   validates :sous_category_id, presence: true
   validates :lvl_urgence_user, presence: true
@@ -73,5 +72,13 @@ class Incident < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def clotured_or_rejected?
+    [10, 7].include?(self.incident_state_id_for_user_id) ? true : false
+  end
+
+  def responses_or_archives
+    clotured_or_rejected? ? archives : responses
   end
 end

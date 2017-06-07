@@ -2,7 +2,7 @@
 class TypeUsersController < ApplicationController
   before_action :set_type_user,
                 only: %i[update destroy disable toggle bind show]
-  before_action :set_expiration
+  
   before_action :restrict_access
   before_action :not_blank?, only: :toggle
   before_action :any_users?, only: :destroy

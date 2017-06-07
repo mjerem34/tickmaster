@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe PagesController, type: :controller do
+  setup :activate_authlogic
   describe 'HTML' do
     before { request.accept = 'text/html' }
     context 'not connected' do
@@ -17,7 +18,7 @@ RSpec.describe PagesController, type: :controller do
       agency = create(:agency)
 
       @user = create(:user, agency_id: agency.id)
-      sign_in @user
+      login @user
     end
     describe '#home' do
       it 'should redirect_to user page' do

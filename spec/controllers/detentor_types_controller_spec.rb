@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe DetentorTypesController, type: :controller do
+  setup :activate_authlogic
   before { @detentor_type = create(:detentor_type) }
   describe 'JSON' do
     before { request.accept = 'application/json' }
@@ -19,7 +20,7 @@ RSpec.describe DetentorTypesController, type: :controller do
           agency = create(:agency)
           @admin = create(:admin, agency_id: agency.id)
 
-          sign_in @admin
+          login @admin
         end
         describe '#index' do
           it 'should display the detentor_types' do
@@ -34,7 +35,7 @@ RSpec.describe DetentorTypesController, type: :controller do
           agency = create(:agency)
           @user = create(:user, agency_id: agency.id)
 
-          sign_in @user
+          login @user
         end
         describe '#index' do
           it 'should respond 403 and display nothing' do
@@ -64,7 +65,7 @@ RSpec.describe DetentorTypesController, type: :controller do
           agency = create(:agency)
           @admin = create(:admin, agency_id: agency.id)
 
-          sign_in @admin
+          login @admin
         end
         describe '#index' do
           it 'should show template' do
@@ -79,7 +80,7 @@ RSpec.describe DetentorTypesController, type: :controller do
           agency = create(:agency)
           @user = create(:user, agency_id: agency.id)
 
-          sign_in @user
+          login @user
         end
         describe '#index' do
           it 'should redirect_to root_path' do

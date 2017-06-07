@@ -1,6 +1,6 @@
 <%= form_for @incident, html: { multipart: true } do |f| %>
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-sm-12 col-md-4 col-lg-4">
       <div class="field">
           <p>
           Date :
@@ -44,8 +44,8 @@
         <% end %><br>
       </div>
     <div class="field">
-      <%= f.label "Objet", class: ""  %><br>
-      <% if @edit_incidents %>
+      <%= f.label "Objet"  %><br>
+      <% if current_user.can?('update_incidents') %>
       <%= f.text_field :title, class: "form-control "  %>
       <% else %>
       <%= f.text_field :title, disabled: "disabled", class: "form-control "  %>
@@ -53,21 +53,21 @@
     </div>
 
     <div class="field tech_name">
-      <%= f.label "Nom du technicien", class: ""  %>
-      <% if @without_tech_incidents %>
+      <%= f.label "Nom du technicien"  %>
+      <% if current_user.can?('update_incidents') %>
       <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10%>
-      <%= select_tag "incident[tech_id]", options_for_select(User.joins(:type_user).where("type_users.is_tech = ?", true).collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), disabled: 'disabled', class: "form-control ", data_name: @incident.id  %>
+      <%= select_tag "incident[tech_id]", options_for_select(User.joins(:type_user).where("type_users.is_tech = ?", true).collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), disabled: 'disabled', class: "form-control ", data: { id: @incident.id } %>
       <% else %>
-      <%= select_tag "incident[tech_id]", options_for_select(User.joins(:type_user).where("type_users.is_tech = ?", true).collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), class: "form-control ", include_blank: "Technicien non défini...", data_name: @incident.id  %>
+      <%= select_tag "incident[tech_id]", options_for_select(User.joins(:type_user).where("type_users.is_tech = ?", true).collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), class: "form-control ", include_blank: "Technicien non défini...", data: { id: @incident.id } %>
       <% end %>
       <% else %>
-      <%= select_tag "incident[tech_id]", options_for_select(User.joins(:type_user).where("type_users.is_tech = ?", true).collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), include_blank: "Technicien non défini...", disabled: 'disabled', class: "form-control ", data_name: @incident.id  %>
+      <%= select_tag "incident[tech_id]", options_for_select(User.joins(:type_user).where("type_users.is_tech = ?", true).collect{|u| [[u.name, u.surname].join(' '), u.id]}, selected: @incident.tech_id), include_blank: "Technicien non défini...", disabled: 'disabled', class: "form-control ", data: { id: @incident.id } %>
       <% end %>
     </div>
     <div class="field category_name">
-      <%= f.label "Catégorie de l'incident", class: ""  %><br>
-      <% if @edit_categories_incidents %>
+      <%= f.label "Catégorie de l'incident"  %><br>
+      <% if current_user.can?('update_incidents') %>
       <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10 %>
       <%= select_tag("incident[category_id]", options_for_select(@categories.collect{ |u| [u.name, u.id]}, selected: @incident.category_id), disabled: "disabled", class: "form-control ")%>
@@ -80,8 +80,8 @@
     </div>
 
     <div class="field">
-      <%= f.label "Sous_Catégorie de l'incident", class: ""  %><br>
-      <% if @edit_categories_incidents %>
+      <%= f.label "Sous_Catégorie de l'incident"  %><br>
+      <% if current_user.can?('update_incidents') %>
       <% case @incident.incident_state_id_for_user_id %>
       <% when 7, 10 %>
       <%= select_tag("incident[sous_category_id]", option_groups_from_collection_for_select(@categories, :sous_categories, :name, :id, :name, selected: @incident.sous_category_id), disabled: "disabled", class: "form-control " )%>
@@ -94,7 +94,7 @@
 
     </div>
     <div class="field">
-      <%= f.label "Niveau d'urgence suggéré par le technicien", class: ""  %><br>
+      <%= f.label "Niveau d'urgence suggéré par le technicien" %><br>
         <% case @incident.lvl_urgence_tech %>
         <% when 1%>
         <%= select_tag("incident[lvl_urgence_tech]", '<option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
@@ -123,21 +123,20 @@
     </ul>
   </div>
   <div class="field">
-    <% if @edit_lvl_incident %>
-    <%= f.label "Niveau d'urgence suggéré par l'utilisateur", class: ""%>
+    <% if current_user.can?('update_incidents') %>
+    <%= f.label "Niveau d'urgence suggéré par l'utilisateur" %>
     <p class="form-control ">
       <%= @incident.lvl_urgence_user %>
     </p>
     <% end %>
-
   </div>
 
 
   </div>
-  <div class="col-md-8">
+  <div class="col-sm-12 col-md-8 col-lg-8">
     <div class="field">
-      <%= f.label "Contenu", class: ""  %><br>
-      <% if current_user.can?('edit_incidents') %>
+      <%= f.label "Contenu"  %><br>
+      <% if current_user.can?('update_incidents') %>
       <%= f.text_area :content, class: 'froalaEditor' %>
       <% else %>
       <%= f.text_area :content, class: 'froalaEditor', disabled: true %>
@@ -146,20 +145,38 @@
 
   </div>
 </div>
-
+<br>
 <div class="row">
-  <div class="col-md-12">
-    <div class="actions">
-      <% if !clotured_or_rejected?(@incident) %>
-      <% if @save_changes_of_edit %>
-      <ul class="buttons-edit-incident-right valider">
-        <li>
-          <%= f.submit "Enregistrer", id: "sendButton", class: "sendButton btn btn-save " %>
-        </li>
-      </ul>
+  <div class="col-sm-12 col-md-12 col-lg-12">
+    <% if current_user.can?('create_procedures') %>
+      <div class="col-sm-12 col-md-2 col-lg-2">
+        <button type='button' name='create_procedures' data-id='<%= @incident.id %>' class='btn btn-flat btn-block btn-default'>Procédure</button>
+      </div>
+    <% end %>
+      <% unless @incident.clotured_or_rejected? %>
+        <% if current_user.can?('reject_incidents') %>
+          <div class="col-sm-12 col-md-2 col-lg-2">
+            <button type="button" name="reject_incidents" data-id='<%= @incident.id %>' class="btn btn-warning btn-block btn-flat">Rejeter</button>
+          </div>
+        <% end %>
+        <% if current_user.can?('cloture_incidents') %>
+          <div class="col-sm-12 col-md-2 col-lg-2">
+            <button type="button" name="cloture_incidents" data-id='<%= @incident.id %>' class="btn btn-success btn-block btn-flat">Cloturer</button>
+          </div>
+        <% end %>
+        <% if current_user.can?('reaffect_incidents') %>
+          <div class="col-sm-12 col-md-2 col-lg-2">
+            <button type="button" name="reaffect_incidents" data-id='<%= @incident.id %>' class="btn btn-danger btn-block btn-flat">Réaffecter</button>
+          </div>
+        <% end %>
+        <% if current_user.can?('update_incidents') %>
+          <div class="col-sm-12 col-md-2 col-lg-2">
+            <%= f.button "Enregistrer", class: "btn btn-primary btn-block btn-flat" %>
+          </div>
+        <% end %>
       <% end %>
-      <% end %>
-    </div>
   </div>
+
 </div>
+
 <% end %>

@@ -1,14 +1,14 @@
 # users_controller.rb
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show update destroy edit]
-  before_action :set_expiration
+
   before_action :restrict_access,
                 except: %i[new create change_ip]
   before_action :not_his_profile?, only: :update
 
   # GET /users
   def index
-    @users = User.order('pseudo asc')
+    @users = User.order('email asc')
     respond_to do |format|
       format.json { render json: @users }
       format.html { render :index }
@@ -63,6 +63,7 @@ class UsersController < ApplicationController
   # GET /user/:id/edit.json
   def edit
     @agencies = Agency.all.order('name ASC')
+    @type_users = TypeUser.all
     @field_type_users = @user.type_user.field_type_users
     respond_to do |format|
       format.json { render json: @user }
@@ -123,7 +124,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:surname, :name, :pseudo, :email, :tel, :type_user_id, :agency_id, :password, :ip_addr)
+    params.require(:user).permit(:surname, :name, :email, :tel, :type_user_id, :agency_id, :password, :password_confirmation, :ip_addr)
   end
 
   def not_his_profile?

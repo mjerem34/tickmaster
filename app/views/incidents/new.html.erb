@@ -1,1 +1,4 @@
 <%= render 'form_new' %>
+<% content_for :js do %>
+  <%= javascript_include_tag 'incidents' %>
+<% end %>

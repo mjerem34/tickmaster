@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe RightsController, type: :controller do
+  setup :activate_authlogic
   describe 'JSON' do
     before { request.accept = 'application/json' }
     context 'not connected' do
@@ -24,7 +25,7 @@ RSpec.describe RightsController, type: :controller do
           @agency = create(:agency)
           @admin = create(:admin, agency_id: @agency.id)
 
-          sign_in @admin
+          login @admin
         end
         describe '#index' do
           it 'should show all the rights names' do
@@ -46,7 +47,7 @@ RSpec.describe RightsController, type: :controller do
           @agency = create(:agency)
           @user = create(:user, agency_id: @agency.id)
 
-          sign_in @user
+          login @user
         end
         describe '#index' do
           it 'should render status unauthorized' do
@@ -82,7 +83,7 @@ RSpec.describe RightsController, type: :controller do
           @agency = create(:agency)
           @admin = create(:admin, agency_id: @agency.id)
 
-          sign_in @admin
+          login @admin
         end
         describe '#index' do
           it 'should redirect to root_path' do
@@ -94,7 +95,7 @@ RSpec.describe RightsController, type: :controller do
         describe '#show' do
           it 'should redirect to root_path' do
             get :show, id: 1
-            
+
             expect(response).to redirect_to rights_path
           end
         end
@@ -104,7 +105,7 @@ RSpec.describe RightsController, type: :controller do
           @agency = create(:agency)
           @user = create(:user, agency_id: @agency.id)
 
-          sign_in @user
+          login @user
         end
 
         describe '#index' do

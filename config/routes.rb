@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       post :append_spec_type_material
     end
   end
-  resources :sessions do
+  resources :user_sessions do
     collection do
       post :retrieve_credentials
     end
@@ -99,17 +99,15 @@ Rails.application.routes.draw do
       post :forget_identifiers
     end
   end
-  get '/', to: 'pages#home', as: :root
+  get '/', to: 'user_sessions#new', as: :root
   get '/categories', to: 'categories#index'
   get '/sous_categories', to: 'sous_categories#index'
   get '/incidents', to: 'incidents#index'
   get '/signup', to: 'users#new', as: :signup
-  get '/signin', to: 'sessions#new', as: :signin
-  delete '/signout', to: 'sessions#destroy', as: :signout
-  delete '/sessions', to: 'sessions#destroy', as: :sign_out
+  get '/signin', to: 'user_sessions#new', as: :signin
+  delete '/signout', to: 'user_sessions#destroy', as: :signout
   get '/rights', to: 'rights#index'
   get '/agencies', to: 'agencies#index'
-  get '/sessions', to: redirect('/sessions/new')
   post '/attachments/upload', to: 'attachments#upload'
   put '/attachments/destroy', to: 'attachments#destroy'
 end

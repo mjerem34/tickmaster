@@ -7,7 +7,6 @@
 //= require jquery.slimscroll.min
 //= require selectize
 //= require bootstrap-slider
-//= require incidents
 //= require jquery-ui.min
 //= require procedures
 //= require header

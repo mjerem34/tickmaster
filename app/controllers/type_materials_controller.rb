@@ -2,7 +2,7 @@
 class TypeMaterialsController < ApplicationController
   before_action :set_type_material,
                 only: %i[append_spec_type_material update destroy]
-  before_action :set_expiration
+  
   before_action :restrict_access
   before_action :materials_binded?, only: %i[destroy]
   before_action :sellers_binded?, only: %i[destroy]

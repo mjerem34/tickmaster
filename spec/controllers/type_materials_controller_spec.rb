@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe TypeMaterialsController, type: :controller do
+  setup :activate_authlogic
   describe 'JSON' do
     before { request.accept = 'application/json' }
     context 'not connected' do
@@ -60,7 +61,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
           agency = create(:agency)
           @admin = create(:admin, agency_id: agency.id)
 
-          sign_in @admin
+          login @admin
         end
         describe '#index' do
           it 'should render the list of type_materials' do
@@ -149,7 +150,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
           agency = create(:agency)
           @user = create(:user, agency_id: agency.id)
 
-          sign_in @user
+          login @user
         end
         describe '#index' do
           it 'should render 403 and do nothing' do
@@ -227,7 +228,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
           agency = create(:agency)
           @admin = create(:admin, agency_id: agency.id)
 
-          sign_in @admin
+          login @admin
         end
         describe '#index' do
           it 'should render 200 and template' do
@@ -243,7 +244,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
           agency = create(:agency)
           @user = create(:user, agency_id: agency.id)
 
-          sign_in @user
+          login @user
         end
         describe '#index' do
           it 'should render 302 and redirect' do

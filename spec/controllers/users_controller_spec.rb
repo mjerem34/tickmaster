@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
+  setup :activate_authlogic
   before { @agency = create(:agency) }
   describe 'HTML' do
     before { request.accept = 'text/html' }
@@ -52,7 +53,7 @@ RSpec.describe UsersController, type: :controller do
         before do
           @admin = create(:admin, agency_id: @agency.id)
 
-          sign_in @admin
+          login @admin
         end
         describe '#index' do
           it 'should display the whole list of user' do
@@ -94,7 +95,7 @@ RSpec.describe UsersController, type: :controller do
         before do
           @user = create(:user, agency_id: @agency.id)
 
-          sign_in @user
+          login @user
         end
         describe '#index' do
           it 'should redirect to root_path' do
@@ -218,7 +219,7 @@ RSpec.describe UsersController, type: :controller do
         before do
           @user = create(:user, agency_id: @agency.id)
 
-          sign_in(@user)
+          login(@user)
         end
         describe '#index' do
           it 'should render status unauthorized' do
@@ -325,7 +326,7 @@ RSpec.describe UsersController, type: :controller do
         before do
           @admin = create(:admin, agency_id: @agency.id)
 
-          sign_in @admin
+          login @admin
         end
         describe '#create' do
           context 'with invalid attributes' do

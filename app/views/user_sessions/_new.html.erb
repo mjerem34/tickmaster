@@ -1,6 +1,5 @@
 <% @title = "Se connecter"%>
 <% if current_user == nil %>
-<% content_for :form do %>
 <div class="login-page">
   <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -81,8 +80,7 @@
   </style>
 
 </div>
-<% end %>
-<%else %>
+<% else %>
 <p class="alert_non_authorized" id="connected">
   <%= flash.now[:alert] = "Vous êtes déjà connecté !"%>
 </p>

@@ -1,5 +1,6 @@
 require 'rails_helper'
 RSpec.describe CategoriesController, type: :controller do
+  setup :activate_authlogic
   describe 'JSON' do
     before { request.accept = 'application/json' }
     context 'not connected' do
@@ -54,7 +55,7 @@ RSpec.describe CategoriesController, type: :controller do
           @admin = create(:admin, agency_id: agency.id)
           @category = create(:category)
 
-          sign_in @admin
+          login @admin
         end
         describe '#index' do
           it 'should render the list of the categories' do
@@ -112,7 +113,7 @@ RSpec.describe CategoriesController, type: :controller do
           agency = create(:agency)
           @user = create(:user, agency_id: agency.id)
 
-          sign_in @user
+          login @user
         end
         describe '#index' do
           it 'should render 403' do
@@ -180,7 +181,7 @@ RSpec.describe CategoriesController, type: :controller do
           agency = create(:agency)
           @admin = create(:admin, agency_id: agency.id)
 
-          sign_in @admin
+          login @admin
         end
 
         describe '#index' do
@@ -196,7 +197,7 @@ RSpec.describe CategoriesController, type: :controller do
           agency = create(:agency)
           @user = create(:user, agency_id: agency.id)
 
-          sign_in @user
+          login @user
         end
 
         describe '#index' do
