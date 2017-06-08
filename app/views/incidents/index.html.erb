@@ -28,10 +28,10 @@
 
               <td><%= incident.category.name %></td>
               <td><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
-              <% if current_user.type_user.is_tech == true %>
-              <td><span class="label label-<%= incident.incident_state_id_for_user.tech_color%>"><%= incident.incident_state_id_for_user.shortcut %></span></td>
+              <% if current_user.type_user.is_tech == false %>
+              <td><span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.shortcut %></span></td>
             <% else %>
-              <td><span class="label label-<%= incident.incident_state_id_for_tech.user_color%>"><%= incident.incident_state_id_for_tech.shortcut %></span></td>
+              <td><span class="label label-<%= incident.incident_state_id_for_tech.tech_color%>"><%= incident.incident_state_id_for_tech.shortcut %></span></td>
               <% end %>
 
             </tr>
@@ -72,10 +72,10 @@
                       <p>Créé à :
                         <%= incident.created_at.strftime("%d %b %Y %H:%M") %></p>
                         <p>Etat :
-                          <% if current_user.type_user.is_tech == true %>
-                          <span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.shortcut %></span>
+                          <% if current_user.type_user.is_tech == false %>
+                          <span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.name %></span>
                         <% else %>
-                          <span class="label label-<%= incident.incident_state_id_for_tech.tech_color%>"><%= incident.incident_state_id_for_tech.shortcut %></span>
+                          <span class="label label-<%= incident.incident_state_id_for_tech.tech_color%>"><%= incident.incident_state_id_for_tech.name %></span>
                           <% end %>
                         </p>
                     </div>

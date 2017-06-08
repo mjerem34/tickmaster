@@ -28,7 +28,7 @@
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.category.name %></td>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.sous_category.name %></td>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
-        <% if current_user.type_user.is_tech == true %>
+        <% if current_user.type_user.is_tech == false %>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.incident_state_id_for_user.shortcut %></td>
       <% else %>
         <td onClick="document.location.href='<%=edit_incident_path(incident)%>'"><%= incident.incident_state_id_for_tech.shortcut %></td>

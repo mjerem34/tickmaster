@@ -92,37 +92,44 @@
     </div>
     <div class="field">
       <%= f.label "Niveau d'urgence suggéré par le technicien" %><br>
-        <% case @incident.lvl_urgence_tech %>
-        <% when 1%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
-        <% when 2%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2" selected="selected">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
-        <% when 3%>
-        <!--A AMELIORER-->
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3" selected="selected">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
-        <% when 4%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected="selected">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
-        <% when 5%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected="selected">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
-        <% when 6%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6" selected="selected">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
-        <% when 7%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7" selected="selected">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
-        <% when 8%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8" selected="selected">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
-        <% when 9%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9" selected="selected">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
-        <% when 10%>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10" selected="selected">10</option>'.html_safe, class: "form-control ")%>
-        <% else %>
-        <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ", include_blank: true)%>
-        <% end %>
+      <% if current_user.can?('update_incidents') %>
+      <% case @incident.lvl_urgence_tech %>
+      <% when 1%>
+      <%= select_tag("incident[lvl_urgence_tech]", '<option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
+      <% when 2%>
+      <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2" selected="selected">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
+      <% when 3%>
+      <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3" selected="selected">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
+      <% when 4%>
+      <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4" selected="selected">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
+      <% when 5%>
+      <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5" selected="selected">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
+      <% when 6%>
+      <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6" selected="selected">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
+      <% when 7%>
+      <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7" selected="selected">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
+      <% when 8%>
+      <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8" selected="selected">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
+      <% when 9%>
+      <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9" selected="selected">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
+      <% when 10%>
+      <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10" selected="selected">10</option>'.html_safe, class: "form-control ")%>
+      <% else %>
+      <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ", include_blank: true)%>
+      <% end %>
+      <% else %>
+      <p class="form-control">
+        <%= @incident.lvl_urgence_tech %>
+      </p>
+
+      <% end %>
+
     </ul>
   </div>
   <div class="field">
     <% if current_user.can?('update_incidents') %>
     <%= f.label "Niveau d'urgence suggéré par l'utilisateur" %>
-    <p class="form-control ">
+    <p class="form-control">
       <%= @incident.lvl_urgence_user %>
     </p>
     <% end %>
