@@ -39,39 +39,17 @@
           </tbody>
         </table>
       </div>
-
     </div>
   </div>
   <% end %>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $('input[type="radio"]:nth-child(1)').click();
-      $(document).on('click', '.slideThree', function(){
-        var checked = $(this).children('input[type="checkbox"]').is(":checked");
-        var type_user = $(this).children('input[type="checkbox"]').data("id");
-        var right = $(this).children('input[type="checkbox"]').val();
-        $.clicked = $(this);
-        $.ajax({
-          url: '/rights/check_uncheck_right',
-          type: 'POST',
-          dataType: 'json',
-          data: {
-            checked:!checked,
-            type_user:type_user,
-            right:right
-          },
-          success: function(result){
-            if($.clicked.children('label').css("left") == "3px"){
-              $.clicked.children('label').css("left", "43px");
-              $.clicked.children('input[type="checkbox"]').prop('checked', true);
-            }else{
-              $.clicked.children('label').css("left", "3px");
-              $.clicked.children('input[type="checkbox"]').prop('checked', false);
-            }
-          }
-        });
-      });
-    });
-  </script>
-  <!--  -->
 </div>
+<% content_for :js do %>
+  <%= javascript_include_tag 'rights' %>
+<% end %>
+
+<!-- This is for fix background white -->
+<style media="screen">
+  section.content{
+    height: 600vh;
+  }
+</style>

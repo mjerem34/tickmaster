@@ -91,8 +91,8 @@
 
     </div>
     <div class="field">
-      <%= f.label "Niveau d'urgence suggéré par le technicien" %><br>
       <% if current_user.can?('update_incidents') %>
+      <%= f.label "Niveau d'urgence suggéré par le technicien" %><br>
       <% case @incident.lvl_urgence_tech %>
       <% when 1%>
       <%= select_tag("incident[lvl_urgence_tech]", '<option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ")%>
@@ -117,11 +117,6 @@
       <% else %>
       <%= select_tag("incident[lvl_urgence_tech]", '<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>'.html_safe, class: "form-control ", include_blank: true)%>
       <% end %>
-      <% else %>
-      <p class="form-control">
-        <%= @incident.lvl_urgence_tech %>
-      </p>
-
       <% end %>
 
     </ul>
