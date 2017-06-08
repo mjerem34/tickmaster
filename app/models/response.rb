@@ -1,3 +1,4 @@
+# response.rb
 class Response < ActiveRecord::Base
   belongs_to :incident
   belongs_to :sender, class_name: 'User', foreign_key: 'sender_id'
@@ -8,8 +9,4 @@ class Response < ActiveRecord::Base
   validates :ip_address_sender, presence: true, format: { with: IP_REGEXP }
   validates :sender_id, presence: true
   validates :incident_id, presence: true
-
-  def downloadable?(user)
-    user != :guest
-  end
 end

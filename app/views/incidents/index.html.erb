@@ -29,9 +29,9 @@
               <td><%= incident.category.name %></td>
               <td><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
               <% if current_user.type_user.is_tech == true %>
-              <td><span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.shortcut %></span></td>
+              <td><span class="label label-<%= incident.incident_state_id_for_user.tech_color%>"><%= incident.incident_state_id_for_user.shortcut %></span></td>
             <% else %>
-              <td><span class="label label-<%= incident.incident_state_id_for_tech.tech_color%>"><%= incident.incident_state_id_for_tech.shortcut %></span></td>
+              <td><span class="label label-<%= incident.incident_state_id_for_tech.user_color%>"><%= incident.incident_state_id_for_tech.shortcut %></span></td>
               <% end %>
 
             </tr>
@@ -62,7 +62,7 @@
                         <%= incident.tech.surname %>
                       <% else %>
                         <%= form_for(incident, html: {class: "edit_incident", style: "left:0% !important;"}) do |f| %>
-                        <%= select_tag "incident[tech_id]", options_for_select(@techs), include_blank: "Technicien non défini...", class: "form-control", data_id: "#{incident.id}" %>
+                        <%= select_tag "incident[tech_id]", options_for_select(@techs), include_blank: "Technicien non défini...", class: "form-control", data: { id: "#{incident.id}" } %>
                         <% end %>
                         <% end %></p>
                       <p>Catégorie :
@@ -94,3 +94,7 @@
           </tbody>
         </table>
       </div>
+
+      <% content_for :js do %>
+        <%= javascript_include_tag 'incidents' %>
+      <% end %>

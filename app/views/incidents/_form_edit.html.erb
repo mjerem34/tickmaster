@@ -18,11 +18,8 @@
                       <%= @incident.user.surname + ' ' + @incident.user.name %></h4>
                   </div>
                   <div class="modal-body">
-                    <p>Prenom : <%= @incident.user.surname %></p>
-                    <p>Nom : <%= @incident.user.name %></p>
-                    <p>Pseudo : <%= @incident.user.pseudo %></p>
                     <p>Mail : <a style="color:dimgrey !important;" href="mailto:<%= @incident.user.email %>"><%= @incident.user.email%></a></p>
-                    <p>Tel : <%= @incident.user.tel %></p>
+                    <p>Tel : <a style="color:dimgrey !important;" href="mailto:<%= @incident.user.tel %>"><%= @incident.user.tel %> </a></p>
                     <p>Agence : <%= @incident.user.agency.name %></p>
                   </div>
                   <div class="modal-footer">
@@ -37,7 +34,7 @@
           </div>
 
           <p>Etat de l'incident :
-          <% if current_user.type_user.is_tech == true %>
+          <% if current_user.type_user.is_tech == false %>
         <%= @incident.incident_state_id_for_user.name %></p>
         <% else %>
         <%= @incident.incident_state_id_for_tech.name  %></p>

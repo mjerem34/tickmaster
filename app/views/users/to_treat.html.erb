@@ -6,6 +6,7 @@
       <tr>
         <th class='sorting'>Objet</th>
         <th class='sorting'>Demandeur</th>
+        <th class='sorting'>Technicien</th>
         <th class='sorting'>Catégorie</th>
         <th class='sorting'>Date</th>
         <th class='sorting'>Etat</th>
@@ -17,9 +18,10 @@
               <td><%= incident.title %></td>
               <td><%= incident.user.surname %>
                 <%=incident.user.name %></td>
+              <td><%= incident.tech.surname%> <%= incident.tech.name%></td>
               <td><%= incident.category.name %></td>
               <td><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
-              <% if current_user.type_user.is_tech == true %>
+              <% if current_user.type_user.is_tech == false %>
               <td><span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.shortcut %></span></td>
             <% else %>
               <td><span class="label label-<%= incident.incident_state_id_for_tech.tech_color%>"><%= incident.incident_state_id_for_tech.shortcut %></span></td>
@@ -37,8 +39,6 @@
                         <%= incident.id %></h4>
                     </div>
                     <div class="modal-body">
-                      <p>Numéro : #
-                        <%= incident.id %></p>
                       <p>Objet :
                         <%= incident.title %></p>
                       <p>Contenu :
@@ -48,7 +48,7 @@
                         <%=incident.user.surname%></p>
                       <p>Technicien :
                         <% if incident.tech_id != nil %>
-                        <% incident.tech.surname %>
+                        <%= incident.tech.surname %>
                         <%=incident.tech.name %>
                       <% else %>
                         Non défini
@@ -60,7 +60,7 @@
                       <p>Créé à :
                         <%= incident.created_at.strftime("%d %b %Y %H:%M") %></p>
                       <p>Etat :
-                        <% if current_user.type_user.is_tech == true %>
+                        <% if current_user.type_user.is_tech == false %>
                         <span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.shortcut %></span>
                       <% else %>
                         <span class="label label-<%= incident.incident_state_id_for_tech.tech_color%>"><%= incident.incident_state_id_for_tech.shortcut %></span>
