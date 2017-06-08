@@ -98,7 +98,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.json { head :no_content }
+        format.json { render json: nil, status: 200 }
         format.html { redirect_to @user, notice: 'Profil actualisé.' }
       else
         format.json { render json: @user.errors.full_messages, status: 422 }

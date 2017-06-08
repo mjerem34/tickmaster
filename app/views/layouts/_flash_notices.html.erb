@@ -2,8 +2,8 @@
   <script type="text/javascript">
     swal(":)", "<%= raw flash.now[:notice] %>", "success" )
   </script>
-<% elsif flash.now[:alert] %>
-  <script type="text/javascript">
-    swal("Oups... :(", "<%= flash.now[:alert] %>", "error" )
-  </script>
+  <% elsif flash.now[:alert] %>
+    <script type="text/javascript">
+      swal("Oups... :(", "<%= flash.now[:alert] %>", "error" )
+    </script>
 <% end %>

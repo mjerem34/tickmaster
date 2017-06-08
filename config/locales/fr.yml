@@ -85,7 +85,6 @@ fr:
         notify_for_tech: "Champ 'notify_for_tech'"
         incident_state_id_for_tech: "Champ 'incident_state_id_for_tech'"
         incident_state_id_for_user: "Champ 'incident_state_id_for_user'"
-
       user:
         email: "Adresse email"
         tel: "Numéro de téléphone"
@@ -135,235 +134,240 @@ fr:
         incident:
           attributes:
             title:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             content:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
             user_id:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
             lvl_urgence_user:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
             lvl_urgence_tech:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
             cloture_user:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
               inclusion: "[true,false]"
             cloture_tech:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
               inclusion: "[true,false]"
             notify_for_user:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
               inclusion: "[true,false]"
             notify_for_tech:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
               inclusion: "[true,false]"
 
         user:
           attributes:
             pseudo:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             name:
-              blank: "Requis"
-              taken: "Déjà enregistré"
-              invalid: "Invalide"
+              blank: "requis"
+              taken: "déjà enregistré"
+              invalid: "invalide"
             surname:
-              taken: "Déjà enregistré"
-              invalid: "Invalide"
-              blank: "Requis"
+              taken: "déjà enregistré"
+              invalid: "invalide"
+              blank: "requis"
             tel:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             email:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             type_user:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             agency:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             type_user_id:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             agency_id:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             crypted_password:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+            password:
+              blank: "requis"
+              invalid: "invalide"
+              too_short: "trop court"
             password_confirmation:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
-              too_short: "Trop court"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
+              too_short: "trop court"
+              confirmation: "invalide"
             password_salt:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
         response:
           attributes:
             content:
-              blank: "Requis"
+              blank: "requis"
               too_long: "trop long"
             incident_id:
               blank: "requis"
         agency:
           attributes:
             name:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             address:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             cp:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
             city:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
             email:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             tel:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             fax:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             department:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
             ip_address:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
         category:
           attributes:
             name:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
         sous_category:
           attributes:
             name:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             category_id:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             lvl_urgence_max:
               less_than_or_equal_to: "Trop grand"
               greater_than_or_equal_to: "Trop petit"
         right:
           attributes:
             name:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
         type_user:
           attributes:
             name:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
               too_short: "trop court"
             secure:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
               inclusion: "Requis"
             actif:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
               inclusion: "Requis"
             is_tech:
-              blank: "Requis"
-              invalid: "Invalide"
+              blank: "requis"
+              invalid: "invalide"
               inclusion: "Requis"
         field_seller:
           attributes:
             name:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
         spec_material:
           attributes:
             spec_value:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
         spec_type_material:
           attributes:
             name:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
         field_type_user:
           attributes:
             name:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
         seller:
           attributes:
             name:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
         type_material:
           attributes:
             name:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
         material:
           attributes:
             name:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             type_material_id:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             seller_id:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             detentor_type_id:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
             detentor_id:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"
         field_agency:
           attributes:
             name:
-              blank: "Requis"
-              invalid: "Invalide"
-              taken: "Déjà enregistré"
+              blank: "requis"
+              invalid: "invalide"
+              taken: "déjà enregistré"

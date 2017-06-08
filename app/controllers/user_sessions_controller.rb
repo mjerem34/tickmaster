@@ -7,17 +7,16 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(user_session_params)
     if @user_session.save
-      flash[:success] = 'Welcome back!'
-      redirect_to root_path
+      flash[:notice] = 'Bienvenue !'
     else
-      flash[:error] = @user_session.errors.full_messages
-      render :new
+      flash[:alert] = 'Identifiants invalides'
     end
+    redirect_to root_path
   end
 
   def destroy
     current_user_session.destroy
-    flash[:success] = 'Goodbye!'
+    flash[:success] = 'Â bientôt !'
     redirect_to root_path
   end
 
