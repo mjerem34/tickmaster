@@ -13,6 +13,7 @@ RSpec.describe ResponsesController, type: :controller do
                          tech_id: @tech.id,
                          category_id: category.id,
                          sous_category_id: category.sous_categories.first.id)
+      logout @user
     end
     context 'not connected' do
       describe '#create' do

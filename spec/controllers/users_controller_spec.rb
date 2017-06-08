@@ -16,6 +16,7 @@ RSpec.describe UsersController, type: :controller do
       describe '#show' do
         it 'should redirect to root path' do
           user = create(:user, agency_id: @agency.id)
+          logout user
 
           get :show, id: user.id
 
@@ -32,6 +33,7 @@ RSpec.describe UsersController, type: :controller do
       describe '#edit' do
         it 'should redirect to root path' do
           user = create(:user, agency_id: @agency.id)
+          logout user
 
           get :edit, id: user.id
 
@@ -41,6 +43,7 @@ RSpec.describe UsersController, type: :controller do
       describe '#to_treat' do
         it 'should redirect to root path' do
           user = create(:user, agency_id: @agency.id)
+          logout user
 
           get :edit, id: user.id
 
@@ -150,6 +153,7 @@ RSpec.describe UsersController, type: :controller do
       describe '#show' do
         it 'should render status unauthorized' do
           user = create(:user, agency_id: @agency.id)
+          logout user
 
           get :show, id: user.id
 
@@ -159,6 +163,7 @@ RSpec.describe UsersController, type: :controller do
       describe '#to_treat' do
         it 'should render status unauthorized' do
           user = create(:user, agency_id: @agency.id)
+          logout user
 
           get :to_treat, id: user.id
 
@@ -190,6 +195,7 @@ RSpec.describe UsersController, type: :controller do
       describe '#update' do
         it 'should render status unauthorized' do
           user = create(:user, agency_id: @agency.id)
+          logout user
 
           put :update, id: user.id, user: attributes_for(:user,
                                                          agency_id: @agency.id)
@@ -200,6 +206,7 @@ RSpec.describe UsersController, type: :controller do
       describe '#destroy' do
         it 'should render status unauthorized' do
           user = create(:user, agency_id: @agency.id)
+          logout user
 
           delete :destroy, id: user.id
 

@@ -16,16 +16,7 @@
       <span class="glyphicon glyphicon-lock form-control-feedback"></span>
     </div>
     <div class="social-auth-links text-center">
-      <div class="row">
-        <div class="col-xs-7">
-          <label for="user_session_remember_me">Se souvenir de moi</label>
-          <%= f.check_box :remember_me %>
-        </div>
-        <div class="col-xs-5">
-          <%= f.submit "Se connecter", id: "sendButton", class: "btn btn-flat btn-success btn-flat btn-block" %>
-
-        </div>
-      </div>
+      <%= f.submit "Se connecter", id: "sendButton", class: "btn btn-flat btn-success btn-flat btn-block" %>
       <br>
       <p>- Un problème ? -</p>
       <br>

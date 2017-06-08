@@ -7,6 +7,7 @@ RSpec.describe SellersController, type: :controller do
     agency = create(:agency)
     @user = create(:user, agency_id: agency.id)
     @admin = create(:admin, agency_id: agency.id)
+    logout @user
   end
   describe 'JSON' do
     before { request.accept = 'application/json' }

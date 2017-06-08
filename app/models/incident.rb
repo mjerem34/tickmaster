@@ -15,6 +15,7 @@ class Incident < ActiveRecord::Base
   has_many :archives, dependent: :destroy
 
   validates :title, presence: true, length: { in: 0..199 }
+  validates :user_id, presence: true
   validates :content, presence: true
   validates :category_id, presence: true
   validates :sous_category_id, presence: true
