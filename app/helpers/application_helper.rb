@@ -32,7 +32,7 @@ module ApplicationHelper
       format.json { render json: nil, status: 401 }
       format.html do
         redirect_to '/',
-                    alert: 'Vous devez être connecté pour accéder à cette/'
+                    alert: 'Vous devez être connecté pour accéder à cette' \
         ' ressource'
       end
     end

@@ -126,8 +126,8 @@ $(document).ready(function(){
           dataType: "script",
           data: {
             incident: {
-              incident_state_id_for_tech_id: 12,
-              incident_state_id_for_user_id: 12
+              incident_state_id_for_tech_id: 10,
+              incident_state_id_for_user_id: 10
             }
           },
           statusCode: {
@@ -151,12 +151,19 @@ $(document).ready(function(){
         url: "/incidents/" + $.id,
         type: "PUT",
         dataType: "script",
+        data: {
+          incident: {
+            tech_id: null,
+            incident_state_id_for_user_id: 12,
+            incident_state_id_for_tech_id: 12
+          }
+        },
         statusCode: {
-          200: function(){
-
-          },
-          422: function(){
-
+          204: function(){
+            swal('Merci ! :)', "Votre demande de reaffectation a bien été prise en compte", 'success');
+            setTimeout(function(){
+              window.location = '/';
+            }, 2000);
           }
         }
       });

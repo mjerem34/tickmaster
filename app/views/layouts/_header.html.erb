@@ -187,7 +187,9 @@
         <!-- <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Procedures</span></a></li> -->
         <!-- <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li> -->
         <!-- Procedures links -->
+        <% if current_user.can?('index_procedures') %>
         <li class="treeview">
+
           <a href="#"><i class="fa fa-bookmark"></i> <span>Procedures</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -198,6 +200,7 @@
             <%= "<li>".html_safe + link_to('Créer procedures', new_procedure_url) + "</li>".html_safe if current_user.can?('create_procedures') %>
           </ul>
         </li>
+        <% end %>
         <li class="treeview">
           <a href="#"><i class="fa fa-ticket"></i> <span>Incidents</span>
             <span class="pull-right-container">

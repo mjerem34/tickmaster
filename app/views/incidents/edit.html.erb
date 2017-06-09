@@ -13,8 +13,12 @@
       <% @incident.responses_or_archives.each do |response| %>
       <% if current_user == response.sender %>
       <div class="direct-chat-msg right">
-        <% else %>
-        <div class="direct-chat-msg">
+        <% elsif current_user != response.sender %>
+          <% if ![@incident.tech, @incident.user].include?(response.sender) %>
+          <div class="direct-chat-msg right direct-chat-msg-other">
+            <% else %>
+            <div class="direct-chat-msg">
+            <% end %>
           <% end %>
           <div class="direct-chat-info clearfix">
             <span class="direct-chat-name pull-left"><%= "#{response.sender.name} #{response.sender.surname}" %></span>

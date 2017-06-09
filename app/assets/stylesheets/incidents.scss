@@ -7,3 +7,13 @@ div.actions{
     }
   }
 }
+
+div.direct-chat-msg-other{
+  div.direct-chat-text{
+    background: #f39c12 !important;
+    border-color: #f39c12 !important;
+  }
+  div.direct-chat-text::before,div.direct-chat-text::after{
+    border-left-color: rgba(0,0,0,0) !important;
+  }
+}

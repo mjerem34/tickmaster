@@ -110,11 +110,12 @@ class UsersController < ApplicationController
   # DELETE /users/:id
   # DELETE /users/:id.json
   def destroy
-    if @user.destroy
-      render json: nil
-    else
-      render json: @user.errors.full_messages, status: 422
-    end
+    render json: 'Personne ne peux supprimer un utilisateur, même pas vous !'
+    # if @user.destroy
+    #   render json: nil
+    # else
+    #   render json: @user.errors.full_messages, status: 422
+    # end
   end
 
   private

@@ -6,7 +6,7 @@ class IncidentsController < ApplicationController
 
   before_action :restrict_access
   before_action :set_user_and_ip, only: :create
-
+  before_action :send_response_tech, only: :update
   # GET /incidents
   # GET /incidents.json
   def index
@@ -103,6 +103,16 @@ class IncidentsController < ApplicationController
 
   def set_users_all
     @users = User.all
+  end
+
+  def send_response_tech
+    return if params[:incident][:tech_id].blank?
+    tech = User.find(params[:incident][:tech_id])
+    Response.create!(
+      content: "Incident affecté à #{tech.surname} #{tech.name}",
+      incident_id: @incident.id,
+      sender_id: @incident.user_id, ip_address_sender: '0.0.0.0'
+    )
   end
 
   def set_user_and_ip
