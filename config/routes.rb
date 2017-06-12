@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :type_materials do
     member do
       post :append_spec_type_material
+      delete :unbind_spec_type_material
     end
   end
   resources :user_sessions do

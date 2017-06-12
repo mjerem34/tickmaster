@@ -2,7 +2,7 @@
 class TypeMaterialsController < ApplicationController
   before_action :set_type_material,
                 only: %i[append_spec_type_material update destroy]
-  
+
   before_action :restrict_access
   before_action :materials_binded?, only: %i[destroy]
   before_action :sellers_binded?, only: %i[destroy]
@@ -21,10 +21,14 @@ class TypeMaterialsController < ApplicationController
   # POST /type_materials.json
   def create
     @type_material = TypeMaterial.new(type_material_params)
-    if @type_material.save
-      render json: @type_material.id, status: :created
-    else
-      render json: @type_material.errors.full_messages, status: 422
+    @spec_type_materials = SpecTypeMaterial.all
+    respond_to do |format|
+      if @type_material.save
+        format.js
+        format.json { render json: @type_material.id, status: 201 }
+      else
+        format.json { render json: @type_material.errors.full_messages, status: 422 }
+      end
     end
   end
 
@@ -53,6 +57,14 @@ class TypeMaterialsController < ApplicationController
     @spec_type_material = AppendSpecTypeMaterial.new(
       params[:id],
       params[:spec_type_material][:name]
+    ).call
+    render json: @spec_type_material.result, status: @spec_type_material.status
+  end
+
+  def unbind_spec_type_material
+    @spec_type_material = UnbindSpecTypeMaterial.new(
+      params[:id],
+      params[:spec_type_material_id]
     ).call
     render json: @spec_type_material.result, status: @spec_type_material.status
   end

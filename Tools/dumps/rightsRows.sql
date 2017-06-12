@@ -3267,6 +3267,34 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (115,2
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (115,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (115,23,1);
 
+--
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (116,'unbind_spec_type_material_type_materials','Autorisé à délier des types de matériels avec des specs');
+
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,1,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,2,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,3,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,4,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,5,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,6,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,7,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,8,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,9,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,10,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,11,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,12,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,13,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,14,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,15,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,16,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,17,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,18,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,19,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,20,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,21,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,22,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,23,1);
+
 ------ END ------
 -- Responses
 -- TODO : Create rights for responses

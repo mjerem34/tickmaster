@@ -12,6 +12,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
           expect(response.body).to eq 'null'
         end
       end
+
       describe '#create' do
         it 'should render 401 and do nothing' do
           post :create, type_material: attributes_for(:type_material)
@@ -20,6 +21,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
           expect(TypeMaterial.count).to eq 0
         end
       end
+
       describe '#update' do
         it 'should render 401 and do nothing' do
           type_material = create(:type_material)
@@ -30,6 +32,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
           expect(type_material.name).to eq TypeMaterial.first.name
         end
       end
+
       describe '#destroy' do
         it 'should render 401 and do nothing' do
           type_material = create(:type_material)
@@ -40,6 +43,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
           expect(TypeMaterial.find(type_material.id)).to eq type_material
         end
       end
+
       describe '#append_spec_type_material' do
         it 'should render 401 and do nothing' do
           type_material = create(:type_material)
@@ -54,6 +58,24 @@ RSpec.describe TypeMaterialsController, type: :controller do
           expect(TypeMaterialSpecTypeMaterial.count).to eq 0
         end
       end
+
+      describe '#unbind_spec_type_material' do
+        it 'should render 401 and do nothing' do
+          type_material = create(:type_material)
+          spec_type_material = create(:spec_type_material)
+          create(:type_material_spec_type_material,
+                 type_material_id: type_material.id,
+                 spec_type_material_id: spec_type_material.id)
+
+          delete :unbind_spec_type_material, id: type_material.id,
+                                             spec_type_material: {
+                                               id: spec_type_material.id
+                                             }
+
+          expect(response.status).to eq 401
+          expect(TypeMaterialSpecTypeMaterial.count).to eq 1
+        end
+      end
     end
     context 'connected' do
       context 'have the right' do
@@ -63,6 +85,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
 
           login @admin
         end
+
         describe '#index' do
           it 'should render the list of type_materials' do
             create(:type_material)
@@ -73,6 +96,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
             expect(response.body).to eq TypeMaterial.all.to_json
           end
         end
+
         describe '#create' do
           it 'should create an type_material' do
             post :create, type_material: attributes_for(:type_material)
@@ -92,6 +116,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
             expect(TypeMaterial.first.name).to eq 'test'
           end
         end
+
         describe '#destroy' do
           it 'should destroy the type_material' do
             type_material = create(:type_material)
@@ -101,6 +126,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
             expect(response.status).to eq 200
             expect(TypeMaterial.count).to eq 0
           end
+
           it 'should not destroy if seller is binded' do
             type_material = create(:type_material)
             seller = create(:seller)
@@ -113,6 +139,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
             expect(response.status).to eq 422
             expect(TypeMaterial.count).to eq 1
           end
+
           it 'should not destroy if material is binded'
         end
         describe '#append_spec_type_material' do
@@ -128,6 +155,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
             expect(response.status).to eq 200
             expect(TypeMaterialSpecTypeMaterial.count).to eq 1
           end
+
           it 'should render "déjà lié" if already appended' do
             type_material = create(:type_material)
             spec_type_material = create(:spec_type_material)
@@ -144,7 +172,24 @@ RSpec.describe TypeMaterialsController, type: :controller do
             expect(TypeMaterialSpecTypeMaterial.count).to eq 1
           end
         end
+
+        describe '#unbind_spec_type_material' do
+          it 'should unbind the spec_type_material from type_material' do
+            type_material = create(:type_material)
+            spec_type_material = create(:spec_type_material)
+            create(:type_material_spec_type_material,
+                   type_material_id: type_material.id,
+                   spec_type_material_id: spec_type_material.id)
+
+            delete :unbind_spec_type_material, id: type_material.id,
+                                               spec_type_material_id: spec_type_material.id
+
+            expect(response.status).to eq 200
+            expect(TypeMaterialSpecTypeMaterial.count).to eq 0
+          end
+        end
       end
+
       context "don't have the right" do
         before do
           agency = create(:agency)
@@ -152,6 +197,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
 
           login @user
         end
+
         describe '#index' do
           it 'should render 403 and do nothing' do
             type_material = create(:type_material)
@@ -162,6 +208,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
             expect(TypeMaterial.find(type_material.id)).to eq type_material
           end
         end
+
         describe '#create' do
           it 'should render 403 and do nothing' do
             type_material = create(:type_material)
@@ -172,6 +219,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
             expect(TypeMaterial.find(type_material.id)).to eq type_material
           end
         end
+
         describe '#update' do
           it 'should render 403 and do nothing' do
             type_material = create(:type_material)
@@ -182,6 +230,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
             expect(TypeMaterial.find(type_material.id)).to eq type_material
           end
         end
+
         describe '#destroy' do
           it 'should render 403 and do nothing' do
             type_material = create(:type_material)
@@ -207,6 +256,22 @@ RSpec.describe TypeMaterialsController, type: :controller do
             expect(TypeMaterialSpecTypeMaterial.count).to eq 0
           end
         end
+
+        describe '#unbind_spec_type_material' do
+          it 'should render 403 and do nothing' do
+            type_material = create(:type_material)
+            spec_type_material = create(:spec_type_material)
+            create(:type_material_spec_type_material,
+                   type_material_id: type_material.id,
+                   spec_type_material_id: spec_type_material.id)
+
+            delete :unbind_spec_type_material, id: type_material.id,
+                                                 spec_type_material_id: spec_type_material.id
+
+            expect(response.status).to eq 403
+            expect(TypeMaterialSpecTypeMaterial.count).to eq 1
+          end
+        end
       end
     end
   end
@@ -222,6 +287,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
         end
       end
     end
+
     context 'connected' do
       context 'have the right' do
         before do
@@ -230,6 +296,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
 
           login @admin
         end
+
         describe '#index' do
           it 'should render 200 and template' do
             get :index
@@ -239,6 +306,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
           end
         end
       end
+
       context "don't have the right" do
         before do
           agency = create(:agency)
@@ -246,6 +314,7 @@ RSpec.describe TypeMaterialsController, type: :controller do
 
           login @user
         end
+
         describe '#index' do
           it 'should render 302 and redirect' do
             get :index
