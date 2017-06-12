@@ -1,4 +1,3 @@
-# A suit of methods to use in all the app
 module AgenciesHelper
   def exec_ping(host)
     return 0 if host == 'NULL'

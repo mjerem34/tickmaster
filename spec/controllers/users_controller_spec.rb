@@ -285,7 +285,7 @@ RSpec.describe UsersController, type: :controller do
                                                             agency_id:
                                                             @agency.id)
 
-            expect(response.status).to eq(204)
+            expect(response.status).to eq(200)
           end
           it 'should render status unauthorized if is not his profile' do
             new_user = create(:user, agency_id: @agency.id)
@@ -375,12 +375,12 @@ RSpec.describe UsersController, type: :controller do
             expect(response.status).to eq(200)
           end
 
-          it 'should destroy the user' do
+          it 'should not destroy the user' do
             new_user = create(:user, agency_id: @agency.id)
 
             delete :destroy, id: new_user.id
 
-            expect(User.count).to eq 1
+            expect(User.count).to eq 2
           end
         end
 
@@ -434,7 +434,7 @@ RSpec.describe UsersController, type: :controller do
 
             put :update, id: new_user.id, user: { name: 'nijhioj' }
 
-            expect(response.status).to eq 204
+            expect(response.status).to eq 200
           end
         end
       end

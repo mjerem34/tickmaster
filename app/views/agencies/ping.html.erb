@@ -33,3 +33,6 @@
   </table>
 </div>
 <%= render 'modalCreateGraphics'%>
+<% content_for :js do %>
+  <%= javascript_include_tag 'agencies' %>
+<% end %>
