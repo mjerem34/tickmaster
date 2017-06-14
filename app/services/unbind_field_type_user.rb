@@ -1,8 +1,8 @@
 # unbind_field_type_user.rb
 class UnbindFieldTypeUser
-  def initialize(params:, id:)
-    @id = id
-    @type_user_id = params[:type_user_id]
+  def initialize(field_type_user_id, type_user_id)
+    @field_type_user_id = field_type_user_id
+    @type_user_id = type_user_id
   end
 
   def call
@@ -13,7 +13,7 @@ class UnbindFieldTypeUser
   private
 
   def field_type_user
-    @field_type_user ||= FieldTypeUser.find(@id)
+    @field_type_user ||= FieldTypeUser.find(@field_type_user_id)
   end
 
   def type_user

@@ -16,8 +16,9 @@ $("#table_sellers").after(`
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Vendeur : </h4>
-            <span class="seller_name"><h5 class="modal-title" data-seller="<%= @seller.id %>"><%= @seller.name%></h5><%= image_tag 'ICONS/1004.png', size: "20x20", class: "edit_img" %></span>
+            <i>Nom : </i>
+            <i>Appuyez sur entrée pour éditer le nom du vendeur</i>
+            <h4 class="modal-title"><input type='text' name='name_seller' class='form-control' data-id='<%= @seller.id %>' value='<%= @seller.name %>'/></h4>
           </div>
           <div class="modal-body">
             <caption class='modal-body-title'>Informations :</caption>
@@ -31,9 +32,9 @@ $("#table_sellers").after(`
               </thead>
               <tbody>
                 <tr data-seller-id='<%= @seller.id %>'>
-                  <td><%= select_tag 'name_new_field_seller', options_for_select(@field_sellers.collect{|field_seller| [field_seller.name, field_seller.id]}), class: "dropdownSearchCreate" %></td>
+                  <td><%= select_tag 'name_new_field_seller', options_for_select(FieldSeller.all.collect{|field_seller| [field_seller.name, field_seller.id]}), class: "dropdownSearchCreate" %></td>
                   <td><input type="text" name="name" value="" placeholder='Valeur' id='value_new_field_seller' class='form-control'></td>
-                  <td><button type="button" name="button" class='btn btn-flat btn-success' id='create_new_field_seller'>+</button></td>
+                  <td><button type="button" name="button" class='btn btn-flat btn-success' id='bind_new_field_seller'>+</button></td>
                 </tr>
                 <% @seller.field_seller_sellers.each do |fss| %>
                 <tr data-seller-id='<%= @seller.id %>' data-field-seller-id="<%= fss.field_seller.id %>">
@@ -55,7 +56,7 @@ $("#table_sellers").after(`
               </thead>
               <tbody>
                 <tr data-seller-id="<%= @seller.id %>">
-                  <td><%= select_tag 'name_new_type_material', options_for_select(@type_materials.collect{|type_material| [type_material.name, type_material.id]}), class: "dropdownSearchCreate" %></td>
+                  <td><%= select_tag 'name_new_type_material', options_for_select(TypeMaterial.all.collect{|type_material| [type_material.name, type_material.id]}), class: "dropdownSearchCreate" %></td>
                   <td><button type="button" name="button" class='btn btn-flat btn-success' id='bind_type_material'>+</button></td>
                 </tr>
                 <% @seller.type_material_sellers.each do |tms| %>
@@ -68,7 +69,7 @@ $("#table_sellers").after(`
             </table>
           </div>
           <div class="modal-footer">
-            <button type="button" name="button" class="btn btn-flat btn-default" id="delete_seller" data-seller-id="<%= @seller.id %>">Supprimer</button>
+            <button type="button" name="button" class="btn btn-flat btn-default" id="delete_seller" data-seller-id="<%= @seller.id %>" data-dismiss="modal">Supprimer</button>
             <button type="button" class="btn btn-flat btn-danger close-modal" data-dismiss="modal">Fermer</button>
           </div>
         </div>

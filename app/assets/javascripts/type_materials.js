@@ -122,7 +122,7 @@ $(document).on('click', 'button[name="delete_spec_type_material"]', function(){
       spec_type_material_id: $.spec_type_material_id
     },
     statusCode: {
-      422: function(){
+      422: function(jqXHR){
         notifError(jqXHR.responseText);
       },
       200: function(){

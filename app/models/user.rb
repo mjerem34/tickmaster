@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   end
 
   before_save :set_email_downcase
-  before_save :set_user_actif
+  before_create :set_user_actif
 
   belongs_to :type_user, foreign_key: :type_user_id
   belongs_to :agency
@@ -44,10 +44,6 @@ class User < ActiveRecord::Base
   # validates :crypted_password, presence: true
 
   # Methods
-
-  def set_pseudo_downcase
-    pseudo.downcase!
-  end
 
   def set_email_downcase
     email.downcase!

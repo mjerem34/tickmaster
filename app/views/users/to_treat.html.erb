@@ -1,102 +1,84 @@
-<% if @incidents.count > 0 %>
 <div class="table-responsive">
-
   <table class="table table-hover table-bordered dataTable">
     <thead class="header">
       <tr>
+        <th class='sorting'>Créé</th>
         <th class='sorting'>Objet</th>
         <th class='sorting'>Demandeur</th>
         <th class='sorting'>Technicien</th>
         <th class='sorting'>Catégorie</th>
-        <th class='sorting'>Date</th>
+        <th class='sorting'>Urgence</th>
         <th class='sorting'>Etat</th>
       </tr>
     </thead>
     <tbody>
       <% @incidents.each do |incident| %>
-            <tr data-toggle="modal" data-target="#<%= incident.id %>">
-              <td><%= incident.title %></td>
-              <td><%= incident.user.surname %>
-                <%=incident.user.name %></td>
-              <td><%= incident.tech.surname%> <%= incident.tech.name%></td>
-              <td><%= incident.category.name %></td>
-              <td><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
-              <% if current_user.type_user.is_tech == false %>
-              <td><span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.shortcut %></span></td>
-            <% else %>
-              <td><span class="label label-<%= incident.incident_state_id_for_tech.tech_color%>"><%= incident.incident_state_id_for_tech.shortcut %></span></td>
-              <% end %>
-            </tr>
-            <div class="container-modal">
-              <!-- Modal -->
-              <div class="modal fade" id="<%= incident.id %>" role="dialog">
-                <div class="modal-dialog">
-                  <!-- Modal content-->
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Détails de l'incident #
-                        <%= incident.id %></h4>
-                    </div>
-                    <div class="modal-body">
-                      <p>Objet :
-                        <%= incident.title %></p>
+      <tr data-toggle="modal" data-target="#<%= incident.id %>">
+        <td><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
+        <td><%= incident.title %></td>
+        <td><%= incident.user.surname %>
+          <%=incident.user.name %></td>
+          <td><%= incident.tech.surname%> <%= incident.tech.name%></td>
+          <td><%= incident.category.name %></td>
+          <td><%= incident.lvl_urgence_user %></td>
+          <% if current_user.type_user.is_tech == false %>
+          <td><span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.shortcut %></span></td>
+          <% else %>
+          <td><span class="label label-<%= incident.incident_state_id_for_tech.tech_color%>"><%= incident.incident_state_id_for_tech.shortcut %></span></td>
+          <% end %>
+        </tr>
+        <div class="container-modal">
+          <!-- Modal -->
+          <div class="modal fade" id="<%= incident.id %>" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Détails de l'incident #
+                    <%= incident.id %></h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Objet :
+                      <%= incident.title %></p>
                       <p>Contenu :
                         <%= strip_tags(incident.content) %></p>
-                      <p>Demandeur :
-                        <%= incident.user.name %>
-                        <%=incident.user.surname%></p>
-                      <p>Technicien :
-                        <% if incident.tech_id != nil %>
-                        <%= incident.tech.surname %>
-                        <%=incident.tech.name %>
-                      <% else %>
-                        Non défini
-                        <% end %></p>
-                      <p>Catégorie :
-                        <%= incident.category.name %></p>
-                      <p>Sous catégorie :
-                        <%= incident.sous_category.name %></p>
-                      <p>Créé à :
-                        <%= incident.created_at.strftime("%d %b %Y %H:%M") %></p>
-                      <p>Etat :
-                        <% if current_user.type_user.is_tech == false %>
-                        <span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.name %></span>
-                      <% else %>
-                        <span class="label label-<%= incident.incident_state_id_for_tech.tech_color%>"><%= incident.incident_state_id_for_tech.name %></span>
+                        <p>Demandeur :
+                          <%= incident.user.name %>
+                          <%=incident.user.surname%></p>
+                          <p>Technicien :
+                            <% if incident.tech_id != nil %>
+                            <%= incident.tech.surname %>
+                            <%=incident.tech.name %>
+                            <% else %>
+                            Non défini
+                            <% end %></p>
+                            <p>Catégorie :
+                              <%= incident.category.name %></p>
+                              <p>Sous catégorie :
+                                <%= incident.sous_category.name %></p>
+                                <p>Créé à :
+                                  <%= incident.created_at.strftime("%d %b %Y %H:%M") %></p>
+                                  <p>Etat :
+                                    <% if current_user.type_user.is_tech == false %>
+                                    <span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.name %></span>
+                                    <% else %>
+                                    <span class="label label-<%= incident.incident_state_id_for_tech.tech_color%>"><%= incident.incident_state_id_for_tech.name %></span>
+                                    <% end %>
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                  <%= link_to "Détails", edit_incident_path(incident), class: "btn btn-flat btn-primary"%>
+
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+
+                        </div>
+
                         <% end %>
-                      </p>
-                    </div>
-                    <div class="modal-footer">
-                      <%= link_to "Détails", edit_incident_path(incident), class: "btn btn-flat btn-primary"%>
-
-                    </div>
-                  </div>
-
-                </div>
+                      </tbody>
+                </table>
               </div>
-
-            </div>
-
-            <% end %>
-          </tbody>
-          <!-- <thead class="header">
-            <tr>
-              <th class='sorting'>Objet</th>
-              <th class='sorting'>Demandeur</th>
-              <th class='sorting'>Catégorie</th>
-              <th class='sorting'>Date</th>
-              <th class='sorting'>Etat</th>
-            </tr>
-          </thead> -->
-        </table>
-      </div>
-    <% else %>
-      <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12 aucun-incident-div">
-          <h1>
-            Vous n'avez aucun incident actif pour le moment.
-          </h1>
-        </div>
-      </div>
-      <% end %>

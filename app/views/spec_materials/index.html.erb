@@ -24,6 +24,9 @@
     </tbody>
   </table>
 </div>
+<div style="visibility: hidden;">
+  <%= select_tag 'spec_type_spec_material', options_for_select(@spec_type_materials.collect{|stm| [stm.name]}), class: 'select_tag_to_take' %>
+</div>
 <% content_for :js do %>
   <%= javascript_include_tag 'spec_materials' %>
 <% end %>

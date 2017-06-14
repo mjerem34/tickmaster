@@ -6,6 +6,7 @@ class TypeUsersController < ApplicationController
   before_action :restrict_access
   before_action :not_blank?, only: :toggle
   before_action :any_users?, only: :destroy
+  before_action :user_binded?, only: :unbind_field_type_user
   # GET /type_users
   # GET /type_users.json
   def index
@@ -74,10 +75,39 @@ class TypeUsersController < ApplicationController
     end
   end
 
+  # POST /field_type_users/1/bind_field_type_user.json
+  def bind_field_type_user
+    @field_type_user_type_user = BindFieldTypeUser.new(
+      params[:field_type_user_name], params[:id]
+    ).call
+    if !@field_type_user_type_user.nil?
+      render json: @field_type_user_type_user.field_type_user.id, status: 201
+    else
+      render json: 'Déjà lié', status: 422
+    end
+  end
+
+  # DELETE /type_users/1/unbind_field_type_user.json
+  def unbind_field_type_user
+    if UnbindFieldTypeUser.new(params[:field_type_user_id], params[:id]).call
+      render json: nil, status: 204
+    else
+      render json: 'Impossible de délier', status: 422
+    end
+  end
+
   private
 
   def set_type_user
     @type_user = TypeUser.find(params[:id])
+  end
+
+  def user_binded?
+    return if to_b(params[:force])
+    render json: 'Des utilisateurs sont liés', status: 401 if are_user_binded?(
+      params[:id],
+      params[:field_type_user_id]
+    )
   end
 
   def type_user_params

@@ -8,7 +8,7 @@
         <th>Email</th>
         <th>Agence</th>
         <%= "<th>Type utilisateur</th>".html_safe if current_user.can?('edit_users') %>
-        <%= "<th>Actif</th>".html_safe if current_user.can?('edit_users') %>
+        <% "<th>Actif</th>".html_safe if current_user.can?('edit_users') %>
       </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
           <td data-toggle="modal" data-target="#<%= user.id %>"><%= user.tel %></td>
           <td data-toggle="modal" data-target="#<%= user.id %>"><%= user.email %></td>
           <td data-toggle="modal" data-target="#<%= user.id %>"><%= user.agency.name %></td>
-          <%= "<td>#{user.type_user.name}</td>".html_safe if current_user.can?('edit_users') %>
+          <%= "<td data-toggle='modal' data-target='##{user.id}'>#{user.type_user.name}</td>".html_safe if current_user.can?('edit_users') %>
           <% if current_user.can?('edit_users') %>
             <%= "<td><div class='slideThree' data-id='#{user.id}'><input class='checkbox-right' type='checkbox' checked><label for='checkbox-right'></label></div></td>".html_safe if user.actif %>
             <%= "<td><div class='slideThree' data-id='#{user.id}'><input class='checkbox-right' type='checkbox'><label for='checkbox-right'></label></div></td>".html_safe if !user.actif %>
@@ -37,54 +37,32 @@
                     <%= user.id %></h4>
                 </div>
                 <div class="modal-body">
-                  <p></p>
-                  <p></p>
-                  <p></p>
-                  <!-- # TODO: Afficher les informations dans une boucle -->
+                  <p>Nom : <%= user.name %></p>
+                  <p>Prénom : <%= user.surname %></p>
+                  <p>Tél : <%= user.tel %></p>
+                  <p>Email : <%= user.email %></p>
+                  <p>Agence : <%= user.agency.name %></p>
+                  <p>Dernière addresse IP : <%= user.ip_addr %></p>
+                  <p>Actif : <%= user.actif ? "Oui" : "Non" %></p>
+                  <p>Membre depuis : <%= user.created_at.strftime("%d %b %Y %H:%M") %></p>
                 </div>
                 <div class="modal-footer">
                   <% if current_user.can?('edit_users') %>
                     <%= link_to "Editer", edit_user_path(user.id), class: "btn btn-flat btn-primary"%>
                   <% end %>
-                  
+
                 </div>
               </div>
 
             </div>
           </div>
-
         </div>
         <% end %>
-
       <% end %>
     </tbody>
   </table>
 </div>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $(document).on('click', 'div.slideThree', function(){
-      $.clicked = $(this);
-      $.id = $(this).data('id');
-      $.ajax({
-        url: 'users/'+$.id+'/enable_disable',
-        type: 'PUT',
-        dataType: 'script',
-        data: {
-          actif: !$.clicked.children("input").is(":checked")
-        },
-        success: function(){
-          if($.clicked.children('label').css("left") == "3px"){
-            $.clicked.children('label').css("left", "43px");
-            $.clicked.children('input[type="checkbox"]').prop('checked', true);
-          }else{
-            $.clicked.children('label').css("left", "3px");
-            $.clicked.children('input[type="checkbox"]').prop('checked', false);
-          }
-        },
-        error: function(result){
-          alert(result.responseText);
-        }
-      });
-    });
-  });
-</script>
+
+<% content_for :js do %>
+  <%= javascript_include_tag 'users' %>
+<% end %>

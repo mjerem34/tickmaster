@@ -8,12 +8,12 @@
     <tbody>
       <tr>
         <td><input id="name_new_field_agency" class="form-control" type="text" name="name" value="" placeholder="Nom du champ"></td>
-        <td><button type="button" name="button" id="create_new_field_agency" class="btn btn-flat btn-success"></button></td>
+        <td><button type="button" name="button" id="create_new_field_agency" class="btn btn-flat btn-success">+</button></td>
       </tr>
       <% @field_agencies.each do |field_agency| %>
-      <tr>
-        <td><input type="text" name="name" value="<%= field_agency.name %>"></td>
-        <td><button type="button" name="button" id="delete_field_agency" class="btn btn-flat btn-danger"></button></td>
+      <tr id="<%= field_agency.id %>">
+        <td><input type="text" class="form-control" name="name_field_agency" value="<%= field_agency.name %>"></td>
+        <td><button type="button" name="button" id="delete_field_agency" class="btn btn-flat btn-danger">-</button></td>
       </tr>
       <% end %>
     </tbody>
@@ -21,5 +21,5 @@
 </div>
 
 <% content_for :js do %>
-  <% javascript_include_tag 'field_agencies' %>
+  <%= javascript_include_tag 'field_agencies' %>
 <% end %>

@@ -1,7 +1,7 @@
 # spec_materials_controller.rb
 class SpecMaterialsController < ApplicationController
   before_action :set_spec_material, only: :destroy
-  
+
   before_action :restrict_access
 
   # GET /spec_materials
@@ -22,12 +22,12 @@ class SpecMaterialsController < ApplicationController
   # POST /spec_materials
   # POST /spec_materials.json
   def create
-    @spec_material = CreateSpecMaterial.new(
+    @create_spec_material = CreateSpecMaterial.new(
       spec_type_material_name: params[:spec_material][:spec_type_material_name],
       spec_value: params[:spec_material][:spec_value]
     ).call
-    render json: @spec_material.result,
-           status: @spec_material.status
+    render json: @create_spec_material.result,
+           status: @create_spec_material.status
   end
 
   # PATCH/PUT /spec_materials/1

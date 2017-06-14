@@ -125,7 +125,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:surname, :name, :email, :tel, :type_user_id, :agency_id, :password, :password_confirmation, :ip_addr)
+    params.require(:user).permit(:surname, :name, :email, :tel, :type_user_id, :agency_id, :password, :password_confirmation, :ip_addr, :actif)
   end
 
   def not_his_profile?

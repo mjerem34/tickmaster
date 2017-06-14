@@ -2,7 +2,7 @@
 class FieldTypeUsersController < ApplicationController
   before_action :set_field_type_user,
                 only: %i[update destroy unbind]
-  
+
   before_action :restrict_access
   before_action -> { type_user_binded?(params[:force]) },
                 only: %i[destroy unbind]
@@ -20,52 +20,32 @@ class FieldTypeUsersController < ApplicationController
   def create
     @field_type_user = CreateFieldTypeUser.new(params: field_type_user_params)
                                           .call
-    respond_to do |format|
-      if @field_type_user.persisted?
-        format.js
-        format.json { render json: @field_type_user.id, status: :created }
-      else
-        format.json { render json: @field_type_user.errors.full_messages, status: 422 }
-      end
+    if @field_type_user.persisted?
+      render json: @field_type_user.id, status: :created
+    else
+      render json: @field_type_user.errors.full_messages, status: 422
     end
   end
 
   # PATCH/PUT /field_type_users/1.json
   def update
-    respond_to do |format|
-      if @field_type_user.update(field_type_user_params)
-        format.js
-        format.json { head :no_content }
-      else
-        format.json { render json: @field_type_user.errors.full_messages, status: 422 }
-      end
+    if @field_type_user.update(field_type_user_params)
+      render json: nil, status: 204
+    else
+      render json: @field_type_user.errors.full_messages, status: 422
     end
   end
 
   # DELETE /field_type_users/1.json
   def destroy
-    respond_to do |format|
-      if @field_type_user.destroy
-        format.js
-        format.json { head :no_content }
-      else
-        format.json { render json: @field_type_user.errors.full_messages, status: 422 }
-      end
+    if @field_type_user.destroy
+      render json: nil, status: 204
+    else
+      render json: @field_type_user.errors.full_messages, status: 422
     end
   end
 
-  # DELETE /field_type_users/1/unbind.json
-  def unbind
-    respond_to do |format|
-      if UnbindFieldTypeUser.new(params: field_type_user_params,
-                                 id: params[:id]).call
-        format.js
-        format.json { head :no_content }
-      else
-        format.json { render json: 'Impossible de délier', status: 422 }
-      end
-    end
-  end
+
 
   private
 

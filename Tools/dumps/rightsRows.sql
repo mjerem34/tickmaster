@@ -997,7 +997,7 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (35,23
 
 --
 
-INSERT INTO `rights` (`id`,`name`,`content`) VALUES (36,'unbind_field_type_users','Autorisé à dé-assigner des champs de type utilisateur');
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (36,'unbind_field_type_user_type_users','Autorisé à dé-assigner des champs de type utilisateur');
 
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (36,1,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (36,2,1);
@@ -3294,6 +3294,35 @@ INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,2
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,21,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,22,1);
 INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (116,23,1);
+
+
+--
+
+INSERT INTO `rights` (`id`,`name`,`content`) VALUES (117,'bind_field_type_user_type_users','Autorisé à assigner des champs de type utilisateur');
+
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,1,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,2,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,3,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,4,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,5,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,6,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,7,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,8,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,9,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,10,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,11,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,12,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,13,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,14,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,15,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,16,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,17,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,18,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,19,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,20,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,21,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,22,1);
+INSERT INTO `type_user_rights` (`right_id`,`type_user_id`,`value`) VALUES (117,23,1);
 
 ------ END ------
 -- Responses

@@ -144,4 +144,32 @@ $(document).ready(function(){
       });
     }
   });
+
+  $(document).on('click', 'div.slideThree', function(){
+    $.clicked = $(this);
+    $.id = $(this).data('id');
+    $.ajax({
+      url: '/users/' + $.id,
+      type: 'PUT',
+      dataType: 'script',
+      data: {
+        user: {
+          actif: !$.clicked.children("input").is(":checked")
+        }
+      },
+      success: function(){
+        if($.clicked.children('label').css("left") == "3px"){
+          $.clicked.children('label').css("left", "43px");
+          $.clicked.children('input[type="checkbox"]').prop('checked', true);
+        }else{
+          $.clicked.children('label').css("left", "3px");
+          $.clicked.children('input[type="checkbox"]').prop('checked', false);
+        }
+        notifSuccess();
+      },
+      error: function(result){
+        notifError(result.responseText);
+      }
+    });
+  });
 });

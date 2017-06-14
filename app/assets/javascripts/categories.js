@@ -63,7 +63,7 @@ $(document).ready(function(){
             </div>
             </div>
             <div class="modal-footer">
-            <button type='button' name='button' class='btn btn-flat btn-danger' id='delete_category' data-id='` + category_id + `'>Supprimer</button>
+            <button type='button' name='button' class='btn btn-flat btn-danger' id='delete_category' data-id='` + category_id + `' data-dismiss="modal">Supprimer</button>
             </div>
             </div>
             </div>
@@ -130,7 +130,6 @@ $(document).ready(function(){
               notifSuccess();
               $('tr[data-target="#' + $.id + '"]').remove();
               $('.modal#' + $.id).parent().remove();
-              $('.modal-backdrop').remove();
             }
           });
         })

@@ -2,11 +2,13 @@
 class SellersController < ApplicationController
   before_action :set_seller,
                 only: %i[update destroy show]
-  
+
   before_action :restrict_access
   before_action :set_type_material, only: :bind_type_material
   before_action :set_field_seller_seller, only: %i[unbind_field_seller
                                                    update_field_seller]
+  before_action :set_field_seller, only: :bind_field_seller
+  before_action :materials_binded?, only: :destroy
   # GET /sellers.json
   def index
     @field_sellers = FieldSeller.all
@@ -26,10 +28,13 @@ class SellersController < ApplicationController
   # POST /sellers.json
   def create
     @seller = Seller.new(seller_params)
-    if @seller.save
-      render json: @seller.id, status: :created
-    else
-      render json: @seller.errors.full_messages, status: 422
+    respond_to do |format|
+      if @seller.save
+        format.js
+        format.json { render json: @seller.id, status: :created }
+      else
+        format.json { render json: @seller.errors.full_messages, status: 422 }
+      end
     end
   end
 
@@ -54,10 +59,11 @@ class SellersController < ApplicationController
 
   # POST /sellers/1/bind_type_material.json
   def bind_type_material
-    if TypeMaterialSeller.create(
+    @type_material_seller = TypeMaterialSeller.new(
       type_material_id: @type_material.id,
       seller_id: params[:id]
     )
+    if @type_material_seller.save
       render json: @type_material.id
     else
       render json: @type_material.errors.full_messages, status: 422
@@ -80,11 +86,11 @@ class SellersController < ApplicationController
   # POST /sellers/1/bind_field_seller.json
   def bind_field_seller
     @field_seller_seller = FieldSellerSeller.new(
-      field_seller_id: params[:field_seller][:id],
+      field_seller_id: @field_seller.id,
       seller_id: params[:id], content: params[:content]
     )
     if @field_seller_seller.save
-      render json: nil
+      render json: @field_seller.id
     else
       render json: @field_seller.errors.full_messages, status: 422
     end

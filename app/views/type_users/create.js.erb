@@ -36,7 +36,7 @@ $("div.table-responsive").after(`
           </div>
           <div class="modal-body">
           <div class="table-responsive">
-            <table class="table table-hover table-bordered table-type-users" id="table_field_type_user">
+            <table class="table table-hover table-bordered table-type-users" id="table_field_type_user<%= @type_user.id %>">
               <caption>Champs type utilisateur : </caption>
               <thead class="header">
                   <th>Nom : </th>
@@ -44,7 +44,7 @@ $("div.table-responsive").after(`
                 </thead>
                 <tbody>
                   <tr>
-                    <td><%= select_tag 'new_field_type_user', options_for_select(@field_type_users.collect{|ftu| [ftu.name, ftu.id]}), class: "dropdownSearchCreate#{ @type_user.id } form-control" %></td>
+                    <td><%= select_tag 'new_field_type_user', options_for_select(FieldTypeUser.all.collect{|ftu| [ftu.name, ftu.id]}), class: "dropdownSearchCreate#{ @type_user.id } form-control" %></td>
                     <td><button type="button" class="btn btn-flat btn-success" id="bind" data-id-type-user="<%= @type_user.id %>">+</button></td>
                   </tr>
                   <% @type_user.field_type_user_type_users.each do |ftutu| %>

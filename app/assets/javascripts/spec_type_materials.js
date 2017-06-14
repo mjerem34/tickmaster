@@ -5,14 +5,14 @@
         notifAlert('Merci de remplir le champ');
         $(this).css({"border-color":"red"});
       }else{
-        $.name = $(this).val();
+        $.name_spec_type_material = $(this).val();
         $.ajax({
           url: '/spec_type_materials',
           type: 'POST',
           dataType: 'script',
           data: {
             spec_type_material: {
-              name: $.name
+              name: $.name_spec_type_material
             }
           },
           error: function(jqXHR){
@@ -21,8 +21,8 @@
           success: function(jqXHR){
             $('#name_new_spec_type_material').val("");
             $('#table_spec_type_materials > tbody').append(`
-              <tr id='` + jqXHR.responseText + `'>
-                <td><input type='text' name='name' value='` + $.name + `' class='form-control' id='input_spec_type_material'></td>
+              <tr id='` + jqXHR + `'>
+                <td><input type='text' name='name' value='` + $.name_spec_type_material + `' class='form-control' id='input_spec_type_material'></td>
                 <td><button type='button' name='button' class='btn btn-flat btn-danger' id='delete_spec_type_material'>-</button></td>
               </tr>
             `);
@@ -40,14 +40,14 @@
       notifAlert('Merci de remplir le champ');
       $("#name_new_spec_type_material").css({"border-color":"red"});
     }else{
-      $.name = $("#name_new_spec_type_material").val();
+      $.name_spec_type_material = $("#name_new_spec_type_material").val();
       $.ajax({
         url: '/spec_type_materials',
         type: 'POST',
         dataType: 'script',
         data: {
           spec_type_material: {
-            name: $.name
+            name: $.name_spec_type_material
           }
         },
         error: function(jqXHR){
@@ -56,8 +56,8 @@
         success: function(jqXHR){
           $('#name_new_spec_type_material').val("");
           $('#table_spec_type_materials > tbody').append(`
-            <tr id='` + jqXHR.responseText + `'>
-              <td><input type='text' name='name' value='` + $.name + `' class='form-control' id='input_spec_type_material'></td>
+            <tr id='` + jqXHR + `'>
+              <td><input type='text' name='name' value='` + $.name_spec_type_material + `' class='form-control' id='input_spec_type_material'></td>
               <td><button type='button' name='button' class='btn btn-flat btn-danger' id='delete_spec_type_material'>-</button></td>
             </tr>
           `);
@@ -69,7 +69,7 @@
 
   // This is for DELETE an spec_type_materials by click on red button
   $(document).on('click', '#delete_spec_type_material', function(evt){
-    $.id = (this).parent().parent().attr('id');
+    $.id = $(this).parent().parent().attr('id');
     $.ajax({
       url: '/spec_type_materials/' + $.id,
       type: 'DELETE',

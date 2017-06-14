@@ -8,8 +8,7 @@ class CreateFieldTypeUser
   end
 
   def call
-    assign_to_all_type_users if @all
-    field_type_user
+    @all == 'true' ? assign_to_all_type_users : field_type_user
   end
 
   private
@@ -20,6 +19,7 @@ class CreateFieldTypeUser
         .find_or_create_by(type_user_id: type_user.id,
                            field_type_user_id: field_type_user.id)
     end
+    field_type_user
   end
 
   def field_type_user

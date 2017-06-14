@@ -1,5 +1,6 @@
 # A suit of methods to use in all the app
 module ApplicationHelper
+  include TypeUsersHelper
   include AgenciesHelper
 
   def restrict_access

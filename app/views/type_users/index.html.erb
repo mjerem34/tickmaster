@@ -67,7 +67,7 @@
           </div>
           <div class="modal-body">
           <div class="table-responsive">
-            <table class="table table-hover table-bordered table-type-users" id="table_field_type_user">
+            <table class="table table-hover table-bordered table-type-users" id="table_field_type_user_<%= type_user.id %>">
               <caption>Champs type utilisateur : </caption>
               <thead class="header">
                   <th>Nom : </th>
@@ -79,7 +79,7 @@
                     <td><button type="button" class="btn btn-flat btn-success" id="bind" data-id-type-user="<%= type_user.id %>">+</button></td>
                   </tr>
                   <% type_user.field_type_user_type_users.each do |ftutu| %>
-                  <tr>
+                  <tr id="<%= ftutu.field_type_user.id %>">
                     <td><%= ftutu.field_type_user.name %></td>
                     <td><button type="button" class="btn btn-flat btn-danger" id="remove_ftutu" data-type-user-id="<%= type_user.id %>" data-field-type-user-id="<%= ftutu.field_type_user.id %>">-</button></td>
                   </tr>
@@ -153,7 +153,7 @@
               <th>Accès</th>
             </thead>
             <tbody>
-              <% @rights.each do |right| %>
+              <% Right.all.each do |right| %>
               <tr>
                 <td><%= right.content %></td>
                 <td>
@@ -169,7 +169,7 @@
         </div>
         <div class="modal-footer">
           <button id="save_new_type_user" name="save_new_type_user" type="button" class="btn btn-flat btn-success" data-dismiss="modal">Enregistrer</button>
-          
+
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 # field_agencies_controller.rb
 class FieldAgenciesController < ApplicationController
   before_action :set_field_agency, only: %i[update destroy]
-  
+
   before_action :restrict_access
   before_action :agency_binded?, only: :destroy
 
@@ -17,38 +17,29 @@ class FieldAgenciesController < ApplicationController
 
   # POST /field_agencies.json
   def create
-    respond_to do |format|
-      @field_agency = FieldAgency.new(field_agency_params)
-      if @field_agency.save
-        format.js
-        format.json { render json: @field_agency.id, status: :created }
-      else
-        format.json { render json: @field_agency.errors.full_messages, status: 422 }
-      end
+    @field_agency = FieldAgency.new(field_agency_params)
+    if @field_agency.save
+      render json: @field_agency.id, status: :created
+    else
+      render json: @field_agency.errors.full_messages, status: 422
     end
   end
 
   # PUT /field_agencies/1.json
   def update
-    respond_to do |format|
-      if @field_agency.update(field_agency_params)
-        format.js
-        format.json { head :no_content }
-      else
-        format.json { render json: @field_agency.errors.full_messages, status: 422 }
-      end
+    if @field_agency.update(field_agency_params)
+      render json: nil, status: 204
+    else
+      render json: @field_agency.errors.full_messages, status: 422
     end
   end
 
   # DELETE /field_agencies/1.json
   def destroy
-    respond_to do |format|
-      if @field_agency.destroy
-        format.js
-        format.json { head :no_content }
-      else
-        format.json { render json: @field_agency.errors.full_messages, status: 422 }
-      end
+    if @field_agency.destroy
+      render json: nil, status: 204
+    else
+      render json: @field_agency.errors.full_messages, status: 422
     end
   end
 

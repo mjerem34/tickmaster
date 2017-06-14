@@ -1,11 +1,13 @@
 # type_materials_controller.rb
 class TypeMaterialsController < ApplicationController
   before_action :set_type_material,
-                only: %i[append_spec_type_material update destroy]
-
+                only: %i[unbind_spec_type_material
+                         append_spec_type_material update destroy]
   before_action :restrict_access
   before_action :materials_binded?, only: %i[destroy]
   before_action :sellers_binded?, only: %i[destroy]
+  before_action :materials_exists?, only: :unbind_spec_type_material
+
   # GET /type_materials
   # GET /type_materials.json
   def index
@@ -89,5 +91,17 @@ class TypeMaterialsController < ApplicationController
     render json: 'Des vendeurs sont liés', status: 422 if @type_material
                                                           .type_material_sellers
                                                           .any?
+  end
+
+  def materials_exists?
+    @spec_type_material = SpecTypeMaterial.find(params[:spec_type_material_id])
+    @spec_type_material.spec_materials.each do |spec_material|
+      spec_material.spec_material_materials.each do |smm|
+        return true if smm.materials.where(
+          type_material_id: @type_material_id
+        ).any?
+      end
+    end
+    render json: 'Des matériels sont liés', status: 422
   end
 end

@@ -171,7 +171,7 @@ $(document).ready(function(){
   $('.dataTable').on('error.dt', function( e, settings, techNote, message ){
     console.log( 'An error has been reported by DataTables: ', message );
   }).DataTable({
-    "order":[[4, "desc"]],
+    "order":[[0, "desc"]],
     "language": {
       "sProcessing": "Traitement en cours ...",
       "sLengthMenu": "Afficher _MENU_ lignes",

@@ -32,7 +32,7 @@
               </div>
             </div>
           `);
-          notifsTempo(result.responseText, 4000, 'green');
+          notifSuccess();
         }
       });
   });

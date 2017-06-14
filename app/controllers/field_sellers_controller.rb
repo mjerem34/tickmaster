@@ -1,7 +1,7 @@
 # field_sellers_controller.rb
 class FieldSellersController < ApplicationController
   before_action :set_field_seller, only: %i[update destroy]
-  
+
   before_action :restrict_access
   before_action :seller_binded?, only: :destroy
 
@@ -10,7 +10,6 @@ class FieldSellersController < ApplicationController
   # Should render all the fields sellers.
   def index
     @field_sellers = FieldSeller.all
-    verify_right('create_field_sellers')
     respond_to do |format|
       format.json { render json: @field_sellers }
       format.html { render :index }
@@ -20,37 +19,28 @@ class FieldSellersController < ApplicationController
   # POST /field_sellers.json
   def create
     @field_seller = FieldSeller.new(field_seller_params)
-    respond_to do |format|
-      if @field_seller.save
-        format.js
-        format.json { render json: @field_seller.id, status: :created }
-      else
-        format.json { render json: @field_seller.errors.full_messages, status: 422 }
-      end
+    if @field_seller.save
+      render json: @field_seller.id, status: :created
+    else
+      render json: @field_seller.errors.full_messages, status: 422
     end
   end
 
   # PATCH/PUT /field_sellers/1.json
   def update
-    respond_to do |format|
-      if @field_seller.update(field_seller_params)
-        format.js
-        format.json { head :no_content }
-      else
-        format.json { render json: @field_seller.errors.full_messages, status: 422 }
-      end
+    if @field_seller.update(field_seller_params)
+      render json: nil, status: 204
+    else
+      render json: @field_seller.errors.full_messages, status: 422
     end
   end
 
   # DELETE /field_sellers/1.json
   def destroy
-    respond_to do |format|
-      if @field_seller.destroy
-        format.js
-        format.json { head :no_content }
-      else
-        format.json { render json: @field_seller.errors.full_messages, status: 422 }
-      end
+    if @field_seller.destroy
+      render json: nil, status: 204
+    else
+      render json: @field_seller.errors.full_messages, status: 422
     end
   end
 

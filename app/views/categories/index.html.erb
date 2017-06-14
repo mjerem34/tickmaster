@@ -62,7 +62,7 @@
             </div>
             <div class="modal-footer">
               <% if current_user.can?('destroy_categories') then %>
-              <button type='button' name='button' class='btn btn-flat btn-danger' id='delete_category' data-id='<%= category.id %>'>Supprimer</button>
+              <button type='button' name='button' class='btn btn-flat btn-danger' id='delete_category' data-dismiss="modal" data-id='<%= category.id %>'>Supprimer</button>
               <% end %>
             </div>
           </div>

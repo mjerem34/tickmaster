@@ -2,18 +2,19 @@
   <table class="table table-bordered table-hover dataTable">
     <thead>
       <tr>
+        <th>Créé</th>
         <th>Objet</th>
         <th>Demandeur</th>
         <th>Technicien</th>
         <th>Catégorie</th>
-        <th>Créé</th>
+        <th>Urgence</th>
         <th>Etat</th>
       </tr>
     </thead>
     <tbody>
       <% @incidents.order(["created_at desc"]).each do |incident| %>
             <tr data-toggle="modal" data-target="#<%= incident.id %>">
-              <!-- <tr> -->
+              <td><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
               <td><%= incident.title %></td>
               <td><%= incident.user.name + " " + incident.user.surname %></td>
 
@@ -27,7 +28,7 @@
                 <% end %></td>
 
               <td><%= incident.category.name %></td>
-              <td><%= incident.created_at.strftime("%d %b %Y %H:%M") %></td>
+              <td><%= incident.lvl_urgence_user %></td>
               <% if current_user.type_user.is_tech == false %>
               <td><span class="label label-<%= incident.incident_state_id_for_user.user_color%>"><%= incident.incident_state_id_for_user.shortcut %></span></td>
             <% else %>

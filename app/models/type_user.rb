@@ -1,6 +1,6 @@
 # type_user.rb
 class TypeUser < ActiveRecord::Base
-  before_validation :set_actif_to_true
+  before_create :set_actif_to_true
   has_many :field_type_user_type_users, dependent: :destroy
   has_many :field_type_users, through: :field_type_user_type_users
   has_many :users
