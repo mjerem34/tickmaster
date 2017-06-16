@@ -30,19 +30,19 @@
         <% end %>
       </div>
       <!-- #field#form-group -->
-      <strong>Informations supplémentaires :
-      </strong>
-      <!-- INFORMATIONS COMPLÉMENTAIRES -->
+      <% if !@agency.id.nil? %>
+      <strong>Informations supplémentaires :</strong>
       <% @field_agencies.each do |field_agency| %>
       <div class="field form-group" id="infos-comp">
         <strong><%= f.label "#{field_agency.name}" %></strong>
         <input
-          type="text"
-          name="<%= field_agency.name %>"
-          value="<%= field_agency.field_agency_agencies.where(agency_id: @agency.id).first.content unless field_agency.field_agency_agencies.where(agency_id: @agency.id).first.nil? %>"
-          class="form-control next field_agency_value"
-          placeholder="<%= field_agency.name%>">
+        type="text"
+        name="<%= field_agency.name %>"
+        value="<%= field_agency.field_agency_agencies.where(agency_id: @agency.id).first.content unless field_agency.field_agency_agencies.where(agency_id: @agency.id).first.nil? %>"
+        class="form-control next field_agency_value"
+        placeholder="<%= field_agency.name%>">
       </div>
+      <% end %>
       <% end %>
     </div>
     <!-- #next -->
@@ -50,7 +50,7 @@
     <div class="actions form-group">
       <% unless @agency.id.nil? %>
       <button type="button" name="send-form" class="btn btn-flat btn-success form-control" data-id="<%= @agency.id %>">Valider</button><br><br>
-    <% else %>
+      <% else %>
       <button type="button" name="send-form" class="btn btn-flat btn-success form-control" data-id="0">Valider</button><br><br>
       <% end %>
       <!-- <%= f.submit "Valider", id: "sendButton", class: "btn btn-flat btn-success form-control" %><br><br> -->

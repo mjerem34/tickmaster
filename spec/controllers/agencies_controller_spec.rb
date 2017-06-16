@@ -105,19 +105,13 @@ RSpec.describe AgenciesController, type: :controller do
         end
         describe '#create' do
           context 'valid attributes' do
-            before { post :create, agency: { name: 'fef', ip_address: '8.8.8.8', data_agence_comp: { Code_postal: '34070', Ville: 'Montpellier' } } }
+            before { post :create, agency: { name: 'fef', ip_address: '8.8.8.8' } }
             it 'should create an agency' do
               expect(Agency.count).to eq 2
-              expect(FieldAgency.count).to eq 2
-              expect(FieldAgencyAgency.count).to eq 2
-              expect(FieldAgencyAgency.last).to have_attributes(content: "Montpellier")
             end
             it 'should return the id of agency created' do
               agency = Agency.find_by_name('fef')
-              expect(response.body).to eq agency.to_json
-            end
-            it 'should create the field_agency if not exists' do
-              expect(FieldAgency.count).to eq 2
+              expect(response.body).to eq agency.id.to_s
             end
           end
           context 'invalid attributes' do
@@ -137,7 +131,7 @@ RSpec.describe AgenciesController, type: :controller do
               expect(Agency.find_by_name('efsefsef')).to eq @agency
             end
             it 'should return ok code' do
-              expect(response.status).to eq 204
+              expect(response.status).to eq 200
             end
           end
           context 'with invalid attributes' do

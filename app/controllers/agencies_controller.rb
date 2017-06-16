@@ -1,10 +1,10 @@
 # agencies_controller.rb
 class AgenciesController < ApplicationController
   before_action :set_agency, only: %i[show edit destroy]
-  
+
   before_action :restrict_access
   before_action :agency_empty?, only: :destroy
-  respond_to :js, :json
+  respond_to :json
 
   # GET /agencies
   # GET /agencies.json
@@ -53,20 +53,22 @@ class AgenciesController < ApplicationController
   # POST /agencies
   # POST /agencies.json
   def create
-    @agency = CreateAgency.new(params: agency_params).call
-    respond_with(@agency, location: -> { agency_path(@agency) })
+    @agency = Agency.new(name: params[:agency][:name],
+                         ip_address: params[:agency][:ip_address])
+    if @agency.save
+      render json: @agency.id, status: 201
+    else
+      render json: @agency.errors.full_messages, status: 422
+    end
   end
 
   # PATCH/PUT /agencies/1
   # PATCH/PUT /agencies/1.json
   def update
-    respond_to do |format|
-      if UpdateAgency.new(id: params[:id], params: agency_params).call
-        format.js
-        format.json { head :no_content }
-      else
-        format.json { render json: nil, status: 422 }
-      end
+    if UpdateAgency.new(id: params[:id], params: agency_params).call
+      render json: nil, status: 200
+    else
+      render json: nil, status: 422
     end
   end
 

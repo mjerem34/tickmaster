@@ -2,14 +2,12 @@
   <table class="table table-hover table-bordered dataTable" id='table_agencies'>
     <thead class="header">
       <tr>
-        <th>N°</th>
         <th>Nom</th>
       </tr>
     </thead>
     <tbody>
       <% @agencies.each do |agency| %>
       <tr>
-        <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.id %></td>
         <td class="hover-cellule <%= agency.id %>" data-toggle="modal" data-target="#<%= agency.id %>"><%= agency.name %></td>
       </tr>
       <!-- MODAL POUR CHAQUE AGENCE -->
@@ -34,7 +32,7 @@
               <!-- FOOTER DU MODAL -->
               <div class="modal-footer">
                 <% if current_user.can?('destroy_agencies') %>
-                <button type="button" name="button" data-redirect="<%= agencies_url %>" data-method="delete" data-href="<%= agency_path(agency.id) %>" class="btn btn-flat btn-default btn-modal ask_for_confirm">Supprimer</button>
+                <button type="button" name="destroy_agency" data-id="<%= agency.id %>" class="btn btn-flat btn-default btn-modal">Supprimer</button>
                 <% end %>
                 <% if current_user.can?('edit_agencies') %>
                 <%= link_to "Editer", edit_agency_url(agency), class: 'btn btn-flat btn-info btn-modal'%>
@@ -51,3 +49,7 @@
     </tbody>
   </table>
 </div>
+
+<% content_for :js do %>
+  <% javascript_include_tag 'agencies' %>
+<% end %>

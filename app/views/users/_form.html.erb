@@ -30,11 +30,20 @@
       </div>
       <div class="form-group select_tech">
         <%= f.label :type_user %>
+        <% if current_user.nil? %>
+        <%= select_tag "user[type_user_id]", options_for_select(@type_users.map{ |type_user| [type_user.name, type_user.id, {'data-secure'=> type_user.secure}]}), class: "form-control text-uppercase", include_blank: "Type d'utilisateur :", required: true %>
+        <% else %>
         <%= select_tag "user[type_user_id]", options_for_select(@type_users.map{ |type_user| [type_user.name, type_user.id, {'data-secure'=> type_user.secure}]}, selected: current_user.type_user.id), class: "form-control text-uppercase", include_blank: "Type d'utilisateur :", required: true %>
+        <% end %>
+
       </div>
       <div class="form-group select_tech">
         <%= f.label :agency %>
+        <% if current_user.nil? %>
+        <%= select_tag "user[agency_id]", options_for_select(Agency.all.pluck(:name, :id).sort), class: "form-control text-uppercase", include_blank: "Agence :", required: true %>
+        <% else %>
         <%= select_tag "user[agency_id]", options_for_select(Agency.all.pluck(:name, :id).sort, selected: current_user.agency.id), class: "form-control text-uppercase", include_blank: "Agence :", required: true %>
+        <% end %>
       </div>
       <div class="form-group">
         <%= f.label :password %>
@@ -52,7 +61,7 @@
       <button type="button" name="signup" class="btn btn-success btn-flat btn-block form-control">Valider</button>
         <p>- Un problème ? -</p>
         <%= link_to "J'ai déjà un compte", signin_url, class: 'btn btn-flat btn-info btn-block' %>
-        <button type="button" name="button" class="btn btn-flat btn-danger btn-block btn-flat" id="forget_credentials">Pseudonyme oublié ?</button>
+        <button type="button" name="button" class="btn btn-flat btn-danger btn-block btn-flat" id="forget_credentials">Mot de passe oublié</button>
       <% else %>
       <button type="button" name="edit_profile" class="btn btn-success btn-flat btn-block form-control" data-id="<%= current_user.id %>">Valider</button>
       <% end %>

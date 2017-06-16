@@ -46,6 +46,20 @@ RSpec.describe TypeUsersController, type: :controller do
           expect(response.status).to eq 401
         end
       end
+      describe '#unbind_field_type_user' do
+        it 'should show 401' do
+          delete :unbind_field_type_user, id: 1
+
+          expect(response.status).to eq 401
+        end
+      end
+      describe '#bind_field_type_user' do
+        it 'should show 401' do
+          post :bind_field_type_user, id: 1
+
+          expect(response.status).to eq 401
+        end
+      end
     end
     context 'connected' do
       context 'have the right' do
@@ -118,6 +132,81 @@ RSpec.describe TypeUsersController, type: :controller do
             expect(TypeUserRight.find_by(right_id: 1, type_user_id: 23).value).to be true
           end
         end
+        describe '#unbind_field_type_user' do
+          it 'should unbind the field_type_user from the type_user' do
+            @field_type_user = create(:field_type_user)
+            @type_user_binded = create(:type_user)
+            create(:field_type_user_type_user,
+                   type_user_id: @type_user_binded.id,
+                   field_type_user_id: @field_type_user.id)
+
+            delete :unbind_field_type_user, id: @type_user_binded.id,
+                                            field_type_user_id: @field_type_user.id,
+                                            force: false
+            expect(response.status).to eq 204
+            expect(FieldTypeUserTypeUser.count).to eq 0
+          end
+
+          it 'should not unbind if an user is binded' do
+            @field_type_user = create(:field_type_user)
+            create(:field_type_user_type_user,
+                   type_user_id: @admin.type_user.id,
+                   field_type_user_id: @field_type_user.id)
+            create(:field_user,
+                   user_id: @admin.id,
+                   field_type_user_id: @field_type_user.id)
+
+            delete :unbind_field_type_user, id: @admin.type_user.id,
+                                            field_type_user_id: @field_type_user.id,
+                                            force: false
+
+            expect(response.status).to eq 422
+            expect(FieldUser.count).to eq 1
+            expect(FieldTypeUserTypeUser.count).to eq 1
+          end
+
+          it 'should unbind on force if an user is binded' do
+            @field_type_user = create(:field_type_user)
+            create(:field_type_user_type_user,
+                   type_user_id: @admin.type_user.id,
+                   field_type_user_id: @field_type_user.id)
+            create(:field_user,
+                   user_id: @admin.id,
+                   field_type_user_id: @field_type_user.id)
+
+            delete :unbind_field_type_user, id: @admin.type_user.id,
+                                            field_type_user_id: @field_type_user.id,
+                                            force: true
+
+            expect(response.status).to eq 204
+            expect(FieldTypeUserTypeUser.count).to eq 0
+            expect(FieldUser.count).to eq 0
+          end
+        end
+        describe '#bind_field_type_user' do
+          it 'should bind an field to an type_user' do
+            @field_type_user = create(:field_type_user)
+
+            post :bind_field_type_user, id: @admin.type_user.id,
+                                        field_type_user_name: @field_type_user.name
+
+            expect(response.status).to eq 201
+            expect(response.body).to eq @field_type_user.id.to_s
+          end
+
+          it 'should not bind if already exists' do
+            @field_type_user = create(:field_type_user)
+            create(:field_type_user_type_user,
+                   type_user_id: @admin.type_user.id,
+                   field_type_user_id: @field_type_user.id)
+
+            post :bind_field_type_user, id: @admin.type_user.id,
+                                        field_type_user_name: @field_type_user.name
+
+            expect(response.status).to eq 422
+            expect(response.body).to eq 'Déjà lié'
+          end
+        end
       end
       context "don't have the right" do
         before do
@@ -166,6 +255,27 @@ RSpec.describe TypeUsersController, type: :controller do
             patch :toggle, id: 1, right_id: 1, checked: false
 
             expect(response.status).to eq 403
+          end
+        end
+        describe '#unbind_field_type_user' do
+          it 'should unbind on force if an user is binded' do
+            agency = create(:agency)
+            @admin = create(:admin, agency_id: agency.id)
+            @field_type_user = create(:field_type_user)
+            create(:field_type_user_type_user,
+                   type_user_id: @admin.type_user.id,
+                   field_type_user_id: @field_type_user.id)
+            create(:field_user,
+                   user_id: @admin.id,
+                   field_type_user_id: @field_type_user.id)
+
+            delete :unbind_field_type_user, id: @admin.type_user.id,
+                                            field_type_user_id: @field_type_user.id,
+                                            force: true
+
+            expect(response.status).to eq 403
+            expect(FieldTypeUserTypeUser.count).to eq 1
+            expect(FieldUser.count).to eq 1
           end
         end
       end

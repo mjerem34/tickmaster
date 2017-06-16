@@ -97,11 +97,10 @@ class TypeMaterialsController < ApplicationController
     @spec_type_material = SpecTypeMaterial.find(params[:spec_type_material_id])
     @spec_type_material.spec_materials.each do |spec_material|
       spec_material.spec_material_materials.each do |smm|
-        return true if smm.materials.where(
-          type_material_id: @type_material_id
-        ).any?
+        render json: 'Des matériels sont liés', status: 422 if smm
+                                                               .material
+                                                               .type_material_id == @type_material.id
       end
     end
-    render json: 'Des matériels sont liés', status: 422
   end
 end

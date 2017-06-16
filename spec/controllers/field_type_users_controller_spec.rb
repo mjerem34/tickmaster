@@ -120,47 +120,6 @@ RSpec.describe FieldTypeUsersController, type: :controller do
           end
         end
 
-        describe '#unbind' do
-          it 'should unbind the field_type_user from the type_user' do
-            delete :unbind, id: @field_type_user.id, force: false,
-                            field_type_user: {
-                              type_user_id: @type_user_binded.id
-                            }
-            expect(response.status).to eq 204
-            expect(FieldTypeUserTypeUser.count).to eq 0
-          end
-
-          it 'should not unbind if an user is binded' do
-            create(:field_user,
-                   user_id: @admin.id,
-                   field_type_user_id: @field_type_user.id)
-
-            delete :unbind, id: @field_type_user.id, force: false,
-                            field_type_user: {
-                              type_user_id: @type_user_binded.id
-                            }
-
-            expect(response.status).to eq 422
-            expect(FieldUser.count).to eq 1
-            expect(FieldTypeUserTypeUser.count).to eq 1
-          end
-
-          it 'should unbind on force if an user is binded' do
-            user = create(:user, agency_id: @agency.id, type_user_id: @type_user_binded.id)
-            create(:field_user,
-                   user_id: user.id,
-                   field_type_user_id: @field_type_user.id)
-
-            delete :unbind, id: @field_type_user.id, force: true,
-                            field_type_user: {
-                              type_user_id: @type_user_binded.id
-                            }
-
-            expect(response.status).to eq 204
-            expect(FieldTypeUserTypeUser.count).to eq 0
-            expect(FieldUser.count).to eq 0
-          end
-        end
       end
       context "don't have the right" do
         before do

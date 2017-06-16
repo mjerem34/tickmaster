@@ -9,7 +9,7 @@ class UpdateAgency
 
   def call
     set_agency.tap do |agency|
-      return update_fields_of(agency) if update_agency
+      return update_fields_of(agency) if update(agency)
       return false
     end
   end
@@ -22,14 +22,14 @@ class UpdateAgency
 
   def update_fields_of(agency)
     @data_agence_comp.each do |name_field_agency, value|
-      field_agency_content_of(agency, name_field_agency)
-        .content = value
-      field_agency_content_of(agency, name_field_agency).save
+      field_agency_agency = field_agency_content_of(agency, name_field_agency)
+      field_agency_agency.content = value
+      field_agency_agency.save!
     end
   end
 
-  def update_agency
-    @agency.update(name: @name, ip_address: @ip_address)
+  def update(agency)
+    agency.update(name: @name, ip_address: @ip_address)
   end
 
   def field_agency(name)
@@ -37,8 +37,7 @@ class UpdateAgency
   end
 
   def field_agency_content_of(agency, name)
-    agency
-      .field_agency_agencies
+    FieldAgencyAgency
       .find_or_initialize_by(agency_id: agency.id,
                              field_agency_id: field_agency(name).id)
   end

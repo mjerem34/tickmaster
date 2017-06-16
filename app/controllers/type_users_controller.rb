@@ -81,7 +81,7 @@ class TypeUsersController < ApplicationController
       params[:field_type_user_name], params[:id]
     ).call
     if !@field_type_user_type_user.nil?
-      render json: @field_type_user_type_user.field_type_user.id, status: 201
+      render json: @field_type_user_type_user.field_type_user_id, status: 201
     else
       render json: 'Déjà lié', status: 422
     end
@@ -104,7 +104,7 @@ class TypeUsersController < ApplicationController
 
   def user_binded?
     return if to_b(params[:force])
-    render json: 'Des utilisateurs sont liés', status: 401 if are_user_binded?(
+    render json: 'Des utilisateurs sont liés', status: 422 if are_user_binded?(
       params[:id],
       params[:field_type_user_id]
     )

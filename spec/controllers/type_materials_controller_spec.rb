@@ -140,7 +140,15 @@ RSpec.describe TypeMaterialsController, type: :controller do
             expect(TypeMaterial.count).to eq 1
           end
 
-          it 'should not destroy if material is binded'
+          it 'should not destroy if material is binded' do
+            type_material = create(:type_material)
+            seller = create(:seller)
+            detentor_type = create(:detentor_type)
+            material = create(:material, type_material_id: type_material.id,
+                                         seller_id: seller.id,
+                                         detentor_type_id: detentor_type.id)
+
+          end
         end
         describe '#append_spec_type_material' do
           it 'should append an spec_type_material if not yet appended' do
@@ -192,20 +200,21 @@ RSpec.describe TypeMaterialsController, type: :controller do
             type_material = create(:type_material)
             spec_type_material = create(:spec_type_material)
             seller = create(:seller)
+            detentor_type = create(:detentor_type)
             create(:type_material_spec_type_material,
                    type_material_id: type_material.id,
                    spec_type_material_id: spec_type_material.id)
             material = create(:material, type_material_id: type_material.id,
                                          seller_id: seller.id,
-                                         detentor_type_id: 2)
+                                         detentor_type_id: detentor_type.id)
             spec_material = create(:spec_material, spec_type_material_id: spec_type_material.id)
             create(:spec_material_material, spec_material_id: spec_material.id, material_id: material.id)
 
             delete :unbind_spec_type_material, id: type_material.id,
                                                spec_type_material_id: spec_type_material.id
 
-            expect(response.status).to eq 422
             expect(TypeMaterialSpecTypeMaterial.count).to eq 1
+            expect(response.status).to eq 422
           end
         end
       end
