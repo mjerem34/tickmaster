@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170523120734) do
+ActiveRecord::Schema.define(version: 20170619114043) do
 
   create_table "agencies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.string "name",       limit: 45
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20170523120734) do
     t.text     "content",           limit: 65535
     t.integer  "incident_id"
     t.integer  "sender_id",         limit: 2
+    t.integer  "receiver_id",       limit: 2
     t.string   "ip_address_sender",                            collation: "utf8_general_ci"
     t.integer  "pc_id"
     t.datetime "updated_at",                      null: false
@@ -78,51 +79,6 @@ ActiveRecord::Schema.define(version: 20170523120734) do
     t.integer "field_type_user_id"
     t.integer "user_id"
     t.text    "content",            limit: 65535
-  end
-
-  create_table "file_archives", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.integer  "archive_id"
-    t.string   "file"
-    t.integer  "file_size"
-    t.string   "content_type"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  create_table "file_incidents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.integer  "incident_id"
-    t.string   "file"
-    t.integer  "file_size"
-    t.string   "content_type"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  create_table "file_procedures", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.integer  "procedure_id"
-    t.string   "file"
-    t.integer  "file_size"
-    t.string   "content_type"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  create_table "file_responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.integer  "response_id"
-    t.string   "file"
-    t.integer  "file_size"
-    t.string   "content_type"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  create_table "file_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.integer  "user_id"
-    t.string   "file"
-    t.integer  "file_size"
-    t.string   "content_type"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
   end
 
   create_table "incidents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -220,7 +176,7 @@ ActiveRecord::Schema.define(version: 20170523120734) do
     t.index ["category_id"], name: "index_sous_categories_on_category_id", using: :btree
   end
 
-  create_table "spec_material_materials", primary_key: ["material_id", "spec_material_id"], force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "spec_material_materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "spec_material_id", null: false
     t.integer "material_id",      null: false
   end
@@ -239,7 +195,7 @@ ActiveRecord::Schema.define(version: 20170523120734) do
     t.integer "seller_id",        default: 0, null: false
   end
 
-  create_table "type_material_spec_type_materials", primary_key: ["type_material_id", "spec_type_material_id"], force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
+  create_table "type_material_spec_type_materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "type_material_id",      null: false
     t.integer "spec_type_material_id", null: false
   end
@@ -267,20 +223,22 @@ ActiveRecord::Schema.define(version: 20170523120734) do
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
-    t.string   "pseudo",       limit: 100
     t.string   "email"
-    t.string   "tel",          limit: 30
-    t.string   "password"
-    t.string   "salt"
+    t.string   "tel",               limit: 30
+    t.string   "crypted_password",                                          collation: "utf8_general_ci"
+    t.string   "password_salt",                                             collation: "utf8_general_ci"
+    t.text     "persistence_token", limit: 65535
     t.integer  "agency_id"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.string   "ip_addr",      limit: 20
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.string   "ip_addr",           limit: 20
     t.integer  "type_user_id"
     t.boolean  "actif"
     t.string   "name"
     t.string   "surname"
+    t.string   "perishable_token",                default: "", null: false
     t.index ["agency_id"], name: "index_users_on_agency_id", using: :btree
+    t.index ["perishable_token"], name: "index_users_on_perishable_token", using: :btree
   end
 
 end

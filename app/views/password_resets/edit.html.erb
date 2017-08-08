@@ -1,0 +1,49 @@
+<div class="login-box">
+  <div class="login-logo">
+    <a href="/" class="home">tick'<b>master</b></a>
+  </div>
+  <div class="login-box-body">
+    <p class="login-box-msg">Entrez un nouveau mot de passe</p>
+    <div class="form-group has-feedback">
+      <input type="password" name="new_password" value="" class="form-control"><br>
+      <input type="password" name="new_password_confirmation" value="" class="form-control">
+    </div>
+    <div class="social-auth-links text-center">
+      <button type="button" name="update_password_resets" class="btn btn-success btn-flat btn-block" data-token='<%= @user.perishable_token %>'>Valider</button>
+    </div>
+  </div>
+  <style media="screen">
+    .content-wrapper{
+      margin-left: 0 !important;
+    }
+  </style>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on('click', 'button[name="update_password_resets"]', function(){
+      $.password = $('input[name="new_password"]').val();
+      $.password_confirmation = $('input[name="new_password_confirmation"]').val();
+      $.perishable_token = $(this).data('token');
+      $.ajax({
+        url: '/password_resets/' + $.perishable_token,
+        type: 'PUT',
+        dataType: 'script',
+        data: {
+          password: $.password,
+          password_confirmation: $.password_confirmation
+        },
+        statusCode: {
+          200: function(){
+            swal(':)', 'Votre mot de passe a bien été modifié, veuillez patienter...', 'success');
+            setTimeout(function(){
+              window.location = '/';
+            }, 3000);
+          },
+          422: function(jqXHR){
+            swal(':(', jqXHR.responseText, 'error');
+          }
+        }
+      });
+    });
+  });
+</script>

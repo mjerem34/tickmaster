@@ -56,4 +56,9 @@ class User < ActiveRecord::Base
   def rights_manager
     @rights_manager ||= RightsManager.new(self, nil)
   end
+
+  def deliver_password_reset_instructions!
+    reset_perishable_token!
+    Notifier.deliver_password_reset_instructions(self).deliver_now
+  end
 end

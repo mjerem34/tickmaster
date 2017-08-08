@@ -1,7 +1,8 @@
 $(document).ready(function(){
   $(document).on('click', '#forget_credentials', function(){
     swal({
-      title: 'Entrez votre adresse email et nous vous enverrons votre pseudonyme :)',
+      title: ':)',
+      text: 'Entrez votre adresse email et nous vous enverrons les instructions pour changer votre mot de passe ',
       input: 'email',
       showCancelButton: true,
       confirmButtonText: 'Envoyer',
@@ -9,7 +10,7 @@ $(document).ready(function(){
       showLoaderOnConfirm: true,
       preConfirm: function (email) {
         $.ajax({
-          url: '/sessions/retrieve_credentials',
+          url: '/password_resets',
           type: 'POST',
           dataType: 'script',
           data: {
@@ -19,7 +20,7 @@ $(document).ready(function(){
             200: function(jqXHR){
               swal({
                 type: 'success',
-                title: 'Merci ! :)',
+                title: 'Vous pouvez aller dans votre boîte mail ! :)',
                 html: jqXHR.responseText
               });
             },

@@ -1,5 +1,6 @@
 # routes.rb
 Rails.application.routes.draw do
+  resources :password_resets, only: %i[new create edit update]
   resources :field_agencies
   resources :type_users do
     member do
