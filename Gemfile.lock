@@ -54,9 +54,9 @@ GEM
       execjs
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.7)
+    bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
+      sassc (>= 2.0.0)
     bootstrap-slider-rails (9.2.0)
       railties (>= 3.2, < 6.0)
     builder (3.2.3)
@@ -293,13 +293,15 @@ GEM
     rspec-support (3.6.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
-    sass (3.4.24)
+    sass (3.4.25)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sassc (2.2.1)
+      ffi (~> 1.9)
     scrypt (3.0.5)
       ffi-compiler (>= 1.0, < 2.0)
     selectize-rails (0.12.4)
@@ -357,7 +359,7 @@ DEPENDENCIES
   annotate
   authlogic
   autoprefixer-rails
-  bootstrap-sass (~> 3.3.5)
+  bootstrap-sass (~> 3.4.1)
   bootstrap-slider-rails
   byebug
   capybara
