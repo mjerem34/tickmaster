@@ -74,7 +74,7 @@ gem 'compass-rails'
 gem 'chartkick'
 gem 'groupdate'
 # A ruby web server built for concurrency
-gem 'puma', '~> 3.4.0'
+gem 'puma', '~> 3.12.4'
 gem 'web-console', '~> 2.0'
 gem 'responders'
 gem 'authlogic'
